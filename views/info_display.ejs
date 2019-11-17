@@ -61,7 +61,7 @@
             <p>Weight: <%= data[i].weight %></p>
             <p>Systolic pressure: <%= data[i].systolic %></p>
             <p>Diastolic pressure: <%= data[i].diastolic %></p>
-            <% if( data[i].med_details.length > 0) {%>
+            <% if( data[i].taking_med == 'yes') {%>
                 <p>Meditation details:</p>
                 <p> <%= data[i].med_details %> </p>
             <% } %>

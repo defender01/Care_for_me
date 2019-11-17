@@ -62,14 +62,14 @@ app.post('/data', async (req, res) => {
         systolic: req.body.systolic,
         diastolic: req.body.diastolic,
         taking_med: req.body.taking_med,
-        med_details: req.body.med_details,
+        med_details: (req.body.taking_med=='yes' ? req.body.med_details : ""),
         diary: req.body.diary
     })
     await userData.save( (err, data) => {
         if(err) console.error(err)
-        console.log(data.ObjectId + ' data with this id is saved')
+        console.log(' data with this id is saved')
     })
-    res.send(req.body)
+    res.redirect('/')
 })
 
 app.listen(PORT);
