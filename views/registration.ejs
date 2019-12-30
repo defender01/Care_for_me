@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+    
+    <link
+      href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+      rel="stylesheet"
+      id="bootstrap-css"
+    />
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+    <link
+      href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css"
+      rel="stylesheet"
+      id="bootstrap-css"
+    />
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+    <script src="//code.jquery.com/jquery-2.1.3.min.js"></script>
+
+    <!-- stylesheet for navbar -->
+    <link rel="stylesheet" href="/assets/cssFiles/navbar.css" />
+
+    <link rel="stylesheet" href="/assets/cssFiles/registration.css" />
+
+    <title>Registration-Care for me</title>
+  </head>
+
+  <body>
+    <!-- navigation bar -->
+    <% include ./segments/navbar %>
+
+    <div class="container box-container">
+      <% include ./segments/messages %>
+      <form
+        class="form-horizontal"
+        role="form"
+        method="POST"
+        action="/auth/register"
+      >
+        <div class="form-title">
+          <h3>Please fill up the form to register</h3>
+        </div>        
+        <div class="form-group">
+          <label for="firstName" class="col-sm-3 control-label"
+            >First Name</label
+          >
+          <div class="col-sm-9">
+            <input
+              type="text"
+              id="firstName"
+              placeholder="First Name"
+              class="form-control"
+              name="firstName"
+              value="<%= typeof firstName != 'undefined' ? firstName : '' %>"
+              autofocus
+            />
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="lastName" class="col-sm-3 control-label">Last Name</label>
+          <div class="col-sm-9">
+            <input
+              type="text"
+              id="lastName"
+              placeholder="Last Name"
+              class="form-control"
+              name="lastName"
+              value="<%= typeof lastName!= 'undefined' ? lastName : '' %>"
+              autofocus
+            />
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="displayName" class="col-sm-3 control-label"
+            >Display Name</label
+          >
+          <div class="col-sm-9">
+            <input
+              type="text"
+              id="displayName"
+              placeholder="Display Name"
+              class="form-control"
+              name="displayName"
+              value="<%= typeof displayName != 'undefined' ? displayName : '' %>"
+              autofocus
+              aria-describedby="displayNameHelpBlock"
+            />
+            <small id="displayNameHelpBlock" class="form-text text-muted">
+              This will be the name visible to other members on the forum.
+              Please keep this name short and unique.
+            </small>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="email" class="col-sm-3 control-label">Email* </label>
+          <div class="col-sm-9">
+            <input
+              type="email"
+              id="email"
+              placeholder="Email"
+              class="form-control"
+              name="email"
+              value="<%= typeof email != 'undefined' ? email : '' %>"
+            />
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="password" class="col-sm-3 control-label">Password*</label>
+          <div class="col-sm-9">
+            <input
+              type="password"
+              id="password"
+              placeholder="Password"
+              class="form-control"
+              name="password"
+            />
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="password2" class="col-sm-3 control-label"
+            >Confirm Password*</label
+          >
+          <div class="col-sm-9">
+            <input
+              type="password"
+              id="password2"
+              placeholder="Password"
+              class="form-control"
+              name="password2"
+            />
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="birthDate" class="col-sm-3 control-label"
+            >Date of Birth*</label
+          >
+          <div class="col-sm-9">
+            <input
+              type="date"
+              id="birthDate"
+              class="form-control"
+              name="birthDate"
+              value="<%= typeof birthDate != 'undefined' ? birthDate : '' %>"
+            />
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="phoneNumber" class="col-sm-3 control-label"
+            >Phone number
+          </label>
+          <div class="col-sm-9">
+            <input
+              type="phoneNumber"
+              id="phoneNumber"
+              placeholder="Phone number"
+              class="form-control"
+              name="phoneNumber"
+              value="<%= typeof phoneNumber != 'undefined' ? phoneNumber : '' %>"
+            />
+            <span class="help-block"
+              >Your phone number won't be disclosed anywhere
+            </span>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="nidNumber" class="col-sm-3 control-label"
+            >NID number*
+          </label>
+          <div class="col-sm-9">
+            <input
+              type="number"
+              id="nidNumber"
+              placeholder="Please write your NID number"
+              class="form-control"
+              name="nidNumber"
+              value="<%= typeof nidNumber != 'undefined' ? nidNumber : '' %>"
+            />
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="control-label col-sm-3">Gender</label>
+          <div class="col-sm-6">
+            <div class="row">
+              <div class="col-sm-4">
+                <label class="radio-inline">
+                  <input
+                    type="radio"
+                    id="femaleRadio"
+                    value="female"
+                    name="gender"
+                  />Female
+                </label>
+              </div>
+              <div class="col-sm-4">
+                <label class="radio-inline">
+                  <% if(typeof gender != 'undefined' && gender.toString() ==
+                  'male'){ %>
+                  <input
+                    type="radio"
+                    id="maleRadio"
+                    value="male"
+                    name="gender"
+                    checked
+                  />
+                  <% } else{ %>
+                  <input
+                    type="radio"
+                    id="maleRadio"
+                    value="male"
+                    name="gender"
+                  />
+                  <% } %> Male
+                </label>
+              </div>
+              <div class="col-sm-4">
+                <label class="radio-inline">
+                  <input
+                    type="radio"
+                    id="otherRadio"
+                    value="other"
+                    name="gender"
+                  />Other
+                </label>
+              </div>
+              <div class="col-sm-4">
+                <label class="radio-inline">
+                  <input
+                    type="radio"
+                    id="notInterestedRadio"
+                    value="notInterested"
+                    name="gender"
+                  />Not Interested
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- /.form-group -->
+        <div class="form-group">
+          <div class="col-sm-9 col-sm-offset-3">
+            <span class="help-block">*Required fields</span>
+          </div>
+        </div>
+        <button type="submit" class="btn btn-primary btn-block">
+          Register
+        </button>
+      </form>
+      <!-- /form -->
+    </div>
+    <!-- ./container -->
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  </body>
+</html>

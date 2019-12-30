@@ -1,79 +1,92 @@
 <html>
-    <head>
-        <title>info_display- Care_for_me</title>
-    </head>
-    <body>
-        <form method="GET" action="/data">
-            <button type='submit'>fillup form</button>
-        </form>
-        
-        <hr />
-        <hr />
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     
-        <% for(let i = 0 ; i < data.length; i++) {%>
-        <div>
-            <p>Last updated: <%= data[i].updated %></p>
-            
-            <h3>Symptoms:</h3>
-            <% if( data[i].symptoms.chest_pain == 'on') {%>
-                <p>chest_pain</p>
-            <% } %>
-            <% if( data[i].symptoms.respiratory == 'on') {%>
-                <p>respiratory</p>
-            <% } %>
-            <% if( data[i].symptoms.cardio_vascular == 'on') {%>
-                <p>cardio_vascular</p>
-            <% } %>
-            <% if( data[i].symptoms.hematological == 'on') {%>
-                <p>hematological</p>
-            <% } %>
-            <% if( data[i].symptoms.lymphatic == 'on') {%>
-                <p>lymphatic</p>
-            <% } %>
-            <% if( data[i].symptoms.neurolohical == 'on') {%>
-                <p>neurolohical</p>
-            <% } %>
-            <% if( data[i].symptoms.psychological == 'on') {%>
-                <p>psychological</p>
-            <% } %>
-            <% if( data[i].symptoms.gasttrointestinal == 'on') {%>
-                <p>gasttrointestinal</p>
-            <% } %>
-            <% if( data[i].symptoms.genitourinary == 'on') {%>
-                <p>genitourinary</p>
-            <% } %>
-            <% if( data[i].symptoms.weight_gain == 'on') {%>
-                <p>weight_gain</p>
-            <% } %>
-            <% if( data[i].symptoms.weight_loss == 'on') {%>
-                <p>weight_loss</p>
-            <% } %>
-            <% if( data[i].symptoms.musculoskeletal == 'on') {%>
-                <p>musculoskeletal</p>
-            <% } %>
+    <link
+    rel="stylesheet"
+    href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+    crossorigin="anonymous"
+  />
 
-        </div>
 
-        <br>
-        
-        <h4>Other informations:</h4>
-        <div>
-            <p>Weight: <%= data[i].weight %></p>
-            <p>Systolic pressure: <%= data[i].systolic %></p>
-            <p>Diastolic pressure: <%= data[i].diastolic %></p>
-            <% if( data[i].taking_med == 'yes') {%>
-                <p>Meditation details:</p>
-                <p> <%= data[i].med_details %> </p>
-            <% } %>
+    <title>info_display- Care_for_me</title>
 
-            <% if( data[i].diary.length > 0) {%>
-                <p>Diary:</p>
-                <p> <%= data[i].diary %> </p>
-            <% } %>
-        </div>
+    <!-- stylesheet for navbar -->
+    <link rel="stylesheet" href="/assets/cssFiles/navbar.css" />
+  </head>
+  <body>
+    <!-- navigation bar -->
+    <% include ./segments/navbar %>
 
-        <hr />
-        <% } %>
+    <form method="GET" action="/auth/logout">
+      <button type="submit">Logout</button>
+    </form>
 
-    </body>
+    <form method="GET" action="/data/input">
+      <button type="submit">fillup form</button>
+    </form>
+
+    <hr />
+    <hr />
+
+    <% for(let i = 0 ; i < data.length; i++) {%>
+    <div>
+      <p>Last updated: <%= data[i].updated %></p>
+
+      <h3>Symptoms:</h3>
+      <% if( data[i].symptoms.chest_pain == 'on') {%>
+      <p>chest_pain</p>
+      <% } %> <% if( data[i].symptoms.respiratory == 'on') {%>
+      <p>respiratory</p>
+      <% } %> <% if( data[i].symptoms.cardio_vascular == 'on') {%>
+      <p>cardio_vascular</p>
+      <% } %> <% if( data[i].symptoms.hematological == 'on') {%>
+      <p>hematological</p>
+      <% } %> <% if( data[i].symptoms.lymphatic == 'on') {%>
+      <p>lymphatic</p>
+      <% } %> <% if( data[i].symptoms.neurolohical == 'on') {%>
+      <p>neurolohical</p>
+      <% } %> <% if( data[i].symptoms.psychological == 'on') {%>
+      <p>psychological</p>
+      <% } %> <% if( data[i].symptoms.gasttrointestinal == 'on') {%>
+      <p>gasttrointestinal</p>
+      <% } %> <% if( data[i].symptoms.genitourinary == 'on') {%>
+      <p>genitourinary</p>
+      <% } %> <% if( data[i].symptoms.weight_gain == 'on') {%>
+      <p>weight_gain</p>
+      <% } %> <% if( data[i].symptoms.weight_loss == 'on') {%>
+      <p>weight_loss</p>
+      <% } %> <% if( data[i].symptoms.musculoskeletal == 'on') {%>
+      <p>musculoskeletal</p>
+      <% } %>
+    </div>
+
+    <br />
+
+    <h4>Other informations:</h4>
+    <div>
+      <p>Weight: <%= data[i].weight %></p>
+      <p>Systolic pressure: <%= data[i].systolic %></p>
+      <p>Diastolic pressure: <%= data[i].diastolic %></p>
+      <% if( data[i].taking_med == 'yes') {%>
+      <p>Meditation details:</p>
+      <p><%= data[i].med_details %></p>
+      <% } %> <% if( data[i].diary.length > 0) {%>
+      <p>Diary:</p>
+      <p><%= data[i].diary %></p>
+      <% } %>
+    </div>
+
+    <hr />
+    <% } %>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  </body>
 </html>

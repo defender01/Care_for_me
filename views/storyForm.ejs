@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <!-- Required meta tags -->
@@ -6,123 +6,287 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel="stylesheet" href="/assets/cssFiles/storyForm.css">
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
+
+    <!-- stylesheet for navbar -->
+    <link rel="stylesheet" href="/assets/cssFiles/navbar.css">
+    
+    <link rel="stylesheet" href="/assets/cssFiles/storyForm.css" />
     <title>Data-Care for me</title>
   </head>
   <body>
-        <form method="POST" action="/data">
-            <fieldset class="custom-design">
-                <legend class="custom-design">Please choose the appropriate options</legend>
-                Check the medical symptoms you are currently experiencing:
-                <br>           
-                <div class="custom-control custom-checkbox">
-                    <input type="checkbox" class="custom-control-input" id="symptomId_1" name='chest_pain'>
-                    <label class="custom-control-label" for="symptomId_1"> Chest pain</label>
-                </div>               
-                <div class="custom-control custom-checkbox">
-                    <input type="checkbox" class="custom-control-input" id="symptomId_2" name='respiratory'>
-                    <label class="custom-control-label" for="symptomId_2"> Respiratory</label>
-                </div>  
-                <div class="custom-control custom-checkbox">
-                    <input type="checkbox" class="custom-control-input" id="symptomId_3" name='cardio_vascular'>
-                    <label class="custom-control-label" for="symptomId_3"> Cardio vascular</label>
-                </div>               
-                <div class="custom-control custom-checkbox">
-                    <input type="checkbox" class="custom-control-input" id="symptomId_4" name='hematological'>
-                    <label class="custom-control-label" for="symptomId_4"> Hematological</label>
-                </div>  
-                <div class="custom-control custom-checkbox">
-                    <input type="checkbox" class="custom-control-input" id="symptomId_5" name='lymphatic'>
-                    <label class="custom-control-label" for="symptomId_5"> Lymphatic</label>
-                </div>               
-                <div class="custom-control custom-checkbox">
-                    <input type="checkbox" class="custom-control-input" id="symptomId_6" name='neurolohical'>
-                    <label class="custom-control-label" for="symptomId_6"> Neurolohical</label>
-                </div>  
-                <div class="custom-control custom-checkbox">
-                    <input type="checkbox" class="custom-control-input" id="symptomId_7" name='psychological'>
-                    <label class="custom-control-label" for="symptomId_7">  Psychological</label>
-                </div>               
-                <div class="custom-control custom-checkbox">
-                    <input type="checkbox" class="custom-control-input" id="symptomId_8" name='gasttrointestinal'>
-                    <label class="custom-control-label" for="symptomId_8"> Gasttrointestinal</label>
-                </div>  
-                <div class="custom-control custom-checkbox">
-                    <input type="checkbox" class="custom-control-input" id="symptomId_9" name='genitourinary'>
-                    <label class="custom-control-label" for="symptomId_9"> Genitourinary</label>
-                </div>               
-                <div class="custom-control custom-checkbox">
-                    <input type="checkbox" class="custom-control-input" id="symptomId_10" name='weight_gain'>
-                    <label class="custom-control-label" for="symptomId_10"> Weight gain</label>
-                </div>  
-                <div class="custom-control custom-checkbox">
-                    <input type="checkbox" class="custom-control-input" id="symptomId_11" name='weight_loss'>
-                    <label class="custom-control-label" for="symptomId_11"> Weight loss </label>
-                </div> 
-                <div class="custom-control custom-checkbox">
-                    <input type="checkbox" class="custom-control-input" id="symptomId_12" name='musculoskeletal'>
-                    <label class="custom-control-label" for="symptomId_12"> Musculoskeletal </label>
-                </div> 
-            </fieldset>
+    <!-- navigation bar -->
+    <% include ./segments/navbar %>
 
-            <fieldset class="custom-design">
-                <legend class="custom-design">
-                    Please fillup the informations
-                </legend>
+    <form method="POST" action="/data">
+      <fieldset class="custom-design">
+        <legend class="custom-design">
+          Please choose the appropriate options
+        </legend>
+        Check the medical symptoms you are currently experiencing:
+        <br />
+        <div class="custom-control custom-checkbox">
+          <input
+            type="checkbox"
+            class="custom-control-input"
+            id="symptomId_1"
+            name="chest_pain"
+          />
+          <label class="custom-control-label" for="symptomId_1">
+            Chest pain</label
+          >
+        </div>
+        <div class="custom-control custom-checkbox">
+          <input
+            type="checkbox"
+            class="custom-control-input"
+            id="symptomId_2"
+            name="respiratory"
+          />
+          <label class="custom-control-label" for="symptomId_2">
+            Respiratory</label
+          >
+        </div>
+        <div class="custom-control custom-checkbox">
+          <input
+            type="checkbox"
+            class="custom-control-input"
+            id="symptomId_3"
+            name="cardio_vascular"
+          />
+          <label class="custom-control-label" for="symptomId_3">
+            Cardio vascular</label
+          >
+        </div>
+        <div class="custom-control custom-checkbox">
+          <input
+            type="checkbox"
+            class="custom-control-input"
+            id="symptomId_4"
+            name="hematological"
+          />
+          <label class="custom-control-label" for="symptomId_4">
+            Hematological</label
+          >
+        </div>
+        <div class="custom-control custom-checkbox">
+          <input
+            type="checkbox"
+            class="custom-control-input"
+            id="symptomId_5"
+            name="lymphatic"
+          />
+          <label class="custom-control-label" for="symptomId_5">
+            Lymphatic</label
+          >
+        </div>
+        <div class="custom-control custom-checkbox">
+          <input
+            type="checkbox"
+            class="custom-control-input"
+            id="symptomId_6"
+            name="neurolohical"
+          />
+          <label class="custom-control-label" for="symptomId_6">
+            Neurolohical</label
+          >
+        </div>
+        <div class="custom-control custom-checkbox">
+          <input
+            type="checkbox"
+            class="custom-control-input"
+            id="symptomId_7"
+            name="psychological"
+          />
+          <label class="custom-control-label" for="symptomId_7">
+            Psychological</label
+          >
+        </div>
+        <div class="custom-control custom-checkbox">
+          <input
+            type="checkbox"
+            class="custom-control-input"
+            id="symptomId_8"
+            name="gasttrointestinal"
+          />
+          <label class="custom-control-label" for="symptomId_8">
+            Gasttrointestinal</label
+          >
+        </div>
+        <div class="custom-control custom-checkbox">
+          <input
+            type="checkbox"
+            class="custom-control-input"
+            id="symptomId_9"
+            name="genitourinary"
+          />
+          <label class="custom-control-label" for="symptomId_9">
+            Genitourinary</label
+          >
+        </div>
+        <div class="custom-control custom-checkbox">
+          <input
+            type="checkbox"
+            class="custom-control-input"
+            id="symptomId_10"
+            name="weight_gain"
+          />
+          <label class="custom-control-label" for="symptomId_10">
+            Weight gain</label
+          >
+        </div>
+        <div class="custom-control custom-checkbox">
+          <input
+            type="checkbox"
+            class="custom-control-input"
+            id="symptomId_11"
+            name="weight_loss"
+          />
+          <label class="custom-control-label" for="symptomId_11">
+            Weight loss
+          </label>
+        </div>
+        <div class="custom-control custom-checkbox">
+          <input
+            type="checkbox"
+            class="custom-control-input"
+            id="symptomId_12"
+            name="musculoskeletal"
+          />
+          <label class="custom-control-label" for="symptomId_12">
+            Musculoskeletal
+          </label>
+        </div>
+      </fieldset>
 
-                <div class="form-row">
-                    <div class="form-group col-md-6">
-                    <label for="weightId">Enter Weight:</label>
-                    <input type="number" step="0.01" min="0" max="200" class="form-control" id="weightId" placeholder="Weight" name='weight'>
-                    </div>
-                </div>
-    
-                <div class="form-row">
-                    <div class="form-group col-md-6">
-                    <label for="systolicId">Enter systolic pressure:</label>
-                    <input type="number" step="1" min="0" max="300" class="form-control" id="systolicId" placeholder="Systolic pressure" name='systolic'>
-                    </div>
-                    <div class="form-group col-md-6">
-                    <label for="diastolicId">Enter diastolic pressure:</label>
-                    <input type="number" step="1" min="0" max="300" class="form-control" id="diastolicId" placeholder="Diastolic pressure" name='diastolic'>
-                    </div>
-                </div>
-    
-                Are you currently taking any medication? 
-                <br>
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="taking_med" id="taking_medId1" value="yes" checked>
-                    <label class="form-check-label" for="taking_medId1">
-                      Yes
-                    </label>
-                </div>
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="taking_med" id="taking_medId2" value="no">
-                    <label class="form-check-label" for="taking_medId2">
-                      No
-                    </label>
-                </div>
-                <br>
-                <div class="form-group">
-                    <label for="med_detailsId">If yes, specify them </label>
-                    <textarea class="form-control" id="med_detailsId" rows="5" name="med_details"></textarea>
-                </div>
-                <div class="form-group">
-                    <label for="diaryId">What is on your mind?</label>
-                    <textarea class="form-control" id="diaryId" rows="5" name="diary"></textarea>
-                </div>
-            </fieldset>
-        
-            <button type="submit" class="btn btn-primary">Submit</button>
-        </form>
+      <fieldset class="custom-design">
+        <legend class="custom-design">
+          Please fillup the informations
+        </legend>
 
-   
+        <div class="form-row">
+          <div class="form-group col-md-6">
+            <label for="weightId">Enter Weight:</label>
+            <input
+              type="number"
+              step="0.01"
+              min="0"
+              max="200"
+              class="form-control"
+              id="weightId"
+              placeholder="Weight"
+              name="weight"
+            />
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group col-md-6">
+            <label for="systolicId">Enter systolic pressure:</label>
+            <input
+              type="number"
+              step="1"
+              min="0"
+              max="300"
+              class="form-control"
+              id="systolicId"
+              placeholder="Systolic pressure"
+              name="systolic"
+            />
+          </div>
+          <div class="form-group col-md-6">
+            <label for="diastolicId">Enter diastolic pressure:</label>
+            <input
+              type="number"
+              step="1"
+              min="0"
+              max="300"
+              class="form-control"
+              id="diastolicId"
+              placeholder="Diastolic pressure"
+              name="diastolic"
+            />
+          </div>
+        </div>
+
+        Are you currently taking any medication?
+        <br />
+        <div class="form-check form-check-inline">
+          <input
+            class="form-check-input"
+            type="radio"
+            name="taking_med"
+            id="taking_medId1"
+            value="yes"
+            checked
+          />
+          <label class="form-check-label" for="taking_medId1">
+            Yes
+          </label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input
+            class="form-check-input"
+            type="radio"
+            name="taking_med"
+            id="taking_medId2"
+            value="no"
+          />
+          <label class="form-check-label" for="taking_medId2">
+            No
+          </label>
+        </div>
+        <br />
+        <div class="form-group">
+          <label for="med_detailsId">If yes, specify them </label>
+          <textarea
+            class="form-control"
+            id="med_detailsId"
+            rows="5"
+            name="med_details"
+          ></textarea>
+        </div>
+        <div class="form-group">
+          <label for="diaryId">What is on your mind?</label>
+          <textarea
+            class="form-control"
+            id="diaryId"
+            rows="5"
+            name="diary"
+          ></textarea>
+        </div>
+      </fieldset>
+
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script
+      src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+      integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+      integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+      integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+      crossorigin="anonymous"
+    ></script>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
   </body>
 </html>

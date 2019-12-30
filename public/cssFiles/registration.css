@@ -1,0 +1,12 @@
+.box-container{
+    margin-top: 20px;
+    margin-bottom: 20px;
+    padding: 10px 30px 40px;
+    -webkit-box-shadow: 0 0 15px rgba(98, 97, 99, 0.76);
+        box-shadow: 0 0 15px rgba(98, 97, 99, 0.76);
+}
+
+.form-title{
+    text-align: center;
+    margin: 0 0 40px 0;
+}
