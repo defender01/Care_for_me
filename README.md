@@ -1,15 +1,14 @@
 # Care_for_me
 
 1. (run command)
-
-	npm install
+    npm install
 
 2. (install nodemon )
 
-  npm install nodemon -g
+   npm install nodemon -g
   
-  nodemon app.js
+   nodemon app.js
 
 2. (or run)
 
-  node app.js
+   node app.js
