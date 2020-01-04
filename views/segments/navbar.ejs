@@ -1,6 +1,6 @@
 <link rel="stylesheet" href="../../public/cssFiles/navbar.css">
 <nav class="navbar navbar-expand-lg navbar-dark nav-container ">
-    <a class="navbar-brand" href="/">Care for me</a>
+    <a class="navbar-brand" href="/home/<%= ( typeof displayName != 'undefined' && displayName != '')? displayName : '' %>">Care for me</a>
     <button
       class="navbar-toggler"
       type="button"
@@ -16,27 +16,35 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto ">
         <li class="nav-item ">
-          <a class="nav-link" href="/"
+          <a class="nav-link" href="/home/<%= ( typeof displayName != 'undefined' && displayName != '')? displayName : '' %>" 
             >Home <span class="sr-only">(current)</span></a
           >
         </li>
+        <% if( typeof displayName == 'undefined' || displayName == '') { %>
         <li class="nav-item ">
           <a class="nav-link" href="/auth/login"
-            >Login/Register <span class="sr-only">(current)</span></a
+            >Login <span class="sr-only">(current)</span></a
           >
         </li>
+        <% } %>
         <li class="nav-item ">
-          <a class="nav-link" href="/data/collection"
+          <a class="nav-link" href="/data/collection/<%= ( typeof displayName != 'undefined' && displayName != '')? displayName : 'noUser' %>"
             >Data <span class="sr-only">(current)</span></a
           >
         </li>
       </ul>
       <ul class="navbar-nav">
+        <% if( typeof displayName != 'undefined' && displayName != '') { %>
+        <li class="nav-item dpName">
+          <h4><%= displayName %></h4>
+        </li>
         <li class="nav-item ">
           <a class="nav-link " href="/auth/logout"
             >Logout <span class="sr-only">(current)</span></a
           >
         </li>
+        <% } %>
       </ul>
+
     </div>
   </nav>

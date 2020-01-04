@@ -4,10 +4,10 @@ var dataModel = require('../models/dailyinfo')
 
 const { checkAuthenticated, checkNotAuthenticated } = require('../controllers/auth_helper')
 
-router.get('/input', checkAuthenticated, async (req, res) => {
-    // var data = await dataModel.find()
+router.get('/input/:displayName', checkAuthenticated, async (req, res) => {
     var displayName =  req.params.displayName
-    res.render('storyForm')
+    console.log('input= '+displayName)
+    res.render('storyForm', {displayName})
 })
 
 router.post('/input', async (req, res) => {
@@ -43,12 +43,13 @@ res.redirect('/data/collection')
 })
 
 
-router.get("/collection", checkAuthenticated, async (req, res) => {
+router.get("/collection/:displayName", checkAuthenticated, async (req, res) => {
     var displayName =  req.params.displayName
+    console.log('collectin= '+displayName)
     await dataModel.find({},(err, data) => {
-     if (err) throw err;
-     else res.render("info_display", { data});
-   });
- });
+     if (err) throw err
+     else res.render("info_display", { data, displayName})
+   })
+ })
 
 module.exports = router

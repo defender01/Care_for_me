@@ -18,8 +18,8 @@ router.post('/register', (req, res) => {
   const {firstName, lastName, displayName, email, password, password2, birthDate, phoneNumber, nidNumber, gender } = req.body
   let errors = []
 
-  if (!firstName || !lastName || !displayName || !email || !password || !password2 || !birthDate || !phoneNumber || !nidNumber || !gender ) {
-    errors.push({ msg: 'Please enter all fields' })
+  if (!displayName || !email || !password || !password2 || !birthDate || !phoneNumber || !nidNumber || !gender ) {
+    errors.push({ msg: 'Please enter all required fields' })
   }
 
   if (password != password2) {
@@ -102,13 +102,13 @@ router.post('/register', (req, res) => {
 // Login
 router.post('/login', async (req, res, next) => {
   var displayName =''
+  console.log(req.body)
   await User.findOne({email: req.body.email},(err, data) => {
     if (err) throw err
     else displayName= data.name.displayName
-    console.log(displayName)
   })
   passport.authenticate('local', {
-    successRedirect: '/data/collection',
+    successRedirect: '/data/collection/' + displayName,
     failureRedirect: '/auth/login',
     failureFlash: true
   })(req, res, next)
