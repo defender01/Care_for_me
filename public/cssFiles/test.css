@@ -1,5 +1,12 @@
-.contaner{
-    margin: 10px 50px 10px 50px;
-    padding: 10px 10px 10px 10px;
-    background-color: antiquewhite;
+.holder{
+    margin: 10px 10px 10px 10px;
+}
+
+.table-holder{
+    margin: 20px 0 0 0;
+}
+
+.table-holder table tbody tr:hover td,.table-holder table tbody tr:hover th{
+    background-color: rgb(182, 255, 231);
+    color: #00aeff;
 }

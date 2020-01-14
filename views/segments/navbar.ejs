@@ -1,6 +1,6 @@
 <link rel="stylesheet" href="../../public/cssFiles/navbar.css">
 <nav class="navbar navbar-expand-lg navbar-dark nav-container ">
-    <a class="navbar-brand" href="/home/<%= ( typeof displayName != 'undefined' && displayName != '')? displayName : '' %>">Care for me</a>
+    <a class="navbar-brand" href="/home">Care for me</a>
     <button
       class="navbar-toggler"
       type="button"
@@ -16,7 +16,7 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto ">
         <li class="nav-item ">
-          <a class="nav-link" href="/home/<%= ( typeof displayName != 'undefined' && displayName != '')? displayName : '' %>" 
+          <a class="nav-link" href="/home" 
             >Home <span class="sr-only">(current)</span></a
           >
         </li>
@@ -28,7 +28,7 @@
         </li>
         <% } %>
         <li class="nav-item ">
-          <a class="nav-link" href="/data/collection/<%= ( typeof displayName != 'undefined' && displayName != '')? displayName : 'noUser' %>"
+          <a class="nav-link" href="/data/collection"
             >Data <span class="sr-only">(current)</span></a
           >
         </li>

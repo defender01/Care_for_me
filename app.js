@@ -67,13 +67,10 @@ app.use(function(req, res, next) {
   next()
 })
 
-app.get("/home", async (req, res) => {  
-   res.render("home")
-})
-
-app.get("/home/:displayName", async (req, res) => {
-   displayName =  req.params.displayName
-    console.log("home= " + displayName)
+app.get("/home", async (req, res) => {
+  if(req.user)
+    displayName = req.user.name.displayName
+  else displayName = ''
    res.render("home", {displayName})
 })
 

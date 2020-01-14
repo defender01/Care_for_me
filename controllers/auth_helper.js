@@ -13,4 +13,4 @@ module.exports = {
     req.flash('success_msg', 'You are logged in')
     res.redirect('/data/collection');      
   }
-};
+}

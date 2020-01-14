@@ -10,3 +10,8 @@ nav .dpName{
     border-color: rgb(56, 75, 245);
     color: #ffffff;
 }
+
+nav ul li:hover{
+    font-weight: bold;
+    font-size: 15px;
+}

@@ -23,7 +23,7 @@
     <!-- navigation bar -->
     <% include ./segments/navbar %>
 
-    <form method="GET" action="/data/input/<%= ( typeof displayName != 'undefined' && displayName != '')? displayName : '' %>" >
+    <form method="GET" action="/data/input" >
       <button type="submit">fillup form</button>
     </form>
     <hr />

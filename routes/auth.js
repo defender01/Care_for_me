@@ -101,14 +101,8 @@ router.post('/register', (req, res) => {
 
 // Login
 router.post('/login', async (req, res, next) => {
-  var displayName =''
-  console.log(req.body)
-  await User.findOne({email: req.body.email},(err, data) => {
-    if (err) throw err
-    else displayName= data.name.displayName
-  })
   passport.authenticate('local', {
-    successRedirect: '/data/collection/' + displayName,
+    successRedirect: '/data/collection',
     failureRedirect: '/auth/login',
     failureFlash: true
   })(req, res, next)
