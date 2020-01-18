@@ -79,6 +79,10 @@ app.get("/test", async (req, res) => {
   res.render("test")
 })
 
+app.get("/medHistory", async (req, res) => {
+  res.render("medHistory")
+})
+
 
 //routes
 app.use("/data", require("./routes/data.js"))

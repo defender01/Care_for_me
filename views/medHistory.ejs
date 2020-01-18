@@ -1,0 +1,398 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  
+  <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+    crossorigin="anonymous"></script>
+
+  
+  <link href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.3/css/font-awesome.css'>
+
+  <!-- Bootstrap CSS -->
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet"
+    id="bootstrap-css" />
+  <script src='https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js'></script>
+
+  <!-- stylesheet for navbar -->
+	<link rel="stylesheet" href="/assets/cssFiles/navbar.css">
+
+  <!-- stylesheet and script for MUltiple step form -->
+  <link rel="stylesheet" href="/assets/cssFiles/medHistory.css">
+  <script src='/assets/jsFiles/medHistory.js'></script>
+
+  <title>Medical History</title>
+
+</head>
+
+<body>
+
+  <!-- navigation bar -->
+	<% include ./segments/navbar %>
+
+
+  <!-- For multiple step form-->
+  <div class="container-fluid">
+    <div class="row justify-content-center">
+      <div class="col-11 col-sm-9 col-md-7 col-lg-6 col-xl-5 text-center p-0 mt-3 mb-2">
+        <div class="card px-0 pt-4 pb-0 mt-3 mb-3">
+          <h2 id="heading">Welcome to Care For Me</h2>
+          <p>Please fill up some medical record of yours below.</p>
+          <p>It will take a few moments.</p>
+          <form id="msform">
+            <!-- progressbar -->
+            <ul id="progressbar">
+              <li class="active" id="account"><strong>Step 1</strong></li>
+              <li id="personal"><strong>Step 2</strong></li>
+              <li id="payment"><strong>Step 3</strong></li>
+              <li id="confirm"><strong>Step 4</strong></li>
+            </ul>
+            <div class="progress">
+              <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuemin="0"
+                aria-valuemax="100"></div>
+            </div> <br> 
+            <!-- fieldsets -->
+            <fieldset>
+              <div class="form-card">
+                <div class="row">
+                  <div class="col-8">
+                    <h2 class="fs-title">Birth and Developmental History:</h2>
+                  </div>
+                  <div class="col-4">
+                    <h2 class="steps">Step 1 - 4</h2>
+                  </div>
+                </div> 
+                <label class="fieldlabels">When did you first sit?: </label>
+                <input type="text" name="first_sit" placeholder="" />
+                <label class="fieldlabels">When did you walk?: </label> 
+                <input type="text" name="walk" placeholder="" /> 
+                <label class="fieldlabels">When could you first speak normally?: </label> 
+                <input type="text" name="first_speak" placeholder="" /> 
+                <br>
+                <h4 class="subsection-title">Immunization history</h4>
+                <div class="row">
+                  <div class="col-7">
+                    <label class="fieldlabels">Vaccine name</label>
+                  </div>
+                  <div class="col-5">
+                    <label class="fieldlabels">Date taken</label>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-7">
+                    <input type="text" name="vaccine" placeholder="Vaccine name" />
+                  </div>
+                  <div class="col-5">
+                    <input type="text" name="date_taken" placeholder="Date" />
+                  </div>
+                </div>
+              </div> 
+              <input type="button" name="next" class="next action-button" value="Next" />
+            </fieldset>
+            <fieldset>
+              <div class="form-card">
+                <div class="row">
+                  <div class="col-7">
+                    <h2 class="fs-title">Family Information:</h2>
+                  </div>
+                  <div class="col-5">
+                    <h2 class="steps">Step 2 - 4</h2>
+                  </div>
+                </div> 
+                <label class="fieldlabels">Have any of your relations had any of the following?</label>
+                
+                <div class="row">
+
+                  <div class="col">
+
+                    <div class="custom-control custom-checkbox">
+                      <input 
+                        type="checkbox" 
+                        class="custom-control-input" 
+                        id="diseaseID_1" 
+                        name="highBloodPressure"
+                      >
+                      <label class="custom-control-label" for="diseaseID_1">
+                        High Blood Pressure
+                      </label>
+                    </div>
+
+                    <div class="custom-control custom-checkbox">
+                      <input 
+                        type="checkbox" 
+                        class="custom-control-input" 
+                        id="diseaseID_2" 
+                        name="diabetes"
+                      >
+                      <label class="custom-control-label" for="diseaseID_2">
+                        Diabetes
+                      </label>
+                    </div>
+
+                    <div class="custom-control custom-checkbox">
+                      <input 
+                        type="checkbox" 
+                        class="custom-control-input" 
+                        id="diseaseID_3" 
+                        name="asthma"
+                      >
+                      <label class="custom-control-label" for="diseaseID_3">
+                        Asthma
+                      </label>
+                    </div>
+
+                    <div class="custom-control custom-checkbox">
+                      <input 
+                        type="checkbox" 
+                        class="custom-control-input" 
+                        id="diseaseID_4" 
+                        name="schizophrenia"
+                      >
+                      <label class="custom-control-label" for="diseaseID_4">
+                        Schizophrenia
+                      </label>
+                    </div>
+
+                    <div class="custom-control custom-checkbox">
+                      <input 
+                        type="checkbox" 
+                        class="custom-control-input" 
+                        id="diseaseID_5" 
+                        name="glaucoma"
+                      >
+                      <label class="custom-control-label" for="diseaseID_5">
+                        Glaucoma
+                      </label>
+                    </div>
+
+                    <div class="custom-control custom-checkbox">
+                      <input 
+                        type="checkbox" 
+                        class="custom-control-input" 
+                        id="diseaseID_6" 
+                        name="heartAttack"
+                      >
+                      <label class="custom-control-label" for="diseaseID_6">
+                        Heart Attack
+                      </label>
+                    </div>
+
+                    <div class="custom-control custom-checkbox">
+                      <input 
+                        type="checkbox" 
+                        class="custom-control-input" 
+                        id="diseaseID_7" 
+                        name="tuberculosis"
+                      >
+                      <label class="custom-control-label" for="diseaseID_7">
+                        Tuberculosis
+                      </label>
+                    </div>
+
+                    <div class="custom-control custom-checkbox">
+                      <input 
+                        type="checkbox" 
+                        class="custom-control-input" 
+                        id="diseaseID_8" 
+                        name="alzheimerDisease"
+                      >
+                      <label class="custom-control-label" for="diseaseID_8">
+                        Alzheimer's disease
+                      </label>
+                    </div>
+
+                  </div>
+              
+                  <div class="col">
+
+                    <div class="custom-control custom-checkbox">
+                      <input 
+                        type="checkbox" 
+                        class="custom-control-input" 
+                        id="diseaseID_9" 
+                        name="migraine"
+                      >
+                      <label class="custom-control-label" for="diseaseID_9">
+                        Migraine
+                      </label>
+                    </div>
+
+                    <div class="custom-control custom-checkbox">
+                      <input 
+                        type="checkbox" 
+                        class="custom-control-input" 
+                        id="diseaseID_10" 
+                        name="cancer"
+                      >
+                      <label class="custom-control-label" for="diseaseID_10">
+                        Cancer
+                      </label>
+                    </div>
+
+                    <div class="custom-control custom-checkbox">
+                      <input 
+                        type="checkbox" 
+                        class="custom-control-input" 
+                        id="diseaseID_11" 
+                        name="eczema"
+                      >
+                      <label class="custom-control-label" for="diseaseID_11">
+                        Eczema
+                      </label>
+                    </div>
+
+                    <div class="custom-control custom-checkbox">
+                      <input 
+                        type="checkbox" 
+                        class="custom-control-input" 
+                        id="diseaseID_12" 
+                        name="chromosomalAbnormality"
+                      >
+                      <label class="custom-control-label" for="diseaseID_12">
+                        Chromosomal Abnormality
+                      </label>
+                    </div>
+              
+                    <div class="custom-control custom-checkbox">
+                      <input 
+                        type="checkbox" 
+                        class="custom-control-input" 
+                        id="diseaseID_13" 
+                        name="stroke"
+                      >
+                      <label class="custom-control-label" for="diseaseID_13">
+                        Stroke
+                      </label>
+                    </div>
+
+                    <div class="custom-control custom-checkbox">
+                      <input 
+                        type="checkbox" 
+                        class="custom-control-input" 
+                        id="diseaseID_14" 
+                        name="depression"
+                      >
+                      <label class="custom-control-label" for="diseaseID_14">
+                        Depression
+                      </label>
+                    </div>
+
+                    <div class="custom-control custom-checkbox">
+                      <input 
+                        type="checkbox" 
+                        class="custom-control-input" 
+                        id="diseaseID_15" 
+                        name="hayFever"
+                      >
+                      <label class="custom-control-label" for="diseaseID_15">
+                        Hay Fever
+                      </label>
+                    </div>
+
+                    <div class="custom-control custom-checkbox">
+                      <input 
+                        type="checkbox" 
+                        class="custom-control-input" 
+                        id="diseaseID_16" 
+                        name="thalassemia"
+                      >
+                      <label class="custom-control-label" for="diseaseID_16">
+                        Thalassemia
+                      </label>
+                    </div>
+
+                  </div>
+
+                </div>
+
+                <br>
+                <div class="form-group">
+                  <label class="fieldlabels">If so, please give details below.</label>
+                  <textarea
+                    class="form-control"
+                    id="diseaseDetailsId"
+                    rows="5"
+                    name="diseaseDetails"
+                  ></textarea> 
+                </div>
+                <br>
+                
+                <h4 class="subsection-title">Family history</h4>
+                
+
+
+                <!--  
+                <input type="text" name="lname" placeholder="Last Name" />
+                <label class="fieldlabels">Contact No.: *</label> 
+                <input type="text" name="phno" placeholder="Contact No." /> 
+                <label class="fieldlabels">Alternate Contact No.: *</label> 
+                <input type="text" name="phno_2" placeholder="Alternate Contact No." /> 
+                -->
+              </div> 
+              <input type="button" name="next" class="next action-button" value="Next" /> 
+              <input type="button" name="previous" class="previous action-button-previous" value="Previous" />
+            </fieldset>
+            <fieldset>
+              <div class="form-card">
+                <div class="row">
+                  <div class="col-7">
+                    <h2 class="fs-title">Image Upload:</h2>
+                  </div>
+                  <div class="col-5">
+                    <h2 class="steps">Step 3 - 4</h2>
+                  </div>
+                </div> 
+                <label class="fieldlabels">Upload Your Photo:</label> 
+                <input type="file" name="pic" accept="image/*"> 
+                <label class="fieldlabels">Upload Signature Photo:</label> 
+                <input type="file" name="pic" accept="image/*">
+              </div> 
+              <input type="button" name="next" class="next action-button" value="Submit" /> 
+              <input type="button" name="previous" class="previous action-button-previous" value="Previous" />
+            </fieldset>
+            <fieldset>
+              <div class="form-card">
+                <div class="row">
+                  <div class="col-7">
+                    <h2 class="fs-title">Finish:</h2>
+                  </div>
+                  <div class="col-5">
+                    <h2 class="steps">Step 4 - 4</h2>
+                  </div>
+                </div> <br><br>
+                <h2 class="purple-text text-center"><strong>SUCCESS !</strong></h2> <br>
+                <div class="row justify-content-center">
+                  <div class="col-3"> <img src="https://i.imgur.com/GwStPmg.png" class="fit-image"> </div>
+                </div> <br><br>
+                <div class="row justify-content-center">
+                  <div class="col-7 text-center">
+                    <h5 class="purple-text text-center">You Have Successfully Signed Up</h5>
+                  </div>
+                </div>
+              </div>
+            </fieldset>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+  <!-- Optional JavaScript -->
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+    integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+    integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+    crossorigin="anonymous"></script>
+</body>
+
+</html>
