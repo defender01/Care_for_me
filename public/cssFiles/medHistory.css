@@ -1,10 +1,6 @@
-* {
-    margin: 0;
-    padding: 0
-}
 
-html {
-    height: 100%
+body{
+    background-color: #f5f5f5;
 }
 
 p {
@@ -100,6 +96,7 @@ p {
 }
 
 .card {
+    padding: 10px 20px 10px 20px;
     z-index: 0;
     border: none;
     position: relative
