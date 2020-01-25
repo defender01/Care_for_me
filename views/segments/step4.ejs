@@ -1,22 +1,121 @@
-
-<fieldset>
-    <div class="form-card">
+<div class="form-card">
+    <fieldset>
         <div class="row">
-        <div class="col-7">
-            <h2 class="fs-title">Finish:</h2>
+        <div class="col-8">
+            <h2 class="fs-title">Education and Occupation Details</h2>
         </div>
-        <div class="col-5">
-            <h2 class="steps">Step 4 - 4</h2>
+        <div class="col-4">
+            <h2 class="steps">Step 4 - 6</h2>
         </div>
-        </div> <br><br>
-        <h2 class="purple-text text-center"><strong>SUCCESS !</strong></h2> <br>
-        <div class="row justify-content-center">
-        <div class="col-3"> <img src="https://i.imgur.com/GwStPmg.png" class="fit-image"> </div>
-        </div> <br><br>
-        <div class="row justify-content-center">
-        <div class="col-7 text-center">
-            <h5 class="purple-text text-center">You Have Successfully Signed Up</h5>
+        </div> 
+        <h4 class="subsection-title">Educational Background</h4>
+        <label class="fieldlabels">What is your highest educational degree? </label>
+        <input type="text" name="highest_edu_degree" placeholder="" />
+        <br>
+        <br>
+        <div class= "family-container">
+        <div class="part">
+            <div class="sub-part-row">
+                <h5 class="left">Specialization (if any):</h3>
+                <button type="button" class="btn btn-outline-light add" ></button>
+            </div>
+            <div class="sub-part">                
+                <div class="sub-part-row">
+                <p class="title">
+                    Degree Name
+                </p>
+                <button type="button" class="btn btn-outline-dark">Edit</button>
+                </div>              
+                <div class="sub-sub-part">
+                <p>
+                    Master of Science
+                </p>
+                </div>
+                <div class="collapse" id="collapseExampleFather">
+                <hr>                
+                <p class="title">
+                  Passing date:
+                </p>
+                <div class="sub-sub-part">
+                <p>
+                 05.05.1967
+                </p>
+                </div>
+                <hr>
+                <p class="title">
+                    University:
+                </p>
+                <div class="sub-sub-part">
+                <p>
+                    Berlin Institute of Technology
+                </p>
+                </div>
+                <hr>
+                <p class="title">
+                Certificate Link:
+                </p>
+                <div class="sub-sub-part">
+                <p>
+                <a href="">Go to link</a> 
+                </p>
+                </div> 
+                </div>
+                <div class="extend">
+                <p>
+                    <a class="btn btn-light" data-toggle="collapse" href="#collapseExampleFather" id="seeMore" role="button" onclick="changeButtonText(this.id)" aria-expanded="false" aria-controls="collapseExample">
+                    See more
+                    </a>
+                </p>
+                </div>             
+            </div>            
         </div>
-        </div>
-    </div>
-    </fieldset>
+
+    </div> 
+    <br>
+    <br>
+
+    <h4 class="subsection-title">Occupational Details:</h4>
+        <label class="fieldlabels">What is your current or past occupation?</label>
+        <input type="text" name="highest_edu_degree" placeholder="" />
+        <label class="fieldlabels">Are you currently working?</label>
+
+        <div class="collapse" id="collapseExampleSiblings">
+          <p class="title">
+            Gender
+          </p>
+          <div class="sub-sub-part">
+            <p>
+              Male
+            </p>
+          </div> 
+          <p class="title">
+            Birth date
+          </p>
+          <div class="sub-sub-part">
+            <p>
+              Born on 05.05.1967
+            </p>
+          </div>
+          <hr>
+          <p class="title">
+            Health & Psychiatric
+          </p>
+          <div class="sub-sub-part">
+            <p>
+              A psychiatric history is the result of a medical process where a clinician working in the field of mental
+                health (usually a psychiatrist) systematically records the content of an interview with a patient. ...
+                Psychologists take a similar history, often referred to as a psychological history.
+            </p>
+          </div> 
+          <div class="extend">
+            <p>
+              <a class="btn btn-light" data-toggle="collapse" href="#collapseExampleSiblings" id="seeMore" role="button" onclick="changeButtonText(this.id)" aria-expanded="false" aria-controls="collapseExample">
+                See more
+              </a>
+            </p>
+          </div>             
+
+
+    <input type="button" name="next" class="next action-button" value="Next" />
+</fieldset>
+  

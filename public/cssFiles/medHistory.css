@@ -317,3 +317,55 @@ p {
     width: 100%;
     object-fit: cover
 }
+
+
+/* family history */
+.family-container{
+    background-color: #f2f7fa;;
+    padding: 10px 10px 10px 10px;
+    border-radius: 2px;
+    -webkit-box-shadow: 0 0 2px rgba(98, 97, 99, 0.76);
+    box-shadow: 0 0 2px rgba(98, 97, 99, 0.76);
+}
+
+.family-container .part .left{
+    text-align: left;
+}
+
+
+
+.family-container .part .sub-part{
+    background-color: #ffffff;
+    padding: 10px 10px 10px 10px;
+    margin: 10px 10px 10px 10px;
+    border-radius: 2px;
+    -webkit-box-shadow: 0 0 2px rgba(98, 97, 99, 0.76);
+    box-shadow: 0 0 2px rgba(98, 97, 99, 0.76);
+}
+.family-container .part .sub-part .title{
+    color: rgb(85, 85, 85);
+    font-size: 18px;
+}
+
+.family-container .part h5{
+    padding-top: 10px;
+}
+.family-container .sub-part-row {
+    display: flex;
+    padding: 10px 10px 0px 0px;
+}
+.family-container .sub-part-row h5{
+    flex: 1;
+}
+
+.family-container .sub-part .sub-part-row p{
+    flex: 1;
+}
+.add{
+    height: 25px;
+    width: 25px;
+    background-image: url(/resources/plus.png);
+    background-size: 100%; /* To fill the dimensions of container (button), or */
+    background-size: 25px 25px; /* to specify dimensions explicitly */
+    border: 0px;
+}

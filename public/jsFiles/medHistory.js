@@ -86,3 +86,21 @@ function togglePopUp(name) {
   }
 
   document.getElementById('radio_yes').checked = false;
+  
+function changeButtonText(id)
+{
+    var elem = document.getElementById(id)
+    var x= document.getElementById(id).innerHTML
+    alert(x)
+    if (elem.innerText=="See more") elem.innerText = "See less";
+    else elem.innerText = "See more";
+}
+
+window.onload = function ()
+{
+    var items = document.querySelectorAll('[id="seeMore"]')
+    alert(items.length)
+    for(var i=0; i<items.length; i++){
+        items[i].id='seeMore'+i.toString()
+    }
+}
