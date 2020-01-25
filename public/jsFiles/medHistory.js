@@ -74,3 +74,15 @@ $(document).ready(function () {
     })
 
 });
+
+function togglePopUp(name) {
+    var btn = document.getElementById('collapse-button');
+    if (document.getElementById('popup').style.display == "flex") {
+      document.getElementById('popup').style.display = "none";
+    } else {
+      document.getElementById('popup').style.display = "flex";
+      btn.innerText = name;
+    }
+  }
+
+  document.getElementById('radio_yes').checked = false;
