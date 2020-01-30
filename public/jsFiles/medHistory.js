@@ -165,10 +165,10 @@ function togglePopUpForClose()
             
         document.getElementById('conditional').style.display = 'inline'
     }
-    if (document.getElementById('popup').style.display == "flex") {
-        document.getElementById('popup').style.display = "none";
+    if (document.getElementById('popupFamilyHistory').style.display == "flex") {
+        document.getElementById('popupFamilyHistory').style.display = "none";
     } else {
-        document.getElementById('popup').style.display = "flex";
+        document.getElementById('popupFamilyHistory').style.display = "flex";
     }
 }
   
