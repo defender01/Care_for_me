@@ -10,7 +10,7 @@
     </div>
     <h4 class="subsection-title">Educational Background</h4>
     <label class="fieldlabels">What is your highest educational degree? </label>
-    <input type="text" name="highest_edu_degree" placeholder="" />
+    <input type="text" name="highestEduDegree" placeholder="" />
     <br>
     <br>
     <div class="family-container">
@@ -31,7 +31,7 @@
               Master of Science
             </p>
           </div>
-          <div class="collapse" id="collapseExampleFather">
+          <div class="collapse" id="collapseExampleSpecialization">
             <hr>
             <p class="title">
               Passing date:
@@ -62,7 +62,7 @@
           </div>
           <div class="extend">
             <p>
-              <a class="btn btn-light" data-toggle="collapse" href="#collapseExampleFather" id="seeMore" role="button"
+              <a class="btn btn-light" data-toggle="collapse" href="#collapseExampleSpecialization" id="seeMore" role="button"
                 onclick="changeButtonText(this.id)" aria-expanded="false" aria-controls="collapseExample">
                 See more
               </a>
@@ -76,11 +76,49 @@
 
     <h4 class="subsection-title">Occupational Details:</h4>
     <label class="fieldlabels">What is your current or past occupation?</label>
-    <input type="text" name="highest_edu_degree" placeholder="" />
+    <input type="text" name="highestEduDegree" placeholder="" />
     <label class="fieldlabels">Are you currently working?</label>
+    <div class="custom-control custom-radio">
+      <input type="radio" id="employed" name="occupationState" class="custom-control-input" value="yes" onclick="displayOccupationDetails(this.id)">
+      <label class="custom-control-label" for="employed">Yes</label>
+    </div>
+    <div class="custom-control custom-radio">
+      <input type="radio" id="unemployed" name="occupationState" class="custom-control-input" value="no" onclick="displayOccupationDetails(this.id)">
+      <label class="custom-control-label" for="unemployed">No</label>
+    </div>
+    <br>
+    <div class="family-container" id="employmentDetails" >
+      <div class="part">
+        <div class="sub-part-row">
+          <h5 class="left">Working details:</h3>
+        </div>
+        <div class="sub-part">
+          <label class="fieldlabels">What is your occupation? </label>
+          <input type="text" name="occupation" placeholder="" />
 
+          <label class="fieldlabels">How many hours do you work in a week? </label>
+          <input type="text" name="workingHour" placeholder="" />
+
+          <label class="fieldlabels">What is the typical mode of work? ? </label>
+          <input type="text" name="modeOfWork" placeholder="" />
+        </div>
+
+      </div>
+    </div>
+    <div class="family-container" id="unemploymentDetails" >
+      <div class="part">
+        <div class="sub-part-row">
+          <h5 class="left">Working details:</h3>
+        </div>
+        <div class="sub-part">
+          <div class="sub-sub-part">
+            <label class="fieldlabels">Reason of your unemployment? </label>
+            <input type="text" name="highestEduDegree" placeholder="Retired/ Disabled/ Sick leave etc." />
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
-
-
   <input type="button" name="next" class="next action-button" value="Next" />
+  <input type="button" name="previous" class="previous action-button-previous" value="Previous" />
 </fieldset>

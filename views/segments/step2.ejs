@@ -11,9 +11,7 @@
     <label class="fieldlabels">Have any of your relations had any of the following?</label>
     
     <div class="row">
-
       <div class="col">
-
         <div class="custom-control custom-checkbox">
           <input 
             type="checkbox" 
@@ -254,7 +252,7 @@
                 <p class="title">
                   Name
                 </p>
-                <button type="button" class="btn btn-outline-dark">Edit</button>
+                <button type="button" class="btn btn-outline-dark" onclick="togglePopUpFamilyHistory('parents')">Edit</button>
               </div>              
               <div class="sub-sub-part">
                 <p>
@@ -299,7 +297,7 @@
                 <p class="title">
                   Name
                 </p>
-                <button type="button" class="btn btn-outline-dark">Edit</button>
+                <button type="button" class="btn btn-outline-dark" onclick="togglePopUpFamilyHistory()">Edit</button>
               </div>              
               <div class="sub-sub-part">
                 <p>
@@ -342,14 +340,14 @@
           <div class="part">
             <div class="sub-part-row">
               <h5 class="left">Sibling's details</h3>
-              <button type="button" class="btn btn-outline-light add" ></button>
+              <button type="button" class="btn btn-outline-light add" onclick="togglePopUpFamilyHistory()" ></button>
             </div>
             <div class="sub-part">
               <div class="sub-part-row">
                 <p class="title">
                   Name
                 </p>
-                <button type="button" class="btn btn-outline-dark">Edit</button>
+                <button type="button" class="btn btn-outline-dark" onclick="togglePopUpFamilyHistory()">Edit</button>
               </div>
               <div class="sub-sub-part">
                 <p>
@@ -400,14 +398,14 @@
           <div class="part">
             <div class="sub-part-row">
               <h5 class="left">Children's details</h3>
-              <button type="button" class="btn btn-outline-light add" ></button>
+              <button type="button" class="btn btn-outline-light add" onclick="togglePopUpFamilyHistory()" ></button>
             </div>
             <div class="sub-part">
               <div class="sub-part-row">
                 <p class="title">
                   Name
                 </p>
-                <button type="button" class="btn btn-outline-dark">Edit</button>
+                <button type="button" class="btn btn-outline-dark" onclick="togglePopUpFamilyHistory()">Edit</button>
               </div>
               <div class="sub-sub-part">
                 <p>
@@ -458,14 +456,14 @@
           <div class="part">
             <div class="sub-part-row">
               <h5 class="left">Relative details</h3>
-              <button type="button" class="btn btn-outline-light add" ></button>
+              <button type="button" class="btn btn-outline-light add" onclick="togglePopUpFamilyHistory()" ></button>
             </div>
             <div class="sub-part">
               <div class="sub-part-row">
                 <p class="title">
                   Name
                 </p>
-                <button type="button" class="btn btn-outline-dark">Edit</button>
+                <button type="button" class="btn btn-outline-dark" onclick="togglePopUpFamilyHistory()">Edit</button>
               </div>
               <div class="sub-sub-part">
                 <p>
@@ -512,21 +510,39 @@
             </div> 
           </div>                  
         </div>               
-      </div>        
+      </div> 
+      
+      <!-- For popup design-->
+
+    <div class="modal-bg" id="popup" style="display: none;" >
+      <div class="modal-container" >
+        <button type="button" class="close" aria-label="Close"  onclick="togglePopUpFamilyHistory()">
+          <span aria-hidden="true">&times;</span>
+        </button> 
+        <div class="card">
+          <label class="fieldlabels" for="siblingName">Name:</label>
+          <input type="text" name="name" placeholder="" cols="5"/>     
+          <div id="conditional">
+            <label class="fieldlabels" for="gender">Gender:</label>
+            <input type="text" name="gender" placeholder="" cols="5"/>
+          </div>   
+          <label class="fieldlabels" for="birthDate">Birth date:</label>
+          <input type="text" name="birthDate" placeholder="" cols="5"/>
+          <label class="fieldlabels" for="healthAndPsychiatric">Health and psychiatric details:</label>
+          <textarea class="form-control" id="healthAndPsychiatric" rows="3"></textarea>
+
+          <div class="rowRowElementHolder">
+            <button type="button" class="btn btn-outline-success singleElement" onclick="togglePopUpFamilyHistory('ok')">Ok</button>
+            <button type="button" class="btn btn-outline-danger singleElement" onclick="togglePopUpFamilyHistory('cancel')">Cancel</button>
+          </div>
+        </div>  
+      </div>
+    </div>
+
     </div>
   </div>                
   
                     
-
-
-    <!--  
-    <input type="text" name="lname" placeholder="Last Name" />
-    <label class="fieldlabels">Contact No.: *</label> 
-    <input type="text" name="phno" placeholder="Contact No." /> 
-    <label class="fieldlabels">Alternate Contact No.: *</label> 
-    <input type="text" name="phno_2" placeholder="Alternate Contact No." /> 
-    -->
-  
   <input type="button" name="next" class="next action-button" value="Next" /> 
   <input type="button" name="previous" class="previous action-button-previous" value="Previous" />
 </fieldset>
