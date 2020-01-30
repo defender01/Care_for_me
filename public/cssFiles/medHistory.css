@@ -250,32 +250,36 @@ p {
 }
 
 #progressbar li {
-    list-style-type: none;
     font-size: 15px;
-    width: 25%;
+    width: 20%;
     float: left;
     position: relative;
     font-weight: 400
 }
 
-#progressbar #account:before {
+#progressbar #step1:before {
     font-family: FontAwesome;
     content: "\f13e"
 }
 
-#progressbar #personal:before {
+#progressbar #step2:before {
     font-family: FontAwesome;
     content: "\f007" 
 }
 
-#progressbar #payment:before {
+#progressbar #step3:before {
     font-family: FontAwesome;
     content: "\f030"
 }
 
-#progressbar #confirm:before {
+#progressbar #step4:before {
     font-family: FontAwesome;
     content: "\f00c"
+}
+
+#progressbar #step5:before {
+    font-family: FontAwesome;
+    content: "\f030"
 }
 
 #progressbar li:before {
