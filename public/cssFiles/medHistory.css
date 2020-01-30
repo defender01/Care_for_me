@@ -374,3 +374,20 @@ p {
     background-size: 25px 25px; /* to specify dimensions explicitly */
     border: 0px;
 }
+.add:hover{
+    height: 25px;
+    width: 25px;
+    
+    background-size: 100%; /* To fill the dimensions of container (button), or */
+    background-size: 25px 25px; /* to specify dimensions explicitly */
+    border: 1px;
+    border-style: solid;
+}
+
+.rowRowElementHolder{
+    display: flex;
+}
+.rowRowElementHolder .singleElement{
+    flex: 1;
+    margin: 0 5px 0 5px;
+}
