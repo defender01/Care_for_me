@@ -166,27 +166,112 @@ function displayHowMuchInputField(id)
 
 function displayWhereInputField(id){
 
-    var elem = document.getElementById(id)
-    var el = document.getElementById("employmentDetails")
-    var uel = document.getElementById("unemploymentDetails")
-   
-    if(id == "employed" && elem.checked){
-        el.style.display = "block"
-        uel.style.display = "none"
-    }
-    else {
-        el.style.display = "none"
-        uel.style.display = "block"
-    }
 }
 
-  function togglePopUpFamilyHistory(from) {
-    if(from === "parents")
-        document.getElementById('conditional').style.display = 'none'
-    else if(from === 'ok'){
-            
-        document.getElementById('conditional').style.display = 'inline'
+function togglePopUpFamilyHistory(from) {
+    var fieldNames =["name","gender","birthDate","healthAndPsychiaty"]
+    var popupElmIds = ["famimilyMemberName","famimilyMemberGender","famimilyMemberBirthDate","famimilyMemberHealthAndPsychiatric"]
+    var tabTypes = ["father", "mother", "siblings", "children"]
+    var collapseIds = ["collapseExampleFather", "collaplseExampleMother", "collaplseExampleSiblings", "collaplseExampleChildren"]
+    var detailIds = ["fatherDetails", "motherDetails", "siblingsDetails", "childrenDetails"]
+    var inputValues = {
+
     }
+
+    $('[id="popupOk"]').attr('onclick','togglePopUpFamilyHistory("ok")')
+    $('[id="popupCancel"]').attr('onclick','togglePopUpFamilyHistory("cancel")')
+
+    if(from !== 'ok' && from !== 'cancel')
+        $('p[id = "calledFrom"]').html(from)
+
+    var parentID = $('p[id = "calledFrom"]').html();
+    
+    console.log(parentID)
+
+    if(parentID.indexOf("fatherDetails") != -1  || parentID.indexOf("motherDetails") != -1)
+    {
+        $('[class= "conditional"]').hide()
+    }
+    else {
+        $('[class= "conditional"]').show()
+    }
+
+    if(from === 'ok')
+    {
+        var ind =0,typeNo;
+        for(var i=0; i<tabTypes.length; i++)
+            if(parentID.indexOf(tabTypes[i])!=-1) typeNo=i;
+
+        var currentItemNo = $('[id^="'+detailIds[typeNo]+'"]').length
+
+        for(var i=0; i<popupElmIds.length; i++)
+            inputValues[fieldNames[i]] = $('[id='+ popupElmIds[i] +']').val()
+        
+        console.log(inputValues)
+
+        divHtml = $('[id = '+ parentID +']').html()
+
+        console.log(divHtml)
+        $('[id = '+ parentID +']').html(
+            '<div class="sub-part-row">'+
+                '<p class="title">'+
+                  'Name'+
+                '</p>'+
+                '<button type="button" class="btn btn-outline-dark" onclick="togglePopUpFamilyHistory(this.parentElement.parentElement.id)">Edit</button>'+
+              '</div>'+
+              '<div class="sub-sub-part">'+
+                '<p>'+
+                inputValues[fieldNames[ind++]]+
+                '</p>'+
+              '</div>' +           
+              '<div class="collapse" id="'+collapseIds[typeNo]+currentItemNo+1+'">'+
+                  '<hr>'+
+                  '<div class="conditional">'+
+                    '<p class="title">'+
+                      'Gender'+
+                    '</p>'+
+                    '<div class="sub-sub-part">'+
+                      '<p>'+
+                      inputValues[fieldNames[ind++]]+
+                      '</p>'+
+                    '</div>'+
+                  '</div>'+
+                '<p class="title">'+
+                  'Birth date'+
+                '</p>'+
+                '<div class="sub-sub-part">'+
+                  '<p>'+
+                    'Born on '+ inputValues[fieldNames[ind++]] +
+                  '</p>'+
+                '</div>'+
+                '<hr>'+
+                '<p class="title">'+
+                  'Health & Psychiatric'+
+                '</p>'+
+                '<div class="sub-sub-part">'+
+                  '<p>'+
+                    inputValues[fieldNames[ind++]]+
+                  '</p>'+
+                '</div> '+
+              '</div>'+
+              '<div class="extend">'+
+                '<p>'+
+                  '<a class="btn btn-light" data-toggle="collapse" href="#'+collapseIds[typeNo]+currentItemNo+1+'" id="seeMore'+ parentID +'" role="button" onclick="changeButtonText(this.id)" aria-expanded="false" aria-controls="collapseExample">'+
+                    'See more'+
+                  '</a>'+
+                '</p>'+
+              '</div>'
+        )
+        
+        console.log(parentID)
+        if(typeNo==0)
+            $('#'+parentID+' > #collapseExampleFather > .conditional').hide()
+        if(typeNo==1)
+            $('#'+parentID+' > #collapseExampleMother > .conditional').hide()
+
+        
+    }
+
     if (document.getElementById('popupFamilyHistory').style.display == "flex") {
         document.getElementById('popupFamilyHistory').style.display = "none";
     } else {
@@ -196,6 +281,7 @@ function displayWhereInputField(id){
   
 function changeButtonText(id)
 {
+    console.log(id)
     var elem = document.getElementById(id)
     if (elem.innerText=="See more") elem.innerText = "See less";
     else elem.innerText = "See more";
@@ -234,15 +320,24 @@ function addVaccineDetails(){
 
 function onStart()
 {
-    var items = document.querySelectorAll('[id="seeMore"]')
-    // keep occupation details of step4 hidden at the beginning
-    var el = document.getElementById("employmentDetails")
-    var uel = document.getElementById("unemploymentDetails")
-    el.style.display="none"
-    uel.style.display="none"
-   
+     // keep occupation details of step4 hidden at the beginning
+     var el = document.getElementById("employmentDetails")
+     var uel = document.getElementById("unemploymentDetails")
+     el.style.display="none"
+     uel.style.display="none"
+
+     $('#fatherDetails > #collapseExampleFather > .conditional').hide()
+     $('#motherDetails > #collapseExampleMother > .conditional').hide()
  
-    for(var i=0; i<items.length; i++){
-        items[i].id='seeMore'+i.toString()
+    var ids= ['fatherDetails','motherDetails','siblingDetails','childrenDetails','relativeDetails']
+    for(var i = 0; i<ids.length; i++)
+    {
+        var items = document.querySelectorAll('[id='+ids[i]+']')
+        console.log(ids[i]+' '+items.length+'---------')
+
+        for(var j=0; j<items.length; j++){
+            items[j].id = ids[i] + j.toString()
+            $('#'+items[j].id+' > .extend > p:eq(0) > a:eq(0)').attr('id', 'seeMore' + items[j].id)
+        }   
     }
 }

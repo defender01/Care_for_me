@@ -16,25 +16,35 @@
     <input type="text" name="first_speak" placeholder="" /> 
     <br>
     <h4 class="subsection-title">Immunization history</h4>
-    <div class="row">
-      <div class="col-7">
-        <label class="fieldlabels">Vaccine name</label>
-      </div>
-      <div class="col-5">
-        <label class="fieldlabels">Date taken</label>
+    
+    <div class="family-container">
+      <div class="part">
+        <div class="sub-part-row">
+          <h5 class="left">Add vaccine information</h3>
+            <button type="button" class="btn btn-outline-light add" onclick="addVaccineDetails()"></button>
+        </div>
+        <div class="sub-part">        
+          <div class="row">
+            <div class="col-7">
+              <label class="fieldlabels">Vaccine name</label>
+            </div>
+            <div class="col-5">
+              <label class="fieldlabels">Date taken</label>
+            </div>
+          </div>
+          <div id="vaccineDetails">
+            <div class="row" id="vaccine">      
+              <div class="col-7">
+                <input type="text" name="vaccineName" placeholder="Vaccine name" />
+              </div>
+              <div class="col-5">
+                <input type="text" name="date_taken" placeholder="Date" />
+              </div>
+            </div>
+          </div>                  
+        </div>
       </div>
     </div>
-    <div id="vaccineDetails">
-      <div class="row" id="vaccine">      
-        <div class="col-7">
-          <input type="text" name="vaccineName" placeholder="Vaccine name" />
-        </div>
-        <div class="col-5">
-          <input type="text" name="date_taken" placeholder="Date" />
-        </div>
-      </div>
-    </div>
-    <button type="button" class="btn btn-outline-light add" onclick="addVaccineDetails()" ></button>
   </div>  
   <input type="button" name="next" class="next action-button" value="Next" />
 </fieldset>
