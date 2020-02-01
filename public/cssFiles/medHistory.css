@@ -218,6 +218,18 @@ p {
     margin: 10px 10px 0px 10px;
 }
 
+.popUpRowElementHolder{
+    display: flex;
+}
+.popUpRowElementHolder .okButton{
+    flex: 1;
+    margin: 0 5px 5px 35px;
+}
+.popUpRowElementHolder .cancelButton{
+    flex: 1;
+    margin: 0 35px 5px 5px;
+}
+
 /* for popup design */
 
 

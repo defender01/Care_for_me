@@ -158,7 +158,15 @@ function togglePopUpForClose()
       }
 }
 
+function displayHowMuchInputField(id)
+{
 
+}
+
+
+function displayWhereInputField(id){
+
+}
 
 function togglePopUpFamilyHistory(from) {
     var fieldNames =["name","gender","birthDate","healthAndPsychiaty"]
