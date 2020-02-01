@@ -243,7 +243,7 @@
       </ul>
       <div class="tab-content" id="myTabContent">
         <div class="tab-pane fade show active" id="parents" role="tabpanel" aria-labelledby="parents-tab">
-          <div class="part">
+          <div class="part" id= "parentsInfo">
             <div class="sub-part-row">
               <h5 class="left">Father's details</h3>
             </div>
@@ -357,12 +357,12 @@
           </div>
         </div>   
         <div class="tab-pane fade" id="siblings" role="tabpanel" aria-labelledby="siblings-tab">
-          <div class="part">
+          <div class="part" id= "siblingsInfo">
             <div class="sub-part-row">
               <h5 class="left">Sibling's details</h3>
-              <button type="button" class="btn btn-outline-light add" onclick="togglePopUpFamilyHistory(this.parentElement.parentElement.id)" ></button>
+              <button type="button" class="btn btn-outline-light add" onclick="togglePopUpFamilyHistoryAdd(this.parentElement.parentElement.id)" ></button>
             </div>
-            <div class="sub-part" id='siblingDetails'>
+            <div class="sub-part" id='siblingsDetails'>
               <div class="sub-part-row">
                 <p class="title">
                   Name
@@ -417,10 +417,10 @@
           </div>                  
         </div>
         <div class="tab-pane fade" id="children" role="tabpanel" aria-labelledby="children-tab">
-          <div class="part">
+          <div class="part" id= "childrenInfo">
             <div class="sub-part-row">
               <h5 class="left">Children's details</h3>
-              <button type="button" class="btn btn-outline-light add" onclick="togglePopUpFamilyHistory(this.parentElement.parentElement.id)" ></button>
+              <button type="button" class="btn btn-outline-light add" onclick="togglePopUpFamilyHistoryAdd(this.parentElement.parentElement.id)" ></button>
             </div>
             <div class="sub-part" id='childrenDetails'>
               <div class="sub-part-row">
@@ -475,10 +475,10 @@
           </div>                  
         </div>
         <div class="tab-pane fade" id="relatives" role="tabpanel" aria-labelledby="relatives-tab">
-          <div class="part">
+          <div class="part" id= "relativeInfo">
             <div class="sub-part-row">
               <h5 class="left">Relative details</h3>
-              <button type="button" class="btn btn-outline-light add" onclick="togglePopUpFamilyHistory(this.parentElement.parentElement.id)" ></button>
+              <button type="button" class="btn btn-outline-light add" onclick="togglePopUpFamilyHistoryAdd(this.parentElement.parentElement.id)" ></button>
             </div>
             <div class="sub-part" id='relativeDetails'>
               <div class="sub-part-row">
@@ -552,8 +552,8 @@
           <textarea class="form-control" id="famimilyMemberHealthAndPsychiatric" rows="3"></textarea>
 
           <div class="rowRowElementHolder">
-            <button type="button" class="btn btn-outline-success singleElement" onclick="togglePopUpFamilyHistory('ok')">Ok</button>
-            <button type="button" class="btn btn-outline-danger singleElement" onclick="togglePopUpFamilyHistory('cancel')">Cancel</button>
+            <button type="button" class="btn btn-outline-success singleElement" id='popupOk' onclick="togglePopUpFamilyHistory('ok')">Ok</button>
+            <button type="button" class="btn btn-outline-danger singleElement" id='popupCancel' onclick="togglePopUpFamilyHistory('cancel')">Cancel</button>
           </div>
         </div>  
       </div>

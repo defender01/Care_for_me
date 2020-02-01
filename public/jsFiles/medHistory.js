@@ -163,9 +163,15 @@ function togglePopUpForClose()
 function togglePopUpFamilyHistory(from) {
     var fieldNames =["name","gender","birthDate","healthAndPsychiaty"]
     var popupElmIds = ["famimilyMemberName","famimilyMemberGender","famimilyMemberBirthDate","famimilyMemberHealthAndPsychiatric"]
+    var tabTypes = ["father", "mother", "siblings", "children"]
+    var collapseIds = ["collapseExampleFather", "collaplseExampleMother", "collaplseExampleSiblings", "collaplseExampleChildren"]
+    var detailIds = ["fatherDetails", "motherDetails", "siblingsDetails", "childrenDetails"]
     var inputValues = {
 
     }
+
+    $('[id="popupOk"]').attr('onclick','togglePopUpFamilyHistory("ok")')
+    $('[id="popupCancel"]').attr('onclick','togglePopUpFamilyHistory("cancel")')
 
     if(from !== 'ok' && from !== 'cancel')
         $('p[id = "calledFrom"]').html(from)
@@ -184,7 +190,12 @@ function togglePopUpFamilyHistory(from) {
 
     if(from === 'ok')
     {
-        var ind =0;
+        var ind =0,typeNo;
+        for(var i=0; i<tabTypes.length; i++)
+            if(parentID.indexOf(tabTypes[i])!=-1) typeNo=i;
+
+        var currentItemNo = $('[id^="'+detailIds[typeNo]+'"]').length
+
         for(var i=0; i<popupElmIds.length; i++)
             inputValues[fieldNames[i]] = $('[id='+ popupElmIds[i] +']').val()
         
@@ -198,14 +209,14 @@ function togglePopUpFamilyHistory(from) {
                 '<p class="title">'+
                   'Name'+
                 '</p>'+
-                '<button type="button" class="btn btn-outline-dark" onclick="togglePopUpFamilyHistory("siblingDetails")">Edit</button>'+
+                '<button type="button" class="btn btn-outline-dark" onclick="togglePopUpFamilyHistory(this.parentElement.parentElement.id)">Edit</button>'+
               '</div>'+
               '<div class="sub-sub-part">'+
                 '<p>'+
                 inputValues[fieldNames[ind++]]+
                 '</p>'+
               '</div>' +           
-              '<div class="collapse" id="collapseExampleSiblings">'+
+              '<div class="collapse" id="'+collapseIds[typeNo]+currentItemNo+1+'">'+
                   '<hr>'+
                   '<div class="conditional">'+
                     '<p class="title">'+
@@ -237,12 +248,18 @@ function togglePopUpFamilyHistory(from) {
               '</div>'+
               '<div class="extend">'+
                 '<p>'+
-                  '<a class="btn btn-light" data-toggle="collapse" href="#collapseExampleSiblings" id="seeMore'+ parentID +'" role="button" onclick="changeButtonText(this.id)" aria-expanded="false" aria-controls="collapseExample">'+
+                  '<a class="btn btn-light" data-toggle="collapse" href="#'+collapseIds[typeNo]+currentItemNo+1+'" id="seeMore'+ parentID +'" role="button" onclick="changeButtonText(this.id)" aria-expanded="false" aria-controls="collapseExample">'+
                     'See more'+
                   '</a>'+
                 '</p>'+
               '</div>'
         )
+        
+        console.log(parentID)
+        if(typeNo==0)
+            $('#'+parentID+' > #collapseExampleFather > .conditional').hide()
+        if(typeNo==1)
+            $('#'+parentID+' > #collapseExampleMother > .conditional').hide()
 
         
     }
@@ -251,6 +268,107 @@ function togglePopUpFamilyHistory(from) {
         document.getElementById('popupFamilyHistory').style.display = "none";
     } else {
         document.getElementById('popupFamilyHistory').style.display = "flex";
+    }
+}
+
+function togglePopUpFamilyHistoryAdd(from) {
+
+    if (document.getElementById('popupFamilyHistory').style.display == "flex") {
+        document.getElementById('popupFamilyHistory').style.display = "none";
+    } else {
+        document.getElementById('popupFamilyHistory').style.display = "flex";
+    }
+
+    $('[id="popupOk"]').attr('onclick','togglePopUpFamilyHistoryAdd("ok")')
+    $('[id="popupCancel"]').attr('onclick','togglePopUpFamilyHistoryAdd("cancel")')
+
+
+    var fieldNames =["name","gender","birthDate","healthAndPsychiaty"]
+    var popupElmIds = ["famimilyMemberName","famimilyMemberGender","famimilyMemberBirthDate","famimilyMemberHealthAndPsychiatric"]
+    var tabTypes = ["father", "mother", "siblings", "children"]
+    var collapseIds = ["collapseExampleFather", "collaplseExampleMother", "collaplseExampleSiblings", "collaplseExampleChildren"]
+    var detailIds = ["fatherDetails", "motherDetails", "siblingsDetails", "childrenDetails"]
+    var inputValues = {
+
+    }
+
+    if(from !== 'ok' && from !== 'cancel')
+        $('p[id = "calledFrom"]').html(from)
+
+    var parentID = $('p[id = "calledFrom"]').html();
+    
+    console.log(parentID)
+
+    $('[class= "conditional"]').show()
+
+    if(from === 'ok')
+    {
+        var ind =0,typeNo;
+        for(var i=0; i<tabTypes.length; i++)
+            if(parentID.indexOf(tabTypes[i])!=-1) typeNo=i;
+
+        var currentItemNo = $('[id^="'+detailIds[typeNo]+'"]').length
+        console.log(detailIds[typeNo]+'  '+currentItemNo)
+
+        for(var i=0; i<popupElmIds.length; i++)
+            inputValues[fieldNames[i]] = $('[id='+ popupElmIds[i] +']').val()
+        
+        console.log(inputValues)
+
+        var parent = document.getElementById(parentID)
+        var newDiv = document.createElement("div")
+        parent.appendChild(newDiv)
+        newDiv.outerHTML = 
+        '<div class="sub-part" id="'+detailIds[typeNo]+currentItemNo+1+'">'+
+        '<div class="sub-part-row">'+
+        '<p class="title">'+
+          'Name'+
+        '</p>'+
+        '<button type="button" class="btn btn-outline-dark" onclick="togglePopUpFamilyHistory(this.parentElement.parentElement.id)">Edit</button>'+
+      '</div>'+
+      '<div class="sub-sub-part">'+
+        '<p>'+
+        inputValues[fieldNames[ind++]]+
+        '</p>'+
+      '</div>' +           
+      '<div class="collapse" id="'+collapseIds[typeNo]+'">'+
+          '<hr>'+
+          '<div class="conditional">'+
+            '<p class="title">'+
+              'Gender'+
+            '</p>'+
+            '<div class="sub-sub-part">'+
+              '<p>'+
+              inputValues[fieldNames[ind++]]+
+              '</p>'+
+            '</div>'+
+          '</div>'+
+        '<p class="title">'+
+          'Birth date'+
+        '</p>'+
+        '<div class="sub-sub-part">'+
+          '<p>'+
+            'Born on '+ inputValues[fieldNames[ind++]] +
+          '</p>'+
+        '</div>'+
+        '<hr>'+
+        '<p class="title">'+
+          'Health & Psychiatric'+
+        '</p>'+
+        '<div class="sub-sub-part">'+
+          '<p>'+
+            inputValues[fieldNames[ind++]]+
+          '</p>'+
+        '</div> '+
+      '</div>'+
+      '<div class="extend">'+
+        '<p>'+
+          '<a class="btn btn-light" data-toggle="collapse" href="#'+collapseIds[typeNo]+'" id="seeMore'+ parentID +'" role="button" onclick="changeButtonText(this.id)" aria-expanded="false" aria-controls="collapseExample">'+
+            'See more'+
+          '</a>'+
+        '</p>'+
+      '</div>'+
+      '</div>'
     }
 }
   
@@ -290,7 +408,6 @@ function addVaccineDetails(){
       '<input type="text" name="date_taken" placeholder="Date" />'+
     '</div>'+
   '</div>'
-  var el= document.querySelectorAll('vaccine')
 }
 
 function onStart()
