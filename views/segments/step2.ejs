@@ -247,57 +247,67 @@
             <div class="sub-part-row">
               <h5 class="left">Father's details</h3>
             </div>
-            <div class="sub-part">                
-              <div class="sub-part-row">
-                <p class="title">
+            <div class="sub-part" id='fatherDetails'>                
+              <div class="sub-part-row" >
+                <p class="title" >
                   Name
                 </p>
-                <button type="button" class="btn btn-outline-dark" onclick="togglePopUpFamilyHistory('parents')">Edit</button>
+                <button type="button" class="btn btn-outline-dark" onclick="togglePopUpFamilyHistory(this.parentElement.parentElement.id)">Edit</button>
               </div>              
               <div class="sub-sub-part">
-                <p>
+                <p name = 'name'>
                   Atikul Islam
                 </p>
               </div>
               <div class="collapse" id="collapseExampleFather">
-                <hr>                
-              <p class="title">
-                Birth date
-              </p>
-              <div class="sub-sub-part">
-                <p>
-                  Born on 05.05.1967
+                <hr>       
+                <div class="conditional">
+                  <p class="title">
+                    Gender
+                  </p>
+                  <div class="sub-sub-part">
+                    <p>
+                      
+                    </p>
+                  </div>
+                </div>               
+                <p class="title">
+                  Birth date
                 </p>
-              </div>
-              <hr>
-              <p class="title">
-                Health & Psychiatric
-              </p>
-              <div class="sub-sub-part">
-                <p>
-                  A psychiatric history is the result of a medical process where a clinician working in the field of mental
-                    health (usually a psychiatrist) systematically records the content of an interview with a patient. ...
-                    Psychologists take a similar history, often referred to as a psychological history.
+                <div class="sub-sub-part">
+                  <p name = 'birthDate'>
+                    Born on 05.05.1967
+                  </p>
+                </div>
+                <hr>
+                <p class="title">
+                  Health & Psychiatric
                 </p>
-              </div> 
-              </div>
-              <div class="extend">
-                <p>
-                  <a class="btn btn-light" data-toggle="collapse" href="#collapseExampleFather" id="seeMore" role="button" onclick="changeButtonText(this.id)" aria-expanded="false" aria-controls="collapseExample">
-                    See more
-                  </a>
-                </p>
-              </div>             
+                <div class="sub-sub-part">
+                  <p name = 'healthAndPsychiatric'>
+                    A psychiatric history is the result of a medical process where a clinician working in the field of mental
+                      health (usually a psychiatrist) systematically records the content of an interview with a patient. ...
+                      Psychologists take a similar history, often referred to as a psychological history.
+                  </p>
+                </div> 
+                </div>
+                <div class="extend">
+                  <p>
+                    <a class="btn btn-light" data-toggle="collapse" href="#collapseExampleFather" id="seeMore" role="button" onclick="changeButtonText(this.id)" aria-expanded="false" aria-controls="collapseExample">
+                      See more
+                    </a>
+                  </p>
+                </div>             
             </div>            
             <div class="sub-part-row">
               <h5 class="left">Mother's details</h3>
             </div>
-            <div class="sub-part">                
+            <div class="sub-part" id='motherDetails'>                
               <div class="sub-part-row">
                 <p class="title">
                   Name
                 </p>
-                <button type="button" class="btn btn-outline-dark" onclick="togglePopUpFamilyHistory()">Edit</button>
+                <button type="button" class="btn btn-outline-dark" onclick="togglePopUpFamilyHistory(this.parentElement.parentElement.id)">Edit</button>
               </div>              
               <div class="sub-sub-part">
                 <p>
@@ -305,26 +315,36 @@
                 </p>
               </div>
               <div class="collapse" id="collapseExampleMother">
-                <hr>                
-              <p class="title">
-                Birth date
-              </p>
-              <div class="sub-sub-part">
-                <p>
-                  Born on 15.11.1970
+                <hr> 
+                <div class="conditional">
+                  <p class="title">
+                    Gender
+                  </p>
+                  <div class="sub-sub-part">
+                    <p>
+                      
+                    </p>
+                  </div>
+                </div>                
+                <p class="title">
+                  Birth date
                 </p>
-              </div>
-              <hr>
-              <p class="title">
-                Health & Psychiatric
-              </p>
-              <div class="sub-sub-part">
-                <p>
-                  A psychiatric history is the result of a medical process where a clinician working in the field of mental
-                    health (usually a psychiatrist) systematically records the content of an interview with a patient. ...
-                    Psychologists take a similar history, often referred to as a psychological history.
+                <div class="sub-sub-part">
+                  <p>
+                    Born on 15.11.1970
+                  </p>
+                </div>
+                <hr>
+                <p class="title">
+                  Health & Psychiatric
                 </p>
-              </div> 
+                <div class="sub-sub-part">
+                  <p>
+                    A psychiatric history is the result of a medical process where a clinician working in the field of mental
+                      health (usually a psychiatrist) systematically records the content of an interview with a patient. ...
+                      Psychologists take a similar history, often referred to as a psychological history.
+                  </p>
+                </div> 
               </div>
               <div class="extend">
                 <p>
@@ -340,14 +360,14 @@
           <div class="part">
             <div class="sub-part-row">
               <h5 class="left">Sibling's details</h3>
-              <button type="button" class="btn btn-outline-light add" onclick="togglePopUpFamilyHistory()" ></button>
+              <button type="button" class="btn btn-outline-light add" onclick="togglePopUpFamilyHistory(this.parentElement.parentElement.id)" ></button>
             </div>
-            <div class="sub-part">
+            <div class="sub-part" id='siblingDetails'>
               <div class="sub-part-row">
                 <p class="title">
                   Name
                 </p>
-                <button type="button" class="btn btn-outline-dark" onclick="togglePopUpFamilyHistory()">Edit</button>
+                <button type="button" class="btn btn-outline-dark" onclick="togglePopUpFamilyHistory(this.parentElement.parentElement.id)">Edit</button>
               </div>
               <div class="sub-sub-part">
                 <p>
@@ -356,14 +376,16 @@
               </div>             
               <div class="collapse" id="collapseExampleSiblings">
                   <hr>                
-                <p class="title">
-                  Gender
-                </p>
-                <div class="sub-sub-part">
-                  <p>
-                    Male
-                  </p>
-                </div> 
+                  <div class="conditional">
+                    <p class="title">
+                      Gender
+                    </p>
+                    <div class="sub-sub-part">
+                      <p>
+                        
+                      </p>
+                    </div>
+                  </div>      
                 <p class="title">
                   Birth date
                 </p>
@@ -398,14 +420,14 @@
           <div class="part">
             <div class="sub-part-row">
               <h5 class="left">Children's details</h3>
-              <button type="button" class="btn btn-outline-light add" onclick="togglePopUpFamilyHistory()" ></button>
+              <button type="button" class="btn btn-outline-light add" onclick="togglePopUpFamilyHistory(this.parentElement.parentElement.id)" ></button>
             </div>
-            <div class="sub-part">
+            <div class="sub-part" id='childrenDetails'>
               <div class="sub-part-row">
                 <p class="title">
                   Name
                 </p>
-                <button type="button" class="btn btn-outline-dark" onclick="togglePopUpFamilyHistory()">Edit</button>
+                <button type="button" class="btn btn-outline-dark" onclick="togglePopUpFamilyHistory(this.parentElement.parentElement.id)">Edit</button>
               </div>
               <div class="sub-sub-part">
                 <p>
@@ -456,14 +478,14 @@
           <div class="part">
             <div class="sub-part-row">
               <h5 class="left">Relative details</h3>
-              <button type="button" class="btn btn-outline-light add" onclick="togglePopUpFamilyHistory()" ></button>
+              <button type="button" class="btn btn-outline-light add" onclick="togglePopUpFamilyHistory(this.parentElement.parentElement.id)" ></button>
             </div>
-            <div class="sub-part">
+            <div class="sub-part" id='relativeDetails'>
               <div class="sub-part-row">
                 <p class="title">
                   Name
                 </p>
-                <button type="button" class="btn btn-outline-dark" onclick="togglePopUpFamilyHistory()">Edit</button>
+                <button type="button" class="btn btn-outline-dark" onclick="togglePopUpFamilyHistory(this.parentElement.parentElement.id)">Edit</button>
               </div>
               <div class="sub-sub-part">
                 <p>
@@ -515,21 +537,19 @@
       <!-- For popup design-->
 
     <div class="modal-bg" id="popupFamilyHistory" style="display: none;" >
-      <div class="modal-container" >
-        <button type="button" class="close" aria-label="Close"  onclick="togglePopUpFamilyHistory()">
-          <span aria-hidden="true">&times;</span>
-        </button> 
+      <div class="modal-container" > 
         <div class="card">
-          <label class="fieldlabels" for="siblingName">Name:</label>
-          <input type="text" name="name" placeholder="" cols="5"/>     
-          <div id="conditional">
-            <label class="fieldlabels" for="gender">Gender:</label>
-            <input type="text" name="gender" placeholder="" cols="5"/>
+          <p id='calledFrom' style="display: none;" ></p>
+          <label class="fieldlabels" for="famimilyMemberName">Name:</label>
+          <input type="text" name="name" id='famimilyMemberName' placeholder="" cols="5"/>     
+          <div class="conditional">
+            <label class="fieldlabels" for="famimilyMemberGender">Gender:</label>
+            <input type="text" name="gender" id='famimilyMemberGender' placeholder="" cols="5"/>
           </div>   
-          <label class="fieldlabels" for="birthDate">Birth date:</label>
-          <input type="text" name="birthDate" placeholder="" cols="5"/>
-          <label class="fieldlabels" for="healthAndPsychiatric">Health and psychiatric details:</label>
-          <textarea class="form-control" id="healthAndPsychiatric" rows="3"></textarea>
+          <label class="fieldlabels" for="famimilyMemberBirthDate">Birth date:</label>
+          <input type="text" name="birthDate" id='famimilyMemberBirthDate' placeholder="" cols="5"/>
+          <label class="fieldlabels" for="famimilyMemberHealthAndPsychiatric">Health and psychiatric details:</label>
+          <textarea class="form-control" id="famimilyMemberHealthAndPsychiatric" rows="3"></textarea>
 
           <div class="rowRowElementHolder">
             <button type="button" class="btn btn-outline-success singleElement" onclick="togglePopUpFamilyHistory('ok')">Ok</button>
