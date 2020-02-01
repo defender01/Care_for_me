@@ -158,6 +158,28 @@ function togglePopUpForClose()
       }
 }
 
+function displayHowMuchInputField(id)
+{
+
+}
+
+
+function displayWhereInputField(id){
+
+    var elem = document.getElementById(id)
+    var el = document.getElementById("employmentDetails")
+    var uel = document.getElementById("unemploymentDetails")
+   
+    if(id == "employed" && elem.checked){
+        el.style.display = "block"
+        uel.style.display = "none"
+    }
+    else {
+        el.style.display = "none"
+        uel.style.display = "block"
+    }
+}
+
   function togglePopUpFamilyHistory(from) {
     if(from === "parents")
         document.getElementById('conditional').style.display = 'none'
