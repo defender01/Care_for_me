@@ -171,9 +171,9 @@ function displayWhereInputField(id){
 function togglePopUpFamilyHistory(from) {
     var fieldNames =["name","gender","birthDate","healthAndPsychiaty"]
     var popupElmIds = ["famimilyMemberName","famimilyMemberGender","famimilyMemberBirthDate","famimilyMemberHealthAndPsychiatric"]
-    var tabTypes = ["father", "mother", "siblings", "children"]
-    var collapseIds = ["collapseExampleFather", "collaplseExampleMother", "collaplseExampleSiblings", "collaplseExampleChildren"]
-    var detailIds = ["fatherDetails", "motherDetails", "siblingsDetails", "childrenDetails"]
+    var tabTypes = ["father", "mother", "siblings", "children","relative"]
+    var collapseIds = ["collapseExampleFather", "collaplseExampleMother", "collaplseExampleSiblings", "collaplseExampleChildren","collaplseExampleRelative"]
+    var detailIds = ["fatherDetails", "motherDetails", "siblingsDetails", "childrenDetails","relativeDetails"]
     var inputValues = {
 
     }
@@ -224,7 +224,7 @@ function togglePopUpFamilyHistory(from) {
                 inputValues[fieldNames[ind++]]+
                 '</p>'+
               '</div>' +           
-              '<div class="collapse" id="'+collapseIds[typeNo]+currentItemNo+1+'">'+
+              '<div class="collapse" id="'+'collapseExample'+parentID+'">'+
                   '<hr>'+
                   '<div class="conditional">'+
                     '<p class="title">'+
@@ -256,18 +256,18 @@ function togglePopUpFamilyHistory(from) {
               '</div>'+
               '<div class="extend">'+
                 '<p>'+
-                  '<a class="btn btn-light" data-toggle="collapse" href="#'+collapseIds[typeNo]+currentItemNo+1+'" id="seeMore'+ parentID +'" role="button" onclick="changeButtonText(this.id)" aria-expanded="false" aria-controls="collapseExample">'+
+                  '<a class="btn btn-light" data-toggle="collapse" href="#'+'collapseExample'+parentID+'" id="seeMore'+ parentID +'" role="button" onclick="changeButtonText(this.id)" aria-expanded="false" aria-controls="collapseExample">'+
                     'See more'+
                   '</a>'+
                 '</p>'+
               '</div>'
         )
         
-        console.log(parentID)
+        console.log(parentID+' typeNo= '+typeNo)
         if(typeNo==0)
-            $('#'+parentID+' > #collapseExampleFather > .conditional').hide()
+            $('#'+parentID+' > #collapseExample'+parentID+' > .conditional').hide()
         if(typeNo==1)
-            $('#'+parentID+' > #collapseExampleMother > .conditional').hide()
+            $('#'+parentID+' > #collapseExample'+parentID+' > .conditional').hide()
 
         
     }
@@ -293,9 +293,9 @@ function togglePopUpFamilyHistoryAdd(from) {
 
     var fieldNames =["name","gender","birthDate","healthAndPsychiaty"]
     var popupElmIds = ["famimilyMemberName","famimilyMemberGender","famimilyMemberBirthDate","famimilyMemberHealthAndPsychiatric"]
-    var tabTypes = ["father", "mother", "siblings", "children"]
-    var collapseIds = ["collapseExampleFather", "collaplseExampleMother", "collaplseExampleSiblings", "collaplseExampleChildren"]
-    var detailIds = ["fatherDetails", "motherDetails", "siblingsDetails", "childrenDetails"]
+    var tabTypes = ["father", "mother", "siblings", "children","relative"]
+    var collapseIds = ["collapseExampleFather", "collaplseExampleMother", "collaplseExampleSiblings", "collaplseExampleChildren","collaplseExampleRelative"]
+    var detailIds = ["fatherDetails", "motherDetails", "siblingsDetails", "childrenDetails","relativeDetails"]
     var inputValues = {
 
     }
@@ -305,7 +305,7 @@ function togglePopUpFamilyHistoryAdd(from) {
 
     var parentID = $('p[id = "calledFrom"]').html();
     
-    console.log(parentID)
+    console.log('parentID= '+parentID)
 
     $('[class= "conditional"]').show()
 
@@ -324,10 +324,12 @@ function togglePopUpFamilyHistoryAdd(from) {
         console.log(inputValues)
 
         var parent = document.getElementById(parentID)
+        var newParentID = detailIds[typeNo]+(currentItemNo+1)
+        console.log('newParentID= '+newParentID)
         var newDiv = document.createElement("div")
         parent.appendChild(newDiv)
         newDiv.outerHTML = 
-        '<div class="sub-part" id="'+detailIds[typeNo]+currentItemNo+1+'">'+
+        '<div class="sub-part" id="'+newParentID+'">'+
         '<div class="sub-part-row">'+
         '<p class="title">'+
           'Name'+
@@ -339,7 +341,7 @@ function togglePopUpFamilyHistoryAdd(from) {
         inputValues[fieldNames[ind++]]+
         '</p>'+
       '</div>' +           
-      '<div class="collapse" id="'+collapseIds[typeNo]+'">'+
+      '<div class="collapse" id="'+'collapseExample'+newParentID+'">'+
           '<hr>'+
           '<div class="conditional">'+
             '<p class="title">'+
@@ -371,7 +373,7 @@ function togglePopUpFamilyHistoryAdd(from) {
       '</div>'+
       '<div class="extend">'+
         '<p>'+
-          '<a class="btn btn-light" data-toggle="collapse" href="#'+collapseIds[typeNo]+'" id="seeMore'+ parentID +'" role="button" onclick="changeButtonText(this.id)" aria-expanded="false" aria-controls="collapseExample">'+
+          '<a class="btn btn-light" data-toggle="collapse" href="#'+'collapseExample'+newParentID+'" id="seeMore'+ newParentID +'" role="button" onclick="changeButtonText(this.id)" aria-expanded="false" aria-controls="collapseExample">'+
             'See more'+
           '</a>'+
         '</p>'+
