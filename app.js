@@ -4,8 +4,12 @@ var bodyParser = require("body-parser")
 var flash = require('connect-flash')
 var session = require("express-session")
 var passport = require("passport")
+var medHistoryModel = require('./models/medHistoryInfo')
 
 var displayName = ''
+
+//import camelCase function
+const camelCase = require('./controllers/functionCollection').camelCase
 
 require("dotenv").config()
 
@@ -74,14 +78,46 @@ app.get("/home", async (req, res) => {
    res.render("home", {displayName})
 })
 
-
 app.get("/test", async (req, res) => {
   res.render("test")
 })
 
+
+
+let diseases = ["High Blood Pressure", "Diabetes", "Asthma", "Schizophrenia", "Glaucoma", "Heart Attack", "Tuberculosis", "Alzheimer Disease", "Migraine", "Cancer", "Eczema", "Chromosomal Abnormality", "Stroke", "Depression", "Hay Fever", "Thalassemia" ]
+let diseasesJson = []
+for(var i=0; i<diseases.length; i++) {
+  diseasesJson.push({
+    name: diseases[i],
+    id: camelCase(diseases[i])})
+}
+
 app.get("/medHistory", async (req, res) => {
-  res.render("medHistory")
+
+  await medHistoryModel.find({},(err, data) => {
+    if (err) throw err
+    else res.render("medHistory", { data, diseasesJson})
+  })
+
 })
+app.get("/profile", async (req, res) => {
+
+  res.render("profile")
+
+})
+
+app.post("/medHistory", async (req, res) => {
+    var userData = new medHistoryModel({
+      _someId: req.body.ObjectId
+  })
+  await userData.save( (err, data) => {
+      if(err) console.error(err)
+      console.log(' data with this id is saved')
+  })
+  res.redirect('/medHistory')
+})
+
+
 
 
 //routes

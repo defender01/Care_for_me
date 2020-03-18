@@ -75,6 +75,12 @@ $(document).ready(function () {
 
 });
 
+function camelCase(str) {
+  return str.replace(/(?:^\w|[A-Z]|\b\w)/g, function(word, index) {
+    return index == 0 ? word.toLowerCase() : word.toUpperCase();
+  }).replace(/\s+/g, '');
+}
+
 function togglePopUp() {
 
     var i;
@@ -169,8 +175,8 @@ function displayWhereInputField(id){
 }
 
 function togglePopUpFamilyHistory(from) {
-    var fieldNames =["name","gender","birthDate","healthAndPsychiaty"]
-    var popupElmIds = ["famimilyMemberName","famimilyMemberGender","famimilyMemberBirthDate","famimilyMemberHealthAndPsychiatric"]
+    var fieldNames =["name","gender","birthDate","health","psychiaty"]
+    var popupElmIds = ["famimilyMemberName","famimilyMemberGender","famimilyMemberBirthDate","famimilyMemberHealth","famimilyMemberPsychiatric"]
     var tabTypes = ["father", "mother", "siblings", "children","relative"]
     var collapseIds = ["collapseExampleFather", "collaplseExampleMother", "collaplseExampleSiblings", "collaplseExampleChildren","collaplseExampleRelative"]
     var detailIds = ["fatherDetails", "motherDetails", "siblingsDetails", "childrenDetails","relativeDetails"]
@@ -198,7 +204,7 @@ function togglePopUpFamilyHistory(from) {
 
     if(from === 'ok')
     {
-        var ind =0,typeNo;
+        var ind =0,ind2=0,typeNo;
         for(var i=0; i<tabTypes.length; i++)
             if(parentID.indexOf(tabTypes[i])!=-1) typeNo=i;
 
@@ -246,7 +252,16 @@ function togglePopUpFamilyHistory(from) {
                 '</div>'+
                 '<hr>'+
                 '<p class="title">'+
-                  'Health & Psychiatric'+
+                  'Health'+
+                '</p>'+
+                '<div class="sub-sub-part">'+
+                  '<p>'+
+                    inputValues[fieldNames[ind++]]+
+                  '</p>'+
+                '</div> '+
+                '<hr>'+
+                '<p class="title">'+
+                  'Psychiatric'+
                 '</p>'+
                 '<div class="sub-sub-part">'+
                   '<p>'+
@@ -260,7 +275,12 @@ function togglePopUpFamilyHistory(from) {
                     'See more'+
                   '</a>'+
                 '</p>'+
-              '</div>'
+              '</div>'+
+              '<input type="text" name="name" value= "'+inputValues[fieldNames[ind2++]] +'" style="display: none">'+
+              '<input type="text" name="gender" value= "'+inputValues[fieldNames[ind2++]] +'" style="display: none">'+
+              '<input type="text" name="birthDate" value= "'+inputValues[fieldNames[ind2++]] +'" style="display: none">'+
+              '<input type="text" name="health" value= "'+inputValues[fieldNames[ind2++]] +'" style="display: none">'+
+              '<input type="text" name="psychiatric" value= "'+inputValues[fieldNames[ind2++]] +'" style="display: none">'
         )
         
         console.log(parentID+' typeNo= '+typeNo)
@@ -291,8 +311,8 @@ function togglePopUpFamilyHistoryAdd(from) {
     $('[id="popupCancel"]').attr('onclick','togglePopUpFamilyHistoryAdd("cancel")')
 
 
-    var fieldNames =["name","gender","birthDate","healthAndPsychiaty"]
-    var popupElmIds = ["famimilyMemberName","famimilyMemberGender","famimilyMemberBirthDate","famimilyMemberHealthAndPsychiatric"]
+    var fieldNames =["name","gender","birthDate","health","psychiaty"]
+    var popupElmIds = ["famimilyMemberName","famimilyMemberGender","famimilyMemberBirthDate","famimilyMemberHealth","famimilyMemberPsychiatric"]
     var tabTypes = ["father", "mother", "siblings", "children","relative"]
     var collapseIds = ["collapseExampleFather", "collaplseExampleMother", "collaplseExampleSiblings", "collaplseExampleChildren","collaplseExampleRelative"]
     var detailIds = ["fatherDetails", "motherDetails", "siblingsDetails", "childrenDetails","relativeDetails"]
@@ -311,7 +331,7 @@ function togglePopUpFamilyHistoryAdd(from) {
 
     if(from === 'ok')
     {
-        var ind =0,typeNo;
+        var ind =0,ind2=0,typeNo;
         for(var i=0; i<tabTypes.length; i++)
             if(parentID.indexOf(tabTypes[i])!=-1) typeNo=i;
 
@@ -363,7 +383,16 @@ function togglePopUpFamilyHistoryAdd(from) {
         '</div>'+
         '<hr>'+
         '<p class="title">'+
-          'Health & Psychiatric'+
+          'Health'+
+        '</p>'+
+        '<div class="sub-sub-part">'+
+          '<p>'+
+            inputValues[fieldNames[ind++]]+
+          '</p>'+
+        '</div> '+
+        '<hr>'+
+        '<p class="title">'+
+          'Psychiatric'+
         '</p>'+
         '<div class="sub-sub-part">'+
           '<p>'+
@@ -373,12 +402,17 @@ function togglePopUpFamilyHistoryAdd(from) {
       '</div>'+
       '<div class="extend">'+
         '<p>'+
-          '<a class="btn btn-light" data-toggle="collapse" href="#'+'collapseExample'+newParentID+'" id="seeMore'+ newParentID +'" role="button" onclick="changeButtonText(this.id)" aria-expanded="false" aria-controls="collapseExample">'+
+           '<a class="btn btn-light" data-toggle="collapse" href="#'+'collapseExample'+newParentID+'" id="seeMore'+ newParentID +'" role="button" onclick="changeButtonText(this.id)" aria-expanded="false" aria-controls="collapseExample">'+
             'See more'+
           '</a>'+
         '</p>'+
       '</div>'+
-      '</div>'
+      '</div>'+
+      '<input type="text" name="name" value= "'+inputValues[fieldNames[ind2++]] +'" style="display: none">'+
+      '<input type="text" name="gender" value= "'+inputValues[fieldNames[ind2++]] +'" style="display: none">'+
+      '<input type="text" name="birthDate" value= "'+inputValues[fieldNames[ind2++]] +'" style="display: none">'+
+      '<input type="text" name="health" value= "'+inputValues[fieldNames[ind2++]] +'" style="display: none">'+
+      '<input type="text" name="psychiatric" value= "'+inputValues[fieldNames[ind2++]] +'" style="display: none">'
     }
 }
   
@@ -428,8 +462,8 @@ function onStart()
      el.style.display="none"
      uel.style.display="none"
 
-     $('#fatherDetails > #collapseExampleFather > .conditional').hide()
-     $('#motherDetails > #collapseExampleMother > .conditional').hide()
+     $('#fatherDetails > #collapseExamplefatherDetails > .conditional').hide()
+     $('#motherDetails > #collapseExamplemotherDetails > .conditional').hide()
  
     var ids= ['fatherDetails','motherDetails','siblingDetails','childrenDetails','relativeDetails']
     for(var i = 0; i<ids.length; i++)

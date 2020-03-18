@@ -17,14 +17,14 @@
       <div class="part">
         <div class="sub-part-row">
           <h5 class="left">Specialization (if any):</h3>
-            <button type="button" class="btn btn-outline-light add"></button>
+            <button type="button" class="btn btn-outline-light add" onclick="togglePopUpFamilyHistoryAdd(this.parentElement.parentElement.id)"></button>
         </div>
         <div class="sub-part">
           <div class="sub-part-row">
             <p class="title">
               Degree Name
             </p>
-            <button type="button" class="btn btn-outline-dark">Edit</button>
+            <button type="button" class="btn btn-outline-dark" onclick="togglePopUpFamilyHistory(this.parentElement.parentElement.id)">Edit</button>
           </div>
           <div class="sub-sub-part">
             <p>
@@ -70,6 +70,30 @@
           </div>
         </div>
       </div>
+      
+        <!-- For popup design-->
+
+      <div class="modal-bg" id="popupFamilyHistory" style="display: none" >
+        <div class="modal-container" > 
+          <div class="card">
+            <p id='calledFrom' style="display: none" ></p>
+            <label class="fieldlabels" for="degreeName">Degree Name:</label>
+            <input type="text" name="degreeName" id='degreeName' placeholder="" cols="5"/>     
+            <label class="fieldlabels" for="passingDate">Passing date:</label>
+            <input type="text" name="passingDate" id='passingDate' placeholder="" cols="5"/>
+            <label class="fieldlabels" for="universityName">University:</label>
+            <input type="text" name="universityName" id='universityName' placeholder="" cols="5"/>
+            <label class="fieldlabels" for="certificateLink">Certificate Link:</label>
+            <input type="text" name="certificateLink" id='certificateLink' placeholder="" cols="5"/>
+
+            <div class="rowRowElementHolder">
+              <button type="button" class="btn btn-outline-success singleElement" id='popupOk' onclick="togglePopUpFamilyHistory('ok')">Ok</button>
+              <button type="button" class="btn btn-outline-danger singleElement" id='popupCancel' onclick="togglePopUpFamilyHistory('cancel')">Cancel</button>
+            </div>
+          </div>  
+        </div>
+      </div>
+
     </div>
     <br>
     <br>
@@ -94,12 +118,12 @@
         </div>
         <div class="sub-part">
           <label class="fieldlabels">What is your occupation? </label>
-          <input type="text" name="occupation" placeholder="" />
+          <input type="text" name="occupationName" placeholder="" />
 
           <label class="fieldlabels">How many hours do you work in a week? </label>
           <input type="text" name="workingHour" placeholder="" />
 
-          <label class="fieldlabels">What is the typical mode of work? ? </label>
+          <label class="fieldlabels">What is the typical mode of work? </label>
           <input type="text" name="modeOfWork" placeholder="" />
         </div>
 
@@ -113,7 +137,7 @@
         <div class="sub-part">
           <div class="sub-sub-part">
             <label class="fieldlabels">Reason of your unemployment? </label>
-            <input type="text" name="highestEduDegree" placeholder="Retired/ Disabled/ Sick leave etc." />
+            <input type="text" name="unemploymentReason" placeholder="Retired/ Disabled/ Sick leave etc." />
           </div>
         </div>
       </div>

@@ -403,3 +403,20 @@ p {
     flex: 1;
     margin: 0 5px 0 5px;
 }
+
+.secondaryNav{
+    background-color: rgb(255, 255, 255);
+}
+
+.row .tag{
+    text-align: right;
+    font-weight: bold;
+    padding: 0 10px 0 0;
+}
+.row .tag label{
+    color: rgb(34, 30, 30);
+}
+.row .value p{
+    text-align: left;
+    padding: 0 0 0 100px;
+}
