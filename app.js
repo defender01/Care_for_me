@@ -20,7 +20,7 @@ var database_controller = require("./controllers/database_controller")
 
 var app = express()
 
-var PORT = process.env.PORT || 8000
+var PORT = process.env.PORT || 3008
 
 app.use("/assets", express.static(__dirname + "/public"))
 app.use("/resources", express.static(__dirname + "/resources"))
