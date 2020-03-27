@@ -1,6 +1,6 @@
 var express = require('express')
 var router = express.Router()
-var dataModel = require('../models/dailyinfo')
+var dataModel = require('../models/dailyInfo')
 
 const { checkAuthenticated, checkNotAuthenticated } = require('../controllers/auth_helper')
 
@@ -49,5 +49,9 @@ router.get("/collection", checkAuthenticated, async (req, res) => {
      else res.render("info_display", { data, displayName})
    })
  })
+
+router.post("/medHistory",checkAuthenticated, async (req, res) => {
+    
+})
 
 module.exports = router

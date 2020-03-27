@@ -12,202 +12,40 @@
     
     <div class="row">
       <div class="col">
-        <div class="custom-control custom-checkbox">
-          <input 
-            type="checkbox" 
-            class="custom-control-input" 
-            id="diseaseID_1" 
-            name="highBloodPressure"
-          >
-          <label class="custom-control-label" for="diseaseID_1">
-            High Blood Pressure
-          </label>
-        </div>
-
-        <div class="custom-control custom-checkbox">
-          <input 
-            type="checkbox" 
-            class="custom-control-input" 
-            id="diseaseID_2" 
-            name="diabetes"
-          >
-          <label class="custom-control-label" for="diseaseID_2">
-            Diabetes
-          </label>
-        </div>
-
-        <div class="custom-control custom-checkbox">
-          <input 
-            type="checkbox" 
-            class="custom-control-input" 
-            id="diseaseID_3" 
-            name="asthma"
-          >
-          <label class="custom-control-label" for="diseaseID_3">
-            Asthma
-          </label>
-        </div>
-
-        <div class="custom-control custom-checkbox">
-          <input 
-            type="checkbox" 
-            class="custom-control-input" 
-            id="diseaseID_4" 
-            name="schizophrenia"
-          >
-          <label class="custom-control-label" for="diseaseID_4">
-            Schizophrenia
-          </label>
-        </div>
-
-        <div class="custom-control custom-checkbox">
-          <input 
-            type="checkbox" 
-            class="custom-control-input" 
-            id="diseaseID_5" 
-            name="glaucoma"
-          >
-          <label class="custom-control-label" for="diseaseID_5">
-            Glaucoma
-          </label>
-        </div>
-
-        <div class="custom-control custom-checkbox">
-          <input 
-            type="checkbox" 
-            class="custom-control-input" 
-            id="diseaseID_6" 
-            name="heartAttack"
-          >
-          <label class="custom-control-label" for="diseaseID_6">
-            Heart Attack
-          </label>
-        </div>
-
-        <div class="custom-control custom-checkbox">
-          <input 
-            type="checkbox" 
-            class="custom-control-input" 
-            id="diseaseID_7" 
-            name="tuberculosis"
-          >
-          <label class="custom-control-label" for="diseaseID_7">
-            Tuberculosis
-          </label>
-        </div>
-
-        <div class="custom-control custom-checkbox">
-          <input 
-            type="checkbox" 
-            class="custom-control-input" 
-            id="diseaseID_8" 
-            name="alzheimerDisease"
-          >
-          <label class="custom-control-label" for="diseaseID_8">
-            Alzheimer's disease
-          </label>
-        </div>
-
+        <% if(typeof diseasesJson != 'undefined'){ %> 
+          <% for(let i = 0 ; i < diseasesJson.length/2; i++) {%>
+              
+          <div class="custom-control custom-checkbox">
+            <input 
+              type="checkbox" 
+              class="custom-control-input" 
+              id='<%= diseasesJson[i].id %>'
+              name='<%= diseasesJson[i].name%>'
+            >
+            <label class="custom-control-label" for='<%= diseasesJson[i].id %>'>
+              <%= diseasesJson[i].name %>
+            </label>
+          </div>
+         <% } %>
+        <% } %>
       </div>
-  
       <div class="col">
-
-        <div class="custom-control custom-checkbox">
-          <input 
-            type="checkbox" 
-            class="custom-control-input" 
-            id="diseaseID_9" 
-            name="migraine"
-          >
-          <label class="custom-control-label" for="diseaseID_9">
-            Migraine
-          </label>
-        </div>
-
-        <div class="custom-control custom-checkbox">
-          <input 
-            type="checkbox" 
-            class="custom-control-input" 
-            id="diseaseID_10" 
-            name="cancer"
-          >
-          <label class="custom-control-label" for="diseaseID_10">
-            Cancer
-          </label>
-        </div>
-
-        <div class="custom-control custom-checkbox">
-          <input 
-            type="checkbox" 
-            class="custom-control-input" 
-            id="diseaseID_11" 
-            name="eczema"
-          >
-          <label class="custom-control-label" for="diseaseID_11">
-            Eczema
-          </label>
-        </div>
-
-        <div class="custom-control custom-checkbox">
-          <input 
-            type="checkbox" 
-            class="custom-control-input" 
-            id="diseaseID_12" 
-            name="chromosomalAbnormality"
-          >
-          <label class="custom-control-label" for="diseaseID_12">
-            Chromosomal Abnormality
-          </label>
-        </div>
-  
-        <div class="custom-control custom-checkbox">
-          <input 
-            type="checkbox" 
-            class="custom-control-input" 
-            id="diseaseID_13" 
-            name="stroke"
-          >
-          <label class="custom-control-label" for="diseaseID_13">
-            Stroke
-          </label>
-        </div>
-
-        <div class="custom-control custom-checkbox">
-          <input 
-            type="checkbox" 
-            class="custom-control-input" 
-            id="diseaseID_14" 
-            name="depression"
-          >
-          <label class="custom-control-label" for="diseaseID_14">
-            Depression
-          </label>
-        </div>
-
-        <div class="custom-control custom-checkbox">
-          <input 
-            type="checkbox" 
-            class="custom-control-input" 
-            id="diseaseID_15" 
-            name="hayFever"
-          >
-          <label class="custom-control-label" for="diseaseID_15">
-            Hay Fever
-          </label>
-        </div>
-
-        <div class="custom-control custom-checkbox">
-          <input 
-            type="checkbox" 
-            class="custom-control-input" 
-            id="diseaseID_16" 
-            name="thalassemia"
-          >
-          <label class="custom-control-label" for="diseaseID_16">
-            Thalassemia
-          </label>
-        </div>
-
+        <% if(typeof diseasesJson != 'undefined'){ %> 
+          <% for(let i = diseasesJson.length/2 ; i < diseasesJson.length; i++) {%>
+              
+          <div class="custom-control custom-checkbox">
+            <input 
+              type="checkbox" 
+              class="custom-control-input" 
+              id='<%= diseasesJson[i].id %>'
+              name='<%= diseasesJson[i].name%>'
+            >
+            <label class="custom-control-label" for='<%= diseasesJson[i].id %>'>
+              <%= diseasesJson[i].name %>
+            </label>
+          </div>
+         <% } %>
+        <% } %>
       </div>
 
     </div>
@@ -536,10 +374,10 @@
       
       <!-- For popup design-->
 
-    <div class="modal-bg" id="popupFamilyHistory" style="display: none;" >
+    <div class="modal-bg" id="popupFamilyHistory" style="display: none" >
       <div class="modal-container" > 
         <div class="card">
-          <p id='calledFrom' style="display: none;" ></p>
+          <p id='calledFrom' style="display: none" ></p>
           <label class="fieldlabels" for="famimilyMemberName">Name:</label>
           <input type="text" name="name" id='famimilyMemberName' placeholder="" cols="5"/>     
           <div class="conditional">
@@ -548,8 +386,10 @@
           </div>   
           <label class="fieldlabels" for="famimilyMemberBirthDate">Birth date:</label>
           <input type="text" name="birthDate" id='famimilyMemberBirthDate' placeholder="" cols="5"/>
-          <label class="fieldlabels" for="famimilyMemberHealthAndPsychiatric">Health and psychiatric details:</label>
-          <textarea class="form-control" id="famimilyMemberHealthAndPsychiatric" rows="3"></textarea>
+          <label class="fieldlabels" for="famimilyMemberHealth">Health details:</label>
+          <textarea class="form-control" id="famimilyMemberHealth" rows="3"></textarea>
+          <label class="fieldlabels" for="famimilyMemberPsychiatric">Psychiatric details:</label>
+          <textarea class="form-control" id="famimilyMemberPsychiatric" rows="3"></textarea>
 
           <div class="rowRowElementHolder">
             <button type="button" class="btn btn-outline-success singleElement" id='popupOk' onclick="togglePopUpFamilyHistory('ok')">Ok</button>

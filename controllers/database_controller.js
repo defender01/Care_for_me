@@ -1,4 +1,4 @@
-var dataModel = require('../models/dailyinfo')
+var dataModel = require('../models/dailyInfo')
 
 module.exports = (app)=>{    
 

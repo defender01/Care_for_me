@@ -41,7 +41,7 @@ p {
 #msform input, #msform textarea {
     padding: 8px 15px 8px 15px;
     border: 1px solid #ccc;
-    border-radius: 4px;
+    border-radius: 0px;
     margin-bottom: 10px;
     margin-top: 2px;
     width: 100%;
@@ -233,10 +233,6 @@ p {
 /* for popup design */
 
 
-.extraInput{
-    margin-left: 25px;
-}
-
 .purple-text {
     color: #673AB7;
     font-weight: normal
@@ -252,22 +248,7 @@ p {
 
 .fieldlabels {
     color: gray;
-    text-align: left;
-}
-
-#msform .fieldInputs{
-    padding: 2px 5px 2px 5px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    margin-bottom: 10px;
-    margin-top: 2px;
-    width: 60%;
-    box-sizing: border-box;
-    font-family: montserrat;
-    background-color: rgb(255, 255, 255);
-    font-size: 15px;
-    color: #2C3E50;
-    letter-spacing: 1px
+    text-align: left
 }
 
 #progressbar {
@@ -421,4 +402,21 @@ p {
 .rowRowElementHolder .singleElement{
     flex: 1;
     margin: 0 5px 0 5px;
+}
+
+.secondaryNav{
+    background-color: rgb(255, 255, 255);
+}
+
+.row .tag{
+    text-align: right;
+    font-weight: bold;
+    padding: 0 10px 0 0;
+}
+.row .tag label{
+    color: rgb(34, 30, 30);
+}
+.row .value p{
+    text-align: left;
+    padding: 0 0 0 100px;
 }
