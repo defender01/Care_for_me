@@ -20,13 +20,10 @@
 
                     <h6> GENERAL </h6>
 
-                    <!-- <div class="row">
-                        <div class="col-4">
-                            <label class="fieldlabels">How much? </label>
-                        </div>
-                        <div class="col-8">
-                            <input type="text" name="how_much" placeholder="" />
-                        </div>
+                    <!-- <div class="extraInput" style="display: block">
+                        <label class="fieldlabels">How much? </label>
+                        <br>
+                        <input class="fieldInputs" type="text" name="how_much" placeholder="" />
                     </div> -->
                     
                     <script>
@@ -38,42 +35,25 @@
                             var newDiv = document.createElement("div");
                             parent.appendChild(newDiv);
                             newDiv.outerHTML = '<div class="custom-control custom-checkbox">' +
-                                                    '<input type="checkbox" class="custom-control-input" id="generalDisorderID_' + (i+1) + '" name="' + generalDisordersForName[i] +'">' +
+                                                    '<input type="checkbox" class="custom-control-input" id="generalDisorderID_' + (i+1) + '" name="' + generalDisordersForName[i] +'" onclick="displayHowMuchInputField(this.id)">' +
                                                     '<label class="custom-control-label" for="generalDisorderID_' + (i+1) + '">' +
                                                         generalDisorders[i] +
                                                     '</label>'+
                                                 '</div>'
-
+                            if(i==0 || i==1){
+                                var anotherDiv = document.createElement("div");
+                                parent.appendChild(anotherDiv);
+                                anotherDiv.outerHTML = '<div id="howMuchGeneralDisorder_' + (i+1) +'" class="extraInput" style="display: none">' +
+                                                            '<label for= "howMuch' + generalDisordersForName[i] +'" class="fieldlabels">How much? </label>' +
+                                                            '<br>' +
+                                                            '<input class="fieldInputs" type="text" id= "howMuch' + generalDisordersForName[i] +'" name="how_much_' + generalDisordersForName[i] +'" placeholder="" />' +
+                                                        '</div>';
+                            }
                         }
                     </script>
                 
                 </div>
 
-                <br> 
-
-                <div id='muscleDisorder'>
-
-                    <h6> Muscle/Joints/Bones </h6>
-                    
-                    <script>
-                        var muscleDisorders = ['Numbness','Joint pain','Muscle weakness','Joint swelling']
-                        var muscleDisordersForName = ['numbness','jointPain','muscleWeakness','jointSwelling']
-                        var parent = document.getElementById("muscleDisorder");
-
-                        for(var i=0;i<muscleDisorders.length;i++){
-                            var newDiv = document.createElement("div");
-                            parent.appendChild(newDiv);
-                            newDiv.outerHTML = '<div class="custom-control custom-checkbox">' +
-                                                    '<input type="checkbox" class="custom-control-input" id="muscleDisorderID_' + (i+1) + '" name="' + muscleDisordersForName[i] +'">' +
-                                                    '<label class="custom-control-label" for="muscleDisorderID_' + (i+1) + '">' +
-                                                        muscleDisorders[i] +
-                                                    '</label>'+
-                                                '</div>'
-                        }
-                    </script>
-                
-                </div>
-                
                 <br> 
 
                 <div id='earsDisorder'>
@@ -176,9 +156,67 @@
                 
                 </div>
 
+                <br>
+
+                <div id='womernDisorder'>
+
+                    <h6> WOMEN ONLY </h6>
+                    
+                    <script>
+                        var womernDisorders = ['Abnormal Pap smear','Irregular periods','Bleeding between periods','PMS']
+                        var womernDisordersForName = ['abnormalPapSmear','irregularPeriods','bleedingBetweenPeriods','pms']
+                        var parent = document.getElementById("womernDisorder");
+
+                        for(var i=0;i<womernDisorders.length;i++){
+                            var newDiv = document.createElement("div");
+                            parent.appendChild(newDiv);
+                            newDiv.outerHTML = '<div class="custom-control custom-checkbox">' +
+                                                    '<input type="checkbox" class="custom-control-input" id="womernDisorderID_' + (i+1) + '" name="' + womernDisordersForName[i] +'">' +
+                                                    '<label class="custom-control-label" for="womernDisorderID_' + (i+1) + '">' +
+                                                        womernDisorders[i] +
+                                                    '</label>'+
+                                                '</div>'
+                        }
+                    </script>
+                
+                </div>
+
             </div>
 
             <div class="col">
+
+                <div id='muscleDisorder'>
+
+                    <h6> MUSCLE/JOINTS/BONES </h6>
+                    
+                    <script>
+                        var muscleDisorders = ['Numbness','Joint pain','Muscle weakness','Joint swelling']
+                        var muscleDisordersForName = ['numbness','jointPain','muscleWeakness','jointSwelling']
+                        var parent = document.getElementById("muscleDisorder");
+
+                        for(var i=0;i<muscleDisorders.length;i++){
+                            var newDiv = document.createElement("div");
+                            parent.appendChild(newDiv);
+                            newDiv.outerHTML = '<div class="custom-control custom-checkbox">' +
+                                                    '<input type="checkbox" class="custom-control-input" id="muscleDisorderID_' + (i+1) + '" name="' + muscleDisordersForName[i] +'"  onclick="displayWhereInputField(this.id)">' +
+                                                    '<label class="custom-control-label" for="muscleDisorderID_' + (i+1) + '">' +
+                                                        muscleDisorders[i] +
+                                                    '</label>'+
+                                                '</div>'
+
+                            var anotherDiv = document.createElement("div");
+                            parent.appendChild(anotherDiv);
+                            anotherDiv.outerHTML = '<div id="whereMuscleDisorder_' + (i+1) +'" class="extraInput" style="display: none">' +
+                                                        '<label for= "where' + muscleDisordersForName[i] +'" class="fieldlabels">Where? </label>' +
+                                                        '<br>' +
+                                                        '<input class="fieldInputs" type="text" id= "where' + muscleDisordersForName[i] +'" name="where_' + muscleDisordersForName[i] +'" placeholder="" />' +
+                                                    '</div>';
+                        }
+                    </script>
+                
+                </div>
+
+                <br>
 
                 <div id='nervousSystemDisorder'>
 
@@ -281,30 +319,6 @@
                 
                 </div>
                   
-                <br>
-
-                <div id='womernDisorder'>
-
-                    <h6> Women Only </h6>
-                    
-                    <script>
-                        var womernDisorders = ['Abnormal Pap smear','Irregular periods','Bleeding between periods','PMS']
-                        var womernDisordersForName = ['abnormalPapSmear','irregularPeriods','bleedingBetweenPeriods','pms']
-                        var parent = document.getElementById("womernDisorder");
-
-                        for(var i=0;i<womernDisorders.length;i++){
-                            var newDiv = document.createElement("div");
-                            parent.appendChild(newDiv);
-                            newDiv.outerHTML = '<div class="custom-control custom-checkbox">' +
-                                                    '<input type="checkbox" class="custom-control-input" id="womernDisorderID_' + (i+1) + '" name="' + womernDisordersForName[i] +'">' +
-                                                    '<label class="custom-control-label" for="womernDisorderID_' + (i+1) + '">' +
-                                                        womernDisorders[i] +
-                                                    '</label>'+
-                                                '</div>'
-                        }
-                    </script>
-                
-                </div>
 
             </div>
 
