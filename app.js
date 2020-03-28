@@ -78,6 +78,14 @@ app.get("/home", async (req, res) => {
    res.render("home", {displayName})
 })
 
+app.get("/", async (req, res) => {
+  if(req.user)
+    displayName = req.user.name.displayName
+  else displayName = ''
+   res.render("home", {displayName})
+})
+
+
 app.get("/test", async (req, res) => {
   res.render("test")
 })
