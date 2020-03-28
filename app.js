@@ -20,7 +20,6 @@ var database_controller = require("./controllers/database_controller")
 
 var app = express()
 
-var PORT = process.env.PORT || 5000
 
 app.use("/assets", express.static(__dirname + "/public"))
 app.use("/resources", express.static(__dirname + "/resources"))
@@ -164,6 +163,9 @@ app.use("/auth", require("./routes/auth.js"))
 
 database_controller(app)
 
+
+
+var PORT = process.env.PORT || 5000
 // app.listen(PORT)
 app.listen(PORT, () => {
   console.log('Express server listening on port', PORT)
