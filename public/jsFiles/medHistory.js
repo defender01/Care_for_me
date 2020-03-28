@@ -81,43 +81,50 @@ function camelCase(str) {
   }).replace(/\s+/g, '');
 }
 
-function togglePopUp() {
+function togglePopUp(option, substanceTypes) {
+    
+    var i
+    var substances = substanceTypes.split(",")
+    var args = "togglePopUpForOK("
 
-    var i;
-    for (i = 1; i < arguments.length; i++) {
+    for (i = 0; i < substances.length; i++) {
+
         var str1,str2, htmlForCollapse;
+
+        args = args + '"' + substances[i] + '"';
+        if(i!=substances.length-1) args = args + ",";
 
         var htmlForCollapsePart1 = ' <div class="card"> ' +
                             ' <div class="card-header" id="heading-' + i +'"  data-toggle="collapse" data-target="#collapse-' + i +'" > ' +
                             '<h5 class="mb-0">';
 
-        var htmlForCollapsePart2 = arguments[i] +
+        var htmlForCollapsePart2 = substances[i] +
                                 '</a>' +
                             '</h5>' +
                             '</div>';
 
         var htmlForCollapsePart3 = '<div class="collapse-card-body">' + 
-                                '<label class="fieldlabels" for="first_use-'+arguments[i] + '">Age when you first used this:</label>' +
-                                '<input type="text" name="first_use-'+arguments[i] + '" id="first_use-'+arguments[i] + '" placeholder="" />' +
+                                '<label class="fieldlabels" for="for_popup_first_use_'+ camelCase(substances[i]) + '">Age when you first used this:</label>' +
+                                '<input type="text" name="for_popup_first_use_'+ camelCase(substances[i]) + '" id="for_popup_first_use_'+camelCase(substances[i]) + '" placeholder="" />' +
 
-                                '<label class="fieldlabels" for="how_much_use-'+arguments[i] + '">How much & how often did you use this?</label>' +
-                                '<input type="text" name="how_much_use-'+arguments[i] + '" id="how_much_use-'+arguments[i] + '" placeholder="" />' +
+                                '<label class="fieldlabels" for="for_popup_how_much_use_'+camelCase(substances[i]) + '">How much & how often did you use this?</label>' +
+                                '<input type="text" name="for_popup_how_much_use_'+camelCase(substances[i]) + '" id="for_popup_how_much_use_'+camelCase(substances[i]) + '" placeholder="" />' +
 
-                                '<label class="fieldlabels" for="how_many_year-'+arguments[i] + '">How many years did you use this?</label>' +
-                                '<input type="text" name="how_many_year-'+arguments[i] + '" id="how_many_year-'+arguments[i] + '" placeholder="" />' +
+                                '<label class="fieldlabels" for="for_popup_how_many_year_'+camelCase(substances[i]) + '">How many years did you use this?</label>' +
+                                '<input type="text" name="for_popup_how_many_year_'+camelCase(substances[i]) + '" id="for_popup_how_many_year_'+camelCase(substances[i]) + '" placeholder="" />' +
                                 
-                                '<label class="fieldlabels" for="last_use-'+arguments[i] + '">When did you last use this?</label>' +
-                                '<input type="text" name="last_use-'+arguments[i] + '" id="last_use-'+arguments[i] + '" placeholder="" />' +
+                                '<label class="fieldlabels" for="for_popup_last_use_'+camelCase(substances[i]) + '">When did you last use this?</label>' +
+                                '<input type="text" name="for_popup_last_use_'+camelCase(substances[i]) + '" id="for_popup_last_use_'+camelCase(substances[i]) + '" placeholder="" />' +
 
                                 '<label class="fieldlabels" for="currently_use">Do you currently use this?</label>' +
                                 '<div>' +
                                 '<div class="custom-control custom-radio">' +
-                                    '<input type="radio" id="radio_yes-'+arguments[i] + '" name="currently_use-'+arguments[i] + '" class="custom-control-input" value="yes">' +
-                                    '<label class="custom-control-label" for="radio_yes-'+arguments[i] + '">Yes</label>' +
+                                    '<input type="radio" id="radio_yes_'+camelCase(substances[i]) + '" name="for_popup_currently_use_'+camelCase(substances[i]) + '" class="custom-control-input" value="yes">' +
+                                    '<label class="custom-control-label" for="radio_yes_'+camelCase(substances[i]) + '">Yes</label>' +
                                 '</div>' +
                                 '<div class="custom-control custom-radio">' +
-                                    '<input type="radio" id="radio_no-'+arguments[i] + '" name="currently_use-'+arguments[i] + '" class="custom-control-input" value="no">' +
-                                    '<label class="custom-control-label" for="radio_no-'+arguments[i] + '">No</label>' +
+                                    '<input type="radio" id="radio_no_'+camelCase(substances[i]) + '" name="for_popup_currently_use_'+camelCase(substances[i]) + '" class="custom-control-input" value="no">' +
+                                    '<label class="custom-control-label" for="radio_no_'+camelCase(substances[i]) + '">No</label>' +
                                 '</div>' +
                                 '</div>' +
                             '</div>' +
@@ -125,7 +132,7 @@ function togglePopUp() {
 
                         '</div>';
         
-        if(i==1){
+        if(i==0){
             str1 = '<a class="btn" id="collapse-button-' + (i) +'" role="button"  aria-expanded="true" aria-controls="collapse-' + (i) +'">';
             str2 = '<div id="collapse-' + (i) +'" class="collapse show" aria-labelledby="heading-' + (i) +'" data-parent="#accordion">';
             htmlForCollapse = htmlForCollapsePart1 + str1 + htmlForCollapsePart2 + str2 + htmlForCollapsePart3;
@@ -141,16 +148,44 @@ function togglePopUp() {
         newDiv.outerHTML = htmlForCollapse;   
     }
     
-    if(arguments[0]=='h6'){
+    if(option == 'h6'){
         $("#accordion :input").attr("disabled", true);
     }
+
+    args = args + ")";
+
+    $('[id="popUpOKButton"]').attr('onclick',args)
 
     if (document.getElementById('popup').style.display == "flex") {
       document.getElementById('popup').style.display = "none";
     } else {
       document.getElementById('popup').style.display = "flex";
     }
+    
 }
+
+function togglePopUpForOK()
+{
+    // var i;
+    // for(i=0;i<arguments.length;i++){
+    //   //console.log(arguments[i]);
+
+    //   var newDiv = document.createElement('div');
+    //   document.getElementById('substance_details').appendChild(newDiv);
+    //   newDiv.outerHTML = htmlForCollapse;
+
+    // }
+    
+    var collapsediv = document.getElementById('accordion');
+    collapsediv.innerHTML = '';
+
+    if (document.getElementById('popup').style.display == "flex") {
+        document.getElementById('popup').style.display = "none";
+      } else {
+        document.getElementById('popup').style.display = "flex";
+    }
+}
+
 
 function togglePopUpForClose()
 {
@@ -166,11 +201,31 @@ function togglePopUpForClose()
 
 function displayHowMuchInputField(id)
 {
+    var elem = document.getElementById(id)
+    var extraDiv1 = document.getElementById("howMuchGeneralDisorder_1")
+    var extraDiv2 = document.getElementById("howMuchGeneralDisorder_2")
 
+    if(id == "generalDisorderID_1"){
+        if(elem.checked) extraDiv1.style.display = "block"
+        else extraDiv1.style.display = "none"
+    }
+
+    if(id == "generalDisorderID_2"){
+      if(elem.checked) extraDiv2.style.display = "block"
+      else extraDiv2.style.display = "none"
+    }
 }
 
 
 function displayWhereInputField(id){
+  var idx = id.indexOf('_')
+  var str = "whereMuscleDisorder_" + id[idx+1]
+
+  var elem = document.getElementById(id)
+  var extraDiv = document.getElementById(str)
+
+  if(elem.checked) extraDiv.style.display = "block"
+  else extraDiv.style.display = "none"
 
 }
 
@@ -181,7 +236,7 @@ function togglePopUpFamilyHistory(from) {
     var collapseIds = ["collapseExampleFather", "collaplseExampleMother", "collaplseExampleSiblings", "collaplseExampleChildren","collaplseExampleRelative"]
     var detailIds = ["fatherDetails", "motherDetails", "siblingsDetails", "childrenDetails","relativeDetails"]
     var inputValues = {
-
+        
     }
 
     $('[id="popupOk"]').attr('onclick','togglePopUpFamilyHistory("ok")')

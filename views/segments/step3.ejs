@@ -39,7 +39,7 @@
       <h4 class="subsection-title">Smoking History</h4>
       
       <label class="fieldlabels" for="sticks_per_day">How many sticks per day?</label>
-      <input type="text" name="sticks_per_day" id="sticks_per_day" placeholder=""/>
+      <input type="number" name="sticks_per_day" id="sticks_per_day" placeholder=""/>
 
     </div>
 
@@ -49,68 +49,17 @@
       <h4 class="subsection-title">Substance Use History</h4>
 
       <div class="subsection-row">
-        
-          <div class="subsection-col" >
-            <h6 onclick="togglePopUp('h6','Alcohol')" >Alcohol</h6>
-            <button type="button" class="btn btn-outline-dark btn-sm" onclick="togglePopUp('Edit','Alcohol')">Edit</button>
-          </div>
 
-          <div class="subsection-col" >
-            <h6 onclick="togglePopUp('h6','Marijuana', 'Hashish', 'Hash oil')">Cannabis</h6>
-            <button type="button" class="btn btn-outline-dark btn-sm" onclick="togglePopUp('Edit','Marijuana', 'Hashish', 'Hash oil')">Edit</button>
-          </div>
+        <% if(typeof substanceNamesJson != 'undefined'){ %>
+          <% for(let i = 0 ; i < substanceNamesJson.length; i++) {%>
+            <div class="subsection-col" >
+              
+              <h6 onclick="togglePopUp('h6', '<%= substanceNamesJson[i].types %>' )" > <%= substanceNamesJson[i].name %> </h6>
+              <button type="button" class="btn btn-outline-dark btn-sm" onclick="togglePopUp('Edit', '<%= substanceNamesJson[i].types %>' )">Edit</button>
+            </div>
 
-          <div class="subsection-col">
-            <h6 onclick="togglePopUp('h6','Cocaine', 'Crack','Methamphetamine')">Stimulants</h6>
-            <button type="button" class="btn btn-outline-dark btn-sm" onclick="togglePopUp('Edit','Cocaine', 'Crack','Methamphetamine')">Edit</button>
-          </div>
-          
-          <div class="subsection-col" >
-            <h6 onclick="togglePopUp('h6','Ritalin', 'Benzedrine', 'Dexedrine')">Amphetamines</h6>
-            <button type="button" class="btn btn-outline-dark btn-sm" onclick="togglePopUp('Edit','Ritalin', 'Benzedrine', 'Dexedrine')">Edit</button>
-          </div>
-
-          <div class="subsection-col" >
-            <h6 onclick="togglePopUp('h6','Valium', 'Librium', 'Halcion', 'Xanax', 'Diazepam', 'Roofies')">Benzodiazepines/tranquilizers</h6>
-            <button type="button" class="btn btn-outline-dark btn-sm" onclick="togglePopUp('Edit','Valium', 'Librium', 'Halcion', 'Xanax', 'Diazepam', 'Roofies')">Edit</button>
-          </div>
-
-          <div class="subsection-col" >
-            <h6 onclick="togglePopUp('h6','Amytal', 'Seconal', 'Dalmane', 'Quaalude', 'Henobarbital')">Sedatives/hypnotics/barbiturates</h6>
-            <button type="button" class="btn btn-outline-dark btn-sm" onclick="togglePopUp('Edit','Amytal', 'Seconal', 'Dalmane', 'Quaalude', 'Henobarbital')">Edit</button>
-          </div>
-        
-          
-          <div class="subsection-col" >
-            <h6 onclick="togglePopUp('h6','Heroin')">Heroin</h6>
-            <button type="button" class="btn btn-outline-dark btn-sm" onclick="togglePopUp('Edit','Heroin')">Edit</button>
-          </div>
-
-          <div class="subsection-col" >
-            <h6 onclick="togglePopUp('h6','Street or illicit methadone')">Street or illicit methadone</h6>
-            <button type="button" class="btn btn-outline-dark btn-sm" onclick="togglePopUp('Edit','Street or illicit methadone')">Edit</button>
-          </div>
-
-          <div class="subsection-col" >
-            <h6 onclick="togglePopUp('h6','Tylenol #2 & #3', '282’S', '292’S', 'Percodan', 'Percocet', 'Opium', 'Morphine', 'Demerol', 'Dilaudid')">Opioids</h6>
-            <button type="button" class="btn btn-outline-dark btn-sm" onclick="togglePopUp('Edit','Tylenol #2 & #3', '282’S', '292’S', 'Percodan', 'Percocet', 'Opium', 'Morphine', 'Demerol', 'Dilaudid')">Edit</button>
-          </div>
-        
-          
-          <div class="subsection-col" >
-            <h6 onclick="togglePopUp('h6','LSD', 'PCP', 'STP', 'MDA', 'DAT', 'Mescaline', 'Peyote', 'Mushrooms', 'Ecstasy (MDMA)', 'Nitrous oxide')">Hallucinogens</h6>
-            <button type="button" class="btn btn-outline-dark btn-sm"  onclick="togglePopUp('Edit','LSD', 'PCP', 'STP', 'MDA', 'DAT', 'Mescaline', 'Peyote', 'Mushrooms', 'Ecstasy (MDMA)', 'Nitrous oxide')">Edit</button>
-          </div>
-
-          <div class="subsection-col" >
-            <h6 onclick="togglePopUp('h6','Glue', 'Gasoline', 'Aerosols', 'Paint thinner', 'Poppers', 'Rush', 'Locker room')">Inhalants</h6>
-            <button type="button" class="btn btn-outline-dark btn-sm " onclick="togglePopUp('Edit','Glue', 'Gasoline', 'Aerosols', 'Paint thinner', 'Poppers', 'Rush', 'Locker room')">Edit</button>
-          </div>
-
-          <div class="subsection-col" >
-            <h6 onclick="togglePopUp('h6')">+</h6>
-            <button type="button" class="btn btn-outline-dark btn-sm" onclick="togglePopUp('Edit')">Edit</button>
-          </div>
+          <% } %>
+        <% } %>
         
       </div>
 
@@ -127,66 +76,70 @@
         <!-- For collapse design-->
         <div id="accordion" class="collapse-container">
 
-          <!-- <div class="card">
-
-            <div class="card-header" id="heading-1">
-              <h5 class="mb-0">
-                <a class="btn" id="collapse-button-1" role="button" data-toggle="collapse" data-target="#collapse-1" aria-expanded="true" aria-controls="collapse-1"></a>
-                  Collapsible Group Item #1
-                </a>
-              </h5>
-            </div>
-        
-            <div id="collapse-1" class="collapse show" aria-labelledby="heading-1" data-parent="#accordion">
-              <div class="collapse-card-body">
-                <label class="fieldlabels" for="first_use">Age when you first used this:</label>
-                <input type="text" name="first_use" placeholder="" />
-
-                <label class="fieldlabels" for="how_much_use">How much & how often did you use this?</label>
-                <input type="text" name="how_much" placeholder="" />
-
-                <label class="fieldlabels" for="how_many_year">How many years did you use this?</label>
-                <input type="text" name="how_many_year" placeholder="" />
-                
-                <label class="fieldlabels" for="last_use">When did you last use this?</label>
-                <input type="text" name="last_use" placeholder="" cols="5"/>
-
-                <label class="fieldlabels" for="currently_use">Do you currently use this?</label>
-                <div name="currently_use">
-                  <div class="custom-control custom-radio">
-                    <input type="radio" id="radio_yes" name="currently_use" class="custom-control-input" value="yes">
-                    <label class="custom-control-label" for="radio_yes">Yes</label>
-                  </div>
-                  <div class="custom-control custom-radio">
-                    <input type="radio" id="radio_no" name="currently_use" class="custom-control-input" value="no">
-                    <label class="custom-control-label" for="radio_no">No</label>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-          </div> -->
 
         </div>
 
         <div class="popUpRowElementHolder">
-          <button type="button" class="btn btn-outline-success okButton" onclick="togglePopUpForClose()">Ok</button>
-          <button type="button" class="btn btn-outline-danger cancelButton" onclick="togglePopUpForClose()">Cancel</button>
+          <button type="button" class="btn btn-outline-success okButton" id="popUpOKButton" onclick="togglePopUpForOK()">Ok</button>
+          <button type="button" class="btn btn-outline-danger cancelButton" id="popUpCancelButton" onclick="togglePopUpForClose()">Cancel</button>
         </div>
 
       </div>
     </div>
 
-    <!-- For popup design-->
+    <!-- Here popup design has finished-->
+
+    <div id="substance_details" class="subsection-card" style="display: none">
+      
+      <br>
+      <h4 class="subsection-title"> All Substance details from popup window</h4>
+      
+  
+      <% if(typeof substanceNamesJson != 'undefined'){ %>
+        <% for(let i = 0 ; i < substanceNamesJson.length; i++) {
+              
+              var result = substanceNamesJson[i].types
+
+              for(let j = 0 ; j < result.length; j++){ 
+                  var substanceName = result[j].trim()
+        %>
+          
+          <script>
+  
+              var substanceName = '<%= substanceName %>'
+              var htmlForSubstanceDetails = '<div class="card">' + 
+                                              '<h6> ' + substanceName + ' </h6>' +
+                                              '<label class="fieldlabels" for="first_use_'+ camelCase(substanceName) + '">Age when you first used this:</label> ' +
+                                              '<input type="text" name="first_use_'+ camelCase(substanceName) + '" id="first_use_'+camelCase(substanceName) + '" placeholder="" />' + 
+                                    
+                                              '<label class="fieldlabels" for="how_much_use_'+camelCase(substanceName) + '">How much & how often did you use this?</label>' +
+                                              '<input type="text" name="how_much_use_'+camelCase(substanceName) + '" id="how_much_use_'+camelCase(substanceName) + '" placeholder="" />' +
+                                      
+                                              '<label class="fieldlabels" for="how_many_year_'+camelCase(substanceName) + '">How many years did you use this?</label>' +
+                                              '<input type="text" name="how_many_year_'+camelCase(substanceName) + '" id="how_many_year_'+camelCase(substanceName) + '" placeholder="" />' +
+                                              
+                                              '<label class="fieldlabels" for="last_use_'+camelCase(substanceName) + '">When did you last use this?</label>' +
+                                              '<input type="text" name="last_use_'+camelCase(substanceName) + '" id="last_use_'+camelCase(substanceName) + '" placeholder="" />' +
+                                      
+                                              '<label class="fieldlabels" for="currently_use_'+camelCase(substanceName) + '">Do you currently use this?</label>' +
+                                              '<input type="text" name="currently_use_'+camelCase(substanceName) + '" id="currently_use_'+camelCase(substanceName) + '" placeholder="" />' +
+                                              
+                                            '</div>';
+  
+              var newDiv = document.createElement('div');
+              document.getElementById('substance_details').appendChild(newDiv);
+              newDiv.outerHTML = htmlForSubstanceDetails;    
+  
+          </script>
+  
+          <% } %>
+        <% } %>
+      <% } %>
+  
+  
+    </div>    
 
     
-
-    <!-- 
-      <label class="fieldlabels">Upload Your Photo:</label> 
-    <input type="file" name="pic" accept="image/*"> 
-    <label class="fieldlabels">Upload Signature Photo:</label> 
-    <input type="file" name="pic" accept="image/*">
-    -->
   </div> 
   <input type="button" name="next" class="next action-button" value="Next" /> 
   <input type="button" name="previous" class="previous action-button-previous" value="Previous" />

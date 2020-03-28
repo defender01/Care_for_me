@@ -90,7 +90,37 @@ app.get("/test", async (req, res) => {
   res.render("test")
 })
 
+let substanceTypes = [['Alcohol'],
+                      ['Marijuana', 'Hashish', 'Hash oil'],
+                      ['Cocaine', 'Crack', 'Methamphetamine'],
+                      ['Ritalin', 'Benzedrine', 'Dexedrine'],
+                      ['Valium', 'Librium', 'Halcion', 'Xanax', 'Diazepam', 'Roofies'],
+                      ['Amytal', 'Seconal', 'Dalmane', 'Quaalude', 'Henobarbital'],
+                      ['Heroin'],
+                      ['Street or illicit methadone'],
+                      ['Tylenol #2 and #3', '282’S', '292’S', 'Percodan', 'Percocet', 'Opium', 'Morphine', 'Demerol', 'Dilaudid'],
+                      ['LSD', 'PCP', 'STP', 'MDA', 'DAT', 'Mescaline', 'Peyote', 'Mushrooms', 'Ecstasy (MDMA)', 'Nitrous oxide'],
+                      ['Glue', 'Gasoline', 'Aerosols', 'Paint thinner', 'Poppers', 'Rush', 'Locker room']
+                      ]
+                      
+let substanceNames = ['Alcohol','Cannabis','Stimulants','Amphetamines','Benzodiazepines/tranquilizers','Sedatives/hypnotics','Heroin','Street or illicit methadone','Opioids','Hallucinogens','Inhalants']
 
+var substanceNamesJson=[]
+for(var i=0; i<substanceNames.length; i++){
+  substanceNamesJson.push({
+    name: substanceNames[i],
+    types: substanceTypes[i]
+  })
+}
+
+//console.log(substanceNamesJson)
+
+app.get("/medHistory", async (req, res) => {
+  res.render("medHistory",
+  {
+    substanceNamesJson
+  })
+})
 
 let diseases = ["High Blood Pressure", "Diabetes", "Asthma", "Schizophrenia", "Glaucoma", "Heart Attack", "Tuberculosis", "Alzheimer Disease", "Migraine", "Cancer", "Eczema", "Chromosomal Abnormality", "Stroke", "Depression", "Hay Fever", "Thalassemia" ]
 let diseasesJson = []
