@@ -8,12 +8,13 @@ const {
   } = require('../controllers/auth_helper');
   
 
-router.get("/profile", checkAuthenticated, async (req, res) => {
-
-    res.render("profile")
-    await dataModel.find({}, (err, data) => {
-      if (err) throw err;
-      else res.render('info_display', { data, displayName });
+router.get("/", checkAuthenticated, async (req, res) => {
+    var displayName = req.user.name.displayName
+    console.log("sss")
+    await User.find({email : req.user.email}, (err, data) => {
+        console.log(data)
+        if (err) throw err
+        else res.render('profile', { data, displayName })
     });
   
   })
