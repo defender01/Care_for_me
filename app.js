@@ -51,7 +51,7 @@ app.use(flash())
 
 mongoose
   .connect(
-    "mongodb+srv://user1:987654321@cluster0-t11g2.mongodb.net/keepLearning?retryWrites=true&w=majority",
+    "mongodb+srv://defender:11223344@cluster0-rrw3g.mongodb.net/test?retryWrites=true&w=majority",
     {
       useNewUrlParser: true,
       useUnifiedTopology: true,
@@ -137,11 +137,6 @@ app.get("/medHistory", async (req, res) => {
   })
 
 })
-app.get("/profile", async (req, res) => {
-
-  res.render("profile")
-
-})
 
 app.post("/medHistory", async (req, res) => {
     var userData = new medHistoryModel({
@@ -160,6 +155,7 @@ app.post("/medHistory", async (req, res) => {
 //routes
 app.use("/data", require("./routes/data.js"))
 app.use("/auth", require("./routes/auth.js"))
+app.use("/profile", require("./routes/profile.js"))
 
 database_controller(app)
 
