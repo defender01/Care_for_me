@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var dataModel = require('../models/dailyinfo');
+var dataModel = require('../models/dailyInfo');
 
 const {
   checkAuthenticated,
