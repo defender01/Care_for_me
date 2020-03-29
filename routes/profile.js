@@ -10,7 +10,6 @@ const {
 
 router.get("/", checkAuthenticated, async (req, res) => {
     var displayName = req.user.name.displayName
-    console.log("sss")
     await User.find({email : req.user.email}, (err, data) => {
         console.log(data)
         if (err) throw err

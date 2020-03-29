@@ -114,12 +114,6 @@ for(var i=0; i<substanceNames.length; i++){
 
 //console.log(substanceNamesJson)
 
-app.get("/medHistory", async (req, res) => {
-  res.render("medHistory",
-  {
-    substanceNamesJson
-  })
-})
 
 let diseases = ["High Blood Pressure", "Diabetes", "Asthma", "Schizophrenia", "Glaucoma", "Heart Attack", "Tuberculosis", "Alzheimer Disease", "Migraine", "Cancer", "Eczema", "Chromosomal Abnormality", "Stroke", "Depression", "Hay Fever", "Thalassemia" ]
 let diseasesJson = []
@@ -133,7 +127,7 @@ app.get("/medHistory", async (req, res) => {
 
   await medHistoryModel.find({},(err, data) => {
     if (err) throw err
-    else res.render("medHistory", { data, diseasesJson})
+    else res.render("medHistory", { data, substanceNamesJson, diseasesJson})
   })
 
 })
@@ -149,7 +143,9 @@ app.post("/medHistory", async (req, res) => {
   res.redirect('/medHistory')
 })
 
-
+app.get("/termsAndConditions", (req, res) => {
+    res.render("termsAndConditions")
+})
 
 
 //routes

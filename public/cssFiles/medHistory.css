@@ -422,3 +422,7 @@ p {
     flex: 1;
     margin: 0 5px 0 5px;
 }
+.singleLine{
+    padding: 0 0 0 0;
+    margin: 0 0 0 0;
+}
