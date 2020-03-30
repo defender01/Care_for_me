@@ -15,10 +15,11 @@ router.get('/register', checkNotAuthenticated, (req, res) => res.render('registr
 
 // Register
 router.post('/register', (req, res) => {
-  const {firstName, lastName, displayName, email, password, password2, birthDate, phoneNumber, nidNumber, gender } = req.body
+  console.log(req.body)
+  const {firstName, lastName, displayName, email, password, password2, birthDate, phoneNumber, nidNumber, birthCertificateNumber, passportNumber, gender } = req.body
   let errors = []
 
-  if (!firstName || !lastName || !displayName || !email || !password || !password2 || !birthDate || !phoneNumber || !nidNumber || !gender ) {
+  if (!firstName || !lastName || !displayName || !email || !password || !password2 || !birthDate || !phoneNumber || !(nidNumber || birthCertificateNumber || passportNumber) || !gender ) {
     errors.push({ msg: 'Please enter all required fields' })
   }
 

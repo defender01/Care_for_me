@@ -1,4 +1,9 @@
+body{
+    background-color: rgb(225, 225, 255);
+}
+
 .box-container{
+    background-color: rgb(255, 255, 255);
     margin-top: 20px;
     margin-bottom: 20px;
     padding: 10px 30px 40px;
@@ -26,4 +31,12 @@
 }
 .agreement{
     padding: 0 0 0 15px;
+}
+
+.family-container{
+    background-color: #ffffff;;
+    padding: 15px 10px 10px 10px;
+    border-radius: 2px;
+    -webkit-box-shadow: 0 0 2px rgba(98, 97, 99, 0.76);
+    box-shadow: 0 0 2px rgba(98, 97, 99, 0.76);
 }
