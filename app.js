@@ -114,19 +114,27 @@ for(var i=0; i<substanceNames.length; i++){
 
 //console.log(substanceNamesJson)
 
-let diseases = ["High Blood Pressure", "Diabetes", "Asthma", "Schizophrenia", "Glaucoma", "Heart Attack", "Tuberculosis", "Alzheimer Disease", "Migraine", "Cancer", "Eczema", "Chromosomal Abnormality", "Stroke", "Depression", "Hay Fever", "Thalassemia" ]
-let diseasesJson = []
-for(var i=0; i<diseases.length; i++) {
-  diseasesJson.push({
-    name: diseases[i],
-    id: camelCase(diseases[i])})
+
+let physicalDiseases = ["High Blood Pressure", "Diabetes", "Asthma", "Glaucoma", "Heart Attack", "Tuberculosis", "Alzheimer Disease", "Migraine", "Cancer", "Eczema", "Chromosomal Abnormality", "Stroke", "Hay Fever", "Thalassemia" ]
+let mentalDiseases = [ "Depression", "Schizophrenia"]
+let physicalDiseasesJson = []
+let mentalDiseasesJson = []
+for(var i=0; i<physicalDiseases.length; i++) {
+  physicalDiseasesJson.push({
+    name: physicalDiseases[i],
+    id: camelCase(physicalDiseases[i])})
+}
+for(var i=0; i<mentalDiseases.length; i++) {
+  mentalDiseasesJson.push({
+    name: mentalDiseases[i],
+    id: camelCase(mentalDiseases[i])})
 }
 
 app.get("/medHistory", async (req, res) => {
 
   await medHistoryModel.find({},(err, data) => {
     if (err) throw err
-    else res.render("medHistory", { data, substanceNamesJson, diseasesJson})
+    else res.render("medHistory", { data, substanceNamesJson, physicalDiseasesJson, mentalDiseasesJson})
   })
 
 })

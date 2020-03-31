@@ -1,3 +1,6 @@
+var familyCnt = [0,0,0];
+
+
 $(document).ready(function () {
 
     var current_fs, next_fs, previous_fs; //fieldsets
@@ -232,9 +235,9 @@ function displayWhereInputField(id){
 function togglePopUpFamilyHistory(from) {
     var fieldNames =["name","gender","birthDate","health","psychiaty"]
     var popupElmIds = ["famimilyMemberName","famimilyMemberGender","famimilyMemberBirthDate","famimilyMemberHealth","famimilyMemberPsychiatric"]
-    var tabTypes = ["father", "mother", "siblings", "children","relative"]
-    var collapseIds = ["collapseExampleFather", "collaplseExampleMother", "collaplseExampleSiblings", "collaplseExampleChildren","collaplseExampleRelative"]
-    var detailIds = ["fatherDetails", "motherDetails", "siblingsDetails", "childrenDetails","relativeDetails"]
+    var tabTypes = ["siblings", "children"]
+    var collapseIds = ["collaplseExampleSiblings", "collaplseExampleChildren"]
+    var detailIds = ["siblingsDetails", "childrenDetails"]
     var inputValues = {
         
     }
@@ -248,14 +251,6 @@ function togglePopUpFamilyHistory(from) {
     var parentID = $('p[id = "calledFrom"]').html();
     
     console.log(parentID)
-
-    if(parentID.indexOf("fatherDetails") != -1  || parentID.indexOf("motherDetails") != -1)
-    {
-        $('[class= "conditional"]').hide()
-    }
-    else {
-        $('[class= "conditional"]').show()
-    }
 
     if(from === 'ok')
     {
@@ -287,7 +282,6 @@ function togglePopUpFamilyHistory(from) {
               '</div>' +           
               '<div class="collapse" id="'+'collapseExample'+parentID+'">'+
                   '<hr>'+
-                  '<div class="conditional">'+
                     '<p class="title">'+
                       'Gender'+
                     '</p>'+
@@ -296,7 +290,6 @@ function togglePopUpFamilyHistory(from) {
                       inputValues[fieldNames[ind++]]+
                       '</p>'+
                     '</div>'+
-                  '</div>'+
                 '<p class="title">'+
                   'Birth date'+
                 '</p>'+
@@ -338,12 +331,7 @@ function togglePopUpFamilyHistory(from) {
               '<input type="text" name="psychiatric" value= "'+inputValues[fieldNames[ind2++]] +'" style="display: none">'
         )
         
-        console.log(parentID+' typeNo= '+typeNo)
-        if(typeNo==0)
-            $('#'+parentID+' > #collapseExample'+parentID+' > .conditional').hide()
-        if(typeNo==1)
-            $('#'+parentID+' > #collapseExample'+parentID+' > .conditional').hide()
-
+    
         
     }
 
@@ -352,10 +340,243 @@ function togglePopUpFamilyHistory(from) {
     } else {
         document.getElementById('popupFamilyHistory').style.display = "flex";
     }
-    hideGenderForParents()
+}
+
+function togglePopUpFamilyHistoryRelative(from) {
+  var fieldNames =["name","relation","gender","birthDate","health","psychiaty"]
+  var popupElmIds = ["famimilyMemberName","famimilyMemberRelation","famimilyMemberGender","famimilyMemberBirthDate","famimilyMemberHealth","famimilyMemberPsychiatric"]
+  var tabTypes = ["relative"]
+  var collapseIds = ["collaplseExampleRelative"]
+  var detailIds = ["relativeDetails"]
+  var inputValues = {
+      
+  }
+
+  $('[id="popupOk"]').attr('onclick','togglePopUpFamilyHistoryRelative("ok")')
+  $('[id="popupCancel"]').attr('onclick','togglePopUpFamilyHistoryRelative("cancel")')
+
+  if(from !== 'ok' && from !== 'cancel')
+      $('p[id = "calledFrom"]').html(from)
+
+  var parentID = $('p[id = "calledFrom"]').html();
+  
+  console.log(parentID)
+
+  if(from === 'ok')
+  {
+      var ind =0,ind2=0,typeNo;
+      for(var i=0; i<tabTypes.length; i++)
+          if(parentID.indexOf(tabTypes[i])!=-1) typeNo=i;
+
+      var currentItemNo = $('[id^="'+detailIds[typeNo]+'"]').length
+
+      for(var i=0; i<popupElmIds.length; i++)
+          inputValues[fieldNames[i]] = $('[id='+ popupElmIds[i] +']').val()
+      
+      console.log(inputValues)
+
+      divHtml = $('[id = '+ parentID +']').html()
+
+      console.log(divHtml)
+      $('[id = '+ parentID +']').html(
+          '<div class="sub-part-row">'+
+              '<p class="title">'+
+                'Name'+
+              '</p>'+
+              '<button type="button" class="btn btn-outline-dark" onclick="togglePopUpFamilyHistoryRelative(this.parentElement.parentElement.id)">Edit</button>'+
+            '</div>'+
+            '<div class="sub-sub-part">'+
+              '<p>'+
+              inputValues[fieldNames[ind++]]+
+              '</p>'+
+            '</div>' +           
+            '<div class="collapse" id="'+'collapseExample'+parentID+'">'+
+                '<hr>'+
+                '<p class="title">'+
+                  'Relation with you'+
+                '</p>'+
+                '<div class="sub-sub-part">'+
+                  '<p>'+
+                    inputValues[fieldNames[ind++]]+
+                  '</p>'+
+                '</div>'+
+                '<hr>'+
+                  '<p class="title">'+
+                    'Gender'+
+                  '</p>'+
+                  '<div class="sub-sub-part">'+
+                    '<p>'+
+                    inputValues[fieldNames[ind++]]+
+                    '</p>'+
+                  '</div>'+
+              '<p class="title">'+
+                'Birth date'+
+              '</p>'+
+              '<div class="sub-sub-part">'+
+                '<p>'+
+                  'Born on '+ inputValues[fieldNames[ind++]] +
+                '</p>'+
+              '</div>'+
+              '<hr>'+
+              '<p class="title">'+
+                'Health'+
+              '</p>'+
+              '<div class="sub-sub-part">'+
+                '<p>'+
+                  inputValues[fieldNames[ind++]]+
+                '</p>'+
+              '</div> '+
+              '<hr>'+
+              '<p class="title">'+
+                'Psychiatric'+
+              '</p>'+
+              '<div class="sub-sub-part">'+
+                '<p>'+
+                  inputValues[fieldNames[ind++]]+
+                '</p>'+
+              '</div> '+
+            '</div>'+
+            '<div class="extend">'+
+              '<p>'+
+                '<a class="btn btn-light" data-toggle="collapse" href="#'+'collapseExample'+parentID+'" id="seeMore'+ parentID +'" role="button" onclick="changeButtonText(this.id)" aria-expanded="false" aria-controls="collapseExample">'+
+                  'See more'+
+                '</a>'+
+              '</p>'+
+            '</div>'+
+            '<input type="text" name="name" value= "'+inputValues[fieldNames[ind2++]] +'" style="display: none">'+
+            '<input type="text" name="gender" value= "'+inputValues[fieldNames[ind2++]] +'" style="display: none">'+
+            '<input type="text" name="birthDate" value= "'+inputValues[fieldNames[ind2++]] +'" style="display: none">'+
+            '<input type="text" name="health" value= "'+inputValues[fieldNames[ind2++]] +'" style="display: none">'+
+            '<input type="text" name="psychiatric" value= "'+inputValues[fieldNames[ind2++]] +'" style="display: none">'
+      )
+  
+  }
+
+  if (document.getElementById('popupFamilyHistoryRelative').style.display == "flex") {
+      document.getElementById('popupFamilyHistoryRelative').style.display = "none";
+  } else {
+      document.getElementById('popupFamilyHistoryRelative').style.display = "flex";
+  }
+}
+
+
+function togglePopUpFamilyHistoryParent(from) {
+  var fieldNames =["name","birthDate","health","psychiaty"]
+  var popupElmIds = ["famimilyMemberName", "famimilyMemberBirthDate","famimilyMemberHealth","famimilyMemberPsychiatric"]
+  var tabTypes = ["father", "mother"]
+  var collapseIds = ["collapseExampleFather", "collaplseExampleMother"]
+  var detailIds = ["fatherDetails", "motherDetails"]
+  var inputValues = {
+      
+  }
+
+  $('[id="popupOk"]').attr('onclick','togglePopUpFamilyHistoryParent("ok")')
+  $('[id="popupCancel"]').attr('onclick','togglePopUpFamilyHistoryParent("cancel")')
+
+  if(from !== 'ok' && from !== 'cancel')
+      $('p[id = "calledFrom"]').html(from)
+
+  var parentID = $('p[id = "calledFrom"]').html();
+  
+  console.log(parentID)
+
+  // if(parentID.indexOf("fatherDetails") != -1  || parentID.indexOf("motherDetails") != -1)
+  // {
+  //     $('[class= "conditional"]').hide()
+  // }
+  // else {
+  //     $('[class= "conditional"]').show()
+  // }
+
+  if(from === 'ok')
+  {
+      var ind =0,ind2=0,typeNo;
+      for(var i=0; i<tabTypes.length; i++)
+          if(parentID.indexOf(tabTypes[i])!=-1) typeNo=i;
+
+      var currentItemNo = $('[id^="'+detailIds[typeNo]+'"]').length
+
+      for(var i=0; i<popupElmIds.length; i++)
+          inputValues[fieldNames[i]] = $('[id='+ popupElmIds[i] +']').val()
+      
+      console.log(inputValues)
+
+      divHtml = $('[id = '+ parentID +']').html()
+
+      console.log(divHtml)
+      $('[id = '+ parentID +']').html(
+          '<div class="sub-part-row">'+
+              '<p class="title">'+
+                'Name'+
+              '</p>'+
+              '<button type="button" class="btn btn-outline-dark" onclick="togglePopUpFamilyHistory(this.parentElement.parentElement.id)">Edit</button>'+
+            '</div>'+
+            '<div class="sub-sub-part">'+
+              '<p>'+
+              inputValues[fieldNames[ind++]]+
+              '</p>'+
+            '</div>' +           
+            '<div class="collapse" id="'+'collapseExample'+parentID+'">'+
+                '<hr>'+
+              '<p class="title">'+
+                'Birth date'+
+              '</p>'+
+              '<div class="sub-sub-part">'+
+                '<p>'+
+                  'Born on '+ inputValues[fieldNames[ind++]] +
+                '</p>'+
+              '</div>'+
+              '<hr>'+
+              '<p class="title">'+
+                'Health'+
+              '</p>'+
+              '<div class="sub-sub-part">'+
+                '<p>'+
+                  inputValues[fieldNames[ind++]]+
+                '</p>'+
+              '</div> '+
+              '<hr>'+
+              '<p class="title">'+
+                'Psychiatric'+
+              '</p>'+
+              '<div class="sub-sub-part">'+
+                '<p>'+
+                  inputValues[fieldNames[ind++]]+
+                '</p>'+
+              '</div> '+
+            '</div>'+
+            '<div class="extend">'+
+              '<p>'+
+                '<a class="btn btn-light" data-toggle="collapse" href="#'+'collapseExample'+parentID+'" id="seeMore'+ parentID +'" role="button" onclick="changeButtonText(this.id)" aria-expanded="false" aria-controls="collapseExample">'+
+                  'See more'+
+                '</a>'+
+              '</p>'+
+            '</div>'+
+            '<input type="text" name="name" value= "'+inputValues[fieldNames[ind2++]] +'" style="display: none">'+
+            '<input type="text" name="gender" value= "'+inputValues[fieldNames[ind2++]] +'" style="display: none">'+
+            '<input type="text" name="birthDate" value= "'+inputValues[fieldNames[ind2++]] +'" style="display: none">'+
+            '<input type="text" name="health" value= "'+inputValues[fieldNames[ind2++]] +'" style="display: none">'+
+            '<input type="text" name="psychiatric" value= "'+inputValues[fieldNames[ind2++]] +'" style="display: none">'
+      )
+      
+      console.log(parentID+' typeNo= '+typeNo)
+      // if(typeNo==0)
+      //     $('#'+parentID+' > #collapseExample'+parentID+' > .conditional').hide()
+      // if(typeNo==1)
+      //     $('#'+parentID+' > #collapseExample'+parentID+' > .conditional').hide()
+
+      
+  }
+
+  if (document.getElementById('popupFamilyHistoryParent').style.display == "flex") {
+      document.getElementById('popupFamilyHistoryParent').style.display = "none";
+  } else {
+      document.getElementById('popupFamilyHistoryParent').style.display = "flex";
+  }
 }
 
 function togglePopUpFamilyHistoryAdd(from) {
+  console.log("from="+from)
 
     if (document.getElementById('popupFamilyHistory').style.display == "flex") {
         document.getElementById('popupFamilyHistory').style.display = "none";
@@ -369,9 +590,9 @@ function togglePopUpFamilyHistoryAdd(from) {
 
     var fieldNames =["name","gender","birthDate","health","psychiaty"]
     var popupElmIds = ["famimilyMemberName","famimilyMemberGender","famimilyMemberBirthDate","famimilyMemberHealth","famimilyMemberPsychiatric"]
-    var tabTypes = ["father", "mother", "siblings", "children","relative"]
-    var collapseIds = ["collapseExampleFather", "collaplseExampleMother", "collaplseExampleSiblings", "collaplseExampleChildren","collaplseExampleRelative"]
-    var detailIds = ["fatherDetails", "motherDetails", "siblingsDetails", "childrenDetails","relativeDetails"]
+    var tabTypes = ["siblings", "children"]
+    var collapseIds = ["collaplseExampleSiblings", "collaplseExampleChildren"]
+    var detailIds = [ "siblingsDetails", "childrenDetails"]
     var inputValues = {
 
     }
@@ -383,13 +604,15 @@ function togglePopUpFamilyHistoryAdd(from) {
     
     console.log('parentID= '+parentID)
 
-    $('[class= "conditional"]').show()
+
 
     if(from === 'ok')
     {
         var ind =0,ind2=0,typeNo;
         for(var i=0; i<tabTypes.length; i++)
             if(parentID.indexOf(tabTypes[i])!=-1) typeNo=i;
+        familyCnt[typeNo]+=1
+        $('#'+tabTypes[typeNo]+'Cnt').html('Total number: '+ familyCnt[typeNo])
 
         var currentItemNo = $('[id^="'+detailIds[typeNo]+'"]').length
         console.log(detailIds[typeNo]+'  '+currentItemNo)
@@ -419,7 +642,6 @@ function togglePopUpFamilyHistoryAdd(from) {
       '</div>' +           
       '<div class="collapse" id="'+'collapseExample'+newParentID+'">'+
           '<hr>'+
-          '<div class="conditional">'+
             '<p class="title">'+
               'Gender'+
             '</p>'+
@@ -428,7 +650,6 @@ function togglePopUpFamilyHistoryAdd(from) {
               inputValues[fieldNames[ind++]]+
               '</p>'+
             '</div>'+
-          '</div>'+
         '<p class="title">'+
           'Birth date'+
         '</p>'+
@@ -470,9 +691,136 @@ function togglePopUpFamilyHistoryAdd(from) {
       '<input type="text" name="health" value= "'+inputValues[fieldNames[ind2++]] +'" style="display: none">'+
       '<input type="text" name="psychiatric" value= "'+inputValues[fieldNames[ind2++]] +'" style="display: none">'
     }
-    hideGenderForParents()
 }
-  
+
+function togglePopUpFamilyHistoryRelativeAdd(from) {
+  console.log("from="+from)
+
+    if (document.getElementById('popupFamilyHistoryRelative').style.display == "flex") {
+        document.getElementById('popupFamilyHistoryRelative').style.display = "none";
+    } else {
+        document.getElementById('popupFamilyHistoryRelative').style.display = "flex";
+    }
+
+    $('[id="popupOk"]').attr('onclick','togglePopUpFamilyHistoryRelativeAdd("ok")')
+    $('[id="popupCancel"]').attr('onclick','togglePopUpFamilyHistoryRelativeAdd("cancel")')
+
+
+    var fieldNames =["name","relation","gender","birthDate","health","psychiaty"]
+    var popupElmIds = ["famimilyMemberName","famimilyMemberRelation","famimilyMemberGender","famimilyMemberBirthDate","famimilyMemberHealth","famimilyMemberPsychiatric"]
+    var tabTypes = ["relative"]
+    var collapseIds = ["collaplseExampleRelative"]
+    var detailIds = [ "relativeDetails"]
+    var inputValues = {
+
+    }
+
+    if(from !== 'ok' && from !== 'cancel')
+        $('p[id = "calledFrom"]').html(from)
+
+    var parentID = $('p[id = "calledFrom"]').html();
+    
+    console.log('parentID= '+parentID)
+
+
+
+    if(from === 'ok')
+    {
+        var ind =0,ind2=0,typeNo;
+        for(var i=0; i<tabTypes.length; i++)
+            if(parentID.indexOf(tabTypes[i])!=-1) typeNo=i;
+        familyCnt[typeNo]+=1
+        $('#'+tabTypes[typeNo]+'Cnt').html('Total number: '+ familyCnt[typeNo])
+
+        var currentItemNo = $('[id^="'+detailIds[typeNo]+'"]').length
+        console.log(detailIds[typeNo]+'  '+currentItemNo)
+
+        for(var i=0; i<popupElmIds.length; i++)
+            inputValues[fieldNames[i]] = $('[id='+ popupElmIds[i] +']').val()
+        
+        console.log(inputValues)
+
+        var parent = document.getElementById(parentID)
+        var newParentID = detailIds[typeNo]+(currentItemNo+1)
+        console.log('newParentID= '+newParentID)
+        var newDiv = document.createElement("div")
+        parent.appendChild(newDiv)
+        newDiv.outerHTML = 
+        '<div class="sub-part" id="'+newParentID+'">'+
+        '<div class="sub-part-row">'+
+        '<p class="title">'+
+          'Name'+
+        '</p>'+
+        '<button type="button" class="btn btn-outline-dark" onclick="togglePopUpFamilyHistoryRelative(this.parentElement.parentElement.id)">Edit</button>'+
+      '</div>'+
+      '<div class="sub-sub-part">'+
+        '<p>'+
+        inputValues[fieldNames[ind++]]+
+        '</p>'+
+      '</div>' +           
+      '<div class="collapse" id="'+'collapseExample'+newParentID+'">'+
+          '<hr>'+
+          '<p class="title">'+
+                  'Relation with you'+
+                '</p>'+
+                '<div class="sub-sub-part">'+
+                  '<p>'+
+                    inputValues[fieldNames[ind++]]+
+                  '</p>'+
+                '</div>'+
+                '<hr>'+
+            '<p class="title">'+
+              'Gender'+
+            '</p>'+
+            '<div class="sub-sub-part">'+
+              '<p>'+
+              inputValues[fieldNames[ind++]]+
+              '</p>'+
+            '</div>'+
+        '<p class="title">'+
+          'Birth date'+
+        '</p>'+
+        '<div class="sub-sub-part">'+
+          '<p>'+
+            'Born on '+ inputValues[fieldNames[ind++]] +
+          '</p>'+
+        '</div>'+
+        '<hr>'+
+        '<p class="title">'+
+          'Health'+
+        '</p>'+
+        '<div class="sub-sub-part">'+
+          '<p>'+
+            inputValues[fieldNames[ind++]]+
+          '</p>'+
+        '</div> '+
+        '<hr>'+
+        '<p class="title">'+
+          'Psychiatric'+
+        '</p>'+
+        '<div class="sub-sub-part">'+
+          '<p>'+
+            inputValues[fieldNames[ind++]]+
+          '</p>'+
+        '</div> '+
+      '</div>'+
+      '<div class="extend">'+
+        '<p>'+
+           '<a class="btn btn-light" data-toggle="collapse" href="#'+'collapseExample'+newParentID+'" id="seeMore'+ newParentID +'" role="button" onclick="changeButtonText(this.id)" aria-expanded="false" aria-controls="collapseExample">'+
+            'See more'+
+          '</a>'+
+        '</p>'+
+      '</div>'+
+      '</div>'+
+      '<input type="text" name="name" value= "'+inputValues[fieldNames[ind2++]] +'" style="display: none">'+
+      '<input type="text" name="gender" value= "'+inputValues[fieldNames[ind2++]] +'" style="display: none">'+
+      '<input type="text" name="birthDate" value= "'+inputValues[fieldNames[ind2++]] +'" style="display: none">'+
+      '<input type="text" name="health" value= "'+inputValues[fieldNames[ind2++]] +'" style="display: none">'+
+      '<input type="text" name="psychiatric" value= "'+inputValues[fieldNames[ind2++]] +'" style="display: none">'
+    }
+}
+
+
 function changeButtonText(id)
 {
     console.log(id)
@@ -540,9 +888,26 @@ function addVaccineDetails(){
                 '</div>'+
   '</div>'
 }
-function hideGenderForParents(){
-  $('#fatherDetails > #collapseExamplefatherDetails > .conditional').hide()
-  $('#motherDetails > #collapseExamplemotherDetails > .conditional').hide()
+
+function showCount()
+{
+  var ids= ['siblingsDetails','childrenDetails','relativeDetails']
+  var cntIds = ['siblingsCnt','childrenCnt','relativeCnt']
+  for(var i = 0; i<ids.length; i++)
+    {
+        var items = document.querySelectorAll('[id='+ids[i]+']')
+        console.log(ids[i]+' total number= '+items.length+'---------')
+        $(cntIds[i]).html('Total number: '+items.length)
+
+
+        // for(var j=0; j<items.length; j++){
+        //     items[j].id = ids[i] + j.toString()
+        //     $('#'+items[j].id+' > .extend > p:eq(0) > a:eq(0)').attr('id', 'seeMore' + items[j].id)
+        // }   
+    }
+
+
+
 }
 function onStart()
 {
@@ -551,14 +916,15 @@ function onStart()
      var uel = document.getElementById("unemploymentDetails")
      el.style.display="none"
      uel.style.display="none"
+    var ids= ['fatherDetails','motherDetails','siblingsDetails','childrenDetails','relativeDetails']
+    var cntIds = ['siblingsCnt','childrenCnt','relativeCnt']
 
-     hideGenderForParents()
- 
-    var ids= ['fatherDetails','motherDetails','siblingDetails','childrenDetails','relativeDetails']
     for(var i = 0; i<ids.length; i++)
     {
         var items = document.querySelectorAll('[id='+ids[i]+']')
+        familyCnt[i] =  items.length
         console.log(ids[i]+' '+items.length+'---------')
+        $('#'+cntIds[i]).html('Total number: '+ familyCnt[i])
 
         for(var j=0; j<items.length; j++){
             items[j].id = ids[i] + j.toString()

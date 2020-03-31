@@ -184,7 +184,7 @@ p {
 }
 
 .modal-container{
-    width: 500px;
+    width: 600px;
     min-height: 400px;
     max-height: 500px;
     background-color: white;
@@ -425,4 +425,8 @@ p {
 .singleLine{
     padding: 0 0 0 0;
     margin: 0 0 0 0;
+}
+.countShow{
+    color: rgb(3, 76, 211);
+    font-size: 17px;
 }
