@@ -12,6 +12,8 @@
 .profile-container{
     margin: 20px 100px 10px 100px;
     display: flex;
+    align-items: flex-start;
+
 }
 
 .sidebar-container{
@@ -19,29 +21,30 @@
     background-color: #ffffff;;
     padding: 10px 10px 10px 10px;
     border-radius: 2px;
-    -webkit-box-shadow: 0 0 2px rgba(98, 97, 99, 0.76);
-    box-shadow: 0 0 2px rgba(98, 97, 99, 0.76);
+    -webkit-box-shadow: 0 0 5px rgba(98, 97, 99, 0.76);
+    box-shadow: 0 0 5px rgba(98, 97, 99, 0.76);
     margin-right: 10px;
 }
 
 .data-container{
     flex: 10;
-    margin-left: 10px;
+    margin-left: 15px;
     background-color: #ffffff;;
     padding: 10px 10px 10px 10px;
     border-radius: 2px;
-    -webkit-box-shadow: 0 0 2px rgba(98, 97, 99, 0.76);
-    box-shadow: 0 0 2px rgba(98, 97, 99, 0.76);
+    -webkit-box-shadow: 0 0 5px rgba(98, 97, 99, 0.76);
+    box-shadow: 0 0 5px rgba(98, 97, 99, 0.76);
+    margin-bottom: 12px;
 }
 
 
 .row .tag{
     text-align: right;
-    font-weight: bold;
     padding: 0 10px 0 0;
 }
 .row .tag label{
-    color: rgb(34, 30, 30);
+    font-size: 16px;
+    color: rgb(148, 148, 148);
 }
 .row .value p{
     text-align: left;
@@ -53,3 +56,23 @@
     box-shadow: 0 0 15px rgba(98, 97, 99, 0.76);
 }
 
+.empty-side{
+    flex: 2;
+}
+.hrline{
+    border-bottom: 1px solid #e5e5e5;
+    margin: 0 10px 10px 10px;
+}
+.row .hrline{
+    border-bottom: 1px solid #e5e5e5;
+    margin: 0 10px 10px 10px;
+}
+.nav-link .hrline{
+    border-bottom: 1px solid #e5e5e5;
+    margin: 0 0px 0px 0px;
+}
+.selected-nav-item{
+    font-weight: bold;
+    border-bottom: 2px solid #4d8bff;
+    margin: 0 0px 0px 0px;
+}

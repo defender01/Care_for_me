@@ -15,7 +15,6 @@ router.get('/register', checkNotAuthenticated, (req, res) => res.render('registr
 
 // Register
 router.post('/register', (req, res) => {
-  console.log(req.body)
   const {firstName, lastName, displayName, email, password, password2, birthDate, phoneNumber, nidNumber, birthCertificateNumber, passportNumber, gender } = req.body
   let errors = []
 

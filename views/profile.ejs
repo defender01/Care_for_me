@@ -26,7 +26,7 @@
 
     <script src='/assets/jsFiles/profile.js'></script>
 
-    <title>Medical History</title>
+    <title>Profile</title>
 
 </head>
 
@@ -37,24 +37,24 @@
 
     <div class="profile-container">
 
-        <div class="nav flex-column sidebar-container" id="sidebar-tab" role="tablist" aria-orientation="vertical">
+        <div class="nav flex-column sidebar-container " id="sidebar-tab" role="tablist" aria-orientation="vertical">
 
-            <a class="nav-link active" id="about-tab" data-toggle="tab" href="#about" role="tab" aria-controls="about"
+            <a class="nav-link active hrline" id="about-tab" data-toggle="tab" href="#about" role="tab" onclick="changeAppearance(this.id)" aria-controls="about"
                 aria-selected="true">About</a>
 
-            <a class="nav-link" id="work-and-education-tab" data-toggle="tab" href="#work-and-education" role="tab"
+            <a class="nav-link hrline" id="work-and-education-tab" data-toggle="tab" href="#work-and-education" role="tab"onclick="changeAppearance(this.id)"
                 aria-controls="work-and-education" aria-selected="false">Work and Education</a>
 
-            <a class="nav-link" id="birth-and-development-tab" data-toggle="tab" href="#birth-and-development"
+            <a class="nav-link hrline" id="birth-and-development-tab" data-toggle="tab" href="#birth-and-development" onclick="changeAppearance(this.id)"
                 role="tab" aria-controls="birth-and-development" aria-selected="false">Birth and Development History</a>
 
-            <a class="nav-link" id="family-info-tab" data-toggle="tab" href="#family-info" role="tab"
+            <a class="nav-link hrline" id="family-info-tab" data-toggle="tab" href="#family-info" role="tab" onclick="changeAppearance(this.id)"
                 aria-controls="family-info" aria-selected="false">Family Information</a>
 
-            <a class="nav-link" id="lifestyle-tab" data-toggle="tab" href="#lifestyle" role="tab"
+            <a class="nav-link hrline" id="lifestyle-tab" data-toggle="tab" href="#lifestyle" role="tab" onclick="changeAppearance(this.id)"
                 aria-controls="lifestyle" aria-selected="false">Lifestyle</a>
 
-            <a class="nav-link" id="prev-diseases-tab" data-toggle="tab" href="#prev-diseases" role="tab"
+            <a class="nav-link" id="prev-diseases-tab" data-toggle="tab" href="#prev-diseases" role="tab" onclick="changeAppearance(this.id)"
                 aria-controls="prev-diseases" aria-selected="false"> Previous Diseases and Disorders</a>
 
         </div>
@@ -62,54 +62,32 @@
         <div class="tab-content data-container" id="sidebar-tabContent">
 
             <div class="tab-pane fade show active" id="about" role="tabpanel" aria-labelledby="about-tab">
-                <% include ./segments/about %>
+                <% include ./profileSegments/about %>
+                <div class="data-container">sds</div>
             </div>
 
             <div class="tab-pane fade" id="work-and-education" role="tabpanel" aria-labelledby="work-and-education-tab">
-                <p> Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                    Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown
-                    printer tontaining Lorem Ipsum passages, and more recently
-                    with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-                </p>
+                <% include ./profileSegments/about %>
             </div>
             <div class="tab-pane fade" id="birth-and-development" role="tabpanel"
                 aria-labelledby="birth-and-development-tab">
-                <p> Lorem Ipsook a galley of type and scrambled it to make a type specimen book.
-                    It has survived not only five centuries, but also the leap into electronic typesetting,
-                    remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset
-                    sheets containing Lorem Ipsum passages, and more recently
-                    with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-                </p>
+                <% include ./profileSegments/about %>
             </div>
             <div class="tab-pane fade" id="family-info" role="tabpanel" aria-labelledby="family-info-tab">
-                <p> orem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown
-                    printer took a galley of type and scrambled it to make a type specimen book.
-                    It has survived not only five centuries, but also the leap into electronic typesetting,
-                    remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset
-                    sheets containing Lorem Ipsum passages, and more recently
-                    with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-                </p>
+                <% include ./profileSegments/about %>
             </div>
 
             <div class="tab-pane fade" id="lifestyle" role="tabpanel" aria-labelledby="lifestyle-tab">
-                <p> orem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown
-                    printer took a galley of type and scrambled it to make a type specimen book.
-                    It has survived not only five centuries, but also the leap into electronic typesetting,
-                    remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset
-                    sheets containing Lorem Ipsum passages, and more recently
-                    with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-                </p>
+                <% include ./profileSegments/about %>
             </div>
 
             <div class="tab-pane fade" id="prev-diseases" role="tabpanel" aria-labelledby="prev-diseases-tab">
-                <p> orem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown
-                    printer took a galley of type and scrambled it to make a type specimen book.
-                    It has survived not only five centuries, but also the leap into electronic typesetting,
-                    remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset
-                    sheets containing Lorem Ipsum passages, and more recently
-                    with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-                </p>
+                <% include ./profileSegments/about %>
             </div>
+        </div>
+
+        <div class=" empty-side " aria-orientation="vertical">
+            <!-- this section is created to look the page good by keeping 2 flex right empty. We can use this later -->
         </div>
 
     </div>

@@ -11,6 +11,14 @@ function openCity(evt, cityName) {
     document.getElementById(cityName).style.display = "block";
     evt.currentTarget.className += " active";
   }
+
+  
+function changeAppearance(activeId){
+  console.log(activeId)
+  $('.selected-nav-item').addClass('hrline').removeClass('selected-nav-item');
+  $("#"+activeId).addClass('selected-nav-item').removeClass('hrline');
+   
+}
   
 function onStart(){
     // Get the element with id="defaultOpen" and click on it
