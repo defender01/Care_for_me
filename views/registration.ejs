@@ -2,10 +2,12 @@
 <html lang="en">
   <head>
     <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    
-    
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+
     <link
       href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
       rel="stylesheet"
@@ -44,12 +46,12 @@
       >
         <div class="form-title">
           <h3>Please fill up the form to register</h3>
-        </div>        
+        </div>
         <div class="form-group">
           <label for="firstName" class="col-sm-3 control-label"
             >First Name</label
           >
-          <div class="col-sm-9">
+          <div class="col-sm-7">
             <input
               type="text"
               id="firstName"
@@ -63,7 +65,7 @@
         </div>
         <div class="form-group">
           <label for="lastName" class="col-sm-3 control-label">Last Name</label>
-          <div class="col-sm-9">
+          <div class="col-sm-7">
             <input
               type="text"
               id="lastName"
@@ -77,17 +79,16 @@
         </div>
         <div class="form-group">
           <label for="displayName" class="col-sm-3 control-label"
-            >Display Name*</label
+            >User Name*</label
           >
-          <div class="col-sm-9">
+          <div class="col-sm-7">
             <input
               type="text"
               id="displayName"
-              placeholder="Display Name"
+              placeholder="User Name"
               class="form-control"
               name="displayName"
               value="<%= typeof displayName != 'undefined' ? displayName : '' %>"
-              autofocus
               aria-describedby="displayNameHelpBlock"
             />
             <small id="displayNameHelpBlock" class="form-text text-muted">
@@ -97,94 +98,8 @@
           </div>
         </div>
         <div class="form-group">
-          <label for="email" class="col-sm-3 control-label">Email* </label>
-          <div class="col-sm-9">
-            <input
-              type="email"
-              id="email"
-              placeholder="Email"
-              class="form-control"
-              name="email"
-              value="<%= typeof email != 'undefined' ? email : '' %>"
-            />
-          </div>
-        </div>
-        <div class="form-group">
-          <label for="password" class="col-sm-3 control-label">Password*</label>
-          <div class="col-sm-9">
-            <input
-              type="password"
-              id="password"
-              placeholder="Password"
-              class="form-control"
-              name="password"
-            />
-          </div>
-        </div>
-        <div class="form-group">
-          <label for="password2" class="col-sm-3 control-label"
-            >Confirm Password*</label
-          >
-          <div class="col-sm-9">
-            <input
-              type="password"
-              id="password2"
-              placeholder="Password"
-              class="form-control"
-              name="password2"
-            />
-          </div>
-        </div>
-        <div class="form-group">
-          <label for="birthDate" class="col-sm-3 control-label"
-            >Date of Birth*</label
-          >
-          <div class="col-sm-9">
-            <input
-              type="date"
-              id="birthDate"
-              class="form-control"
-              name="birthDate"
-              value="<%= typeof birthDate != 'undefined' ? birthDate : '' %>"
-            />
-          </div>
-        </div>
-        <div class="form-group">
-          <label for="phoneNumber" class="col-sm-3 control-label"
-            >Phone number*
-          </label>
-          <div class="col-sm-9">
-            <input
-              type="phoneNumber"
-              id="phoneNumber"
-              placeholder="Phone number"
-              class="form-control"
-              name="phoneNumber"
-              value="<%= typeof phoneNumber != 'undefined' ? phoneNumber : '' %>"
-            />
-            <span class="help-block"
-              >Your phone number won't be disclosed anywhere
-            </span>
-          </div>
-        </div>
-        <div class="form-group">
-          <label for="nidNumber" class="col-sm-3 control-label"
-            >NID number*
-          </label>
-          <div class="col-sm-9">
-            <input
-              type="number"
-              id="nidNumber"
-              placeholder="Please write your NID number"
-              class="form-control"
-              name="nidNumber"
-              value="<%= typeof nidNumber != 'undefined' ? nidNumber : '' %>"
-            />
-          </div>
-        </div>
-        <div class="form-group">
           <label class="control-label col-sm-3">Gender*</label>
-          <div class="col-sm-6">
+          <div class="col-sm-7">
             <div class="row">
               <div class="col-sm-4">
                 <label class="radio-inline">
@@ -240,9 +155,184 @@
             </div>
           </div>
         </div>
+        <div class="form-group">
+          <label for="birthDate" class="col-sm-3 control-label"
+            >Date of Birth*</label
+          >
+          <div class="col-sm-7">
+            <input
+              type="date"
+              id="birthDate"
+              class="form-control"
+              name="birthDate"
+              value="<%= typeof birthDate != 'undefined' ? birthDate : '' %>"
+            />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="birthDate" class="col-sm-3 control-label"
+            >Occupation</label
+          >
+          <div class="col-sm-7">
+            <input
+              type="text"
+              id="occupation"
+              class="form-control"
+              name="occupation"
+              value="<%= typeof occupation != 'undefined' ? occupation : '' %>"
+            />
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="birthDate" class="col-sm-3 control-label"
+            >Organization</label
+          >
+          <div class="col-sm-7">
+            <input
+              type="text"
+              id="organization"
+              class="form-control"
+              name="organization"
+              value="<%= typeof organization != 'undefined' ? organization : '' %>"
+            />
+          </div>
+        </div>
+
+        <br>
+        <div class="form-group">
+          <label for="country" class="col-sm-3 control-label ">Address</label>
+          <div class="col-sm-3">
+            <select name="country" class="countries  selector " id="countryId">
+              <option
+                value="<%= typeof country != 'undefined' ? country : '' %>"
+                >Select Country</option
+              >
+            </select>
+          </div>
+          <div class="col-sm-2 ">
+            <select name="state" class="states selector " id="stateId">
+              <option value="<%= typeof state != 'undefined' ? state : '' %>"
+                >Select State</option
+              >
+            </select>
+          </div>
+          <div class="col-sm-2">
+            <select name="city" class="cities selector" id="cityId">
+              <option value="<%= typeof city != 'undefined' ? city : '' %>"
+                >Select City</option
+              >
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="additionalAddress" class="col-sm-3 control-label"></label>
+          <div class="col-sm-7">
+            <input
+              type="text"
+              id="additionalAddress"
+              placeholder="Additional address information"
+              class="form-control"
+              name="additionalAddress"
+              value="<%= typeof additionalAddress != 'undefined' ? additionalAddress : '' %>"
+              autofocus
+            />
+          </div>
+        </div>
+        <br>
+
+       
+
+        <div class="form-group">
+          <label for="phoneNumber" class="col-sm-3 control-label"
+            >Phone number*
+          </label>
+          <div class="col-sm-7">
+            <input
+              type="text"
+              id="phoneNumber"
+              placeholder="Phone number"
+              class="form-control"
+              name="phoneNumber"
+              value="<%= typeof phoneNumber != 'undefined' ? phoneNumber : '' %>"
+            />
+            <span class="help-block"
+              >Your phone number won't be disclosed anywhere
+            </span>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="nidNumber" class="col-sm-3 control-label"
+            >NID/ Birth certificate/ Passport*
+          </label>
+          <div class="col-sm-7">
+            <input
+              type="text"
+              id="nidNumber"
+              placeholder="Please write your NID number"
+              class="form-control"
+              name="nidNumber"
+              value="<%= typeof nidNumber != 'undefined' ? nidNumber : '' %>"
+            />
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="email" class="col-sm-3 control-label">Email* </label>
+          <div class="col-sm-7">
+            <input
+              type="email"
+              id="email"
+              placeholder="Email"
+              class="form-control"
+              name="email"
+              value="<%= typeof email != 'undefined' ? email : '' %>"
+            />
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="password" class="col-sm-3 control-label">Password*</label>
+          <div class="col-sm-7">
+            <input
+              type="password"
+              id="password"
+              placeholder="Password"
+              class="form-control"
+              name="password"
+            />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="password2" class="col-sm-3 control-label"
+            >Confirm Password*</label
+          >
+          <div class="col-sm-7">
+            <input
+              type="password"
+              id="password2"
+              placeholder="Password"
+              class="form-control"
+              name="password2"
+            />
+          </div>
+        </div>
+        <br>
+        <div class="form-group">
+          <label for="agreement" class="col-sm-3 control-label"
+            ></label
+          >
+          <div class="col-sm-7">
+            <div class="form-check">
+              <input class="form-check-input " type="checkbox" value="" id="defaultCheck1">
+              <p class="agreement">I agree to the  <a href="/termsAndConditions">Terms & Conditions</a></p>
+            </div>
+          </div>
+        </div>
+
         <!-- /.form-group -->
         <div class="form-group">
-          <div class="col-sm-9 col-sm-offset-3">
+          <div class="col-sm-7 col-sm-offset-3">
             <span class="help-block">*Required fields</span>
           </div>
         </div>
@@ -256,8 +346,23 @@
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script
+      src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+      integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+      integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+      integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+      crossorigin="anonymous"
+    ></script>
+    <!-- for country,state,city -->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="//geodata.solutions/includes/countrystatecity.js"></script>
   </body>
 </html>

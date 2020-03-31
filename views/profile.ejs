@@ -2,96 +2,127 @@
 <html lang="en">
 
 <head>
-  <!-- Required meta tags -->
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-  
-  <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
-    crossorigin="anonymous"></script>
 
-  
-  <link href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.3/css/font-awesome.css'>
+    <script src="https://code.jquery.com/jquery-3.4.1.js"
+        integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
 
-  <!-- Bootstrap CSS -->
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-  <script src='https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js'></script>
 
-  <!-- stylesheet for navbar -->
-	<link rel="stylesheet" href="/assets/cssFiles/navbar.css">
+    <link href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.3/css/font-awesome.css'>
 
-  <!-- stylesheet and script for MUltiple step form -->
-  <link rel="stylesheet" href="/assets/cssFiles/profile.css">
-  
-  <script src='/assets/jsFiles/profile.js'></script>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src='https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js'></script>
 
-  <title>Medical History</title>
+    <!-- stylesheet for navbar -->
+    <link rel="stylesheet" href="/assets/cssFiles/navbar.css">
+
+    <!-- stylesheet and script for MUltiple step form -->
+    <link rel="stylesheet" href="/assets/cssFiles/profile.css">
+
+    <script src='/assets/jsFiles/profile.js'></script>
+
+    <title>Medical History</title>
 
 </head>
 
-<body onload="onStart()">
+<body>
 
-  <!-- navigation bar -->
-	<% include ./segments/navbar %>
+    <!-- navigation bar -->
+    <% include ./segments/navbar %>
 
-    <div class="container-fluid">
-        <div class="row justify-content-center">
-          <div class="col-11 col-sm-9 col-md-7 col-lg-6 col-xl-9 text-center p-0 mt-3 mb-2">
-            <div class="card">
-                <div class="secondaryNav">
-                    <ul class="nav nav-pills mb-3" id="secondaryNav-tab" role="tablist">
-                        <li class="nav-item">
-                          <a class="nav-link active" id="home-tab" data-toggle="pill" href="#about" role="tab" aria-controls="About" aria-selected="true">About</a>
-                        </li>
-                        <li class="nav-item">
-                          <a class="nav-link" id="profile-tab" data-toggle="pill" href="#educationAndOccupation" role="tab" aria-controls="EducationAndOccupation" aria-selected="false">Education and Occupation</a>
-                        </li>
-                        <li class="nav-item">
-                          <a class="nav-link" id="contact-tab" data-toggle="pill" href="#diseases" role="tab" aria-controls="Diseases" aria-selected="false">Diseases </a>
-                        </li>
-                        <li class="nav-item">
-                         <a class="nav-link" id="profile-tab" data-toggle="pill" href="#familyHistory" role="tab" aria-controls="FamilyHistory" aria-selected="false">Family history</a>
-                        </li>
-                        <li class="nav-item">
-                         <a class="nav-link" id="contact-tab" data-toggle="pill" href="#lifestyle" role="tab" aria-controls="Lifestyle" aria-selected="false">Lifestyle</a>
-                        </li>
-                      </ul>
-                      <div class="tab-content" id="tabContent">
-                        <div class="tab-pane fade show active" id="about" role="tabpanel" aria-labelledby="home-tab">
-                            <% include ./segments/about %>
-                        </div>
-                        <div class="tab-pane fade" id="educationAndOccupation" role="tabpanel" aria-labelledby="profile-tab">
-                            <% include ./segments/educationAndOccupation %>
-                        </div>
-                        <div class="tab-pane fade" id="diseases" role="tabpanel" aria-labelledby="contact-tab">
-                            <% include ./segments/diseases %>
-                        </div>
-                        <div class="tab-pane fade" id="familyHistory" role="tabpanel" aria-labelledby="profile-tab">
-                            <% include ./segments/familyHistory%>
-                        </div>
-                        <div class="tab-pane fade" id="lifestyle" role="tabpanel" aria-labelledby="contact-tab">
-                            <% include ./segments/lifestyle %>
-                        </div>
-                      </div>
-                </div>
-                  
-            </div>
-          </div>
+    <div class="profile-container">
+
+        <div class="nav flex-column sidebar-container" id="sidebar-tab" role="tablist" aria-orientation="vertical">
+
+            <a class="nav-link active" id="about-tab" data-toggle="tab" href="#about" role="tab" aria-controls="about"
+                aria-selected="true">About</a>
+
+            <a class="nav-link" id="work-and-education-tab" data-toggle="tab" href="#work-and-education" role="tab"
+                aria-controls="work-and-education" aria-selected="false">Work and Education</a>
+
+            <a class="nav-link" id="birth-and-development-tab" data-toggle="tab" href="#birth-and-development"
+                role="tab" aria-controls="birth-and-development" aria-selected="false">Birth and Development History</a>
+
+            <a class="nav-link" id="family-info-tab" data-toggle="tab" href="#family-info" role="tab"
+                aria-controls="family-info" aria-selected="false">Family Information</a>
+
+            <a class="nav-link" id="lifestyle-tab" data-toggle="tab" href="#lifestyle" role="tab"
+                aria-controls="lifestyle" aria-selected="false">Lifestyle</a>
+
+            <a class="nav-link" id="prev-diseases-tab" data-toggle="tab" href="#prev-diseases" role="tab"
+                aria-controls="prev-diseases" aria-selected="false"> Previous Diseases and Disorders</a>
+
         </div>
-      </div>
-    
-    
- 
+
+        <div class="tab-content data-container" id="sidebar-tabContent">
+
+            <div class="tab-pane fade show active" id="about" role="tabpanel" aria-labelledby="about-tab">
+                <% include ./segments/about %>
+            </div>
+
+            <div class="tab-pane fade" id="work-and-education" role="tabpanel" aria-labelledby="work-and-education-tab">
+                <p> Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+                    Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown
+                    printer tontaining Lorem Ipsum passages, and more recently
+                    with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+                </p>
+            </div>
+            <div class="tab-pane fade" id="birth-and-development" role="tabpanel"
+                aria-labelledby="birth-and-development-tab">
+                <p> Lorem Ipsook a galley of type and scrambled it to make a type specimen book.
+                    It has survived not only five centuries, but also the leap into electronic typesetting,
+                    remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset
+                    sheets containing Lorem Ipsum passages, and more recently
+                    with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+                </p>
+            </div>
+            <div class="tab-pane fade" id="family-info" role="tabpanel" aria-labelledby="family-info-tab">
+                <p> orem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown
+                    printer took a galley of type and scrambled it to make a type specimen book.
+                    It has survived not only five centuries, but also the leap into electronic typesetting,
+                    remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset
+                    sheets containing Lorem Ipsum passages, and more recently
+                    with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+                </p>
+            </div>
+
+            <div class="tab-pane fade" id="lifestyle" role="tabpanel" aria-labelledby="lifestyle-tab">
+                <p> orem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown
+                    printer took a galley of type and scrambled it to make a type specimen book.
+                    It has survived not only five centuries, but also the leap into electronic typesetting,
+                    remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset
+                    sheets containing Lorem Ipsum passages, and more recently
+                    with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+                </p>
+            </div>
+
+            <div class="tab-pane fade" id="prev-diseases" role="tabpanel" aria-labelledby="prev-diseases-tab">
+                <p> orem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown
+                    printer took a galley of type and scrambled it to make a type specimen book.
+                    It has survived not only five centuries, but also the leap into electronic typesetting,
+                    remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset
+                    sheets containing Lorem Ipsum passages, and more recently
+                    with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+                </p>
+            </div>
+        </div>
+
+    </div>
 
 
-  <!-- Optional JavaScript -->
-  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
-    integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
-    crossorigin="anonymous"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
-    integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
-    crossorigin="anonymous"></script>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
 </body>
 
 </html>

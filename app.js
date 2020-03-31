@@ -126,7 +126,7 @@ app.get("/medHistory", async (req, res) => {
 
   await medHistoryModel.find({},(err, data) => {
     if (err) throw err
-    else res.render("medHistory", { data, diseasesJson, substanceNamesJson})
+    else res.render("medHistory", { data, substanceNamesJson, diseasesJson})
   })
 
 })
@@ -142,7 +142,9 @@ app.post("/medHistory", async (req, res) => {
   res.redirect('/medHistory')
 })
 
-
+app.get("/termsAndConditions", (req, res) => {
+    res.render("termsAndConditions")
+})
 
 
 //routes
@@ -159,3 +161,4 @@ var PORT = process.env.PORT || 5000
 app.listen(PORT, () => {
   console.log('Express server listening on port', PORT)
 })
+

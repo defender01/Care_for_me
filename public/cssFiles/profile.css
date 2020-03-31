@@ -1,343 +1,32 @@
-
-body{
+ body{
     background-color: #f5f5f5;
-}
+ }
+ 
+ hr.new{
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    border: 1px;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+  }
 
-p {
-    color: grey
-}
-
-#heading {
-    text-transform: uppercase;
-    color: #673AB7;
-    font-weight: normal
-}
-
-#msform {
-    text-align: center;
-    position: relative;
-    margin-top: 20px
-}
-
-#msform fieldset {
-    background: white;
-    border: 0 none;
-    border-radius: 0.5rem;
-    box-sizing: border-box;
-    width: 100%;
-    margin: 0;
-    padding-bottom: 20px;
-    position: relative
-}
-
-.form-card {
-    text-align: left
-}
-
-#msform fieldset:not(:first-of-type) {
-    display: none
-}
-
-#msform input, #msform textarea {
-    padding: 8px 15px 8px 15px;
-    border: 1px solid #ccc;
-    border-radius: 0px;
-    margin-bottom: 10px;
-    margin-top: 2px;
-    width: 100%;
-    box-sizing: border-box;
-    font-family: montserrat;
-    color: #2C3E50;
-    background-color: #ECEFF1;
-    font-size: 16px;
-    letter-spacing: 1px
-}
-
-#msform input:focus, #msform textarea:focus {
-    -moz-box-shadow: none !important;
-    -webkit-box-shadow: none !important;
-    box-shadow: none !important;
-    border: 1px solid #673AB7;
-    outline-width: 0
-}
-
-#msform .action-button {
-    width: 100px;
-    background: #673AB7;
-    font-weight: bold;
-    color: white;
-    border: 0 none;
-    border-radius: 0px;
-    cursor: pointer;
-    padding: 10px 5px;
-    margin: 10px 0px 10px 5px;
-    float: right
-}
-
-#msform .action-button:hover, #msform .action-button:focus {
-    background-color: #311B92
-}
-
-#msform .action-button-previous {
-    width: 100px;
-    background: #616161;
-    font-weight: bold;
-    color: white;
-    border: 0 none;
-    border-radius: 0px;
-    cursor: pointer;
-    padding: 10px 5px;
-    margin: 10px 5px 10px 0px;
-    float: right
-}
-
-#msform .action-button-previous:hover, #msform .action-button-previous:focus {
-    background-color: #000000
-}
-
-.card {
-    padding: 10px 20px 10px 20px;
-    z-index: 0;
-    border: none;
-    position: relative
-}
-
-.fs-title {
-    font-size: 25px;
-    color: #673AB7;
-    margin-bottom: 15px;
-    font-weight: normal;
-    text-align: left
-}
-
-.subsection-title {
-    font-size: 20px;
-    color: dodgerblue;
-    margin-bottom: 15px;
-    font-weight: normal;
-    text-align: left
-}
-
-/* .subsection-card{
-
-} */
-
-.subsection-row {
+.profile-container{
+    margin: 20px 100px 10px 100px;
     display: flex;
-    flex-wrap: wrap;
-    margin: 10px auto 0 auto;
-    align-items: center;
-    justify-content: space-between;
 }
 
-.subsection-col{
-    box-sizing: border-box;
-    display: flex;
-    width: 325px;
-    height: 50px;
-    padding: 10px;
-    background-color: rgb(243, 242, 241);
-    margin-bottom: 10px;
+.sidebar-container{
+    flex: 2;
+    background-color: #ffffff;;
+    padding: 10px 10px 10px 10px;
     border-radius: 2px;
     -webkit-box-shadow: 0 0 2px rgba(98, 97, 99, 0.76);
-        box-shadow: 0 0 2px rgba(98, 97, 99, 0.76);
+    box-shadow: 0 0 2px rgba(98, 97, 99, 0.76);
+    margin-right: 10px;
 }
 
-.subsection-col:hover{
-    box-sizing: border-box;
-    display: flex;
-    width: 325px;
-    height: 50px;
-    padding: 10px;
-    background-color: rgb(243, 242, 241);
-    margin-bottom: 10px;
-    border-radius: 2px;
-    -webkit-box-shadow: 0 0 7px rgba(98, 97, 99, 0.76);
-        box-shadow: 0 0 7px rgba(98, 97, 99, 0.76);
-}
-
-
-.subsection-col h6{
-    flex: 4;
-    margin-top: 5px;
-    margin-left: 5px;
-    margin-right: 20px;
-}
-
-
-.subsection-col button{
-    flex: 1
-} 
-
-/* for popup design */
-
-.modal-bg{
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0,0, 0, 0.0);
-    top: 0;
-    position: absolute;
-    padding:1px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.modal-container{
-    width: 500px;
-    min-height: 400px;
-    max-height: 500px;
-    background-color: white;
-    border-radius: 4px;
-    padding: 5px 5px 5px 5px;
-    margin-bottom: 20px;
-    z-index: 10;
-    overflow: auto;
-    -webkit-box-shadow: 0 0 15px rgba(98, 97, 99, 0.76);
-        box-shadow: 0 0 15px rgba(98, 97, 99, 0.76);
-}
-
-.collapse-container{
-    padding: 25px 5px 5px 5px;
-}
-
-
-.collapse-container .card-header{
-    height: 50px;
-    background-color: rgb(207, 214, 219);
-    display: flex;
-    align-items: center;
-    padding: 0px 5px 0px 5px;
-}
-
-.collapse-container .card-header .btn{
-    font-weight: bold;
-}
-
-.collapse-card-body{
-    margin: 10px 10px 0px 10px;
-}
-
-.popUpRowElementHolder{
-    display: flex;
-}
-.popUpRowElementHolder .okButton{
-    flex: 1;
-    margin: 0 5px 5px 35px;
-}
-.popUpRowElementHolder .cancelButton{
-    flex: 1;
-    margin: 0 35px 5px 5px;
-}
-
-/* for popup design */
-
-
-.purple-text {
-    color: #673AB7;
-    font-weight: normal
-}
-
-.steps {
-    font-size: 25px;
-    color: gray;
-    margin-bottom: 10px;
-    font-weight: normal;
-    text-align: right
-}
-
-.fieldlabels {
-    color: gray;
-    text-align: left
-}
-
-#progressbar {
-    margin-bottom: 30px;
-    overflow: hidden;
-    color: lightgrey
-}
-
-#progressbar .active {
-    color: #673AB7
-}
-
-#progressbar li {
-    font-size: 15px;
-    width: 20%;
-    float: left;
-    position: relative;
-    font-weight: 400
-}
-
-#progressbar #step1:before {
-    font-family: FontAwesome;
-    content: "\f13e"
-}
-
-#progressbar #step2:before {
-    font-family: FontAwesome;
-    content: "\f007" 
-}
-
-#progressbar #step3:before {
-    font-family: FontAwesome;
-    content: "\f030"
-}
-
-#progressbar #step4:before {
-    font-family: FontAwesome;
-    content: "\f00c"
-}
-
-#progressbar #step5:before {
-    font-family: FontAwesome;
-    content: "\f030"
-}
-
-#progressbar li:before {
-    width: 50px;
-    height: 50px;
-    line-height: 45px;
-    display: block;
-    font-size: 20px;
-    color: #ffffff;
-    background: lightgray;
-    border-radius: 50%;
-    margin: 0 auto 10px auto;
-    padding: 2px
-}
-
-#progressbar li:after {
-    content: '';
-    width: 100%;
-    height: 2px;
-    background: lightgray;
-    position: absolute;
-    left: 0;
-    top: 25px;
-    z-index: -1
-}
-
-#progressbar li.active:before, #progressbar li.active:after {
-    background: #673AB7
-}
-
-.progress {
-    height: 20px
-}
-
-.progress-bar {
-    background-color: #673AB7
-}
-
-.fit-image {
-    width: 100%;
-    object-fit: cover
-}
-
-
-/* family history */
-.family-container{
+.data-container{
+    flex: 10;
+    margin-left: 10px;
     background-color: #ffffff;;
     padding: 10px 10px 10px 10px;
     border-radius: 2px;
@@ -345,68 +34,6 @@ p {
     box-shadow: 0 0 2px rgba(98, 97, 99, 0.76);
 }
 
-.family-container .part .left{
-    text-align: left;
-}
-
-
-
-.family-container .part .sub-part{
-    background-color: #ffffff;
-    padding: 10px 10px 10px 10px;
-    margin: 10px 10px 10px 10px;
-    border-radius: 2px;
-    -webkit-box-shadow: 0 0 2px rgba(98, 97, 99, 0.76);
-    box-shadow: 0 0 2px rgba(98, 97, 99, 0.76);
-}
-.family-container .part .sub-part .title{
-    color: rgb(85, 85, 85);
-    font-size: 18px;
-}
-
-.family-container .part h5{
-    padding-top: 10px;
-}
-.family-container .sub-part-row {
-    display: flex;
-    padding: 10px 10px 0px 0px;
-}
-.family-container .sub-part-row h5{
-    flex: 1;
-}
-
-.family-container .sub-part .sub-part-row p{
-    flex: 1;
-}
-.add{
-    height: 25px;
-    width: 25px;
-    background-image: url(/resources/plus.png);
-    background-size: 100%; /* To fill the dimensions of container (button), or */
-    background-size: 25px 25px; /* to specify dimensions explicitly */
-    border: 0px;
-}
-.add:hover{
-    height: 25px;
-    width: 25px;
-    
-    background-size: 100%; /* To fill the dimensions of container (button), or */
-    background-size: 25px 25px; /* to specify dimensions explicitly */
-    border: 1px;
-    border-style: solid;
-}
-
-.rowRowElementHolder{
-    display: flex;
-}
-.rowRowElementHolder .singleElement{
-    flex: 1;
-    margin: 0 5px 0 5px;
-}
-
-.secondaryNav{
-    background-color: rgb(255, 255, 255);
-}
 
 .row .tag{
     text-align: right;
@@ -420,3 +47,9 @@ p {
     text-align: left;
     padding: 0 0 0 100px;
 }
+
+.shadow{
+    -webkit-box-shadow: 0 0 15px rgba(98, 97, 99, 0.76);
+    box-shadow: 0 0 15px rgba(98, 97, 99, 0.76);
+}
+

@@ -352,6 +352,7 @@ function togglePopUpFamilyHistory(from) {
     } else {
         document.getElementById('popupFamilyHistory').style.display = "flex";
     }
+    hideGenderForParents()
 }
 
 function togglePopUpFamilyHistoryAdd(from) {
@@ -469,6 +470,7 @@ function togglePopUpFamilyHistoryAdd(from) {
       '<input type="text" name="health" value= "'+inputValues[fieldNames[ind2++]] +'" style="display: none">'+
       '<input type="text" name="psychiatric" value= "'+inputValues[fieldNames[ind2++]] +'" style="display: none">'
     }
+    hideGenderForParents()
 }
   
 function changeButtonText(id)
@@ -503,12 +505,45 @@ function addVaccineDetails(){
     '<div class="col-7">'+
       '<input type="text" name="vaccine" placeholder="Vaccine name" />'+
     '</div>'+
-    '<div class="col-5">'+
-      '<input type="text" name="date_taken" placeholder="Date" />'+
-    '</div>'+
+    '<div class="row">'+
+                  '<div class="col">'+
+                    '<div class="custom-control custom-checkbox">'+
+                      '<input '+
+                        'type="radio" '+
+                        'class="custom-control-input"'+
+                        'id="vaccineCompleted"'+
+                        'name="linguisticDevelopment"'+
+                        'value="completed"'+
+                        'checked'+
+                      '>'+
+                      '<label class="custom-control-label" for="vaccineCompleted">'+
+                        'completed'+
+                      '</label>'+
+                    '</div>'+
+                  '</div>'+
+                  '<div class="col">'+
+                    '<div class="custom-control custom-checkbox">'+
+                      '<input '+
+                        'type="radio"'+
+                        'class="custom-control-input" '+
+                        'id="vaccineNotCompleted"'+
+                        'name="linguisticDevelopment"'+
+                        'value="incomplete"'+
+                      '>'+
+                      '<label class="custom-control-label" for="vaccineNotCompleted">'+
+                        'incomplete'+
+                      '</label>'+
+                    '</div>'+
+                  '</div>'+
+                  '<div class="col">'+
+                  '</div>'+
+                '</div>'+
   '</div>'
 }
-
+function hideGenderForParents(){
+  $('#fatherDetails > #collapseExamplefatherDetails > .conditional').hide()
+  $('#motherDetails > #collapseExamplemotherDetails > .conditional').hide()
+}
 function onStart()
 {
      // keep occupation details of step4 hidden at the beginning
@@ -517,8 +552,7 @@ function onStart()
      el.style.display="none"
      uel.style.display="none"
 
-     $('#fatherDetails > #collapseExamplefatherDetails > .conditional').hide()
-     $('#motherDetails > #collapseExamplemotherDetails > .conditional').hide()
+     hideGenderForParents()
  
     var ids= ['fatherDetails','motherDetails','siblingDetails','childrenDetails','relativeDetails']
     for(var i = 0; i<ids.length; i++)
