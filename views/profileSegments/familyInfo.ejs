@@ -1,0 +1,166 @@
+<div class="part-container ">
+    <nav class="navbar navbar-expand-lg navbar-light" id = "tertiary-nav">
+       
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav">
+            <li class="nav-item active">
+              <a class="nav-link" href="#parents">Parents <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#siblings">Siblings</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#children">Children</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#relatives">Other relatives</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+</div>
+
+<div id="parents">
+    <div class="part-container" >
+        <div class = "title-bar">
+            Father's details
+        </div>
+        <div class="row">
+            <div class="col-3 tag">
+                <label> Name</label>
+            </div>
+            <div class="col-9 value">
+                <p id="">Atikul Islam</p>
+            </div>
+        </div>
+        <div class="hrline"></div>
+
+        <div class="collapse" id="collapseExamplefatherDetails">
+            <div class="row">
+                <div class="col-3 tag">
+                    <label>Birth date</label>
+                </div>
+                <div class="col-9 value">
+                    <p id="">05.05.1967</p>
+                </div>
+            </div>
+            <h3>Physical health</h3>
+            <div class="hrline"></div>
+            <div class="row">
+                <div class="col-3 tag">
+                    <label >Suffered problems</label>
+                </div>
+                <div class="col-9 value">
+                    <div class="row">
+                        <div class="col">
+                          <% if(typeof physicalDiseasesJson != 'undefined'){ %>
+                          <% for(let i = 0 ; i < physicalDiseasesJson.length/2; i++) {%>
+                            <p class="physical-prob"><%= physicalDiseasesJson[i].name %></p>
+                          
+                          <% } %>
+                          <% } %>
+                        </div>
+                        <div class="col">
+                          <% if(typeof physicalDiseasesJson != 'undefined'){ %>
+                          <% for(let i = physicalDiseasesJson.length/2 ; i < physicalDiseasesJson.length; i++) {%>
+                            <p class="physical-prob"><%= physicalDiseasesJson[i].name %></p>
+                          
+                          <% } %>
+                          <% } %>
+                        </div>
+                      </div>
+                </div>
+            </div>
+            <h3>Mental health</h3>
+            <div class="hrline"></div>
+            <div class="row">
+                <div class="col-3 tag">
+                    <label >Suffered problems</label>
+                </div>
+                <div class="col-9 value">
+                    <div class="row">
+                        <div class="col">
+                          <% if(typeof mentalDiseasesJson != 'undefined'){ %>
+                          <% for(let i = 0 ; i < mentalDiseasesJson.length/2; i++) {%>
+    
+                          <div class="custom-control custom-checkbox">
+                            <input type="checkbox" class="custom-control-input" id='<%= mentalDiseasesJson[i].id %>'
+                              name='<%= mentalDiseasesJson[i].name%>' onclick="return false;">
+                            <label class="custom-control-label" for='<%= mentalDiseasesJson[i].id %>'>
+                              <%= mentalDiseasesJson[i].name %>
+                            </label>
+                          </div>
+                          <% } %>
+                          <% } %>
+                        </div>
+                        <div class="col">
+                          <% if(typeof mentalDiseasesJson != 'undefined'){ %>
+                          <% for(let i = mentalDiseasesJson.length/2 ; i < mentalDiseasesJson.length; i++) {%>
+    
+                          <div class="custom-control custom-checkbox">
+                            <input type="checkbox" class="custom-control-input" id='<%= mentalDiseasesJson[i].id %>'
+                              name='<%= mentalDiseasesJson[i].name%>' onclick="return false;" checked>
+                            <label class="custom-control-label" for='<%= mentalDiseasesJson[i].id %>'>
+                              <%= mentalDiseasesJson[i].name %>
+                            </label>
+                          </div>
+                          <% } %>
+                          <% } %>
+                        </div>
+                      </div>
+                </div>
+            </div>
+            <div class="hrline"></div>
+            <div class="row">
+                <div class="col-3 tag">
+                    <label >Occupation</label>
+                </div>
+                <div class="col-9 value">
+                    <p id="">Teacher</p>
+                </div>
+            </div>
+            <div class="hrline"></div>
+            <div class="row">
+                <div class="col-3 tag">
+                    <label >Date of death</label>
+                </div>
+                <div class="col-9 value">
+                    <p id="">15.06.2020</p>
+                </div>
+            </div>
+            <div class="hrline"></div>
+            <div class="row">
+                <div class="col-3 tag">
+                    <label >Cause of death</label>
+                </div>
+                <div class="col-9 value">
+                    <p id="">Hearth attack</p>
+                </div>
+            </div>
+            <div class="hrline"></div>
+            <div class="row">
+                <div class="col-3 tag">
+                    <label >NID number</label>
+                </div>
+                <div class="col-9 value">
+                    <p id=""><%= data[0].nidNumber %></p>
+                </div>
+            </div>
+            <div class="hrline"></div>
+        </div>   
+        
+        <div class="extend">
+            <p>
+              <a class="btn btn-light" data-toggle="collapse" href="#collapseExamplefatherDetails" id="seeMore"
+                role="button" onclick="changeButtonText(this.id)" aria-expanded="false"
+                aria-controls="collapseExample">
+                See more
+              </a>
+            </p>
+          </div>
+    </div>
+        
+</div>

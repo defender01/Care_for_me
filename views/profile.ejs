@@ -30,7 +30,7 @@
 
 </head>
 
-<body>
+<body onload="onStart()">
 
     <!-- navigation bar -->
     <% include ./segments/navbar %>
@@ -63,7 +63,6 @@
 
             <div class="tab-pane fade show active" id="about" role="tabpanel" aria-labelledby="about-tab">
                 <% include ./profileSegments/about %>
-                <div class="data-container">sds</div>
             </div>
 
             <div class="tab-pane fade" id="work-and-education" role="tabpanel" aria-labelledby="work-and-education-tab">
@@ -71,10 +70,10 @@
             </div>
             <div class="tab-pane fade" id="birth-and-development" role="tabpanel"
                 aria-labelledby="birth-and-development-tab">
-                <% include ./profileSegments/about %>
+                <% include ./profileSegments/birthAndDevelopmentHistory %>
             </div>
             <div class="tab-pane fade" id="family-info" role="tabpanel" aria-labelledby="family-info-tab">
-                <% include ./profileSegments/about %>
+                <% include ./profileSegments/familyInfo %>
             </div>
 
             <div class="tab-pane fade" id="lifestyle" role="tabpanel" aria-labelledby="lifestyle-tab">

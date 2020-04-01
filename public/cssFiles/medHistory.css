@@ -379,7 +379,7 @@ p {
     box-shadow: 0 0 2px rgba(98, 97, 99, 0.76);
 }
 .family-container .part .sub-part .title{
-    color: rgb(85, 85, 85);
+    color: rgb(148, 148, 148);
     font-size: 18px;
 }
 
@@ -396,6 +396,14 @@ p {
 
 .family-container .sub-part .sub-part-row p{
     flex: 1;
+    
+}
+.family-container .sub-sub-part p{
+    color: rgb(0, 0, 0);
+
+}
+.row p{
+    color: rgb(0, 0, 0);
 }
 .add{
     height: 25px;
@@ -429,4 +437,11 @@ p {
 .countShow{
     color: rgb(3, 76, 211);
     font-size: 17px;
+}
+
+.row .col .physical-prob{
+    margin: 0 0 0 0;
+    padding: 0 20px 0 20px;
+    /* background-color: brown; */
+    color: black;
 }

@@ -11,7 +11,7 @@
 
     <!-- family history -->
     <div class="family-container">
-      <ul class="nav nav-tabs" id="myTab" role="tablist">
+      <ul class="nav nav-tabs" id="familyInfoTab" role="tablist">
         <li class="nav-item">
           <a class="nav-link active" id="parents-tab" data-toggle="tab" href="#parents" role="tab"
             aria-controls="parents" aria-selected="true">Parents</a>
@@ -68,28 +68,16 @@
                     <div class="col">
                       <% if(typeof physicalDiseasesJson != 'undefined'){ %>
                       <% for(let i = 0 ; i < physicalDiseasesJson.length/2; i++) {%>
-
-                      <div class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input" id='<%= physicalDiseasesJson[i].id %>'
-                          name='<%= physicalDiseasesJson[i].name%>' checked onclick="return false;">
-                        <label class="custom-control-label" for='<%= physicalDiseasesJson[i].id %>'>
-                          <%= physicalDiseasesJson[i].name %>
-                        </label>
-                      </div>
+                        <p class="physical-prob"><%= physicalDiseasesJson[i].name %></p>
+                      
                       <% } %>
                       <% } %>
                     </div>
                     <div class="col">
                       <% if(typeof physicalDiseasesJson != 'undefined'){ %>
                       <% for(let i = physicalDiseasesJson.length/2 ; i < physicalDiseasesJson.length; i++) {%>
-
-                      <div class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input" id='<%= physicalDiseasesJson[i].id %>'
-                          name='<%= physicalDiseasesJson[i].name%>' onclick="return false;">
-                        <label class="custom-control-label" for='<%= physicalDiseasesJson[i].id %>'>
-                          <%= physicalDiseasesJson[i].name %>
-                        </label>
-                      </div>
+                        <p class="physical-prob"><%= physicalDiseasesJson[i].name %></p>
+                      
                       <% } %>
                       <% } %>
                     </div>
@@ -142,7 +130,7 @@
                   </p>
                 </div>
                 <p class="title">
-                  date of death
+                  Date of death
                 </p>
                 <div class="sub-sub-part">
                   <p>

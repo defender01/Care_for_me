@@ -22,6 +22,7 @@ function changeAppearance(activeId){
   
 function onStart(){
     // Get the element with id="defaultOpen" and click on it
+    $("#about-tab").addClass('selected-nav-item').removeClass('hrline');
    
 }
   
