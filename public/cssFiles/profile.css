@@ -52,6 +52,10 @@
     text-align: left;
     padding: 0 0 0 50px;
 }
+.row .value a{
+    text-align: left;
+    padding: 0 0 0 50px;
+}
 
 .shadow{
     -webkit-box-shadow: 0 0 15px rgba(98, 97, 99, 0.76);
@@ -95,4 +99,15 @@
 }
 nav#tertiary-nav.navbar.navbar-expand-lg.navbar-light{
     background-color: rgb(212, 212, 255);
+}
+.title-bar.subpart-title{
+    /* font-size: 17px; */
+    background-color: rgb(224, 232, 250);
+}
+.title{
+    font-size: 16px;
+    color: black;
+}
+.see-more-btn{
+    margin: 0 10px 10px 10px;
 }

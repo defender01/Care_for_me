@@ -14,15 +14,28 @@ function openCity(evt, cityName) {
 
   
 function changeAppearance(activeId){
-  console.log(activeId)
   $('.selected-nav-item').addClass('hrline').removeClass('selected-nav-item');
   $("#"+activeId).addClass('selected-nav-item').removeClass('hrline');
    
 }
-  
+
+function changeTab(activeId){
+  console.log(activeId)
+  $(".family-tab").css("display", "none");
+  $("#"+activeId).css("display", "block");
+  console.log("active id="+activeId)
+}
+function changeButtonText(id)
+{
+    // console.log(id)
+    var elem = document.getElementById(id)
+    if (elem.innerText=="See more") elem.innerText = "See less";
+    else elem.innerText = "See more";
+}
+
 function onStart(){
     // Get the element with id="defaultOpen" and click on it
     $("#about-tab").addClass('selected-nav-item').removeClass('hrline');
-   
+   changeTab("parentsId");
 }
   
