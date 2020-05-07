@@ -67,7 +67,7 @@
                   <div class="row">
                     <div class="col">
                       <% if(typeof physicalDiseasesJson != 'undefined'){ %>
-                      <% for(let i = 0 ; i < physicalDiseasesJson.length/2; i++) {%>
+                      <% for(let i = 0 ; i < Math.floor(physicalDiseasesJson.length/2); i++) {%>
                         <p class="physical-prob"><%= physicalDiseasesJson[i].name %></p>
                       
                       <% } %>
@@ -75,7 +75,7 @@
                     </div>
                     <div class="col">
                       <% if(typeof physicalDiseasesJson != 'undefined'){ %>
-                      <% for(let i = physicalDiseasesJson.length/2 ; i < physicalDiseasesJson.length; i++) {%>
+                      <% for(let i = Math.floor(physicalDiseasesJson.length/2) ; i < physicalDiseasesJson.length; i++) {%>
                         <p class="physical-prob"><%= physicalDiseasesJson[i].name %></p>
                       
                       <% } %>
@@ -92,7 +92,7 @@
                   <div class="row">
                     <div class="col">
                       <% if(typeof mentalDiseasesJson != 'undefined'){ %>
-                      <% for(let i = 0 ; i < mentalDiseasesJson.length/2; i++) {%>
+                      <% for(let i = 0 ; i < Math.floor(mentalDiseasesJson.length/2); i++) {%>
 
                       <div class="custom-control custom-checkbox">
                         <input type="checkbox" class="custom-control-input" id='<%= mentalDiseasesJson[i].id %>'
@@ -106,7 +106,7 @@
                     </div>
                     <div class="col">
                       <% if(typeof mentalDiseasesJson != 'undefined'){ %>
-                      <% for(let i = mentalDiseasesJson.length/2 ; i < mentalDiseasesJson.length; i++) {%>
+                      <% for(let i = Math.floor(mentalDiseasesJson.length/2) ; i < mentalDiseasesJson.length; i++) {%>
 
                       <div class="custom-control custom-checkbox">
                         <input type="checkbox" class="custom-control-input" id='<%= mentalDiseasesJson[i].id %>'
@@ -193,7 +193,7 @@
                   <div class="row">
                     <div class="col">
                       <% if(typeof physicalDiseasesJson != 'undefined'){ %>
-                      <% for(let i = 0 ; i < physicalDiseasesJson.length/2; i++) {%>
+                      <% for(let i = 0 ; i < Math.floor(physicalDiseasesJson.length/2); i++) {%>
 
                       <div class="custom-control custom-checkbox">
                         <input type="checkbox" class="custom-control-input" id='<%= physicalDiseasesJson[i].id %>'
@@ -207,7 +207,7 @@
                     </div>
                     <div class="col">
                       <% if(typeof physicalDiseasesJson != 'undefined'){ %>
-                      <% for(let i = physicalDiseasesJson.length/2 ; i < physicalDiseasesJson.length; i++) {%>
+                      <% for(let i = Math.floor(physicalDiseasesJson.length/2) ; i < physicalDiseasesJson.length; i++) {%>
 
                       <div class="custom-control custom-checkbox">
                         <input type="checkbox" class="custom-control-input" id='<%= physicalDiseasesJson[i].id %>'
@@ -230,7 +230,7 @@
                   <div class="row">
                     <div class="col">
                       <% if(typeof mentalDiseasesJson != 'undefined'){ %>
-                      <% for(let i = 0 ; i < mentalDiseasesJson.length/2; i++) {%>
+                      <% for(let i = 0 ; i < Math.floor(mentalDiseasesJson.length/2); i++) {%>
 
                       <div class="custom-control custom-checkbox">
                         <input type="checkbox" class="custom-control-input" id='<%= mentalDiseasesJson[i].id %>'
@@ -244,7 +244,7 @@
                     </div>
                     <div class="col">
                       <% if(typeof mentalDiseasesJson != 'undefined'){ %>
-                      <% for(let i = mentalDiseasesJson.length/2 ; i < mentalDiseasesJson.length; i++) {%>
+                      <% for(let i = Math.floor(mentalDiseasesJson.length/2) ; i < mentalDiseasesJson.length; i++) {%>
 
                       <div class="custom-control custom-checkbox">
                         <input type="checkbox" class="custom-control-input" id='<%= mentalDiseasesJson[i].id %>'
@@ -320,7 +320,7 @@
                   <div class="row">
                     <div class="col">
                       <% if(typeof physicalDiseasesJson != 'undefined'){ %>
-                      <% for(let i = 0 ; i < physicalDiseasesJson.length/2; i++) {%>
+                      <% for(let i = 0 ; i < Math.floor(physicalDiseasesJson.length/2); i++) {%>
 
                       <div class="custom-control custom-checkbox">
                         <input type="checkbox" class="custom-control-input" id='<%= physicalDiseasesJson[i].id %>'
@@ -334,7 +334,7 @@
                     </div>
                     <div class="col">
                       <% if(typeof physicalDiseasesJson != 'undefined'){ %>
-                      <% for(let i = physicalDiseasesJson.length/2 ; i < physicalDiseasesJson.length; i++) {%>
+                      <% for(let i = Math.floor(physicalDiseasesJson.length/2) ; i < physicalDiseasesJson.length; i++) {%>
 
                       <div class="custom-control custom-checkbox">
                         <input type="checkbox" class="custom-control-input" id='<%= physicalDiseasesJson[i].id %>'
@@ -357,7 +357,7 @@
                   <div class="row">
                     <div class="col">
                       <% if(typeof mentalDiseasesJson != 'undefined'){ %>
-                      <% for(let i = 0 ; i < mentalDiseasesJson.length/2; i++) {%>
+                      <% for(let i = 0 ; i < Math.floor(mentalDiseasesJson.length/2); i++) {%>
 
                       <div class="custom-control custom-checkbox">
                         <input type="checkbox" class="custom-control-input" id='<%= mentalDiseasesJson[i].id %>'
@@ -371,7 +371,7 @@
                     </div>
                     <div class="col">
                       <% if(typeof mentalDiseasesJson != 'undefined'){ %>
-                      <% for(let i = mentalDiseasesJson.length/2 ; i < mentalDiseasesJson.length; i++) {%>
+                      <% for(let i = Math.floor(mentalDiseasesJson.length/2) ; i < mentalDiseasesJson.length; i++) {%>
 
                       <div class="custom-control custom-checkbox">
                         <input type="checkbox" class="custom-control-input" id='<%= mentalDiseasesJson[i].id %>'
@@ -447,7 +447,7 @@
                   <div class="row">
                     <div class="col">
                       <% if(typeof physicalDiseasesJson != 'undefined'){ %>
-                      <% for(let i = 0 ; i < physicalDiseasesJson.length/2; i++) {%>
+                      <% for(let i = 0 ; i < Math.floor(physicalDiseasesJson.length/2); i++) {%>
 
                       <div class="custom-control custom-checkbox">
                         <input type="checkbox" class="custom-control-input" id='<%= physicalDiseasesJson[i].id %>'
@@ -461,7 +461,7 @@
                     </div>
                     <div class="col">
                       <% if(typeof physicalDiseasesJson != 'undefined'){ %>
-                      <% for(let i = physicalDiseasesJson.length/2 ; i < physicalDiseasesJson.length; i++) {%>
+                      <% for(let i = Math.floor(physicalDiseasesJson.length/2) ; i < physicalDiseasesJson.length; i++) {%>
 
                       <div class="custom-control custom-checkbox">
                         <input type="checkbox" class="custom-control-input" id='<%= physicalDiseasesJson[i].id %>'
@@ -484,7 +484,7 @@
                   <div class="row">
                     <div class="col">
                       <% if(typeof mentalDiseasesJson != 'undefined'){ %>
-                      <% for(let i = 0 ; i < mentalDiseasesJson.length/2; i++) {%>
+                      <% for(let i = 0 ; i < Math.floor(mentalDiseasesJson.length/2); i++) {%>
 
                       <div class="custom-control custom-checkbox">
                         <input type="checkbox" class="custom-control-input" id='<%= mentalDiseasesJson[i].id %>'
@@ -498,7 +498,7 @@
                     </div>
                     <div class="col">
                       <% if(typeof mentalDiseasesJson != 'undefined'){ %>
-                      <% for(let i = mentalDiseasesJson.length/2 ; i < mentalDiseasesJson.length; i++) {%>
+                      <% for(let i = Math.floor(mentalDiseasesJson.length/2) ; i < mentalDiseasesJson.length; i++) {%>
 
                       <div class="custom-control custom-checkbox">
                         <input type="checkbox" class="custom-control-input" id='<%= mentalDiseasesJson[i].id %>'
@@ -583,7 +583,7 @@
                   <div class="row">
                     <div class="col">
                       <% if(typeof physicalDiseasesJson != 'undefined'){ %>
-                      <% for(let i = 0 ; i < physicalDiseasesJson.length/2; i++) {%>
+                      <% for(let i = 0 ; i < Math.floor(physicalDiseasesJson.length/2); i++) {%>
 
                       <div class="custom-control custom-checkbox">
                         <input type="checkbox" class="custom-control-input" id='<%= physicalDiseasesJson[i].id %>'
@@ -597,7 +597,7 @@
                     </div>
                     <div class="col">
                       <% if(typeof physicalDiseasesJson != 'undefined'){ %>
-                      <% for(let i = physicalDiseasesJson.length/2 ; i < physicalDiseasesJson.length; i++) {%>
+                      <% for(let i = Math.floor(physicalDiseasesJson.length/2) ; i < physicalDiseasesJson.length; i++) {%>
 
                       <div class="custom-control custom-checkbox">
                         <input type="checkbox" class="custom-control-input" id='<%= physicalDiseasesJson[i].id %>'
@@ -620,7 +620,7 @@
                   <div class="row">
                     <div class="col">
                       <% if(typeof mentalDiseasesJson != 'undefined'){ %>
-                      <% for(let i = 0 ; i < mentalDiseasesJson.length/2; i++) {%>
+                      <% for(let i = 0 ; i < Math.floor(mentalDiseasesJson.length/2); i++) {%>
 
                       <div class="custom-control custom-checkbox">
                         <input type="checkbox" class="custom-control-input" id='<%= mentalDiseasesJson[i].id %>'
@@ -634,7 +634,7 @@
                     </div>
                     <div class="col">
                       <% if(typeof mentalDiseasesJson != 'undefined'){ %>
-                      <% for(let i = mentalDiseasesJson.length/2 ; i < mentalDiseasesJson.length; i++) {%>
+                      <% for(let i = Math.floor(mentalDiseasesJson.length/2) ; i < mentalDiseasesJson.length; i++) {%>
 
                       <div class="custom-control custom-checkbox">
                         <input type="checkbox" class="custom-control-input" id='<%= mentalDiseasesJson[i].id %>'
@@ -664,7 +664,7 @@
         </div>
       </div>
 
-      <!-- For popup design-->
+      <!-- For popup design for family member in general-->
 
       <div class="modal-bg" id="popupFamilyHistory" style="display: none">
         <div class="modal-container">
@@ -684,30 +684,43 @@
             <h5>Health details</h5>
             <br>
             <h6>Physical health</h6>
-            <p>Check the the health problem the person has:</p>
+            <p>Check the the health problems the person has:</p>
             <div class="row">
               <div class="col">
                 <% if(typeof physicalDiseasesJson != 'undefined'){ %>
-                <% for(let i = 0 ; i < physicalDiseasesJson.length/2; i++) {%>
+                <% for(let i = 0 ; i < Math.floor(physicalDiseasesJson.length/2); i++) {%>
 
                 <div class="custom-control custom-checkbox">
-                  <input type="checkbox" class="custom-control-input" id='<%= physicalDiseasesJson[i].id %>'
+                  <input type="checkbox" class="custom-control-input" id='<%= physicalDiseasesJson[i].id %>+"FamilyMember"'
                     name='<%= physicalDiseasesJson[i].name%>'>
-                  <label class="custom-control-label" for='<%= physicalDiseasesJson[i].id %>'>
+                  <label class="custom-control-label" for='<%= physicalDiseasesJson[i].id %>+"FamilyMember"'>
                     <%= physicalDiseasesJson[i].name %>
                   </label>
                 </div>
                 <% } %>
                 <% } %>
+                <div class="custom-control custom-checkbox" >
+                  <input type="checkbox" class="custom-control-input" id='cancerFamilyMember'
+                    name='Cancer' onclick="displayConditionalSectionCheckbox(this.id, 'cancerTypeContainerFamilyMember')">
+                  <label class="custom-control-label" for='cancerFamilyMember'>
+                    Cancer
+                  </label>
+                  <br>
+                  <div id= "cancerTypeContainerFamilyMember">
+                    <label for="cancerTypeFamilyMember">Type:</label>
+                    <input type="text" class="" id='cancerTypeFamilyMember'
+                    name='cancerType'>
+                  </div>    
+                </div>
               </div>
               <div class="col">
                 <% if(typeof physicalDiseasesJson != 'undefined'){ %>
-                <% for(let i = physicalDiseasesJson.length/2 ; i < physicalDiseasesJson.length; i++) {%>
+                <% for(let i = Math.floor(physicalDiseasesJson.length/2) ; i < physicalDiseasesJson.length; i++) {%>
 
                 <div class="custom-control custom-checkbox">
-                  <input type="checkbox" class="custom-control-input" id='<%= physicalDiseasesJson[i].id %>'
+                  <input type="checkbox" class="custom-control-input" id='<%= physicalDiseasesJson[i].id %>+"FamilyMember"'
                     name='<%= physicalDiseasesJson[i].name%>'>
-                  <label class="custom-control-label" for='<%= physicalDiseasesJson[i].id %>'>
+                  <label class="custom-control-label" for='<%= physicalDiseasesJson[i].id %>+"FamilyMember"'>
                     <%= physicalDiseasesJson[i].name %>
                   </label>
                 </div>
@@ -716,17 +729,18 @@
               </div>
             </div>
             <br>
+            
             <h6>Mental health</h6>
-            <p>Check the the mental problem the person has:</p>
+            <p>Check the the mental problems the person has:</p>
             <div class="row">
               <div class="col">
                 <% if(typeof mentalDiseasesJson != 'undefined'){ %>
-                <% for(let i = 0 ; i < mentalDiseasesJson.length/2; i++) {%>
+                <% for(let i = 0 ; i < Math.floor(mentalDiseasesJson.length/2); i++) {%>
 
                 <div class="custom-control custom-checkbox">
-                  <input type="checkbox" class="custom-control-input" id='<%= mentalDiseasesJson[i].id %>'
+                  <input type="checkbox" class="custom-control-input" id='<%= mentalDiseasesJson[i].id %>+"FamilyMember"'
                     name='<%= mentalDiseasesJson[i].name%>'>
-                  <label class="custom-control-label" for='<%= mentalDiseasesJson[i].id %>'>
+                  <label class="custom-control-label" for='<%= mentalDiseasesJson[i].id %>+"FamilyMember"'>
                     <%= mentalDiseasesJson[i].name %>
                   </label>
                 </div>
@@ -735,12 +749,12 @@
               </div>
               <div class="col">
                 <% if(typeof mentalDiseasesJson != 'undefined'){ %>
-                <% for(let i = mentalDiseasesJson.length/2 ; i < mentalDiseasesJson.length; i++) {%>
+                <% for(let i = Math.floor(mentalDiseasesJson.length/2) ; i < mentalDiseasesJson.length; i++) {%>
 
                 <div class="custom-control custom-checkbox">
-                  <input type="checkbox" class="custom-control-input" id='<%= mentalDiseasesJson[i].id %>'
+                  <input type="checkbox" class="custom-control-input" id='<%= mentalDiseasesJson[i].id %>+"FamilyMember"'
                     name='<%= mentalDiseasesJson[i].name%>'>
-                  <label class="custom-control-label" for='<%= mentalDiseasesJson[i].id %>'>
+                  <label class="custom-control-label" for='<%= mentalDiseasesJson[i].id %>+"FamilyMember"'>
                     <%= mentalDiseasesJson[i].name %>
                   </label>
                 </div>
@@ -793,49 +807,63 @@
             <h5>Health details</h5>
             <br>
             <h6>Physical health</h6>
-            <p>Check the the health problem the person has:</p>
+            <p>Check the the health problems the person has:</p>
             <div class="row">
               <div class="col">
                 <% if(typeof physicalDiseasesJson != 'undefined'){ %>
-                <% for(let i = 0 ; i < physicalDiseasesJson.length/2; i++) {%>
+                <% for(let i = 0 ; i < Math.floor(physicalDiseasesJson.length/2); i++) {%>
 
                 <div class="custom-control custom-checkbox">
-                  <input type="checkbox" class="custom-control-input" id='<%= physicalDiseasesJson[i].id %>'
+                  <input type="checkbox" class="custom-control-input" id='<%= physicalDiseasesJson[i].id %>+"Relative"'
                     name='<%= physicalDiseasesJson[i].name%>'>
-                  <label class="custom-control-label" for='<%= physicalDiseasesJson[i].id %>'>
+                  <label class="custom-control-label" for='<%= physicalDiseasesJson[i].id %>+"Relative"'>
                     <%= physicalDiseasesJson[i].name %>
                   </label>
                 </div>
                 <% } %>
                 <% } %>
+                <div class="custom-control custom-checkbox" >
+                  <input type="checkbox" class="custom-control-input" id='cancerRelative'
+                    name='Cancer' onclick="displayConditionalSectionCheckbox(this.id, 'cancerTypeContainerRelative')">
+                  <label class="custom-control-label" for='cancerRelative'>
+                    Cancer
+                  </label>
+                  <br>
+                  <div id= "cancerTypeContainerRelative">
+                    <label for="cancerTypeRelative">Type:</label>
+                    <input type="text" class="" id='cancerTypeRelative'
+                    name='cancerType'>
+                  </div>    
+                </div>
               </div>
               <div class="col">
                 <% if(typeof physicalDiseasesJson != 'undefined'){ %>
-                <% for(let i = physicalDiseasesJson.length/2 ; i < physicalDiseasesJson.length; i++) {%>
+                <% for(let i = Math.floor(physicalDiseasesJson.length/2) ; i < physicalDiseasesJson.length; i++) {%>
 
                 <div class="custom-control custom-checkbox">
-                  <input type="checkbox" class="custom-control-input" id='<%= physicalDiseasesJson[i].id %>'
+                  <input type="checkbox" class="custom-control-input" id='<%= physicalDiseasesJson[i].id %>+"Relative"'
                     name='<%= physicalDiseasesJson[i].name%>'>
-                  <label class="custom-control-label" for='<%= physicalDiseasesJson[i].id %>'>
+                  <label class="custom-control-label" for='<%= physicalDiseasesJson[i].id %>+"Relative"'>
                     <%= physicalDiseasesJson[i].name %>
                   </label>
                 </div>
                 <% } %>
                 <% } %>
+                
               </div>
             </div>
             <br>
             <h6>Mental health</h6>
-            <p>Check the the mental problem the person has:</p>
+            <p>Check the the mental problems the person has:</p>
             <div class="row">
               <div class="col">
                 <% if(typeof mentalDiseasesJson != 'undefined'){ %>
-                <% for(let i = 0 ; i < mentalDiseasesJson.length/2; i++) {%>
+                <% for(let i = 0 ; i < Math.floor(mentalDiseasesJson.length/2); i++) {%>
 
                 <div class="custom-control custom-checkbox">
-                  <input type="checkbox" class="custom-control-input" id='<%= mentalDiseasesJson[i].id %>'
+                  <input type="checkbox" class="custom-control-input" id='<%= mentalDiseasesJson[i].id %>+"Relative"'
                     name='<%= mentalDiseasesJson[i].name%>'>
-                  <label class="custom-control-label" for='<%= mentalDiseasesJson[i].id %>'>
+                  <label class="custom-control-label" for='<%= mentalDiseasesJson[i].id %>+"Relative"'>
                     <%= mentalDiseasesJson[i].name %>
                   </label>
                 </div>
@@ -844,12 +872,12 @@
               </div>
               <div class="col">
                 <% if(typeof mentalDiseasesJson != 'undefined'){ %>
-                <% for(let i = mentalDiseasesJson.length/2 ; i < mentalDiseasesJson.length; i++) {%>
+                <% for(let i = Math.floor(mentalDiseasesJson.length/2) ; i < mentalDiseasesJson.length; i++) {%>
 
                 <div class="custom-control custom-checkbox">
-                  <input type="checkbox" class="custom-control-input" id='<%= mentalDiseasesJson[i].id %>'
+                  <input type="checkbox" class="custom-control-input" id='<%= mentalDiseasesJson[i].id %>+"Relative"'
                     name='<%= mentalDiseasesJson[i].name%>'>
-                  <label class="custom-control-label" for='<%= mentalDiseasesJson[i].id %>'>
+                  <label class="custom-control-label" for='<%= mentalDiseasesJson[i].id %>+"Relative"'>
                     <%= mentalDiseasesJson[i].name %>
                   </label>
                 </div>
@@ -897,49 +925,66 @@
             <h5>Health details</h5>
             <br>
             <h6>Physical health</h6>
-            <p>Check the the health problem the person has:</p>
+            <p>Check the the health problems the person has:</p>
             <div class="row">
               <div class="col">
                 <% if(typeof physicalDiseasesJson != 'undefined'){ %>
-                <% for(let i = 0 ; i < physicalDiseasesJson.length/2; i++) {%>
+                <% for(let i = 0 ; i < Math.floor(physicalDiseasesJson.length/2); i++) {%>
 
                 <div class="custom-control custom-checkbox">
-                  <input type="checkbox" class="custom-control-input" id='<%= physicalDiseasesJson[i].id %>'
+                  <input type="checkbox" class="custom-control-input" id='<%= physicalDiseasesJson[i].id %>+"Parent"'
                     name='<%= physicalDiseasesJson[i].name%>'>
-                  <label class="custom-control-label" for='<%= physicalDiseasesJson[i].id %>'>
+                  <label class="custom-control-label" for='<%= physicalDiseasesJson[i].id %>+"Parent"'>
                     <%= physicalDiseasesJson[i].name %>
                   </label>
                 </div>
                 <% } %>
                 <% } %>
+
+                <div class="custom-control custom-checkbox" >
+                  <input type="checkbox" class="custom-control-input" id='cancerParent'
+                    name='Cancer' onclick="displayConditionalSectionCheckbox(this.id, 'cancerTypeContainerParent')">
+                  <label class="custom-control-label" for='cancerParent'>
+                    Cancer
+                  </label>
+                  <br>
+                  <div id= "cancerTypeContainerParent">
+                    <label for="cancerTypeParent">Type:</label>
+                    <input type="text" class="" id='cancerTypeParent'
+                    name='cancerType'>
+                  </div>    
+                </div>
               </div>
               <div class="col">
                 <% if(typeof physicalDiseasesJson != 'undefined'){ %>
-                <% for(let i = physicalDiseasesJson.length/2 ; i < physicalDiseasesJson.length; i++) {%>
+                <% for(let i = Math.floor(physicalDiseasesJson.length/2) ; i < physicalDiseasesJson.length; i++) {%>
 
                 <div class="custom-control custom-checkbox">
-                  <input type="checkbox" class="custom-control-input" id='<%= physicalDiseasesJson[i].id %>'
+                  <input type="checkbox" class="custom-control-input" id='<%= physicalDiseasesJson[i].id %>+"Parent"'
                     name='<%= physicalDiseasesJson[i].name%>'>
-                  <label class="custom-control-label" for='<%= physicalDiseasesJson[i].id %>'>
+                  <label class="custom-control-label" for='<%= physicalDiseasesJson[i].id %>+"Parent"'>
                     <%= physicalDiseasesJson[i].name %>
                   </label>
                 </div>
                 <% } %>
-                <% } %>
+                <% } %>                            
+
+
               </div>
             </div>
             <br>
-            <h6>Mental health</h6>
-            <p>Check the the mental problem the person has:</p>
+            
+           <h6>Mental health</h6>
+            <p>Check the the mental problems the person has:</p>
             <div class="row">
               <div class="col">
                 <% if(typeof mentalDiseasesJson != 'undefined'){ %>
-                <% for(let i = 0 ; i < mentalDiseasesJson.length/2; i++) {%>
+                <% for(let i = 0 ; i < Math.floor(mentalDiseasesJson.length/2); i++) {%>
 
                 <div class="custom-control custom-checkbox">
-                  <input type="checkbox" class="custom-control-input" id='<%= mentalDiseasesJson[i].id %>'
+                  <input type="checkbox" class="custom-control-input" id='<%= mentalDiseasesJson[i].id %>+"Parent"'
                     name='<%= mentalDiseasesJson[i].name%>'>
-                  <label class="custom-control-label" for='<%= mentalDiseasesJson[i].id %>'>
+                  <label class="custom-control-label" for='<%= mentalDiseasesJson[i].id %>+"Parent"'>
                     <%= mentalDiseasesJson[i].name %>
                   </label>
                 </div>
@@ -948,17 +993,18 @@
               </div>
               <div class="col">
                 <% if(typeof mentalDiseasesJson != 'undefined'){ %>
-                <% for(let i = mentalDiseasesJson.length/2 ; i < mentalDiseasesJson.length; i++) {%>
+                <% for(let i = Math.floor(mentalDiseasesJson.length/2) ; i < mentalDiseasesJson.length; i++) {%>
 
                 <div class="custom-control custom-checkbox">
-                  <input type="checkbox" class="custom-control-input" id='<%= mentalDiseasesJson[i].id %>'
+                  <input type="checkbox" class="custom-control-input" id='<%= mentalDiseasesJson[i].id %>+"Parent"'
                     name='<%= mentalDiseasesJson[i].name%>'>
-                  <label class="custom-control-label" for='<%= mentalDiseasesJson[i].id %>'>
+                  <label class="custom-control-label" for='<%= mentalDiseasesJson[i].id %>+"Parent"'>
                     <%= mentalDiseasesJson[i].name %>
                   </label>
                 </div>
                 <% } %>
                 <% } %>
+                
               </div>
             </div>
             <br>

@@ -115,12 +115,14 @@ for(var i=0; i<substanceNames.length; i++){
 //console.log(substanceNamesJson)
 
 
-let physicalDiseases = ["High Blood Pressure", "Diabetes", "Asthma", "Glaucoma", "Heart Attack", "Tuberculosis", "Alzheimer Disease", "Migraine", "Cancer", "Eczema", "Chromosomal Abnormality", "Stroke", "Hay Fever", "Thalassemia" ]
-let mentalDiseases = [ "Depression", "Schizophrenia"]
+let physicalDiseases = ["Asthma", "Aneurysm", "Diabetes", "Epilepsy Seizures", "Headaches or migraines", "Heart diseases", "High blood pressure", "Kidney disease", "Lung Disease", "Migraine", "Arthritis", "Elevated cholesterol", "Multiple Sclerosis", "Stroke", "Thyroid", "Tuberculosis", "Bleeding disorder"]
+let mentalDiseases = ["Neurocognitive disordero: dementia/ alzheimer’s disease", "Neurodevelopmental disorder", "Obsessive compulsive disorder", "Schizophrenia", "Depression", "Panic disorder", "Mood disorder", "Attention deficit hyperactivity disorder", "Convulsions", "Somatoform disorder", "Stress disorder", "Eating disorder", "Impulsive control disorder", "Substance abuse disorder"]
+
 let physicalDiseasesJson = []
 let mentalDiseasesJson = []
+
 for(var i=0; i<physicalDiseases.length; i++) {
-  physicalDiseasesJson.push({
+  physicalDiseasesJson.push({    
     name: physicalDiseases[i],
     id: camelCase(physicalDiseases[i])})
 }

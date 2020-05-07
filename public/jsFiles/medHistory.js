@@ -844,6 +844,29 @@ function displayOccupationDetails(id){
         uel.style.display = "block"
     }
 }
+function displayConditionalSection(id, conditionalSectionId){
+
+  var elem = document.getElementById(id)
+  var el = document.getElementById(conditionalSectionId)
+  if(elem.value=="yes" && elem.checked){
+      el.style.display = "block"
+  }
+  else {
+      el.style.display = "none"
+  }
+}
+
+function displayConditionalSectionCheckbox(id, conditionalSectionId){
+
+  var elem = document.getElementById(id)
+  var el = document.getElementById(conditionalSectionId)
+  if(elem.checked){
+      el.style.display = "block"
+  }
+  else {
+      el.style.display = "none"
+  }
+}
 
 function addVaccineDetails(){
     var parent = document.getElementById("vaccineDetails")
@@ -912,10 +935,20 @@ function showCount()
 function onStart()
 {
      // keep occupation details of step4 hidden at the beginning
-     var el = document.getElementById("employmentDetails")
-     var uel = document.getElementById("unemploymentDetails")
-     el.style.display="none"
-     uel.style.display="none"
+     idsForHiddenElements=["coworkerInjuryDetails","substanceRashDetails", "offForIllnessDetails", "occuredBreathingProblemDetails", 
+                            "jobChangeForInjuryDetails", "backProblemDetails", "employmentDetails", "unemploymentDetails", "cancerTypeContainerFamilyMember",
+                          "cancerTypeContainerRelative", "cancerTypeContainerParent"]
+    //  document.getElementById("coworkerInjuryDetails").style.display="none"
+    //  document.getElementById("coworkerInjuryDetails").style.display="none"
+    //  document.getElementById("coworkerInjuryDetails").style.display="none"
+    //  document.getElementById("coworkerInjuryDetails").style.display="none"
+     for(var i=0; i<idsForHiddenElements.length; i++){
+      document.getElementById(idsForHiddenElements[i]).style.display="none"
+     }
+    //  var el = document.getElementById("employmentDetails")
+    //  var uel = document.getElementById("unemploymentDetails")
+    //  el.style.display="none"
+    //  uel.style.display="none"
     var ids= ['fatherDetails','motherDetails','siblingsDetails','childrenDetails','relativeDetails']
     var cntIds = ['siblingsCnt','childrenCnt','relativeCnt']
 
