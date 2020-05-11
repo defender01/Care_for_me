@@ -1,1035 +1,1041 @@
 <fieldset>
   <div class="form-card">
-    <div class="row">
-      <div class="col-7">
-        <h2 class="fs-title">Family Information:</h2>
-      </div>
-      <div class="col-5">
-        <h2 class="steps">Step 2 - 5</h2>
+    <div class="secondary-container title-bar">
+      <div class="row">
+        <div class="col-7">
+          <h2 class="fs-title">Family Information:</h2>
+        </div>
+        <div class="col-5">
+          <h2 class="steps">Step 2 - 5</h2>
+        </div>
       </div>
     </div>
+    
 
-    <!-- family history -->
-    <div class="family-container">
-      <ul class="nav nav-tabs" id="familyInfoTab" role="tablist">
-        <li class="nav-item">
-          <a class="nav-link active" id="parents-tab" data-toggle="tab" href="#parents" role="tab"
-            aria-controls="parents" aria-selected="true">Parents</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" id="siblings-tab" data-toggle="tab" href="#siblings" role="tab" aria-controls="siblings"
-            aria-selected="false">Siblings</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" id="children-tab" data-toggle="tab" href="#children" role="tab" aria-controls="children"
-            aria-selected="false">Children</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" id="relatives-tab" data-toggle="tab" href="#relatives" role="tab"
-            aria-controls="relatives" aria-selected="false">Other relatives</a>
-        </li>
-      </ul>
-      <div class="tab-content" id="myTabContent">
-        <div class="tab-pane fade show active" id="parents" role="tabpanel" aria-labelledby="parents-tab">
-          <div class="part" id="parentsInfo">
-            <div class="sub-part-row">
-              <h5 class="left">Father's details</h3>
-            </div>
-            <div class="sub-part" id='fatherDetails'>
+    <div class="secondary-container">
+      <!-- family history -->
+      <div class="family-container">
+        <ul class="nav nav-tabs" id="familyInfoTab" role="tablist">
+          <li class="nav-item">
+            <a class="nav-link active" id="parents-tab" data-toggle="tab" href="#parents" role="tab"
+              aria-controls="parents" aria-selected="true">Parents</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" id="siblings-tab" data-toggle="tab" href="#siblings" role="tab" aria-controls="siblings"
+              aria-selected="false">Siblings</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" id="children-tab" data-toggle="tab" href="#children" role="tab" aria-controls="children"
+              aria-selected="false">Children</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" id="relatives-tab" data-toggle="tab" href="#relatives" role="tab"
+              aria-controls="relatives" aria-selected="false">Other relatives</a>
+          </li>
+        </ul>
+        <div class="tab-content" id="myTabContent">
+          <div class="tab-pane fade show active" id="parents" role="tabpanel" aria-labelledby="parents-tab">
+            <div class="part" id="parentsInfo">
               <div class="sub-part-row">
-                <p class="title">
-                  Name
-                </p>
-                <button type="button" class="btn btn-outline-dark"
-                  onclick="togglePopUpFamilyHistoryParent(this.parentElement.parentElement.id)">Edit</button>
+                <h5 class="left">Father's details</h3>
               </div>
-              <div class="sub-sub-part">
-                <p name='name'>
-                  Atikul Islam
-                </p>
-              </div>
-              <div class="collapse" id="collapseExamplefatherDetails">
-                <hr>
-                <p class="title">
-                  Birth date
-                </p>
+              <div class="sub-part" id='fatherDetails'>
+                <div class="sub-part-row">
+                  <p class="title">
+                    Name
+                  </p>
+                  <button type="button" class="btn btn-outline-dark"
+                    onclick="togglePopUpFamilyHistoryParent(this.parentElement.parentElement.id)">Edit</button>
+                </div>
                 <div class="sub-sub-part">
-                  <p name='birthDate'>
-                    Born on 05.05.1967
+                  <p name='name'>
+                    Atikul Islam
                   </p>
                 </div>
-                <hr>
-                <p class="title">
-                  Physical health
-                </p>
-                <p>Suffered physcal problems:</p>
-                <div class="sub-sub-part">
-                  <div class="row">
-                    <div class="col">
-                      <% if(typeof physicalDiseasesJson != 'undefined'){ %>
-                      <% for(let i = 0 ; i < Math.floor(physicalDiseasesJson.length/2); i++) {%>
-                        <p class="physical-prob"><%= physicalDiseasesJson[i].name %></p>
-                      
-                      <% } %>
-                      <% } %>
-                    </div>
-                    <div class="col">
-                      <% if(typeof physicalDiseasesJson != 'undefined'){ %>
-                      <% for(let i = Math.floor(physicalDiseasesJson.length/2) ; i < physicalDiseasesJson.length; i++) {%>
-                        <p class="physical-prob"><%= physicalDiseasesJson[i].name %></p>
-                      
-                      <% } %>
-                      <% } %>
+                <div class="collapse" id="collapseExamplefatherDetails">
+                  <hr>
+                  <p class="title">
+                    Birth date
+                  </p>
+                  <div class="sub-sub-part">
+                    <p name='birthDate'>
+                      Born on 05.05.1967
+                    </p>
+                  </div>
+                  <hr>
+                  <p class="title">
+                    Physical health
+                  </p>
+                  <p>Suffered physcal problems:</p>
+                  <div class="sub-sub-part">
+                    <div class="row">
+                      <div class="col">
+                        <% if(typeof physicalDiseasesJson != 'undefined'){ %>
+                        <% for(let i = 0 ; i < Math.floor(physicalDiseasesJson.length/2); i++) {%>
+                          <p class="physical-prob"><%= physicalDiseasesJson[i].name %></p>
+                        
+                        <% } %>
+                        <% } %>
+                      </div>
+                      <div class="col">
+                        <% if(typeof physicalDiseasesJson != 'undefined'){ %>
+                        <% for(let i = Math.floor(physicalDiseasesJson.length/2) ; i < physicalDiseasesJson.length; i++) {%>
+                          <p class="physical-prob"><%= physicalDiseasesJson[i].name %></p>
+                        
+                        <% } %>
+                        <% } %>
+                      </div>
                     </div>
                   </div>
-                </div>
-                <hr>
-                <p class="title">
-                  Mental health
-                </p>
-                <p>Suffered mental problems:</p>
-                <div class="sub-sub-part">
-                  <div class="row">
-                    <div class="col">
-                      <% if(typeof mentalDiseasesJson != 'undefined'){ %>
-                      <% for(let i = 0 ; i < Math.floor(mentalDiseasesJson.length/2); i++) {%>
+                  <hr>
+                  <p class="title">
+                    Mental health
+                  </p>
+                  <p>Suffered mental problems:</p>
+                  <div class="sub-sub-part">
+                    <div class="row">
+                      <div class="col">
+                        <% if(typeof mentalDiseasesJson != 'undefined'){ %>
+                        <% for(let i = 0 ; i < Math.floor(mentalDiseasesJson.length/2); i++) {%>
 
-                      <div class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input" id='<%= mentalDiseasesJson[i].id %>'
-                          name='<%= mentalDiseasesJson[i].name%>' onclick="return false;">
-                        <label class="custom-control-label" for='<%= mentalDiseasesJson[i].id %>'>
-                          <%= mentalDiseasesJson[i].name %>
-                        </label>
+                        <div class="custom-control custom-checkbox">
+                          <input type="checkbox" class="custom-control-input" id='<%= mentalDiseasesJson[i].id %>'
+                            name='<%= mentalDiseasesJson[i].name%>' onclick="return false;">
+                          <label class="custom-control-label" for='<%= mentalDiseasesJson[i].id %>'>
+                            <%= mentalDiseasesJson[i].name %>
+                          </label>
+                        </div>
+                        <% } %>
+                        <% } %>
                       </div>
-                      <% } %>
-                      <% } %>
+                      <div class="col">
+                        <% if(typeof mentalDiseasesJson != 'undefined'){ %>
+                        <% for(let i = Math.floor(mentalDiseasesJson.length/2) ; i < mentalDiseasesJson.length; i++) {%>
+
+                        <div class="custom-control custom-checkbox">
+                          <input type="checkbox" class="custom-control-input" id='<%= mentalDiseasesJson[i].id %>'
+                            name='<%= mentalDiseasesJson[i].name%>' onclick="return false;" checked>
+                          <label class="custom-control-label" for='<%= mentalDiseasesJson[i].id %>'>
+                            <%= mentalDiseasesJson[i].name %>
+                          </label>
+                        </div>
+                        <% } %>
+                        <% } %>
+                      </div>
                     </div>
-                    <div class="col">
-                      <% if(typeof mentalDiseasesJson != 'undefined'){ %>
-                      <% for(let i = Math.floor(mentalDiseasesJson.length/2) ; i < mentalDiseasesJson.length; i++) {%>
+                  </div>
+                  <br>
+                  <p class="title">
+                    Occupation
+                  </p>
+                  <div class="sub-sub-part">
+                    <p>
+                      Teacher
+                    </p>
+                  </div>
+                  <p class="title">
+                    Date of death
+                  </p>
+                  <div class="sub-sub-part">
+                    <p>
+                      Died on 15.06.2020
+                    </p>
+                  </div>
+                  <p class="title">
+                    Cause of death
+                  </p>
+                  <div class="sub-sub-part">
+                    <p>
+                      Hearth attack
+                    </p>
+                  </div>
+                </div>
+                <br>
+                <div class="extend">
+                  <p>
+                    <a class="btn btn-light" data-toggle="collapse" href="#collapseExamplefatherDetails" id="seeMore"
+                      role="button" onclick="changeButtonText(this.id)" aria-expanded="false"
+                      aria-controls="collapseExample">
+                      See more
+                    </a>
+                  </p>
+                </div>
+              </div>
 
-                      <div class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input" id='<%= mentalDiseasesJson[i].id %>'
-                          name='<%= mentalDiseasesJson[i].name%>' onclick="return false;" checked>
-                        <label class="custom-control-label" for='<%= mentalDiseasesJson[i].id %>'>
-                          <%= mentalDiseasesJson[i].name %>
-                        </label>
+              <div class="sub-part-row">
+                <h5 class="left">Mother's details</h3>
+              </div>
+              <div class="sub-part" id='motherDetails'>
+                <div class="sub-part-row">
+                  <p class="title">
+                    Name
+                  </p>
+                  <button type="button" class="btn btn-outline-dark"
+                    onclick="togglePopUpFamilyHistoryParent(this.parentElement.parentElement.id)">Edit</button>
+                </div>
+                <div class="sub-sub-part">
+                  <p>
+                    Sultana Razia
+                  </p>
+                </div>
+                <div class="collapse" id="collapseExamplemotherDetails">
+                  <hr>
+                  <p class="title">
+                    Birth date
+                  </p>
+                  <div class="sub-sub-part">
+                    <p>
+                      Born on 15.11.1970
+                    </p>
+                  </div>
+                  <hr>
+                  <p class="title">
+                    Physical health
+                  </p>
+                  <p>Suffered physcal problems:</p>
+                  <div class="sub-sub-part">
+                    <div class="row">
+                      <div class="col">
+                        <% if(typeof physicalDiseasesJson != 'undefined'){ %>
+                        <% for(let i = 0 ; i < Math.floor(physicalDiseasesJson.length/2); i++) {%>
+
+                        <div class="custom-control custom-checkbox">
+                          <input type="checkbox" class="custom-control-input" id='<%= physicalDiseasesJson[i].id %>'
+                            name='<%= physicalDiseasesJson[i].name%>' checked onclick="return false;">
+                          <label class="custom-control-label" for='<%= physicalDiseasesJson[i].id %>'>
+                            <%= physicalDiseasesJson[i].name %>
+                          </label>
+                        </div>
+                        <% } %>
+                        <% } %>
                       </div>
-                      <% } %>
-                      <% } %>
+                      <div class="col">
+                        <% if(typeof physicalDiseasesJson != 'undefined'){ %>
+                        <% for(let i = Math.floor(physicalDiseasesJson.length/2) ; i < physicalDiseasesJson.length; i++) {%>
+
+                        <div class="custom-control custom-checkbox">
+                          <input type="checkbox" class="custom-control-input" id='<%= physicalDiseasesJson[i].id %>'
+                            name='<%= physicalDiseasesJson[i].name%>' onclick="return false;">
+                          <label class="custom-control-label" for='<%= physicalDiseasesJson[i].id %>'>
+                            <%= physicalDiseasesJson[i].name %>
+                          </label>
+                        </div>
+                        <% } %>
+                        <% } %>
+                      </div>
+                    </div>
+                  </div>
+                  <hr>
+                  <p class="title">
+                    Mental health
+                  </p>
+                  <p>Suffered mental problems:</p>
+                  <div class="sub-sub-part">
+                    <div class="row">
+                      <div class="col">
+                        <% if(typeof mentalDiseasesJson != 'undefined'){ %>
+                        <% for(let i = 0 ; i < Math.floor(mentalDiseasesJson.length/2); i++) {%>
+
+                        <div class="custom-control custom-checkbox">
+                          <input type="checkbox" class="custom-control-input" id='<%= mentalDiseasesJson[i].id %>'
+                            name='<%= mentalDiseasesJson[i].name%>' onclick="return false;">
+                          <label class="custom-control-label" for='<%= mentalDiseasesJson[i].id %>'>
+                            <%= mentalDiseasesJson[i].name %>
+                          </label>
+                        </div>
+                        <% } %>
+                        <% } %>
+                      </div>
+                      <div class="col">
+                        <% if(typeof mentalDiseasesJson != 'undefined'){ %>
+                        <% for(let i = Math.floor(mentalDiseasesJson.length/2) ; i < mentalDiseasesJson.length; i++) {%>
+
+                        <div class="custom-control custom-checkbox">
+                          <input type="checkbox" class="custom-control-input" id='<%= mentalDiseasesJson[i].id %>'
+                            name='<%= mentalDiseasesJson[i].name%>' onclick="return false;" checked>
+                          <label class="custom-control-label" for='<%= mentalDiseasesJson[i].id %>'>
+                            <%= mentalDiseasesJson[i].name %>
+                          </label>
+                        </div>
+                        <% } %>
+                        <% } %>
+                      </div>
                     </div>
                   </div>
                 </div>
                 <br>
-                <p class="title">
-                  Occupation
-                </p>
-                <div class="sub-sub-part">
+                <div class="extend">
                   <p>
-                    Teacher
-                  </p>
-                </div>
-                <p class="title">
-                  Date of death
-                </p>
-                <div class="sub-sub-part">
-                  <p>
-                    Died on 15.06.2020
-                  </p>
-                </div>
-                <p class="title">
-                  Cause of death
-                </p>
-                <div class="sub-sub-part">
-                  <p>
-                    Hearth attack
+                    <a class="btn btn-light" data-toggle="collapse" href="#collapseExamplemotherDetails" id="seeMore"
+                      role="button" onclick="changeButtonText(this.id)" aria-expanded="false"
+                      aria-controls="collapseExample">
+                      See more
+                    </a>
                   </p>
                 </div>
               </div>
-              <br>
-              <div class="extend">
-                <p>
-                  <a class="btn btn-light" data-toggle="collapse" href="#collapseExamplefatherDetails" id="seeMore"
-                    role="button" onclick="changeButtonText(this.id)" aria-expanded="false"
-                    aria-controls="collapseExample">
-                    See more
-                  </a>
-                </p>
-              </div>
             </div>
-
-            <div class="sub-part-row">
-              <h5 class="left">Mother's details</h3>
-            </div>
-            <div class="sub-part" id='motherDetails'>
+          </div>
+          <div class="tab-pane fade" id="siblings" role="tabpanel" aria-labelledby="siblings-tab">
+            <div class="part" id="siblingsInfo">
               <div class="sub-part-row">
-                <p class="title">
-                  Name
-                </p>
-                <button type="button" class="btn btn-outline-dark"
-                  onclick="togglePopUpFamilyHistoryParent(this.parentElement.parentElement.id)">Edit</button>
+                <h5 class="left">Sibling's details</h3>
+                  <button type="button" class="btn btn-outline-light add"
+                    onclick="togglePopUpFamilyHistoryAdd(this.parentElement.parentElement.id)"></button>
               </div>
-              <div class="sub-sub-part">
-                <p>
-                  Sultana Razia
-                </p>
-              </div>
-              <div class="collapse" id="collapseExamplemotherDetails">
-                <hr>
-                <p class="title">
-                  Birth date
-                </p>
+              <p id="siblingsCnt" class="countShow">total number: </p>
+              <div class="sub-part" id='siblingsDetails'>
+                <div class="sub-part-row">
+                  <p class="title">
+                    Name
+                  </p>
+                  <button type="button" class="btn btn-outline-dark"
+                    onclick="togglePopUpFamilyHistory(this.parentElement.parentElement.id)">Edit</button>
+                </div>
                 <div class="sub-sub-part">
                   <p>
-                    Born on 15.11.1970
+                    Ashraful Islam
                   </p>
                 </div>
-                <hr>
-                <p class="title">
-                  Physical health
-                </p>
-                <p>Suffered physcal problems:</p>
-                <div class="sub-sub-part">
-                  <div class="row">
-                    <div class="col">
-                      <% if(typeof physicalDiseasesJson != 'undefined'){ %>
-                      <% for(let i = 0 ; i < Math.floor(physicalDiseasesJson.length/2); i++) {%>
+                <div class="collapse" id="collapseExamplesiblingsDetails">
+                  <hr>
+                  <p class="title">
+                    Gender
+                  </p>
+                  <div class="sub-sub-part">
+                    <p>
+                      Male
+                    </p>
+                  </div>
+                  <p class="title">
+                    Birth date
+                  </p>
+                  <div class="sub-sub-part">
+                    <p>
+                      Born on 05.05.1967
+                    </p>
+                  </div>
+                  <hr>
+                  <p class="title">
+                    Physical health
+                  </p>
+                  <p>Suffered physcal problems:</p>
+                  <div class="sub-sub-part">
+                    <div class="row">
+                      <div class="col">
+                        <% if(typeof physicalDiseasesJson != 'undefined'){ %>
+                        <% for(let i = 0 ; i < Math.floor(physicalDiseasesJson.length/2); i++) {%>
 
-                      <div class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input" id='<%= physicalDiseasesJson[i].id %>'
-                          name='<%= physicalDiseasesJson[i].name%>' checked onclick="return false;">
-                        <label class="custom-control-label" for='<%= physicalDiseasesJson[i].id %>'>
-                          <%= physicalDiseasesJson[i].name %>
-                        </label>
+                        <div class="custom-control custom-checkbox">
+                          <input type="checkbox" class="custom-control-input" id='<%= physicalDiseasesJson[i].id %>'
+                            name='<%= physicalDiseasesJson[i].name%>' checked onclick="return false;">
+                          <label class="custom-control-label" for='<%= physicalDiseasesJson[i].id %>'>
+                            <%= physicalDiseasesJson[i].name %>
+                          </label>
+                        </div>
+                        <% } %>
+                        <% } %>
                       </div>
-                      <% } %>
-                      <% } %>
+                      <div class="col">
+                        <% if(typeof physicalDiseasesJson != 'undefined'){ %>
+                        <% for(let i = Math.floor(physicalDiseasesJson.length/2) ; i < physicalDiseasesJson.length; i++) {%>
+
+                        <div class="custom-control custom-checkbox">
+                          <input type="checkbox" class="custom-control-input" id='<%= physicalDiseasesJson[i].id %>'
+                            name='<%= physicalDiseasesJson[i].name%>' onclick="return false;">
+                          <label class="custom-control-label" for='<%= physicalDiseasesJson[i].id %>'>
+                            <%= physicalDiseasesJson[i].name %>
+                          </label>
+                        </div>
+                        <% } %>
+                        <% } %>
+                      </div>
                     </div>
-                    <div class="col">
-                      <% if(typeof physicalDiseasesJson != 'undefined'){ %>
-                      <% for(let i = Math.floor(physicalDiseasesJson.length/2) ; i < physicalDiseasesJson.length; i++) {%>
+                  </div>
+                  <hr>
+                  <p class="title">
+                    Mental health
+                  </p>
+                  <p>Suffered mental problems:</p>
+                  <div class="sub-sub-part">
+                    <div class="row">
+                      <div class="col">
+                        <% if(typeof mentalDiseasesJson != 'undefined'){ %>
+                        <% for(let i = 0 ; i < Math.floor(mentalDiseasesJson.length/2); i++) {%>
 
-                      <div class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input" id='<%= physicalDiseasesJson[i].id %>'
-                          name='<%= physicalDiseasesJson[i].name%>' onclick="return false;">
-                        <label class="custom-control-label" for='<%= physicalDiseasesJson[i].id %>'>
-                          <%= physicalDiseasesJson[i].name %>
-                        </label>
+                        <div class="custom-control custom-checkbox">
+                          <input type="checkbox" class="custom-control-input" id='<%= mentalDiseasesJson[i].id %>'
+                            name='<%= mentalDiseasesJson[i].name%>' onclick="return false;">
+                          <label class="custom-control-label" for='<%= mentalDiseasesJson[i].id %>'>
+                            <%= mentalDiseasesJson[i].name %>
+                          </label>
+                        </div>
+                        <% } %>
+                        <% } %>
                       </div>
-                      <% } %>
-                      <% } %>
+                      <div class="col">
+                        <% if(typeof mentalDiseasesJson != 'undefined'){ %>
+                        <% for(let i = Math.floor(mentalDiseasesJson.length/2) ; i < mentalDiseasesJson.length; i++) {%>
+
+                        <div class="custom-control custom-checkbox">
+                          <input type="checkbox" class="custom-control-input" id='<%= mentalDiseasesJson[i].id %>'
+                            name='<%= mentalDiseasesJson[i].name%>' onclick="return false;" checked>
+                          <label class="custom-control-label" for='<%= mentalDiseasesJson[i].id %>'>
+                            <%= mentalDiseasesJson[i].name %>
+                          </label>
+                        </div>
+                        <% } %>
+                        <% } %>
+                      </div>
                     </div>
                   </div>
                 </div>
-                <hr>
-                <p class="title">
-                  Mental health
-                </p>
-                <p>Suffered mental problems:</p>
-                <div class="sub-sub-part">
-                  <div class="row">
-                    <div class="col">
-                      <% if(typeof mentalDiseasesJson != 'undefined'){ %>
-                      <% for(let i = 0 ; i < Math.floor(mentalDiseasesJson.length/2); i++) {%>
-
-                      <div class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input" id='<%= mentalDiseasesJson[i].id %>'
-                          name='<%= mentalDiseasesJson[i].name%>' onclick="return false;">
-                        <label class="custom-control-label" for='<%= mentalDiseasesJson[i].id %>'>
-                          <%= mentalDiseasesJson[i].name %>
-                        </label>
-                      </div>
-                      <% } %>
-                      <% } %>
-                    </div>
-                    <div class="col">
-                      <% if(typeof mentalDiseasesJson != 'undefined'){ %>
-                      <% for(let i = Math.floor(mentalDiseasesJson.length/2) ; i < mentalDiseasesJson.length; i++) {%>
-
-                      <div class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input" id='<%= mentalDiseasesJson[i].id %>'
-                          name='<%= mentalDiseasesJson[i].name%>' onclick="return false;" checked>
-                        <label class="custom-control-label" for='<%= mentalDiseasesJson[i].id %>'>
-                          <%= mentalDiseasesJson[i].name %>
-                        </label>
-                      </div>
-                      <% } %>
-                      <% } %>
-                    </div>
-                  </div>
+                <br>
+                <div class="extend">
+                  <p>
+                    <a class="btn btn-light" data-toggle="collapse" href="#collapseExamplesiblingsDetails" id="seeMore"
+                      role="button" onclick="changeButtonText(this.id)" aria-expanded="false"
+                      aria-controls="collapseExample">
+                      See more
+                    </a>
+                  </p>
                 </div>
               </div>
-              <br>
-              <div class="extend">
-                <p>
-                  <a class="btn btn-light" data-toggle="collapse" href="#collapseExamplemotherDetails" id="seeMore"
-                    role="button" onclick="changeButtonText(this.id)" aria-expanded="false"
-                    aria-controls="collapseExample">
-                    See more
-                  </a>
-                </p>
+            </div>
+          </div>
+          <div class="tab-pane fade" id="children" role="tabpanel" aria-labelledby="children-tab">
+            <div class="part" id="childrenInfo">
+              <div class="sub-part-row">
+                <h5 class="left">Children's details</h3>
+                  <button type="button" class="btn btn-outline-light add"
+                    onclick="togglePopUpFamilyHistoryAdd(this.parentElement.parentElement.id)"></button>
+              </div>
+              <p id="childrenCnt" class="countShow">total number: </p>
+              <div class="sub-part" id='childrenDetails'>
+                <div class="sub-part-row">
+                  <p class="title">
+                    Name
+                  </p>
+                  <button type="button" class="btn btn-outline-dark"
+                    onclick="togglePopUpFamilyHistory(this.parentElement.parentElement.id)">Edit</button>
+                </div>
+                <div class="sub-sub-part">
+                  <p>
+                    Ashraful Islam
+                  </p>
+                </div>
+                <div class="collapse" id="collapseExamplechildrenDetails">
+                  <hr>
+                  <p class="title">
+                    Gender
+                  </p>
+                  <div class="sub-sub-part">
+                    <p>
+                      Male
+                    </p>
+                  </div>
+                  <p class="title">
+                    Birth date
+                  </p>
+                  <div class="sub-sub-part">
+                    <p>
+                      Born on 05.05.1967
+                    </p>
+                  </div>
+                  <hr>
+                  <p class="title">
+                    Physical health
+                  </p>
+                  <p>Suffered physcal problems:</p>
+                  <div class="sub-sub-part">
+                    <div class="row">
+                      <div class="col">
+                        <% if(typeof physicalDiseasesJson != 'undefined'){ %>
+                        <% for(let i = 0 ; i < Math.floor(physicalDiseasesJson.length/2); i++) {%>
+
+                        <div class="custom-control custom-checkbox">
+                          <input type="checkbox" class="custom-control-input" id='<%= physicalDiseasesJson[i].id %>'
+                            name='<%= physicalDiseasesJson[i].name%>' checked onclick="return false;">
+                          <label class="custom-control-label" for='<%= physicalDiseasesJson[i].id %>'>
+                            <%= physicalDiseasesJson[i].name %>
+                          </label>
+                        </div>
+                        <% } %>
+                        <% } %>
+                      </div>
+                      <div class="col">
+                        <% if(typeof physicalDiseasesJson != 'undefined'){ %>
+                        <% for(let i = Math.floor(physicalDiseasesJson.length/2) ; i < physicalDiseasesJson.length; i++) {%>
+
+                        <div class="custom-control custom-checkbox">
+                          <input type="checkbox" class="custom-control-input" id='<%= physicalDiseasesJson[i].id %>'
+                            name='<%= physicalDiseasesJson[i].name%>' onclick="return false;">
+                          <label class="custom-control-label" for='<%= physicalDiseasesJson[i].id %>'>
+                            <%= physicalDiseasesJson[i].name %>
+                          </label>
+                        </div>
+                        <% } %>
+                        <% } %>
+                      </div>
+                    </div>
+                  </div>
+                  <hr>
+                  <p class="title">
+                    Mental health
+                  </p>
+                  <p>Suffered mental problems:</p>
+                  <div class="sub-sub-part">
+                    <div class="row">
+                      <div class="col">
+                        <% if(typeof mentalDiseasesJson != 'undefined'){ %>
+                        <% for(let i = 0 ; i < Math.floor(mentalDiseasesJson.length/2); i++) {%>
+
+                        <div class="custom-control custom-checkbox">
+                          <input type="checkbox" class="custom-control-input" id='<%= mentalDiseasesJson[i].id %>'
+                            name='<%= mentalDiseasesJson[i].name%>' onclick="return false;">
+                          <label class="custom-control-label" for='<%= mentalDiseasesJson[i].id %>'>
+                            <%= mentalDiseasesJson[i].name %>
+                          </label>
+                        </div>
+                        <% } %>
+                        <% } %>
+                      </div>
+                      <div class="col">
+                        <% if(typeof mentalDiseasesJson != 'undefined'){ %>
+                        <% for(let i = Math.floor(mentalDiseasesJson.length/2) ; i < mentalDiseasesJson.length; i++) {%>
+
+                        <div class="custom-control custom-checkbox">
+                          <input type="checkbox" class="custom-control-input" id='<%= mentalDiseasesJson[i].id %>'
+                            name='<%= mentalDiseasesJson[i].name%>' onclick="return false;" checked>
+                          <label class="custom-control-label" for='<%= mentalDiseasesJson[i].id %>'>
+                            <%= mentalDiseasesJson[i].name %>
+                          </label>
+                        </div>
+                        <% } %>
+                        <% } %>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <br>
+                <div class="extend">
+                  <p>
+                    <a class="btn btn-light" data-toggle="collapse" href="#collapseExamplechildrenDetails" id="seeMore"
+                      role="button" onclick="changeButtonText(this.id)" aria-expanded="false"
+                      aria-controls="collapseExample">
+                      See more
+                    </a>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="tab-pane fade" id="relatives" role="tabpanel" aria-labelledby="relatives-tab">
+            <div class="part" id="relativeInfo">
+              <div class="sub-part-row">
+                <h5 class="left">Relative details</h3>
+                  <button type="button" class="btn btn-outline-light add"
+                    onclick="togglePopUpFamilyHistoryRelativeAdd(this.parentElement.parentElement.id)"></button>
+              </div>
+              <p id="relativeCnt" class="countShow">total number: </p>
+              <div class="sub-part" id='relativeDetails'>
+                <div class="sub-part-row">
+                  <p class="title">
+                    Name
+                  </p>
+                  <button type="button" class="btn btn-outline-dark"
+                    onclick="togglePopUpFamilyHistoryRelative(this.parentElement.parentElement.id)">Edit</button>
+                </div>
+                <div class="sub-sub-part">
+                  <p>
+                    Ashraful Islam
+                  </p>
+                </div>
+                <div class="collapse" id="collapseExamplerelativeDetails">
+                  <hr>
+                  <p class="title">
+                    Relation with you
+                  </p>
+                  <div class="sub-sub-part">
+                    <p>
+                      Uncle
+                    </p>
+                  </div>
+                  <hr>
+                  <p class="title">
+                    Gender
+                  </p>
+                  <div class="sub-sub-part">
+                    <p>
+                      Male
+                    </p>
+                  </div>
+                  <p class="title">
+                    Birth date
+                  </p>
+                  <div class="sub-sub-part">
+                    <p>
+                      Born on 05.05.1967
+                    </p>
+                  </div>
+                  <hr>
+                  <p class="title">
+                    Physical health
+                  </p>
+                  <p>Suffered physcal problems:</p>
+                  <div class="sub-sub-part">
+                    <div class="row">
+                      <div class="col">
+                        <% if(typeof physicalDiseasesJson != 'undefined'){ %>
+                        <% for(let i = 0 ; i < Math.floor(physicalDiseasesJson.length/2); i++) {%>
+
+                        <div class="custom-control custom-checkbox">
+                          <input type="checkbox" class="custom-control-input" id='<%= physicalDiseasesJson[i].id %>'
+                            name='<%= physicalDiseasesJson[i].name%>' checked onclick="return false;">
+                          <label class="custom-control-label" for='<%= physicalDiseasesJson[i].id %>'>
+                            <%= physicalDiseasesJson[i].name %>
+                          </label>
+                        </div>
+                        <% } %>
+                        <% } %>
+                      </div>
+                      <div class="col">
+                        <% if(typeof physicalDiseasesJson != 'undefined'){ %>
+                        <% for(let i = Math.floor(physicalDiseasesJson.length/2) ; i < physicalDiseasesJson.length; i++) {%>
+
+                        <div class="custom-control custom-checkbox">
+                          <input type="checkbox" class="custom-control-input" id='<%= physicalDiseasesJson[i].id %>'
+                            name='<%= physicalDiseasesJson[i].name%>' onclick="return false;">
+                          <label class="custom-control-label" for='<%= physicalDiseasesJson[i].id %>'>
+                            <%= physicalDiseasesJson[i].name %>
+                          </label>
+                        </div>
+                        <% } %>
+                        <% } %>
+                      </div>
+                    </div>
+                  </div>
+                  <hr>
+                  <p class="title">
+                    Mental health
+                  </p>
+                  <p>Suffered mental problems:</p>
+                  <div class="sub-sub-part">
+                    <div class="row">
+                      <div class="col">
+                        <% if(typeof mentalDiseasesJson != 'undefined'){ %>
+                        <% for(let i = 0 ; i < Math.floor(mentalDiseasesJson.length/2); i++) {%>
+
+                        <div class="custom-control custom-checkbox">
+                          <input type="checkbox" class="custom-control-input" id='<%= mentalDiseasesJson[i].id %>'
+                            name='<%= mentalDiseasesJson[i].name%>' onclick="return false;">
+                          <label class="custom-control-label" for='<%= mentalDiseasesJson[i].id %>'>
+                            <%= mentalDiseasesJson[i].name %>
+                          </label>
+                        </div>
+                        <% } %>
+                        <% } %>
+                      </div>
+                      <div class="col">
+                        <% if(typeof mentalDiseasesJson != 'undefined'){ %>
+                        <% for(let i = Math.floor(mentalDiseasesJson.length/2) ; i < mentalDiseasesJson.length; i++) {%>
+
+                        <div class="custom-control custom-checkbox">
+                          <input type="checkbox" class="custom-control-input" id='<%= mentalDiseasesJson[i].id %>'
+                            name='<%= mentalDiseasesJson[i].name%>' onclick="return false;" checked>
+                          <label class="custom-control-label" for='<%= mentalDiseasesJson[i].id %>'>
+                            <%= mentalDiseasesJson[i].name %>
+                          </label>
+                        </div>
+                        <% } %>
+                        <% } %>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <br>
+                <div class="extend">
+                  <p>
+                    <a class="btn btn-light" data-toggle="collapse" href="#collapseExamplerelativeDetails" id="seeMore"
+                      role="button" onclick="changeButtonText(this.id)" aria-expanded="false"
+                      aria-controls="collapseExample">
+                      See more
+                    </a>
+                  </p>
+                </div>
               </div>
             </div>
           </div>
         </div>
-        <div class="tab-pane fade" id="siblings" role="tabpanel" aria-labelledby="siblings-tab">
-          <div class="part" id="siblingsInfo">
-            <div class="sub-part-row">
-              <h5 class="left">Sibling's details</h3>
-                <button type="button" class="btn btn-outline-light add"
-                  onclick="togglePopUpFamilyHistoryAdd(this.parentElement.parentElement.id)"></button>
-            </div>
-            <p id="siblingsCnt" class="countShow">total number: </p>
-            <div class="sub-part" id='siblingsDetails'>
-              <div class="sub-part-row">
-                <p class="title">
-                  Name
-                </p>
-                <button type="button" class="btn btn-outline-dark"
-                  onclick="togglePopUpFamilyHistory(this.parentElement.parentElement.id)">Edit</button>
-              </div>
-              <div class="sub-sub-part">
-                <p>
-                  Ashraful Islam
-                </p>
-              </div>
-              <div class="collapse" id="collapseExamplesiblingsDetails">
-                <hr>
-                <p class="title">
-                  Gender
-                </p>
-                <div class="sub-sub-part">
-                  <p>
-                    Male
-                  </p>
-                </div>
-                <p class="title">
-                  Birth date
-                </p>
-                <div class="sub-sub-part">
-                  <p>
-                    Born on 05.05.1967
-                  </p>
-                </div>
-                <hr>
-                <p class="title">
-                  Physical health
-                </p>
-                <p>Suffered physcal problems:</p>
-                <div class="sub-sub-part">
-                  <div class="row">
-                    <div class="col">
-                      <% if(typeof physicalDiseasesJson != 'undefined'){ %>
-                      <% for(let i = 0 ; i < Math.floor(physicalDiseasesJson.length/2); i++) {%>
 
-                      <div class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input" id='<%= physicalDiseasesJson[i].id %>'
-                          name='<%= physicalDiseasesJson[i].name%>' checked onclick="return false;">
-                        <label class="custom-control-label" for='<%= physicalDiseasesJson[i].id %>'>
-                          <%= physicalDiseasesJson[i].name %>
-                        </label>
-                      </div>
-                      <% } %>
-                      <% } %>
-                    </div>
-                    <div class="col">
-                      <% if(typeof physicalDiseasesJson != 'undefined'){ %>
-                      <% for(let i = Math.floor(physicalDiseasesJson.length/2) ; i < physicalDiseasesJson.length; i++) {%>
+        <!-- For popup design for family member in general-->
 
-                      <div class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input" id='<%= physicalDiseasesJson[i].id %>'
-                          name='<%= physicalDiseasesJson[i].name%>' onclick="return false;">
-                        <label class="custom-control-label" for='<%= physicalDiseasesJson[i].id %>'>
-                          <%= physicalDiseasesJson[i].name %>
-                        </label>
-                      </div>
-                      <% } %>
-                      <% } %>
-                    </div>
+        <div class="modal-bg" id="popupFamilyHistory" style="display: none">
+          <div class="modal-container">
+            <div class="card">
+              <p id='calledFrom' style="display: none"></p>
+              <h5>Personal information</h5>
+              <label class="fieldlabels" for="famimilyMemberName">Name:</label>
+              <input type="text" name="name" id='famimilyMemberName' placeholder="" cols="5" />
+              <label class="fieldlabels" for="famimilyMemberGender">Gender:</label>
+              <input type="text" name="gender" id='famimilyMemberGender' placeholder="" cols="5" />
+
+              <label class="fieldlabels" for="famimilyMemberBirthDate">Birth date:</label>
+              <input type="date" name="birthDate" id='famimilyMemberBirthDate' placeholder="" cols="5" />
+
+              <br>
+              <br>
+              <h5>Health details</h5>
+              <br>
+              <h6>Physical health</h6>
+              <p>Check the the health problems the person has:</p>
+              <div class="row">
+                <div class="col">
+                  <% if(typeof physicalDiseasesJson != 'undefined'){ %>
+                  <% for(let i = 0 ; i < Math.floor(physicalDiseasesJson.length/2); i++) {%>
+
+                  <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" id='<%= physicalDiseasesJson[i].id %>+"FamilyMember"'
+                      name='<%= physicalDiseasesJson[i].name%>'>
+                    <label class="custom-control-label" for='<%= physicalDiseasesJson[i].id %>+"FamilyMember"'>
+                      <%= physicalDiseasesJson[i].name %>
+                    </label>
+                  </div>
+                  <% } %>
+                  <% } %>
+                  <div class="custom-control custom-checkbox" >
+                    <input type="checkbox" class="custom-control-input" id='cancerFamilyMember'
+                      name='Cancer' onclick="displayConditionalSectionCheckbox(this.id, 'cancerTypeContainerFamilyMember')">
+                    <label class="custom-control-label" for='cancerFamilyMember'>
+                      Cancer
+                    </label>
+                    <br>
+                    <div id= "cancerTypeContainerFamilyMember">
+                      <label for="cancerTypeFamilyMember">Type:</label>
+                      <input type="text" class="" id='cancerTypeFamilyMember'
+                      name='cancerType'>
+                    </div>    
                   </div>
                 </div>
-                <hr>
-                <p class="title">
-                  Mental health
-                </p>
-                <p>Suffered mental problems:</p>
-                <div class="sub-sub-part">
-                  <div class="row">
-                    <div class="col">
-                      <% if(typeof mentalDiseasesJson != 'undefined'){ %>
-                      <% for(let i = 0 ; i < Math.floor(mentalDiseasesJson.length/2); i++) {%>
+                <div class="col">
+                  <% if(typeof physicalDiseasesJson != 'undefined'){ %>
+                  <% for(let i = Math.floor(physicalDiseasesJson.length/2) ; i < physicalDiseasesJson.length; i++) {%>
 
-                      <div class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input" id='<%= mentalDiseasesJson[i].id %>'
-                          name='<%= mentalDiseasesJson[i].name%>' onclick="return false;">
-                        <label class="custom-control-label" for='<%= mentalDiseasesJson[i].id %>'>
-                          <%= mentalDiseasesJson[i].name %>
-                        </label>
-                      </div>
-                      <% } %>
-                      <% } %>
-                    </div>
-                    <div class="col">
-                      <% if(typeof mentalDiseasesJson != 'undefined'){ %>
-                      <% for(let i = Math.floor(mentalDiseasesJson.length/2) ; i < mentalDiseasesJson.length; i++) {%>
-
-                      <div class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input" id='<%= mentalDiseasesJson[i].id %>'
-                          name='<%= mentalDiseasesJson[i].name%>' onclick="return false;" checked>
-                        <label class="custom-control-label" for='<%= mentalDiseasesJson[i].id %>'>
-                          <%= mentalDiseasesJson[i].name %>
-                        </label>
-                      </div>
-                      <% } %>
-                      <% } %>
-                    </div>
+                  <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" id='<%= physicalDiseasesJson[i].id %>+"FamilyMember"'
+                      name='<%= physicalDiseasesJson[i].name%>'>
+                    <label class="custom-control-label" for='<%= physicalDiseasesJson[i].id %>+"FamilyMember"'>
+                      <%= physicalDiseasesJson[i].name %>
+                    </label>
                   </div>
+                  <% } %>
+                  <% } %>
                 </div>
               </div>
               <br>
-              <div class="extend">
-                <p>
-                  <a class="btn btn-light" data-toggle="collapse" href="#collapseExamplesiblingsDetails" id="seeMore"
-                    role="button" onclick="changeButtonText(this.id)" aria-expanded="false"
-                    aria-controls="collapseExample">
-                    See more
-                  </a>
-                </p>
+              
+              <h6>Mental health</h6>
+              <p>Check the the mental problems the person has:</p>
+              <div class="row">
+                <div class="col">
+                  <% if(typeof mentalDiseasesJson != 'undefined'){ %>
+                  <% for(let i = 0 ; i < Math.floor(mentalDiseasesJson.length/2); i++) {%>
+
+                  <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" id='<%= mentalDiseasesJson[i].id %>+"FamilyMember"'
+                      name='<%= mentalDiseasesJson[i].name%>'>
+                    <label class="custom-control-label" for='<%= mentalDiseasesJson[i].id %>+"FamilyMember"'>
+                      <%= mentalDiseasesJson[i].name %>
+                    </label>
+                  </div>
+                  <% } %>
+                  <% } %>
+                </div>
+                <div class="col">
+                  <% if(typeof mentalDiseasesJson != 'undefined'){ %>
+                  <% for(let i = Math.floor(mentalDiseasesJson.length/2) ; i < mentalDiseasesJson.length; i++) {%>
+
+                  <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" id='<%= mentalDiseasesJson[i].id %>+"FamilyMember"'
+                      name='<%= mentalDiseasesJson[i].name%>'>
+                    <label class="custom-control-label" for='<%= mentalDiseasesJson[i].id %>+"FamilyMember"'>
+                      <%= mentalDiseasesJson[i].name %>
+                    </label>
+                  </div>
+                  <% } %>
+                  <% } %>
+                </div>            
+              </div>
+
+              <br>
+              <h6>Occupation:</h6>
+              <input type="text" name="occupation" id='famimilyMemberOccupation' placeholder="" cols="5" />
+              <br>
+          
+              <h5>Please fill up the next section if the person is dead</h5>
+              <label class="fieldlabels" for="famimilyMemberDeathDate">Date of death:</label>
+              <input type="date" name="deathDate" id='famimilyMemberDeathDate' placeholder="" cols="5" />
+              <label class="fieldlabels" for="famimilyMemberOccupation">Cause of death:</label>
+              <input type="text" name="occupation" id='famimilyMemberOccupation' placeholder="" cols="5" />
+              <br>
+              <div class="rowRowElementHolder">
+                <button type="button" class="btn btn-outline-success singleElement" id='popupOk'
+                  onclick="togglePopUpFamilyHistory('ok')">Ok</button>
+                <button type="button" class="btn btn-outline-danger singleElement" id='popupCancel'
+                  onclick="togglePopUpFamilyHistory('cancel')">Cancel</button>
               </div>
             </div>
           </div>
         </div>
-        <div class="tab-pane fade" id="children" role="tabpanel" aria-labelledby="children-tab">
-          <div class="part" id="childrenInfo">
-            <div class="sub-part-row">
-              <h5 class="left">Children's details</h3>
-                <button type="button" class="btn btn-outline-light add"
-                  onclick="togglePopUpFamilyHistoryAdd(this.parentElement.parentElement.id)"></button>
-            </div>
-            <p id="childrenCnt" class="countShow">total number: </p>
-            <div class="sub-part" id='childrenDetails'>
-              <div class="sub-part-row">
-                <p class="title">
-                  Name
-                </p>
-                <button type="button" class="btn btn-outline-dark"
-                  onclick="togglePopUpFamilyHistory(this.parentElement.parentElement.id)">Edit</button>
-              </div>
-              <div class="sub-sub-part">
-                <p>
-                  Ashraful Islam
-                </p>
-              </div>
-              <div class="collapse" id="collapseExamplechildrenDetails">
-                <hr>
-                <p class="title">
-                  Gender
-                </p>
-                <div class="sub-sub-part">
-                  <p>
-                    Male
-                  </p>
-                </div>
-                <p class="title">
-                  Birth date
-                </p>
-                <div class="sub-sub-part">
-                  <p>
-                    Born on 05.05.1967
-                  </p>
-                </div>
-                <hr>
-                <p class="title">
-                  Physical health
-                </p>
-                <p>Suffered physcal problems:</p>
-                <div class="sub-sub-part">
-                  <div class="row">
-                    <div class="col">
-                      <% if(typeof physicalDiseasesJson != 'undefined'){ %>
-                      <% for(let i = 0 ; i < Math.floor(physicalDiseasesJson.length/2); i++) {%>
 
-                      <div class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input" id='<%= physicalDiseasesJson[i].id %>'
-                          name='<%= physicalDiseasesJson[i].name%>' checked onclick="return false;">
-                        <label class="custom-control-label" for='<%= physicalDiseasesJson[i].id %>'>
-                          <%= physicalDiseasesJson[i].name %>
-                        </label>
-                      </div>
-                      <% } %>
-                      <% } %>
-                    </div>
-                    <div class="col">
-                      <% if(typeof physicalDiseasesJson != 'undefined'){ %>
-                      <% for(let i = Math.floor(physicalDiseasesJson.length/2) ; i < physicalDiseasesJson.length; i++) {%>
+        <!--  popup for relative design-->
 
-                      <div class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input" id='<%= physicalDiseasesJson[i].id %>'
-                          name='<%= physicalDiseasesJson[i].name%>' onclick="return false;">
-                        <label class="custom-control-label" for='<%= physicalDiseasesJson[i].id %>'>
-                          <%= physicalDiseasesJson[i].name %>
-                        </label>
-                      </div>
-                      <% } %>
-                      <% } %>
-                    </div>
+        <div class="modal-bg" id="popupFamilyHistoryRelative" style="display: none">
+          <div class="modal-container">
+            <div class="card">
+              <p id='calledFrom' style="display: none"></p>
+              <h5>Personal information</h5>
+              <label class="fieldlabels" for="famimilyMemberName">Name:</label>
+              <input type="text" name="name" id='famimilyMemberName' placeholder="" cols="5" />
+              <label class="fieldlabels" for="famimilyMemberRelation">Relation with you(e.g. Uncle):</label>
+              <input type="text" name="relation" id='famimilyMemberRelation' placeholder="" cols="5" />
+              
+              <label class="fieldlabels" for="famimilyMemberGender">Gender:</label>
+              <input type="text" name="gender" id='famimilyMemberGender' placeholder="" cols="5" />
+
+              <label class="fieldlabels" for="famimilyMemberBirthDate">Birth date:</label>
+              <input type="date" name="birthDate" id='famimilyMemberBirthDate' placeholder="" cols="5" />
+
+              <br>
+              <br>
+              <h5>Health details</h5>
+              <br>
+              <h6>Physical health</h6>
+              <p>Check the the health problems the person has:</p>
+              <div class="row">
+                <div class="col">
+                  <% if(typeof physicalDiseasesJson != 'undefined'){ %>
+                  <% for(let i = 0 ; i < Math.floor(physicalDiseasesJson.length/2); i++) {%>
+
+                  <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" id='<%= physicalDiseasesJson[i].id %>+"Relative"'
+                      name='<%= physicalDiseasesJson[i].name%>'>
+                    <label class="custom-control-label" for='<%= physicalDiseasesJson[i].id %>+"Relative"'>
+                      <%= physicalDiseasesJson[i].name %>
+                    </label>
+                  </div>
+                  <% } %>
+                  <% } %>
+                  <div class="custom-control custom-checkbox" >
+                    <input type="checkbox" class="custom-control-input" id='cancerRelative'
+                      name='Cancer' onclick="displayConditionalSectionCheckbox(this.id, 'cancerTypeContainerRelative')">
+                    <label class="custom-control-label" for='cancerRelative'>
+                      Cancer
+                    </label>
+                    <br>
+                    <div id= "cancerTypeContainerRelative">
+                      <label for="cancerTypeRelative">Type:</label>
+                      <input type="text" class="" id='cancerTypeRelative'
+                      name='cancerType'>
+                    </div>    
                   </div>
                 </div>
-                <hr>
-                <p class="title">
-                  Mental health
-                </p>
-                <p>Suffered mental problems:</p>
-                <div class="sub-sub-part">
-                  <div class="row">
-                    <div class="col">
-                      <% if(typeof mentalDiseasesJson != 'undefined'){ %>
-                      <% for(let i = 0 ; i < Math.floor(mentalDiseasesJson.length/2); i++) {%>
+                <div class="col">
+                  <% if(typeof physicalDiseasesJson != 'undefined'){ %>
+                  <% for(let i = Math.floor(physicalDiseasesJson.length/2) ; i < physicalDiseasesJson.length; i++) {%>
 
-                      <div class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input" id='<%= mentalDiseasesJson[i].id %>'
-                          name='<%= mentalDiseasesJson[i].name%>' onclick="return false;">
-                        <label class="custom-control-label" for='<%= mentalDiseasesJson[i].id %>'>
-                          <%= mentalDiseasesJson[i].name %>
-                        </label>
-                      </div>
-                      <% } %>
-                      <% } %>
-                    </div>
-                    <div class="col">
-                      <% if(typeof mentalDiseasesJson != 'undefined'){ %>
-                      <% for(let i = Math.floor(mentalDiseasesJson.length/2) ; i < mentalDiseasesJson.length; i++) {%>
-
-                      <div class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input" id='<%= mentalDiseasesJson[i].id %>'
-                          name='<%= mentalDiseasesJson[i].name%>' onclick="return false;" checked>
-                        <label class="custom-control-label" for='<%= mentalDiseasesJson[i].id %>'>
-                          <%= mentalDiseasesJson[i].name %>
-                        </label>
-                      </div>
-                      <% } %>
-                      <% } %>
-                    </div>
+                  <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" id='<%= physicalDiseasesJson[i].id %>+"Relative"'
+                      name='<%= physicalDiseasesJson[i].name%>'>
+                    <label class="custom-control-label" for='<%= physicalDiseasesJson[i].id %>+"Relative"'>
+                      <%= physicalDiseasesJson[i].name %>
+                    </label>
                   </div>
+                  <% } %>
+                  <% } %>
+                  
                 </div>
               </div>
               <br>
-              <div class="extend">
-                <p>
-                  <a class="btn btn-light" data-toggle="collapse" href="#collapseExamplechildrenDetails" id="seeMore"
-                    role="button" onclick="changeButtonText(this.id)" aria-expanded="false"
-                    aria-controls="collapseExample">
-                    See more
-                  </a>
-                </p>
+              <h6>Mental health</h6>
+              <p>Check the the mental problems the person has:</p>
+              <div class="row">
+                <div class="col">
+                  <% if(typeof mentalDiseasesJson != 'undefined'){ %>
+                  <% for(let i = 0 ; i < Math.floor(mentalDiseasesJson.length/2); i++) {%>
+
+                  <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" id='<%= mentalDiseasesJson[i].id %>+"Relative"'
+                      name='<%= mentalDiseasesJson[i].name%>'>
+                    <label class="custom-control-label" for='<%= mentalDiseasesJson[i].id %>+"Relative"'>
+                      <%= mentalDiseasesJson[i].name %>
+                    </label>
+                  </div>
+                  <% } %>
+                  <% } %>
+                </div>
+                <div class="col">
+                  <% if(typeof mentalDiseasesJson != 'undefined'){ %>
+                  <% for(let i = Math.floor(mentalDiseasesJson.length/2) ; i < mentalDiseasesJson.length; i++) {%>
+
+                  <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" id='<%= mentalDiseasesJson[i].id %>+"Relative"'
+                      name='<%= mentalDiseasesJson[i].name%>'>
+                    <label class="custom-control-label" for='<%= mentalDiseasesJson[i].id %>+"Relative"'>
+                      <%= mentalDiseasesJson[i].name %>
+                    </label>
+                  </div>
+                  <% } %>
+                  <% } %>
+                </div>            
+              </div>
+
+              <br>
+              <h6>Occupation:</h6>
+              <input type="text" name="occupation" id='famimilyMemberOccupation' placeholder="" cols="5" />
+              <br>
+          
+              <h5>Please fill up the next section if the person is dead</h5>
+              <label class="fieldlabels" for="famimilyMemberDeathDate">Date of death:</label>
+              <input type="date" name="deathDate" id='famimilyMemberDeathDate' placeholder="" cols="5" />
+              <label class="fieldlabels" for="famimilyMemberOccupation">Cause of death:</label>
+              <input type="text" name="occupation" id='famimilyMemberOccupation' placeholder="" cols="5" />
+              <br>
+              <div class="rowRowElementHolder">
+                <button type="button" class="btn btn-outline-success singleElement" id='popupOk'
+                  onclick="togglePopUpFamilyHistory('ok')">Ok</button>
+                <button type="button" class="btn btn-outline-danger singleElement" id='popupCancel'
+                  onclick="togglePopUpFamilyHistory('cancel')">Cancel</button>
               </div>
             </div>
           </div>
         </div>
-        <div class="tab-pane fade" id="relatives" role="tabpanel" aria-labelledby="relatives-tab">
-          <div class="part" id="relativeInfo">
-            <div class="sub-part-row">
-              <h5 class="left">Relative details</h3>
-                <button type="button" class="btn btn-outline-light add"
-                  onclick="togglePopUpFamilyHistoryRelativeAdd(this.parentElement.parentElement.id)"></button>
-            </div>
-            <p id="relativeCnt" class="countShow">total number: </p>
-            <div class="sub-part" id='relativeDetails'>
-              <div class="sub-part-row">
-                <p class="title">
-                  Name
-                </p>
-                <button type="button" class="btn btn-outline-dark"
-                  onclick="togglePopUpFamilyHistoryRelative(this.parentElement.parentElement.id)">Edit</button>
-              </div>
-              <div class="sub-sub-part">
-                <p>
-                  Ashraful Islam
-                </p>
-              </div>
-              <div class="collapse" id="collapseExamplerelativeDetails">
-                <hr>
-                <p class="title">
-                  Relation with you
-                </p>
-                <div class="sub-sub-part">
-                  <p>
-                    Uncle
-                  </p>
-                </div>
-                <hr>
-                <p class="title">
-                  Gender
-                </p>
-                <div class="sub-sub-part">
-                  <p>
-                    Male
-                  </p>
-                </div>
-                <p class="title">
-                  Birth date
-                </p>
-                <div class="sub-sub-part">
-                  <p>
-                    Born on 05.05.1967
-                  </p>
-                </div>
-                <hr>
-                <p class="title">
-                  Physical health
-                </p>
-                <p>Suffered physcal problems:</p>
-                <div class="sub-sub-part">
-                  <div class="row">
-                    <div class="col">
-                      <% if(typeof physicalDiseasesJson != 'undefined'){ %>
-                      <% for(let i = 0 ; i < Math.floor(physicalDiseasesJson.length/2); i++) {%>
 
-                      <div class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input" id='<%= physicalDiseasesJson[i].id %>'
-                          name='<%= physicalDiseasesJson[i].name%>' checked onclick="return false;">
-                        <label class="custom-control-label" for='<%= physicalDiseasesJson[i].id %>'>
-                          <%= physicalDiseasesJson[i].name %>
-                        </label>
-                      </div>
-                      <% } %>
-                      <% } %>
-                    </div>
-                    <div class="col">
-                      <% if(typeof physicalDiseasesJson != 'undefined'){ %>
-                      <% for(let i = Math.floor(physicalDiseasesJson.length/2) ; i < physicalDiseasesJson.length; i++) {%>
+        <!--  popup for parent design-->
 
-                      <div class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input" id='<%= physicalDiseasesJson[i].id %>'
-                          name='<%= physicalDiseasesJson[i].name%>' onclick="return false;">
-                        <label class="custom-control-label" for='<%= physicalDiseasesJson[i].id %>'>
-                          <%= physicalDiseasesJson[i].name %>
-                        </label>
-                      </div>
-                      <% } %>
-                      <% } %>
-                    </div>
+        <div class="modal-bg" id="popupFamilyHistoryParent" style="display: none">
+          <div class="modal-container">
+            <div class="card">
+              <p id='calledFrom' style="display: none"></p>
+              <h5>Personal information</h5>
+              <label class="fieldlabels" for="famimilyMemberName">Name:</label>
+              <input type="text" name="name" id='famimilyMemberName' placeholder="" cols="5" />
+              <label class="fieldlabels" for="famimilyMemberBirthDate">Birth date:</label>
+              <input type="text" name="birthDate" id='famimilyMemberBirthDate' placeholder="" cols="5" />
+
+
+              <br>
+              <br>
+              <h5>Health details</h5>
+              <br>
+              <h6>Physical health</h6>
+              <p>Check the the health problems the person has:</p>
+              <div class="row">
+                <div class="col">
+                  <% if(typeof physicalDiseasesJson != 'undefined'){ %>
+                  <% for(let i = 0 ; i < Math.floor(physicalDiseasesJson.length/2); i++) {%>
+
+                  <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" id='<%= physicalDiseasesJson[i].id %>+"Parent"'
+                      name='<%= physicalDiseasesJson[i].name%>'>
+                    <label class="custom-control-label" for='<%= physicalDiseasesJson[i].id %>+"Parent"'>
+                      <%= physicalDiseasesJson[i].name %>
+                    </label>
+                  </div>
+                  <% } %>
+                  <% } %>
+
+                  <div class="custom-control custom-checkbox" >
+                    <input type="checkbox" class="custom-control-input" id='cancerParent'
+                      name='Cancer' onclick="displayConditionalSectionCheckbox(this.id, 'cancerTypeContainerParent')">
+                    <label class="custom-control-label" for='cancerParent'>
+                      Cancer
+                    </label>
+                    <br>
+                    <div id= "cancerTypeContainerParent">
+                      <label for="cancerTypeParent">Type:</label>
+                      <input type="text" class="" id='cancerTypeParent'
+                      name='cancerType'>
+                    </div>    
                   </div>
                 </div>
-                <hr>
-                <p class="title">
-                  Mental health
-                </p>
-                <p>Suffered mental problems:</p>
-                <div class="sub-sub-part">
-                  <div class="row">
-                    <div class="col">
-                      <% if(typeof mentalDiseasesJson != 'undefined'){ %>
-                      <% for(let i = 0 ; i < Math.floor(mentalDiseasesJson.length/2); i++) {%>
+                <div class="col">
+                  <% if(typeof physicalDiseasesJson != 'undefined'){ %>
+                  <% for(let i = Math.floor(physicalDiseasesJson.length/2) ; i < physicalDiseasesJson.length; i++) {%>
 
-                      <div class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input" id='<%= mentalDiseasesJson[i].id %>'
-                          name='<%= mentalDiseasesJson[i].name%>' onclick="return false;">
-                        <label class="custom-control-label" for='<%= mentalDiseasesJson[i].id %>'>
-                          <%= mentalDiseasesJson[i].name %>
-                        </label>
-                      </div>
-                      <% } %>
-                      <% } %>
-                    </div>
-                    <div class="col">
-                      <% if(typeof mentalDiseasesJson != 'undefined'){ %>
-                      <% for(let i = Math.floor(mentalDiseasesJson.length/2) ; i < mentalDiseasesJson.length; i++) {%>
-
-                      <div class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input" id='<%= mentalDiseasesJson[i].id %>'
-                          name='<%= mentalDiseasesJson[i].name%>' onclick="return false;" checked>
-                        <label class="custom-control-label" for='<%= mentalDiseasesJson[i].id %>'>
-                          <%= mentalDiseasesJson[i].name %>
-                        </label>
-                      </div>
-                      <% } %>
-                      <% } %>
-                    </div>
+                  <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" id='<%= physicalDiseasesJson[i].id %>+"Parent"'
+                      name='<%= physicalDiseasesJson[i].name%>'>
+                    <label class="custom-control-label" for='<%= physicalDiseasesJson[i].id %>+"Parent"'>
+                      <%= physicalDiseasesJson[i].name %>
+                    </label>
                   </div>
+                  <% } %>
+                  <% } %>                            
+
+
                 </div>
               </div>
               <br>
-              <div class="extend">
-                <p>
-                  <a class="btn btn-light" data-toggle="collapse" href="#collapseExamplerelativeDetails" id="seeMore"
-                    role="button" onclick="changeButtonText(this.id)" aria-expanded="false"
-                    aria-controls="collapseExample">
-                    See more
-                  </a>
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- For popup design for family member in general-->
-
-      <div class="modal-bg" id="popupFamilyHistory" style="display: none">
-        <div class="modal-container">
-          <div class="card">
-            <p id='calledFrom' style="display: none"></p>
-            <h5>Personal information</h5>
-            <label class="fieldlabels" for="famimilyMemberName">Name:</label>
-            <input type="text" name="name" id='famimilyMemberName' placeholder="" cols="5" />
-            <label class="fieldlabels" for="famimilyMemberGender">Gender:</label>
-            <input type="text" name="gender" id='famimilyMemberGender' placeholder="" cols="5" />
-
-            <label class="fieldlabels" for="famimilyMemberBirthDate">Birth date:</label>
-            <input type="date" name="birthDate" id='famimilyMemberBirthDate' placeholder="" cols="5" />
-
-            <br>
-            <br>
-            <h5>Health details</h5>
-            <br>
-            <h6>Physical health</h6>
-            <p>Check the the health problems the person has:</p>
-            <div class="row">
-              <div class="col">
-                <% if(typeof physicalDiseasesJson != 'undefined'){ %>
-                <% for(let i = 0 ; i < Math.floor(physicalDiseasesJson.length/2); i++) {%>
-
-                <div class="custom-control custom-checkbox">
-                  <input type="checkbox" class="custom-control-input" id='<%= physicalDiseasesJson[i].id %>+"FamilyMember"'
-                    name='<%= physicalDiseasesJson[i].name%>'>
-                  <label class="custom-control-label" for='<%= physicalDiseasesJson[i].id %>+"FamilyMember"'>
-                    <%= physicalDiseasesJson[i].name %>
-                  </label>
-                </div>
-                <% } %>
-                <% } %>
-                <div class="custom-control custom-checkbox" >
-                  <input type="checkbox" class="custom-control-input" id='cancerFamilyMember'
-                    name='Cancer' onclick="displayConditionalSectionCheckbox(this.id, 'cancerTypeContainerFamilyMember')">
-                  <label class="custom-control-label" for='cancerFamilyMember'>
-                    Cancer
-                  </label>
-                  <br>
-                  <div id= "cancerTypeContainerFamilyMember">
-                    <label for="cancerTypeFamilyMember">Type:</label>
-                    <input type="text" class="" id='cancerTypeFamilyMember'
-                    name='cancerType'>
-                  </div>    
-                </div>
-              </div>
-              <div class="col">
-                <% if(typeof physicalDiseasesJson != 'undefined'){ %>
-                <% for(let i = Math.floor(physicalDiseasesJson.length/2) ; i < physicalDiseasesJson.length; i++) {%>
-
-                <div class="custom-control custom-checkbox">
-                  <input type="checkbox" class="custom-control-input" id='<%= physicalDiseasesJson[i].id %>+"FamilyMember"'
-                    name='<%= physicalDiseasesJson[i].name%>'>
-                  <label class="custom-control-label" for='<%= physicalDiseasesJson[i].id %>+"FamilyMember"'>
-                    <%= physicalDiseasesJson[i].name %>
-                  </label>
-                </div>
-                <% } %>
-                <% } %>
-              </div>
-            </div>
-            <br>
-            
+              
             <h6>Mental health</h6>
-            <p>Check the the mental problems the person has:</p>
-            <div class="row">
-              <div class="col">
-                <% if(typeof mentalDiseasesJson != 'undefined'){ %>
-                <% for(let i = 0 ; i < Math.floor(mentalDiseasesJson.length/2); i++) {%>
+              <p>Check the the mental problems the person has:</p>
+              <div class="row">
+                <div class="col">
+                  <% if(typeof mentalDiseasesJson != 'undefined'){ %>
+                  <% for(let i = 0 ; i < Math.floor(mentalDiseasesJson.length/2); i++) {%>
 
-                <div class="custom-control custom-checkbox">
-                  <input type="checkbox" class="custom-control-input" id='<%= mentalDiseasesJson[i].id %>+"FamilyMember"'
-                    name='<%= mentalDiseasesJson[i].name%>'>
-                  <label class="custom-control-label" for='<%= mentalDiseasesJson[i].id %>+"FamilyMember"'>
-                    <%= mentalDiseasesJson[i].name %>
-                  </label>
+                  <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" id='<%= mentalDiseasesJson[i].id %>+"Parent"'
+                      name='<%= mentalDiseasesJson[i].name%>'>
+                    <label class="custom-control-label" for='<%= mentalDiseasesJson[i].id %>+"Parent"'>
+                      <%= mentalDiseasesJson[i].name %>
+                    </label>
+                  </div>
+                  <% } %>
+                  <% } %>
                 </div>
-                <% } %>
-                <% } %>
+                <div class="col">
+                  <% if(typeof mentalDiseasesJson != 'undefined'){ %>
+                  <% for(let i = Math.floor(mentalDiseasesJson.length/2) ; i < mentalDiseasesJson.length; i++) {%>
+
+                  <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" id='<%= mentalDiseasesJson[i].id %>+"Parent"'
+                      name='<%= mentalDiseasesJson[i].name%>'>
+                    <label class="custom-control-label" for='<%= mentalDiseasesJson[i].id %>+"Parent"'>
+                      <%= mentalDiseasesJson[i].name %>
+                    </label>
+                  </div>
+                  <% } %>
+                  <% } %>
+                  
+                </div>
               </div>
-              <div class="col">
-                <% if(typeof mentalDiseasesJson != 'undefined'){ %>
-                <% for(let i = Math.floor(mentalDiseasesJson.length/2) ; i < mentalDiseasesJson.length; i++) {%>
+              <br>
+              <h6>Occupation:</h6>
+              <input type="text" name="occupation" id='famimilyMemberOccupation' placeholder="" cols="5" />
+              <br>
+          
+              <h5>Please fill up the next section if the person is dead</h5>
+              <label class="fieldlabels" for="famimilyMemberDeathDate">Date of death:</label>
+              <input type="date" name="deathDate" id='famimilyMemberDeathDate' placeholder="" cols="5" />
 
-                <div class="custom-control custom-checkbox">
-                  <input type="checkbox" class="custom-control-input" id='<%= mentalDiseasesJson[i].id %>+"FamilyMember"'
-                    name='<%= mentalDiseasesJson[i].name%>'>
-                  <label class="custom-control-label" for='<%= mentalDiseasesJson[i].id %>+"FamilyMember"'>
-                    <%= mentalDiseasesJson[i].name %>
-                  </label>
-                </div>
-                <% } %>
-                <% } %>
-              </div>            
-            </div>
-
-            <br>
-            <h6>Occupation:</h6>
-            <input type="text" name="occupation" id='famimilyMemberOccupation' placeholder="" cols="5" />
-            <br>
-        
-            <h5>Please fill up the next section if the person is dead</h5>
-            <label class="fieldlabels" for="famimilyMemberDeathDate">Date of death:</label>
-            <input type="date" name="deathDate" id='famimilyMemberDeathDate' placeholder="" cols="5" />
-            <label class="fieldlabels" for="famimilyMemberOccupation">Cause of death:</label>
-            <input type="text" name="occupation" id='famimilyMemberOccupation' placeholder="" cols="5" />
-            <br>
-            <div class="rowRowElementHolder">
-              <button type="button" class="btn btn-outline-success singleElement" id='popupOk'
-                onclick="togglePopUpFamilyHistory('ok')">Ok</button>
-              <button type="button" class="btn btn-outline-danger singleElement" id='popupCancel'
-                onclick="togglePopUpFamilyHistory('cancel')">Cancel</button>
+              <label class="fieldlabels" for="famimilyMemberDeathCause">Cause of death:</label>
+              <input type="text" name="deathCause" id='famimilyMemberDeathCause' placeholder="" cols="5" />
+              <br>
+              <div class="rowRowElementHolder">
+                <button type="button" class="btn btn-outline-success singleElement" id='popupOk'
+                  onclick="togglePopUpFamilyHistoryParent('ok')">Ok</button>
+                <button type="button" class="btn btn-outline-danger singleElement" id='popupCancel'
+                  onclick="togglePopUpFamilyHistoryParent('cancel')">Cancel</button>
+              </div>
             </div>
           </div>
-        </div>
+        </div>      
+
       </div>
-
-      <!--  popup for relative design-->
-
-      <div class="modal-bg" id="popupFamilyHistoryRelative" style="display: none">
-        <div class="modal-container">
-          <div class="card">
-            <p id='calledFrom' style="display: none"></p>
-            <h5>Personal information</h5>
-            <label class="fieldlabels" for="famimilyMemberName">Name:</label>
-            <input type="text" name="name" id='famimilyMemberName' placeholder="" cols="5" />
-            <label class="fieldlabels" for="famimilyMemberRelation">Relation with you(e.g. Uncle):</label>
-            <input type="text" name="relation" id='famimilyMemberRelation' placeholder="" cols="5" />
-            
-            <label class="fieldlabels" for="famimilyMemberGender">Gender:</label>
-            <input type="text" name="gender" id='famimilyMemberGender' placeholder="" cols="5" />
-
-            <label class="fieldlabels" for="famimilyMemberBirthDate">Birth date:</label>
-            <input type="date" name="birthDate" id='famimilyMemberBirthDate' placeholder="" cols="5" />
-
-            <br>
-            <br>
-            <h5>Health details</h5>
-            <br>
-            <h6>Physical health</h6>
-            <p>Check the the health problems the person has:</p>
-            <div class="row">
-              <div class="col">
-                <% if(typeof physicalDiseasesJson != 'undefined'){ %>
-                <% for(let i = 0 ; i < Math.floor(physicalDiseasesJson.length/2); i++) {%>
-
-                <div class="custom-control custom-checkbox">
-                  <input type="checkbox" class="custom-control-input" id='<%= physicalDiseasesJson[i].id %>+"Relative"'
-                    name='<%= physicalDiseasesJson[i].name%>'>
-                  <label class="custom-control-label" for='<%= physicalDiseasesJson[i].id %>+"Relative"'>
-                    <%= physicalDiseasesJson[i].name %>
-                  </label>
-                </div>
-                <% } %>
-                <% } %>
-                <div class="custom-control custom-checkbox" >
-                  <input type="checkbox" class="custom-control-input" id='cancerRelative'
-                    name='Cancer' onclick="displayConditionalSectionCheckbox(this.id, 'cancerTypeContainerRelative')">
-                  <label class="custom-control-label" for='cancerRelative'>
-                    Cancer
-                  </label>
-                  <br>
-                  <div id= "cancerTypeContainerRelative">
-                    <label for="cancerTypeRelative">Type:</label>
-                    <input type="text" class="" id='cancerTypeRelative'
-                    name='cancerType'>
-                  </div>    
-                </div>
-              </div>
-              <div class="col">
-                <% if(typeof physicalDiseasesJson != 'undefined'){ %>
-                <% for(let i = Math.floor(physicalDiseasesJson.length/2) ; i < physicalDiseasesJson.length; i++) {%>
-
-                <div class="custom-control custom-checkbox">
-                  <input type="checkbox" class="custom-control-input" id='<%= physicalDiseasesJson[i].id %>+"Relative"'
-                    name='<%= physicalDiseasesJson[i].name%>'>
-                  <label class="custom-control-label" for='<%= physicalDiseasesJson[i].id %>+"Relative"'>
-                    <%= physicalDiseasesJson[i].name %>
-                  </label>
-                </div>
-                <% } %>
-                <% } %>
-                
-              </div>
-            </div>
-            <br>
-            <h6>Mental health</h6>
-            <p>Check the the mental problems the person has:</p>
-            <div class="row">
-              <div class="col">
-                <% if(typeof mentalDiseasesJson != 'undefined'){ %>
-                <% for(let i = 0 ; i < Math.floor(mentalDiseasesJson.length/2); i++) {%>
-
-                <div class="custom-control custom-checkbox">
-                  <input type="checkbox" class="custom-control-input" id='<%= mentalDiseasesJson[i].id %>+"Relative"'
-                    name='<%= mentalDiseasesJson[i].name%>'>
-                  <label class="custom-control-label" for='<%= mentalDiseasesJson[i].id %>+"Relative"'>
-                    <%= mentalDiseasesJson[i].name %>
-                  </label>
-                </div>
-                <% } %>
-                <% } %>
-              </div>
-              <div class="col">
-                <% if(typeof mentalDiseasesJson != 'undefined'){ %>
-                <% for(let i = Math.floor(mentalDiseasesJson.length/2) ; i < mentalDiseasesJson.length; i++) {%>
-
-                <div class="custom-control custom-checkbox">
-                  <input type="checkbox" class="custom-control-input" id='<%= mentalDiseasesJson[i].id %>+"Relative"'
-                    name='<%= mentalDiseasesJson[i].name%>'>
-                  <label class="custom-control-label" for='<%= mentalDiseasesJson[i].id %>+"Relative"'>
-                    <%= mentalDiseasesJson[i].name %>
-                  </label>
-                </div>
-                <% } %>
-                <% } %>
-              </div>            
-            </div>
-
-            <br>
-            <h6>Occupation:</h6>
-            <input type="text" name="occupation" id='famimilyMemberOccupation' placeholder="" cols="5" />
-            <br>
-        
-            <h5>Please fill up the next section if the person is dead</h5>
-            <label class="fieldlabels" for="famimilyMemberDeathDate">Date of death:</label>
-            <input type="date" name="deathDate" id='famimilyMemberDeathDate' placeholder="" cols="5" />
-            <label class="fieldlabels" for="famimilyMemberOccupation">Cause of death:</label>
-            <input type="text" name="occupation" id='famimilyMemberOccupation' placeholder="" cols="5" />
-            <br>
-            <div class="rowRowElementHolder">
-              <button type="button" class="btn btn-outline-success singleElement" id='popupOk'
-                onclick="togglePopUpFamilyHistory('ok')">Ok</button>
-              <button type="button" class="btn btn-outline-danger singleElement" id='popupCancel'
-                onclick="togglePopUpFamilyHistory('cancel')">Cancel</button>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!--  popup for parent design-->
-
-      <div class="modal-bg" id="popupFamilyHistoryParent" style="display: none">
-        <div class="modal-container">
-          <div class="card">
-            <p id='calledFrom' style="display: none"></p>
-            <h5>Personal information</h5>
-            <label class="fieldlabels" for="famimilyMemberName">Name:</label>
-            <input type="text" name="name" id='famimilyMemberName' placeholder="" cols="5" />
-            <label class="fieldlabels" for="famimilyMemberBirthDate">Birth date:</label>
-            <input type="text" name="birthDate" id='famimilyMemberBirthDate' placeholder="" cols="5" />
-
-
-            <br>
-            <br>
-            <h5>Health details</h5>
-            <br>
-            <h6>Physical health</h6>
-            <p>Check the the health problems the person has:</p>
-            <div class="row">
-              <div class="col">
-                <% if(typeof physicalDiseasesJson != 'undefined'){ %>
-                <% for(let i = 0 ; i < Math.floor(physicalDiseasesJson.length/2); i++) {%>
-
-                <div class="custom-control custom-checkbox">
-                  <input type="checkbox" class="custom-control-input" id='<%= physicalDiseasesJson[i].id %>+"Parent"'
-                    name='<%= physicalDiseasesJson[i].name%>'>
-                  <label class="custom-control-label" for='<%= physicalDiseasesJson[i].id %>+"Parent"'>
-                    <%= physicalDiseasesJson[i].name %>
-                  </label>
-                </div>
-                <% } %>
-                <% } %>
-
-                <div class="custom-control custom-checkbox" >
-                  <input type="checkbox" class="custom-control-input" id='cancerParent'
-                    name='Cancer' onclick="displayConditionalSectionCheckbox(this.id, 'cancerTypeContainerParent')">
-                  <label class="custom-control-label" for='cancerParent'>
-                    Cancer
-                  </label>
-                  <br>
-                  <div id= "cancerTypeContainerParent">
-                    <label for="cancerTypeParent">Type:</label>
-                    <input type="text" class="" id='cancerTypeParent'
-                    name='cancerType'>
-                  </div>    
-                </div>
-              </div>
-              <div class="col">
-                <% if(typeof physicalDiseasesJson != 'undefined'){ %>
-                <% for(let i = Math.floor(physicalDiseasesJson.length/2) ; i < physicalDiseasesJson.length; i++) {%>
-
-                <div class="custom-control custom-checkbox">
-                  <input type="checkbox" class="custom-control-input" id='<%= physicalDiseasesJson[i].id %>+"Parent"'
-                    name='<%= physicalDiseasesJson[i].name%>'>
-                  <label class="custom-control-label" for='<%= physicalDiseasesJson[i].id %>+"Parent"'>
-                    <%= physicalDiseasesJson[i].name %>
-                  </label>
-                </div>
-                <% } %>
-                <% } %>                            
-
-
-              </div>
-            </div>
-            <br>
-            
-           <h6>Mental health</h6>
-            <p>Check the the mental problems the person has:</p>
-            <div class="row">
-              <div class="col">
-                <% if(typeof mentalDiseasesJson != 'undefined'){ %>
-                <% for(let i = 0 ; i < Math.floor(mentalDiseasesJson.length/2); i++) {%>
-
-                <div class="custom-control custom-checkbox">
-                  <input type="checkbox" class="custom-control-input" id='<%= mentalDiseasesJson[i].id %>+"Parent"'
-                    name='<%= mentalDiseasesJson[i].name%>'>
-                  <label class="custom-control-label" for='<%= mentalDiseasesJson[i].id %>+"Parent"'>
-                    <%= mentalDiseasesJson[i].name %>
-                  </label>
-                </div>
-                <% } %>
-                <% } %>
-              </div>
-              <div class="col">
-                <% if(typeof mentalDiseasesJson != 'undefined'){ %>
-                <% for(let i = Math.floor(mentalDiseasesJson.length/2) ; i < mentalDiseasesJson.length; i++) {%>
-
-                <div class="custom-control custom-checkbox">
-                  <input type="checkbox" class="custom-control-input" id='<%= mentalDiseasesJson[i].id %>+"Parent"'
-                    name='<%= mentalDiseasesJson[i].name%>'>
-                  <label class="custom-control-label" for='<%= mentalDiseasesJson[i].id %>+"Parent"'>
-                    <%= mentalDiseasesJson[i].name %>
-                  </label>
-                </div>
-                <% } %>
-                <% } %>
-                
-              </div>
-            </div>
-            <br>
-            <h6>Occupation:</h6>
-            <input type="text" name="occupation" id='famimilyMemberOccupation' placeholder="" cols="5" />
-            <br>
-        
-            <h5>Please fill up the next section if the person is dead</h5>
-            <label class="fieldlabels" for="famimilyMemberDeathDate">Date of death:</label>
-            <input type="date" name="deathDate" id='famimilyMemberDeathDate' placeholder="" cols="5" />
-
-            <label class="fieldlabels" for="famimilyMemberDeathCause">Cause of death:</label>
-            <input type="text" name="deathCause" id='famimilyMemberDeathCause' placeholder="" cols="5" />
-            <br>
-            <div class="rowRowElementHolder">
-              <button type="button" class="btn btn-outline-success singleElement" id='popupOk'
-                onclick="togglePopUpFamilyHistoryParent('ok')">Ok</button>
-              <button type="button" class="btn btn-outline-danger singleElement" id='popupCancel'
-                onclick="togglePopUpFamilyHistoryParent('cancel')">Cancel</button>
-            </div>
-          </div>
-        </div>
-      </div>      
-
     </div>
+    
   </div>
 
 
