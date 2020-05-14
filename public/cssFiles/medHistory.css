@@ -126,6 +126,20 @@ p {
     font-weight: normal;
     text-align: left
 }
+h4.subsection-title{
+    background-color: rgb(66, 154, 255);
+    border-radius: 100px;
+    color: rgb(255, 255, 255);
+    padding: 0 10px 0 10px;
+    margin: 10px 0px 10px 0;
+}
+h5.left.subsection-title{
+    background-color: rgb(66, 154, 255);
+    border-radius: 100px;
+    color: rgb(255, 255, 255);
+    padding: 0 10px 0 10px;
+    margin: 10px 100px 0 0;
+}
 
 /* .subsection-card{
 
@@ -391,10 +405,10 @@ p {
     color: rgb(148, 148, 148);
     font-size: 18px;
 }
-
+/* 
 .family-container .part h5{
     padding-top: 10px;
-}
+} */
 .family-container .sub-part-row {
     display: flex;
     padding: 10px 10px 0px 0px;
@@ -421,6 +435,7 @@ p {
     background-size: 100%; /* To fill the dimensions of container (button), or */
     background-size: 25px 25px; /* to specify dimensions explicitly */
     border: 0px;
+    margin: 5px 0 0 0;
 }
 .add:hover{
     height: 25px;

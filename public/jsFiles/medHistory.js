@@ -575,6 +575,121 @@ function togglePopUpFamilyHistoryParent(from) {
   }
 }
 
+function togglePopUpFamilyHistoryRelative(from) {
+  var fieldNames =["name","birthDate","health","psychiaty"]
+  var popupElmIds = ["famimilyMemberName", "famimilyMemberBirthDate","famimilyMemberHealth","famimilyMemberPsychiatric"]
+  var tabTypes = ["father", "mother"]
+  var collapseIds = ["collapseExampleFather", "collaplseExampleMother"]
+  var detailIds = ["fatherDetails", "motherDetails"]
+  var inputValues = {
+      
+  }
+
+  $('[id="popupOk"]').attr('onclick','togglePopUpFamilyHistoryRelative("ok")')
+  $('[id="popupCancel"]').attr('onclick','togglePopUpFamilyHistoryRelative("cancel")')
+
+  if(from !== 'ok' && from !== 'cancel')
+      $('p[id = "calledFrom"]').html(from)
+
+  var parentID = $('p[id = "calledFrom"]').html();
+  
+  console.log(parentID)
+
+  // if(parentID.indexOf("fatherDetails") != -1  || parentID.indexOf("motherDetails") != -1)
+  // {
+  //     $('[class= "conditional"]').hide()
+  // }
+  // else {
+  //     $('[class= "conditional"]').show()
+  // }
+
+  if(from === 'ok')
+  {
+      var ind =0,ind2=0,typeNo;
+      for(var i=0; i<tabTypes.length; i++)
+          if(parentID.indexOf(tabTypes[i])!=-1) typeNo=i;
+
+      var currentItemNo = $('[id^="'+detailIds[typeNo]+'"]').length
+
+      for(var i=0; i<popupElmIds.length; i++)
+          inputValues[fieldNames[i]] = $('[id='+ popupElmIds[i] +']').val()
+      
+      console.log(inputValues)
+
+      divHtml = $('[id = '+ parentID +']').html()
+
+      console.log(divHtml)
+      $('[id = '+ parentID +']').html(
+          '<div class="sub-part-row">'+
+              '<p class="title">'+
+                'Name'+
+              '</p>'+
+              '<button type="button" class="btn btn-outline-dark" onclick="togglePopUpFamilyHistory(this.parentElement.parentElement.id)">Edit</button>'+
+            '</div>'+
+            '<div class="sub-sub-part">'+
+              '<p>'+
+              inputValues[fieldNames[ind++]]+
+              '</p>'+
+            '</div>' +           
+            '<div class="collapse" id="'+'collapseExample'+parentID+'">'+
+                '<hr>'+
+              '<p class="title">'+
+                'Birth date'+
+              '</p>'+
+              '<div class="sub-sub-part">'+
+                '<p>'+
+                  'Born on '+ inputValues[fieldNames[ind++]] +
+                '</p>'+
+              '</div>'+
+              '<hr>'+
+              '<p class="title">'+
+                'Health'+
+              '</p>'+
+              '<div class="sub-sub-part">'+
+                '<p>'+
+                  inputValues[fieldNames[ind++]]+
+                '</p>'+
+              '</div> '+
+              '<hr>'+
+              '<p class="title">'+
+                'Psychiatric'+
+              '</p>'+
+              '<div class="sub-sub-part">'+
+                '<p>'+
+                  inputValues[fieldNames[ind++]]+
+                '</p>'+
+              '</div> '+
+            '</div>'+
+            '<div class="extend">'+
+              '<p>'+
+                '<a class="btn btn-light" data-toggle="collapse" href="#'+'collapseExample'+parentID+'" id="seeMore'+ parentID +'" role="button" onclick="changeButtonText(this.id)" aria-expanded="false" aria-controls="collapseExample">'+
+                  'See more'+
+                '</a>'+
+              '</p>'+
+            '</div>'+
+            '<input type="text" name="name" value= "'+inputValues[fieldNames[ind2++]] +'" style="display: none">'+
+            '<input type="text" name="gender" value= "'+inputValues[fieldNames[ind2++]] +'" style="display: none">'+
+            '<input type="text" name="birthDate" value= "'+inputValues[fieldNames[ind2++]] +'" style="display: none">'+
+            '<input type="text" name="health" value= "'+inputValues[fieldNames[ind2++]] +'" style="display: none">'+
+            '<input type="text" name="psychiatric" value= "'+inputValues[fieldNames[ind2++]] +'" style="display: none">'
+      )
+      
+      console.log(parentID+' typeNo= '+typeNo)
+      // if(typeNo==0)
+      //     $('#'+parentID+' > #collapseExample'+parentID+' > .conditional').hide()
+      // if(typeNo==1)
+      //     $('#'+parentID+' > #collapseExample'+parentID+' > .conditional').hide()
+
+      
+  }
+
+  if (document.getElementById('popupFamilyHistoryRelative').style.display == "flex") {
+      document.getElementById('popupFamilyHistoryRelative').style.display = "none";
+  } else {
+      document.getElementById('popupFamilyHistoryRelative').style.display = "flex";
+  }
+}
+
 function togglePopUpFamilyHistoryAdd(from) {
   console.log("from="+from)
 
@@ -937,7 +1052,7 @@ function onStart()
      // keep occupation details of step4 hidden at the beginning
      idsForHiddenElements=["coworkerInjuryDetails","substanceRashDetails", "offForIllnessDetails", "occuredBreathingProblemDetails", 
                             "jobChangeForInjuryDetails", "backProblemDetails", "employmentDetails", "unemploymentDetails", "cancerTypeContainerFamilyMember",
-                          "cancerTypeContainerRelative", "cancerTypeContainerParent"]
+                          "cancerTypeContainerRelative", "cancerTypeContainerParent", "deathDetails", "deathDetailsRelative", "deathDetailsParent"]
     //  document.getElementById("coworkerInjuryDetails").style.display="none"
     //  document.getElementById("coworkerInjuryDetails").style.display="none"
     //  document.getElementById("coworkerInjuryDetails").style.display="none"

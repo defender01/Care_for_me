@@ -37,7 +37,7 @@
           <div class="tab-pane fade show active" id="parents" role="tabpanel" aria-labelledby="parents-tab">
             <div class="part" id="parentsInfo">
               <div class="sub-part-row">
-                <h5 class="left">Father's details</h3>
+                <h5 class="left subsection-title">Father's details</h5>
               </div>
               <div class="sub-part" id='fatherDetails'>
                 <div class="sub-part-row">
@@ -163,7 +163,7 @@
               </div>
 
               <div class="sub-part-row">
-                <h5 class="left">Mother's details</h3>
+                <h5 class="left subsection-title">Mother's details</h5>
               </div>
               <div class="sub-part" id='motherDetails'>
                 <div class="sub-part-row">
@@ -279,7 +279,7 @@
           <div class="tab-pane fade" id="siblings" role="tabpanel" aria-labelledby="siblings-tab">
             <div class="part" id="siblingsInfo">
               <div class="sub-part-row">
-                <h5 class="left">Sibling's details</h3>
+                <h5 class="left subsection-title">Sibling's details</h5>
                   <button type="button" class="btn btn-outline-light add"
                     onclick="togglePopUpFamilyHistoryAdd(this.parentElement.parentElement.id)"></button>
               </div>
@@ -406,7 +406,7 @@
           <div class="tab-pane fade" id="children" role="tabpanel" aria-labelledby="children-tab">
             <div class="part" id="childrenInfo">
               <div class="sub-part-row">
-                <h5 class="left">Children's details</h3>
+                <h5 class="left subsection-title">Children's details</h5>
                   <button type="button" class="btn btn-outline-light add"
                     onclick="togglePopUpFamilyHistoryAdd(this.parentElement.parentElement.id)"></button>
               </div>
@@ -533,7 +533,7 @@
           <div class="tab-pane fade" id="relatives" role="tabpanel" aria-labelledby="relatives-tab">
             <div class="part" id="relativeInfo">
               <div class="sub-part-row">
-                <h5 class="left">Relative details</h3>
+                <h5 class="left subsection-title">Relative details</h5>
                   <button type="button" class="btn btn-outline-light add"
                     onclick="togglePopUpFamilyHistoryRelativeAdd(this.parentElement.parentElement.id)"></button>
               </div>
@@ -771,12 +771,25 @@
               <h6>Occupation:</h6>
               <input type="text" name="occupation" id='famimilyMemberOccupation' placeholder="" cols="5" />
               <br>
+
+              <br>     
+              <p>Is the person dead?</p>
+              <div class="custom-control custom-radio">
+                <input type="radio" id="dead" name="isDead" class="custom-control-input" value="yes" onclick="displayConditionalSection(this.id, 'deathDetails')">
+                <label class="custom-control-label" for="dead">Yes</label>
+              </div>
+              <div class="custom-control custom-radio">
+                <input type="radio" id="notDead" name="isDead" class="custom-control-input" value="no" onclick="displayConditionalSection(this.id, 'deathDetails')">
+                <label class="custom-control-label" for="notDead">No</label>
+              </div>
+              <div id="deathDetails">
+                <label class="fieldlabels" for="famimilyMemberDeathDate">Date of death:</label>
+                <input type="date" name="deathDate" id='famimilyMemberDeathDate' placeholder="" cols="5" />
+  
+                <label class="fieldlabels" for="famimilyMemberDeathCause">Cause of death:</label>
+                <input type="text" name="deathCause" id='famimilyMemberDeathCause' placeholder="" cols="5" />
+              </div>
           
-              <h5>Please fill up the next section if the person is dead</h5>
-              <label class="fieldlabels" for="famimilyMemberDeathDate">Date of death:</label>
-              <input type="date" name="deathDate" id='famimilyMemberDeathDate' placeholder="" cols="5" />
-              <label class="fieldlabels" for="famimilyMemberOccupation">Cause of death:</label>
-              <input type="text" name="occupation" id='famimilyMemberOccupation' placeholder="" cols="5" />
               <br>
               <div class="rowRowElementHolder">
                 <button type="button" class="btn btn-outline-success singleElement" id='popupOk'
@@ -793,18 +806,18 @@
         <div class="modal-bg" id="popupFamilyHistoryRelative" style="display: none">
           <div class="modal-container">
             <div class="card">
-              <p id='calledFrom' style="display: none"></p>
+              <p id='calledFromRelative' style="display: none"></p>
               <h5>Personal information</h5>
               <label class="fieldlabels" for="famimilyMemberName">Name:</label>
-              <input type="text" name="name" id='famimilyMemberName' placeholder="" cols="5" />
-              <label class="fieldlabels" for="famimilyMemberRelation">Relation with you(e.g. Uncle):</label>
-              <input type="text" name="relation" id='famimilyMemberRelation' placeholder="" cols="5" />
+              <input type="text" name="name" id='famimilyMemberNameRelative' placeholder="" cols="5" />
+              <label class="fieldlabels" for="famimilyMemberRelationRelative">Relation with you(e.g. Uncle):</label>
+              <input type="text" name="relation" id='famimilyMemberRelationRelative' placeholder="" cols="5" />
               
-              <label class="fieldlabels" for="famimilyMemberGender">Gender:</label>
-              <input type="text" name="gender" id='famimilyMemberGender' placeholder="" cols="5" />
+              <label class="fieldlabels" for="famimilyMemberGenderRelative">Gender:</label>
+              <input type="text" name="gender" id='famimilyMemberGenderRelative' placeholder="" cols="5" />
 
-              <label class="fieldlabels" for="famimilyMemberBirthDate">Birth date:</label>
-              <input type="date" name="birthDate" id='famimilyMemberBirthDate' placeholder="" cols="5" />
+              <label class="fieldlabels" for="famimilyMemberBirthDateRelative">Birth date:</label>
+              <input type="date" name="birthDate" id='famimilyMemberBirthDateRelative' placeholder="" cols="5" />
 
               <br>
               <br>
@@ -892,20 +905,33 @@
 
               <br>
               <h6>Occupation:</h6>
-              <input type="text" name="occupation" id='famimilyMemberOccupation' placeholder="" cols="5" />
+              <input type="text" name="occupation" id='famimilyMemberOccupationRelative' placeholder="" cols="5" />
               <br>
+
+              <br>     
+              <p>Is the person dead?</p>
+              <div class="custom-control custom-radio">
+                <input type="radio" id="deadRelative" name="isDeadRelative" class="custom-control-input" value="yes" onclick="displayConditionalSection(this.id, 'deathDetailsRelative')">
+                <label class="custom-control-label" for="deadRelative">Yes</label>
+              </div>
+              <div class="custom-control custom-radio">
+                <input type="radio" id="notDeadRelative" name="isDeadRelative" class="custom-control-input" value="no" onclick="displayConditionalSection(this.id, 'deathDetailsRelative')">
+                <label class="custom-control-label" for="notDeadRelative">No</label>
+              </div>
+              <div id="deathDetailsRelative">
+                <label class="fieldlabels" for="famimilyMemberDeathDateRelative">Date of death:</label>
+                <input type="date" name="deathDate" id='famimilyMemberDeathDateRelative' placeholder="" cols="5" />
+  
+                <label class="fieldlabels" for="famimilyMemberDeathCauseRelative">Cause of death:</label>
+                <input type="text" name="deathCause" id='famimilyMemberDeathCauseRelative' placeholder="" cols="5" />
+              </div>
           
-              <h5>Please fill up the next section if the person is dead</h5>
-              <label class="fieldlabels" for="famimilyMemberDeathDate">Date of death:</label>
-              <input type="date" name="deathDate" id='famimilyMemberDeathDate' placeholder="" cols="5" />
-              <label class="fieldlabels" for="famimilyMemberOccupation">Cause of death:</label>
-              <input type="text" name="occupation" id='famimilyMemberOccupation' placeholder="" cols="5" />
               <br>
               <div class="rowRowElementHolder">
-                <button type="button" class="btn btn-outline-success singleElement" id='popupOk'
-                  onclick="togglePopUpFamilyHistory('ok')">Ok</button>
-                <button type="button" class="btn btn-outline-danger singleElement" id='popupCancel'
-                  onclick="togglePopUpFamilyHistory('cancel')">Cancel</button>
+                <button type="button" class="btn btn-outline-success singleElement" id='popupOkRelative'
+                  onclick="togglePopUpFamilyHistoryRelative('ok')">Ok</button>
+                <button type="button" class="btn btn-outline-danger singleElement" id='popupCancelRelative'
+                  onclick="togglePopUpFamilyHistoryRelative('cancel')">Cancel</button>
               </div>
             </div>
           </div>
@@ -916,12 +942,12 @@
         <div class="modal-bg" id="popupFamilyHistoryParent" style="display: none">
           <div class="modal-container">
             <div class="card">
-              <p id='calledFrom' style="display: none"></p>
+              <p id='calledFromParent' style="display: none"></p>
               <h5>Personal information</h5>
-              <label class="fieldlabels" for="famimilyMemberName">Name:</label>
-              <input type="text" name="name" id='famimilyMemberName' placeholder="" cols="5" />
-              <label class="fieldlabels" for="famimilyMemberBirthDate">Birth date:</label>
-              <input type="text" name="birthDate" id='famimilyMemberBirthDate' placeholder="" cols="5" />
+              <label class="fieldlabels" for="famimilyMemberNameParent">Name:</label>
+              <input type="text" name="name" id='famimilyMemberNameParent' placeholder="" cols="5" />
+              <label class="fieldlabels" for="famimilyMemberBirthDateParent">Birth date:</label>
+              <input type="text" name="birthDate" id='famimilyMemberBirthDateParent' placeholder="" cols="5" />
 
 
               <br>
@@ -1013,20 +1039,32 @@
               </div>
               <br>
               <h6>Occupation:</h6>
-              <input type="text" name="occupation" id='famimilyMemberOccupation' placeholder="" cols="5" />
+              <input type="text" name="occupation" id='famimilyMemberOccupationParent' placeholder="" cols="5" />
               <br>
-          
-              <h5>Please fill up the next section if the person is dead</h5>
-              <label class="fieldlabels" for="famimilyMemberDeathDate">Date of death:</label>
-              <input type="date" name="deathDate" id='famimilyMemberDeathDate' placeholder="" cols="5" />
 
-              <label class="fieldlabels" for="famimilyMemberDeathCause">Cause of death:</label>
-              <input type="text" name="deathCause" id='famimilyMemberDeathCause' placeholder="" cols="5" />
+              <br>     
+              <p>Is the person dead?</p>
+              <div class="custom-control custom-radio">
+                <input type="radio" id="deadParent" name="isDeadParent" class="custom-control-input" value="yes" onclick="displayConditionalSection(this.id, 'deathDetailsParent')">
+                <label class="custom-control-label" for="deadParent">Yes</label>
+              </div>
+              <div class="custom-control custom-radio">
+                <input type="radio" id="notDeadParent" name="isDeadParent" class="custom-control-input" value="no" onclick="displayConditionalSection(this.id, 'deathDetailsParent')">
+                <label class="custom-control-label" for="notDeadParent">No</label>
+              </div>
+              <div id="deathDetailsParent">
+                <label class="fieldlabels" for="famimilyMemberDeathDateParent">Date of death:</label>
+                <input type="date" name="deathDate" id='famimilyMemberDeathDateParent' placeholder="" cols="5" />
+  
+                <label class="fieldlabels" for="famimilyMemberDeathCauseParent">Cause of death:</label>
+                <input type="text" name="deathCause" id='famimilyMemberDeathCauseParent' placeholder="" cols="5" />
+              </div>
+        
               <br>
               <div class="rowRowElementHolder">
-                <button type="button" class="btn btn-outline-success singleElement" id='popupOk'
+                <button type="button" class="btn btn-outline-success singleElement" id='popupOkParent'
                   onclick="togglePopUpFamilyHistoryParent('ok')">Ok</button>
-                <button type="button" class="btn btn-outline-danger singleElement" id='popupCancel'
+                <button type="button" class="btn btn-outline-danger singleElement" id='popupCancelParent'
                   onclick="togglePopUpFamilyHistoryParent('cancel')">Cancel</button>
               </div>
             </div>
