@@ -44,20 +44,19 @@
           <form id="msform">
             <!-- progressbar -->
             <ul id="progressbar">
-              <li class="active" id="step1"><strong>Step 1</strong></li>
-              <li id="step2"><strong>Step 2</strong></li>
-              <li id="step3"><strong>Step 3</strong></li>
-              <li id="step4"><strong>Step 4</strong></li>
-              <li id="step5"><strong>Step 5</strong></li>
+              <li class="active" id="step1"><strong>Birth and Developmental</strong></li>
+              <li id="step2"><strong>Family</strong></li>
+              <li id="step3"><strong>Lifestyle</strong></li>
+              <li id="step4"><strong>Education and Occupation</strong></li>
+              <li id="step5"><strong>Previous Diseases and Disorders</strong></li>
             </ul>
             <div class="progress">
               <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuemin="0"
                 aria-valuemax="100"></div>
             </div> <br> 
             
-            <% include ./segments/step2 %>
             <% include ./segments/step1 %>
-           
+            <% include ./segments/step2 %>           
 
             <% include ./segments/step3 %>
             <% include ./segments/step4 %>
