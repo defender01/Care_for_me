@@ -88,6 +88,10 @@ app.get("/", async (req, res) => {
 app.get("/test", async (req, res) => {
   res.render("test")
 })
+app.post("/test", async (req, res) => {
+  res.send(req.body)
+  console.log(req.body)
+})
 
 let substanceTypes = [['Alcohol'],
                       ['Marijuana', 'Hashish', 'Hash oil'],
@@ -161,6 +165,7 @@ app.get("/termsAndConditions", (req, res) => {
 app.use("/data", require("./routes/data.js"))
 app.use("/auth", require("./routes/auth.js"))
 app.use("/profile", require("./routes/profile.js"))
+app.use("/admin", require("./routes/adminFacility.js"))
 
 database_controller(app)
 

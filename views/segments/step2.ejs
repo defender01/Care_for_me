@@ -37,7 +37,7 @@
           <div class="tab-pane fade show active" id="parents" role="tabpanel" aria-labelledby="parents-tab">
             <div class="part" id="parentsInfo">
               <div class="sub-part-row">
-                <h5 class="left subsection-title">Father's details</h5>
+                <h5 class="left subsection-title">Father's details</h5>               
               </div>
               <div class="sub-part" id='fatherDetails'>
                 <div class="sub-part-row">
@@ -279,11 +279,10 @@
           <div class="tab-pane fade" id="siblings" role="tabpanel" aria-labelledby="siblings-tab">
             <div class="part" id="siblingsInfo">
               <div class="sub-part-row">
-                <h5 class="left subsection-title">Sibling's details</h5>
-                  <button type="button" class="btn btn-outline-light add"
-                    onclick="togglePopUpFamilyHistoryAdd(this.parentElement.parentElement.id)"></button>
+                <h5 class="left subsection-title">Sibling's details</h5>              
+                  <i class="far fa-plus-square" onclick="togglePopUpFamilyHistoryAdd(this.parentElement.parentElement.id)"></i>
               </div>
-              <p id="siblingsCnt" class="countShow">total number: </p>
+              <p id="siblingsCnt" class="countShow">Total number: </p>              
               <div class="sub-part" id='siblingsDetails'>
                 <div class="sub-part-row">
                   <p class="title">
@@ -407,8 +406,7 @@
             <div class="part" id="childrenInfo">
               <div class="sub-part-row">
                 <h5 class="left subsection-title">Children's details</h5>
-                  <button type="button" class="btn btn-outline-light add"
-                    onclick="togglePopUpFamilyHistoryAdd(this.parentElement.parentElement.id)"></button>
+                <i class="far fa-plus-square" onclick="togglePopUpFamilyHistoryAdd(this.parentElement.parentElement.id)"></i>
               </div>
               <p id="childrenCnt" class="countShow">total number: </p>
               <div class="sub-part" id='childrenDetails'>
@@ -534,8 +532,7 @@
             <div class="part" id="relativeInfo">
               <div class="sub-part-row">
                 <h5 class="left subsection-title">Relative details</h5>
-                  <button type="button" class="btn btn-outline-light add"
-                    onclick="togglePopUpFamilyHistoryRelativeAdd(this.parentElement.parentElement.id)"></button>
+                  <i class="far fa-plus-square" onclick="togglePopUpFamilyHistoryRelativeAdd(this.parentElement.parentElement.id)"></i>
               </div>
               <p id="relativeCnt" class="countShow">total number: </p>
               <div class="sub-part" id='relativeDetails'>
@@ -672,7 +669,7 @@
 
         <div class="modal-bg" id="popupFamilyHistory" style="display: none">
           <div class="modal-container">
-            <div class="card">
+            <div class="primary-card">
               <p id='calledFrom' style="display: none"></p>
               <h5>Personal information</h5>
               <label class="fieldlabels" for="famimilyMemberName">Name:</label>
@@ -805,7 +802,7 @@
 
         <div class="modal-bg" id="popupFamilyHistoryRelative" style="display: none">
           <div class="modal-container">
-            <div class="card">
+            <div class="primary-card">
               <p id='calledFromRelative' style="display: none"></p>
               <h5>Personal information</h5>
               <label class="fieldlabels" for="famimilyMemberName">Name:</label>
@@ -941,7 +938,7 @@
 
         <div class="modal-bg" id="popupFamilyHistoryParent" style="display: none">
           <div class="modal-container">
-            <div class="card">
+            <div class="primary-card">
               <p id='calledFromParent' style="display: none"></p>
               <h5>Personal information</h5>
               <label class="fieldlabels" for="famimilyMemberNameParent">Name:</label>

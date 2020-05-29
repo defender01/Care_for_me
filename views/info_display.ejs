@@ -31,6 +31,8 @@
 
     <% for(let i = 0 ; i < data.length; i++) {%>
     <div>
+      <p>ObjectId: <%= data[i]._id.toString() %></p>
+      <p>ObjectId: <%= data[i]._dataId %></p>
       <p>Last updated: <%= data[i].updated %></p>
 
       <h3>Symptoms:</h3>

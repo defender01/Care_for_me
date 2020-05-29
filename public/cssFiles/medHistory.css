@@ -103,7 +103,7 @@ p {
     margin: 10px 0 0 0;
 }
 
-.card {
+.primary-card {
     background-color: #f5f5f5;
     padding: 10px 20px 10px 20px;
     z-index: 0;
@@ -127,17 +127,17 @@ p {
     text-align: left
 }
 h4.subsection-title{
-    background-color: rgb(66, 154, 255);
+    background-color: rgb(211, 226, 255);
     border-radius: 100px;
-    color: rgb(255, 255, 255);
-    padding: 0 10px 0 10px;
+    color: rgb(0, 0, 0);
+    padding: 3px 10px 3px 10px;
     margin: 10px 0px 10px 0;
 }
 h5.left.subsection-title{
-    background-color: rgb(66, 154, 255);
+    background-color: rgb(211, 226, 255);
     border-radius: 100px;
-    color: rgb(255, 255, 255);
-    padding: 0 10px 0 10px;
+    color: rgb(0, 0, 0);
+    padding: 3px 10px 3px 10px;
     margin: 10px 100px 0 0;
 }
 
@@ -380,7 +380,8 @@ h5.left.subsection-title{
 
 /* family history */
 .family-container{
-    background-color: #ffffff;;
+    background-color: #ffffff;
+    margin: 10px 10px 10px 10px;
     padding: 10px 10px 10px 10px;
     border-radius: 2px;
     -webkit-box-shadow: 0 0 2px rgba(98, 97, 99, 0.76);
@@ -428,24 +429,7 @@ h5.left.subsection-title{
 .row p{
     color: rgb(0, 0, 0);
 }
-.add{
-    height: 25px;
-    width: 25px;
-    background-image: url(/resources/plus.png);
-    background-size: 100%; /* To fill the dimensions of container (button), or */
-    background-size: 25px 25px; /* to specify dimensions explicitly */
-    border: 0px;
-    margin: 5px 0 0 0;
-}
-.add:hover{
-    height: 25px;
-    width: 25px;
-    
-    background-size: 100%; /* To fill the dimensions of container (button), or */
-    background-size: 25px 25px; /* to specify dimensions explicitly */
-    border: 1px;
-    border-style: solid;
-}
+
 
 .rowRowElementHolder{
     display: flex;
@@ -472,4 +456,22 @@ h5.left.subsection-title{
 
 .title-bar{
     background-color: rgb(211, 226, 255);
+}
+
+i.far.fa-plus-square{
+    width: 35px;
+    height: 35px;
+    margin-top: 10px;
+    color: rgb(135, 122, 255);
+
+}
+i.far.fa-plus-square:hover{
+    color: rgb(10, 26, 36);
+}
+ i.far.fa-plus-square::before{
+    font-size: 35px;
+}
+
+.addButton{
+    margin: 10px 10px 10px 10px;
 }

@@ -11,6 +11,7 @@
       </div>
     </div>
     <div class="secondary-container">
+      <h4 class="subsection-title">Birth history</h4>
       <label class="fieldlabels">Where were you born? </label>
       <input type="text" name="birth_place" placeholder="" />
   
@@ -18,14 +19,13 @@
       <br>
       <div class="row">
         <div class="col">
-          <div class="custom-control custom-checkbox">
+          <div class="custom-control custom-radio">
             <input 
               type="radio" 
               class="custom-control-input" 
               id='normalDelivery'
               name='deliveryType'
-              value="Normal Vaginal Delivery(NVD)"
-              checked
+              value="Normal Vaginal Delivery(NVD)"              
             >
             <label class="custom-control-label" for='normalDelivery'>
               Normal Vaginal Delivery(NVD)
@@ -33,7 +33,7 @@
           </div>
         </div>
         <div class="col">
-          <div class="custom-control custom-checkbox">
+          <div class="custom-control custom-radio">
             <input 
               type="radio" 
               class="custom-control-input" 
@@ -93,6 +93,8 @@
         </div>
       </div>
       <br>
+
+      <h4 class="subsection-title">Development history</h4>
   
       <label class="fieldlabels">When did you first sit?(answer in month. e.g. 6th month) </label>
       <input type="number" name="first_sit" placeholder="" />
@@ -186,7 +188,7 @@
         <div class="part">
           <div class="sub-part-row">
             <h5 class="left">Add vaccine information</h3>
-              <button type="button" class="btn btn-outline-light add" onclick="addVaccineDetails()"></button>
+              <!-- <button type="button" class="btn btn-outline-light add" onclick="addVaccineDetails()"></button> -->
           </div>
           <div class="sub-part">        
             <div class="row">
