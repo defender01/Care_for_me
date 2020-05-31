@@ -88,19 +88,6 @@ app.get("/", async (req, res) => {
 app.get("/test", async (req, res) => {
   res.render("test")
 })
-
-let substanceTypes = [['Alcohol'],
-                      ['Marijuana', 'Hashish', 'Hash oil'],
-                      ['Cocaine', 'Crack', 'Methamphetamine'],
-                      ['Ritalin', 'Benzedrine', 'Dexedrine'],
-                      ['Valium', 'Librium', 'Halcion', 'Xanax', 'Diazepam', 'Roofies'],
-                      ['Amytal', 'Seconal', 'Dalmane', 'Quaalude', 'Henobarbital'],
-                      ['Heroin'],
-                      ['Street or illicit methadone'],
-                      ['Tylenol #2 and #3', '282’S', '292’S', 'Percodan', 'Percocet', 'Opium', 'Morphine', 'Demerol', 'Dilaudid'],
-                      ['LSD', 'PCP', 'STP', 'MDA', 'DAT', 'Mescaline', 'Peyote', 'Mushrooms', 'Ecstasy (MDMA)', 'Nitrous oxide'],
-                      ['Glue', 'Gasoline', 'Aerosols', 'Paint thinner', 'Poppers', 'Rush', 'Locker room']
-                      ]
                       
 let substanceNames = ['Alcohol','Cannabis','Stimulants','Amphetamines','Benzodiazepines/tranquilizers','Sedatives/hypnotics','Heroin','Street or illicit methadone','Opioids','Hallucinogens','Inhalants']
 
@@ -108,7 +95,6 @@ var substanceNamesJson=[]
 for(var i=0; i<substanceNames.length; i++){
   substanceNamesJson.push({
     name: substanceNames[i],
-    types: substanceTypes[i]
   })
 }
 
@@ -134,7 +120,7 @@ for(var i=0; i<mentalDiseases.length; i++) {
 
 app.get("/medHistory", async (req, res) => {
 
-  await medHistoryModel.find({},(err, data) => {
+   await medHistoryModel.find({},(err, data) => {
     if (err) throw err
     else res.render("medHistory", { data, substanceNamesJson, physicalDiseasesJson, mentalDiseasesJson})
   })
@@ -149,7 +135,7 @@ app.post("/medHistory", async (req, res) => {
       if(err) console.error(err)
       console.log(' data with this id is saved')
   })
-  res.redirect('/medHistory')
+  res.redirect('/medHistory') 
 })
 
 app.get("/termsAndConditions", (req, res) => {
