@@ -137,106 +137,98 @@ function displayOccupationDetails(id){
         uel.style.display = "block"
     }
 }
-function displayConditionalSection(id, conditionalSectionId){
 
-  var elem = document.getElementById(id)
-  var el = document.getElementById(conditionalSectionId)
-  if(elem.value=="yes" && elem.checked){
-      el.style.display = "block"
-  }
-  else {
-      el.style.display = "none"
+function displayConditionalSection(conditionalSectionIds){
+  for(var i=0; i<conditionalSectionIds.length; i++){
+    var el = document.getElementById(conditionalSectionIds[i])
+    if(el!=null)
+      el.style.display = "block";
   }
 }
+
+function hideConditionalSection(conditionalSectionIds){
+  for(var i=0; i<conditionalSectionIds.length; i++){
+    var el = document.getElementById(conditionalSectionIds[i])
+    if(el!=null)
+      el.style.display = "none";
+  }
+}
+
 
 function displayConditionalSectionCheckbox(id, conditionalSectionId){
 
   var elem = document.getElementById(id)
   var el = document.getElementById(conditionalSectionId)
-  if(elem.checked){
+  if(elem!=null && el!=null){
+    if(elem.checked){
       el.style.display = "block"
-  }
-  else {
-      el.style.display = "none"
-  }
-}
-
-function addVaccineDetails(){
-    var parent = document.getElementById("vaccineDetails")
-    var newDiv = document.createElement("div")
-    parent.appendChild(newDiv)
-    newDiv.outerHTML = '<div class="row" id= "vaccine">'+
-    '<div class="col-7">'+
-      '<input type="text" name="vaccine" placeholder="Vaccine name" />'+
-    '</div>'+
-    '<div class="row">'+
-                  '<div class="col">'+
-                    '<div class="custom-control custom-checkbox">'+
-                      '<input '+
-                        'type="radio" '+
-                        'class="custom-control-input"'+
-                        'id="vaccineCompleted"'+
-                        'name="linguisticDevelopment"'+
-                        'value="completed"'+
-                        'checked'+
-                      '>'+
-                      '<label class="custom-control-label" for="vaccineCompleted">'+
-                        'completed'+
-                      '</label>'+
-                    '</div>'+
-                  '</div>'+
-                  '<div class="col">'+
-                    '<div class="custom-control custom-checkbox">'+
-                      '<input '+
-                        'type="radio"'+
-                        'class="custom-control-input" '+
-                        'id="vaccineNotCompleted"'+
-                        'name="linguisticDevelopment"'+
-                        'value="incomplete"'+
-                      '>'+
-                      '<label class="custom-control-label" for="vaccineNotCompleted">'+
-                        'incomplete'+
-                      '</label>'+
-                    '</div>'+
-                  '</div>'+
-                  '<div class="col">'+
-                  '</div>'+
-                '</div>'+
-  '</div>'
-}
-
-function showCount()
-{
-  var ids= ['siblingsDetails','childrenDetails','relativeDetails']
-  var cntIds = ['siblingsCnt','childrenCnt','relativeCnt']
-  for(var i = 0; i<ids.length; i++)
-    {
-        var items = document.querySelectorAll('[id='+ids[i]+']')
-        console.log(ids[i]+' total number= '+items.length+'---------')
-        $(cntIds[i]).html('Total number: '+items.length)
-
-
-        // for(var j=0; j<items.length; j++){
-        //     items[j].id = ids[i] + j.toString()
-        //     $('#'+items[j].id+' > .extend > p:eq(0) > a:eq(0)').attr('id', 'seeMore' + items[j].id)
-        // }   
     }
-
-
-
+    else {
+      el.style.display = "none"
+    }
+  }
 }
+
+// function addVaccineDetails(){
+//     var parent = document.getElementById("vaccineDetails")
+//     var newDiv = document.createElement("div")
+//     parent.appendChild(newDiv)
+//     newDiv.outerHTML = '<div class="row" id= "vaccine">'+
+//     '<div class="col-7">'+
+//       '<input type="text" name="vaccine" placeholder="Vaccine name" />'+
+//     '</div>'+
+//     '<div class="row">'+
+//                   '<div class="col">'+
+//                     '<div class="custom-control custom-checkbox">'+
+//                       '<input '+
+//                         'type="radio" '+
+//                         'class="custom-control-input"'+
+//                         'id="vaccineCompleted"'+
+//                         'name="linguisticDevelopment"'+
+//                         'value="completed"'+
+//                         'checked'+
+//                       '>'+
+//                       '<label class="custom-control-label" for="vaccineCompleted">'+
+//                         'completed'+
+//                       '</label>'+
+//                     '</div>'+
+//                   '</div>'+
+//                   '<div class="col">'+
+//                     '<div class="custom-control custom-checkbox">'+
+//                       '<input '+
+//                         'type="radio"'+
+//                         'class="custom-control-input" '+
+//                         'id="vaccineNotCompleted"'+
+//                         'name="linguisticDevelopment"'+
+//                         'value="incomplete"'+
+//                       '>'+
+//                       '<label class="custom-control-label" for="vaccineNotCompleted">'+
+//                         'incomplete'+
+//                       '</label>'+
+//                     '</div>'+
+//                   '</div>'+
+//                   '<div class="col">'+
+//                   '</div>'+
+//                 '</div>'+
+//   '</div>'
+// }
+
+
+
 function onStart()
 {
      // keep occupation details of step4 hidden at the beginning
      idsForHiddenElements=["coworkerInjuryDetails","substanceRashDetails", "offForIllnessDetails", "occuredBreathingProblemDetails", 
                             "jobChangeForInjuryDetails", "backProblemDetails", "employmentDetails", "unemploymentDetails", "cancerTypeContainerFamilyMember",
-                          "cancerTypeContainerRelative", "cancerTypeContainerParent", "deathDetails", "deathDetailsRelative", "deathDetailsParent"]
-    //  document.getElementById("coworkerInjuryDetails").style.display="none"
-    //  document.getElementById("coworkerInjuryDetails").style.display="none"
-    //  document.getElementById("coworkerInjuryDetails").style.display="none"
-    //  document.getElementById("coworkerInjuryDetails").style.display="none"
+                          "cancerTypeContainerRelative", "cancerTypeContainerParent", "deathDetails", "deathDetailsRelative", "deathDetailsParent", 
+                        ]
+   
      for(var i=0; i<idsForHiddenElements.length; i++){
-      document.getElementById(idsForHiddenElements[i]).style.display="none"
+       var el=document.getElementById(idsForHiddenElements[i])
+       if(el!=null){
+          console.log(idsForHiddenElements[i])
+          el.style.display="none";
+       }
      }
     //  var el = document.getElementById("employmentDetails")
     //  var uel = document.getElementById("unemploymentDetails")

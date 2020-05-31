@@ -113,7 +113,7 @@
         <label class="custom-control-label" for="employed">Yes</label>
       </div>
       <div class="custom-control custom-radio">
-        <input type="radio" id="unemployed" name="occupationState" class="custom-control-input" value="no" onclick="displayOccupationDetails(this.id)">
+        <input type="radio" id="unemployed" name="occupationState" class="custom-control-input" value="no" onclick="hideOccupationDetails(this.id)">
         <label class="custom-control-label" for="unemployed">No</label>
       </div>
       <br>
@@ -177,11 +177,11 @@
       <br>     
       <label class="fieldlabels">Have any of your co-workers also experienced health problems or injuries connected with the same jobs?</label>
       <div class="custom-control custom-radio">
-        <input type="radio" id="coworkerHadInjury" name="coworkerInjury" class="custom-control-input" value="yes" onclick="displayConditionalSection(this.id, 'coworkerInjuryDetails')">
+        <input type="radio" id="coworkerHadInjury" name="coworkerInjury" class="custom-control-input" value="yes" onclick="displayConditionalSection(['coworkerInjuryDetails'])">
         <label class="custom-control-label" for="coworkerHadInjury">Yes</label>
       </div>
       <div class="custom-control custom-radio">
-        <input type="radio" id="coworkerDidNotHaveInjury" name="coworkerInjury" class="custom-control-input" value="no" onclick="displayConditionalSection(this.id, 'coworkerInjuryDetails')">
+        <input type="radio" id="coworkerDidNotHaveInjury" name="coworkerInjury" class="custom-control-input" value="no" onclick="hideConditionalSection(['coworkerInjuryDetails'])">
         <label class="custom-control-label" for="coworkerDidNotHaveInjury">No</label>
       </div>
       <div id="coworkerInjuryDetails">
@@ -203,11 +203,11 @@
       <br>     
       <label class="fieldlabels">Have you ever worked with any substance which caused you to break out in a rash?</label>
       <div class="custom-control custom-radio">
-        <input type="radio" id="causedRash" name="rash" class="custom-control-input" value="yes" onclick="displayConditionalSection(this.id, 'substanceRashDetails')">
+        <input type="radio" id="causedRash" name="rash" class="custom-control-input" value="yes" onclick="displayConditionalSection(['substanceRashDetails'])">
         <label class="custom-control-label" for="causedRash">Yes</label>
       </div>
       <div class="custom-control custom-radio">
-        <input type="radio" id="didNotCausedRash" name="rash" class="custom-control-input" value="no" onclick="displayConditionalSection(this.id, 'substanceRashDetails')">
+        <input type="radio" id="didNotCausedRash" name="rash" class="custom-control-input" value="no" onclick="hideConditionalSection(['substanceRashDetails'])">
         <label class="custom-control-label" for="didNotCausedRash">No</label>
       </div>
       <div id="substanceRashDetails">
@@ -218,11 +218,11 @@
       <br>     
       <label class="fieldlabels">Have you ever been off work for more than a day because of an illness or injury related to work?</label>
       <div class="custom-control custom-radio">
-        <input type="radio" id="offForIllness" name="illnessOff" class="custom-control-input" value="yes" onclick="displayConditionalSection(this.id, 'offForIllnessDetails')">
+        <input type="radio" id="offForIllness" name="illnessOff" class="custom-control-input" value="yes" onclick="displayConditionalSection(['offForIllnessDetails'])">
         <label class="custom-control-label" for="offForIllness">Yes</label>
       </div>
       <div class="custom-control custom-radio">
-        <input type="radio" id="notOffForIllness" name="illnessOff" class="custom-control-input" value="no" onclick="displayConditionalSection(this.id, 'offForIllnessDetails')">
+        <input type="radio" id="notOffForIllness" name="illnessOff" class="custom-control-input" value="no" onclick="hideConditionalSection(['offForIllnessDetails'])">
         <label class="custom-control-label" for="notOffForIllness">No</label>
       </div>
       <div id="offForIllnessDetails">
@@ -233,11 +233,11 @@
       <br>     
       <label class="fieldlabels">Have you ever worked at a job which caused you trouble breathing, such as cough, shortness of wind, wheezing?</label>
       <div class="custom-control custom-radio">
-        <input type="radio" id="occuredBreathingProblem" name="breathingProblem" class="custom-control-input" value="yes" onclick="displayConditionalSection(this.id, 'occuredBreathingProblemDetails')">
+        <input type="radio" id="occuredBreathingProblem" name="breathingProblem" class="custom-control-input" value="yes" onclick="displayConditionalSection(['occuredBreathingProblemDetails'])">
         <label class="custom-control-label" for="occuredBreathingProblem">Yes</label>
       </div>
       <div class="custom-control custom-radio">
-        <input type="radio" id="didNotOccuredBreathingProblem" name="breathingProblem" class="custom-control-input" value="no" onclick="displayConditionalSection(this.id, 'occuredBreathingProblemDetails')">
+        <input type="radio" id="didNotOccuredBreathingProblem" name="breathingProblem" class="custom-control-input" value="no" onclick="hideConditionalSection(['occuredBreathingProblemDetails')]">
         <label class="custom-control-label" for="didNotOccuredBreathingProblem">No</label>
       </div>
       <div id="occuredBreathingProblemDetails">
@@ -248,11 +248,11 @@
       <br>     
       <label class="fieldlabels"> Have you ever changed jobs or work assignments because of any health problems or injuries?</label>
       <div class="custom-control custom-radio">
-        <input type="radio" id="changedJobForInjury" name="jobChangeForInjury" class="custom-control-input" value="yes" onclick="displayConditionalSection(this.id, 'jobChangeForInjuryDetails')">
+        <input type="radio" id="changedJobForInjury" name="jobChangeForInjury" class="custom-control-input" value="yes" onclick="displayConditionalSection(['jobChangeForInjuryDetails'])">
         <label class="custom-control-label" for="changedJobForInjury">Yes</label>
       </div>
       <div class="custom-control custom-radio">
-        <input type="radio" id="didNotChangedJobForInjury" name="jobChangeForInjury" class="custom-control-input" value="no" onclick="displayConditionalSection(this.id, 'jobChangeForInjuryDetails')">
+        <input type="radio" id="didNotChangedJobForInjury" name="jobChangeForInjury" class="custom-control-input" value="no" onclick="hideConditionalSection(['jobChangeForInjuryDetails'])">
         <label class="custom-control-label" for="didNotChangedJobForInjury">No</label>
       </div>
       <div id="jobChangeForInjuryDetails">
@@ -263,11 +263,11 @@
       <br>     
       <label class="fieldlabels">Do you frequently experience pain or discomfort in your lower back or have you been under a doctor's care for back problems?</label>
       <div class="custom-control custom-radio">
-        <input type="radio" id="backProblemOccured" name="backProblem" class="custom-control-input" value="yes" onclick="displayConditionalSection(this.id, 'backProblemDetails')">
+        <input type="radio" id="backProblemOccured" name="backProblem" class="custom-control-input" value="yes" onclick="displayConditionalSection(['backProblemDetails'])">
         <label class="custom-control-label" for="backProblemOccured">Yes</label>
       </div>
       <div class="custom-control custom-radio">
-        <input type="radio" id="backProblemDidNotOccur" name="backProblem" class="custom-control-input" value="no" onclick="displayConditionalSection(this.id, 'backProblemDetails')">
+        <input type="radio" id="backProblemDidNotOccur" name="backProblem" class="custom-control-input" value="no" onclick="hideConditionalSection(['backProblemDetails'])">
         <label class="custom-control-label" for="backProblemDidNotOccur">No</label>
       </div>
       <div id="backProblemDetails">

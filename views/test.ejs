@@ -1,188 +1,51 @@
-<!doctype html>
-<html lang="en">
-
-<head>
-  <!-- Required meta tags -->
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-  
-  <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
-    crossorigin="anonymous"></script>
-
-  
-  <link href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.3/css/font-awesome.css'>
-
-  <!-- Bootstrap CSS -->
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-  <script src='https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js'></script>
-
-  <!-- stylesheet for navbar -->
-	<link rel="stylesheet" href="/assets/cssFiles/navbar.css">
-
-  <!-- stylesheet and script for MUltiple step form -->
-  <link rel="stylesheet" href="/assets/cssFiles/medHistory.css">
-  
-  <script src='/assets/jsFiles/medHistory.js'></script>
-
-  <title>Medical History</title>
-
-</head>
-
-<body onload="onStart()">
-
-  <!-- navigation bar -->
-	<% include ./segments/navbar %>
-
-
-  <!-- For multiple step form-->
-  <div class="container-fluid">
-    <div class="row justify-content-center">
-      <div class="col-11 col-sm-9 col-md-7 col-lg-6 col-xl-9 text-center p-0 mt-3 mb-2">
-        <div class="card">
-          <h2 id="heading">Welcome to Care For Me</h2>
-          <form id="msform">
-            <fieldset>
-                <div class="form-card">
-                    <div class="family-container">
-                        <label class="firstName"> First Name</label>
-                        <input type="text" id="firstName" placeholder="First Name" name="firstName"
-                        value="<%= typeof firstName != 'undefined' ? firstName : '' %>"
-                        autofocus  placeholder="" />
-                        
-                        <label for="lastName" >Last Name</label>
-          <div class="col-sm-7">
-            <input
-              type="text"
-              id="lastName"
-              placeholder="Last Name"
-              name="lastName"
-              value="<%= typeof lastName!= 'undefined' ? lastName : '' %>"
-              autofocus
-            />
-            <label for="displayName" 
-            >User Name*</label
-          >
-          <div class="col-sm-7">
-            <input
-              type="text"
-              id="displayName"
-              placeholder="User Name"
-              name="displayName"
-              value="<%= typeof displayName != 'undefined' ? displayName : '' %>"
-              aria-describedby="displayNameHelpBlock"
-            />
-            <small id="displayNameHelpBlock" class="form-text text-muted">
-                This will be the name visible to other members on the forum.
-                Please keep this name short and unique.
-              </small>
-                        
-              <label class="control-label col-sm-3">Gender*</label>
-              <div class="col-sm-7">
-                <div class="row">
-                  <div class="col-sm-4">
-                    <label class="radio-inline">
-                      <input
-                        type="radio"
-                        id="femaleRadio"
-                        value="female"
-                        name="gender"
-                      />Female
-                    </label>
-                  </div>
-                  <div class="col-sm-4">
-                    <label class="radio-inline">
-                      <% if(typeof gender != 'undefined' && gender.toString() ==
-                      'male'){ %>
-                      <input
-                        type="radio"
-                        id="maleRadio"
-                        value="male"
-                        name="gender"
-                        checked
-                      />
-                      <% } else{ %>
-                      <input
-                        type="radio"
-                        id="maleRadio"
-                        value="male"
-                        name="gender"
-                      />
-                      <% } %> Male
-                    </label>
-                  </div>
-                  <div class="col-sm-4">
-                    <label class="radio-inline">
-                      <input
-                        type="radio"
-                        id="otherRadio"
-                        value="other"
-                        name="gender"
-                      />Other
-                    </label>
-                  </div>
-                  <div class="col-sm-4">
-                    <label class="radio-inline">
-                      <input
-                        type="radio"
-                        id="notInterestedRadio"
-                        value="notInterested"
-                        name="gender"
-                      />Not Interested
-                    </label>
-                  </div>
-                </div>
-              </div>
-
-                        <label class="fieldlabels">Date of Birth* </label>
-                        <input type="text"  placeholder="" />
-                        
-                        <label class="fieldlabels"> Occupation</label>
-                        <input type="text"  placeholder="" />
-
-                        <label class="fieldlabels"> Organization</label>
-                        <input type="text"  placeholder="" />
-                        
-                        <label class="fieldlabels"> Address</label>
-                        <input type="text"  placeholder="" />
-
-                        <label class="fieldlabels"> Phone number*</label>
-                        <input type="text"  placeholder="" />
-                        
-                        <label class="fieldlabels">Email* </label>
-                        <input type="text"  placeholder="" />
-
-                        <label class="fieldlabels">Password* </label>
-                        <input type="text"  placeholder="" />
-                        
-                        <label class="fieldlabels">Confirm Password* </label>
-                        <input type="text"  placeholder="" />
-
-                        
-                    </div>
-                </div>  
-            </fieldset>
-              
-          </form>
+<html>
+  <body>
+    <form method="POST" action="/test">
+      <div class="dropdown">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Dropdown button
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+          <a class="dropdown-item" href="#">Action</a>
+          <a class="dropdown-item" href="#">Another action</a>
+          <a class="dropdown-item" href="#">Something else here</a>
         </div>
       </div>
-    </div>
-  </div>
+      whats your name?
+      <br>
+      <input type="text" style="display: none;" value="44">
+      <input type="text" style="display: none;" name="hiddenVal" value="88">
+      <input type="text" name="v[0][0]" id="n1">
+      <br>
+      conditional ques:
+      <br>
+      first name:
+      <br>
+      <input type="text" name="f[0][0]" id="n1">
+      <br>
+      last name:
+      <br>
+      <input type="text" name="v[0][1]" id="n1">
+      <br>
+      whats your age?
+      <input type="text" name="f[0][1]" id="a1">
+      <br>
+      whats your hobby?
+      <br>
+      <input type="text" name="p" id="p1">
+      <br>
+      <% if(1) {%>
+        <div>
+          working
+        </div>
+      <% } else { %>
+        <div>
+          not working
+        </div>
 
-  
+      <% } %>
 
-
-  
-
-
-  <!-- Optional JavaScript -->
-  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
-    integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
-    crossorigin="anonymous"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
-    integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
-    crossorigin="anonymous"></script>
-</body>
-
+      <button type="submit" class="btn btn-primary">Submit</button>      
+    </form>
+  </body>
 </html>

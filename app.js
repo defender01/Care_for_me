@@ -147,6 +147,7 @@ app.get("/termsAndConditions", (req, res) => {
 app.use("/data", require("./routes/data.js"))
 app.use("/auth", require("./routes/auth.js"))
 app.use("/profile", require("./routes/profile.js"))
+app.use("/admin", require("./routes/adminFacility.js"))
 
 database_controller(app)
 
