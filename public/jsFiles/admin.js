@@ -1,4 +1,4 @@
-
+// const {getSectionSubSection} = require('../../controllers/adminFunctions')
 function addOption(idAdder){
   console.log('idAdder='+idAdder)
   let opCount= parseInt($("#opCounter"+idAdder).val())+1
@@ -76,20 +76,36 @@ function addQuestion(idAdder){
 }
 
 function displayConditionalSection(conditionalSectionIds){
-    for(var i=0; i<conditionalSectionIds.length; i++){
-      var el = document.getElementById(conditionalSectionIds[i])
-      if(el!=null)
-        el.style.display = "block";
-    }
+  for(var i=0; i<conditionalSectionIds.length; i++){
+    var el = document.getElementById(conditionalSectionIds[i])
+    if(el!=null)
+      el.style.display = "block";
   }
-  
-  function hideConditionalSection(conditionalSectionIds){
-    for(var i=0; i<conditionalSectionIds.length; i++){
-      var el = document.getElementById(conditionalSectionIds[i])
-      if(el!=null)
-        el.style.display = "none";
-    }
+}
+
+function hideConditionalSection(conditionalSectionIds){
+  for(var i=0; i<conditionalSectionIds.length; i++){
+    var el = document.getElementById(conditionalSectionIds[i])
+    if(el!=null)
+      el.style.display = "none";
   }
+}
+
+function myFunc(id){
+  console.log(id)
+  alert("ccc")
+}
+function getSubSections(id, subSectionNames) {
+  console.log(id)
+	
+  var ind = document.getElementById("sectionId").selectedIndex-1;
+
+  let rawhtml='<option disabled selected value> -- Select a Sub Section -- </option>'
+  for(var i = 0 ; i < subSectionNames[ind].length; i++) {
+    rawhtml+= '<option value="'+subSectionNames[ind][i]+'">'+ subSectionNames[ind][i] +'</option>'
+  }
+  document.getElementById('subSectionId').innerHTML= rawhtml
+}
   
 function onStart(){
   let idsForHiddenElements = ["multiChoiceOptions"]

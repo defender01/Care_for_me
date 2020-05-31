@@ -8,8 +8,7 @@ const sectionSchema = new Schema({
 
 const subSectionSchema = new Schema({
   name: String,
-  questions: [{ type: Schema.Types.ObjectId, ref: 'question' }],
-  subSections: [{ type: Schema.Types.ObjectId, ref: 'subSection' }],
+  questions: [{ type: Schema.Types.ObjectId, ref: 'question' }]
 });
 
 const questionSchema = new Schema({
@@ -20,7 +19,7 @@ const questionSchema = new Schema({
 
 const optionSchema = new Schema({
   name: String,
-  hasSubsection: {
+  hasRelatedQuestions: {
     type: Boolean,
     default: false,
   },

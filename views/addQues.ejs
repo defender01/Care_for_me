@@ -34,14 +34,12 @@
   <!-- navigation bar -->
 	<% include ./segments/navbar %>
   
-  <!-- For multiple step form-->
   <div class="container-fluid">
     <div class="row justify-content-center">
       <div class="col-11 col-sm-9 col-md-7 col-lg-6 col-xl-9 text-center p-0 mt-3 mb-2">
         <div class="primary-card">
           
           <form id="msform"  method="POST" action="/admin/addQues">
-            <!-- <fieldset> -->
               <div class="form-card">
                 <div class="secondary-container title-bar">
                   <div class="row">
@@ -50,9 +48,29 @@
                     </div>
                   </div>
                 </div>
+                
                 <!-- question -->
-                <div class="family-container">
-                  <!-- it stores the number of question -->
+               
+                <script>
+                  // ssNames stores subSectionNames which we will use to pass through getSubSections(this.id, ssNames) function 
+                  var ssNames = <%-JSON.stringify(subSectionNames)%>
+                  console.log(rows)
+                </script>
+                <div class="family-container">  
+                  <select  class="btn btn-info" name="section" id="sectionId" onchange="getSubSections(this.id, ssNames)">
+                    <option disabled selected value> -- Select a Section -- </option>
+                    <% for(var i = 0 ; i < sectionNames.length; i++) {%>
+                      <option value="<%= sectionNames[i] %>"><%= sectionNames[i] %></option>                    
+                    <% } %>                    
+                  </select>
+                  <br>
+                  <br>
+                  <select class="btn btn-info" name="subSection" id="subSectionId">
+                    <option disabled selected value> -- Select a Sub Section -- </option>                    
+                  </select>          
+                  <br>        
+                  <br>
+                  <!-- it stores the number of options in this question -->
                   <input type="number" id="opCounter" name="opCount" value="0" style="display: none;">
 
                   <label class="fieldlabels">Write your quesion here: </label>
