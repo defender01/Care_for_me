@@ -14,584 +14,249 @@
       <h4 class="subsection-title">Birth history</h4>
       <label class="fieldlabels">Where were you born? </label>
       <input type="text" name="birth_place" placeholder="" />
-  
+
       <label class="fieldlabels">Type of delivery? </label>
-      <br>
+      <br />
       <div class="row">
         <div class="col">
           <div class="custom-control custom-radio">
-            <input 
-              type="radio" 
-              class="custom-control-input" 
-              id='normalDelivery'
-              name='deliveryType'
-              value="Normal Vaginal Delivery(NVD)"              
-            >
-            <label class="custom-control-label" for='normalDelivery'>
+            <input
+              type="radio"
+              class="custom-control-input"
+              id="normalDelivery"
+              name="deliveryType"
+              value="Normal Vaginal Delivery(NVD)"
+            />
+            <label class="custom-control-label" for="normalDelivery">
               Normal Vaginal Delivery(NVD)
             </label>
           </div>
         </div>
         <div class="col">
           <div class="custom-control custom-radio">
-            <input 
-              type="radio" 
-              class="custom-control-input" 
-              id='caesareanDelivery'
-              name='deliveryType'
+            <input
+              type="radio"
+              class="custom-control-input"
+              id="caesareanDelivery"
+              name="deliveryType"
               value="Caesarean Section(CS)"
-            >
-            <label class="custom-control-label" for='caesareanDelivery'>
+            />
+            <label class="custom-control-label" for="caesareanDelivery">
               Caesarean Section(CS)
             </label>
           </div>
         </div>
-        <div class="col">
-        </div>
+        <div class="col"></div>
       </div>
-      <br>
-  
-      <label class="fieldlabels">During which week of pregnancy did your delivery take place?? </label>
+      <br />
+
+      <label class="fieldlabels"
+        >During which week of pregnancy did your delivery take place??
+      </label>
       <input type="number" step="0.01" name="deleveryWeek" placeholder="" />
-  
-      <label class="fieldlabels">What was your weight at the time of birth?(In Kg) </label>
+
+      <label class="fieldlabels"
+        >What was your weight at the time of birth?(In Kg)
+      </label>
       <input type="number" name="birthWeight" placeholder="" />
-  
+
       <label class="fieldlabels">Were there any complications? </label>
-      <br>
+      <br />
       <div class="row">
         <div class="col">
           <div class="custom-control custom-checkbox">
-            <input 
-              type="radio" 
-              class="custom-control-input" 
-              id='complicationsYes'
-              name='complications'
+            <input
+              type="radio"
+              class="custom-control-input"
+              id="complicationsYes"
+              name="complications"
               value="yes"
-            >
-            <label class="custom-control-label" for='complicationsYes'>
+            />
+            <label class="custom-control-label" for="complicationsYes">
               Yes
             </label>
           </div>
         </div>
         <div class="col">
           <div class="custom-control custom-checkbox">
-            <input 
-              type="radio" 
-              class="custom-control-input" 
-              id='complicationsNo'
-              name='complications'
+            <input
+              type="radio"
+              class="custom-control-input"
+              id="complicationsNo"
+              name="complications"
               value="no"
               checked
-            >
-            <label class="custom-control-label" for='complicationsNo'>
+            />
+            <label class="custom-control-label" for="complicationsNo">
               No
             </label>
           </div>
         </div>
-        <div class="col">
-        </div>
+        <div class="col"></div>
       </div>
-      <br>
+      <br />
 
       <h4 class="subsection-title">Development history</h4>
-  
-      <label class="fieldlabels">When did you first sit?(answer in month. e.g. 6th month) </label>
+
+      <label class="fieldlabels"
+        >When did you first sit?(answer in month. e.g. 6th month)
+      </label>
       <input type="number" name="first_sit" placeholder="" />
-      <label class="fieldlabels">When did you walk? </label> 
-      <input type="text" name="first_walk" placeholder="" />     
-      
-  
+      <label class="fieldlabels">When did you walk? </label>
+      <input type="text" name="first_walk" placeholder="" />
+
       <label class="fieldlabels">Can you give a social smile? </label>
-      <br>
+      <br />
       <div class="row">
         <div class="col">
           <div class="custom-control custom-checkbox">
-            <input 
-              type="radio" 
-              class="custom-control-input" 
-              id='canGiveSocialSmile'
-              name='socialSmile'
+            <input
+              type="radio"
+              class="custom-control-input"
+              id="canGiveSocialSmile"
+              name="socialSmile"
               value="yes"
               checked
-            >
-            <label class="custom-control-label" for='canGiveSocialSmile'>
+            />
+            <label class="custom-control-label" for="canGiveSocialSmile">
               Yes
             </label>
           </div>
         </div>
         <div class="col">
           <div class="custom-control custom-checkbox">
-            <input 
-              type="radio" 
-              class="custom-control-input" 
-              id='canNotGiveSocialSmile'
-              name='socialSmile'
+            <input
+              type="radio"
+              class="custom-control-input"
+              id="canNotGiveSocialSmile"
+              name="socialSmile"
               value="no"
-            >
-            <label class="custom-control-label" for='canNotGiveSocialSmile'>
+            />
+            <label class="custom-control-label" for="canNotGiveSocialSmile">
               No
             </label>
           </div>
         </div>
-        <div class="col">
-        </div>
+        <div class="col"></div>
       </div>
-      <br>
-  
+      <br />
+
       <label class="fieldlabels">Were your linguistic development late </label>
-      <br>
+      <br />
       <div class="row">
         <div class="col">
           <div class="custom-control custom-checkbox">
-            <input 
-              type="radio" 
-              class="custom-control-input" 
-              id='linguisticDevLate'
-              name='linguisticDevelopment'
+            <input
+              type="radio"
+              class="custom-control-input"
+              id="linguisticDevLate"
+              name="linguisticDevelopment"
               value="yes"
-            >
-            <label class="custom-control-label" for='linguisticDevLate'>
+            />
+            <label class="custom-control-label" for="linguisticDevLate">
               Yes
             </label>
           </div>
         </div>
         <div class="col">
           <div class="custom-control custom-checkbox">
-            <input 
-              type="radio" 
-              class="custom-control-input" 
-              id='linguisticDevNotLate'
-              name='linguisticDevelopment'
+            <input
+              type="radio"
+              class="custom-control-input"
+              id="linguisticDevNotLate"
+              name="linguisticDevelopment"
               value="no"
               checked
-            >
-            <label class="custom-control-label" for='linguisticDevNotLate'>
+            />
+            <label class="custom-control-label" for="linguisticDevNotLate">
               No
             </label>
           </div>
         </div>
-        <div class="col">
-        </div>
+        <div class="col"></div>
       </div>
-      <br>
-  
-      <label class="fieldlabels">When could you first speak normally? </label> 
-      <input type="text" name="first_speak" placeholder="" /> 
-      <br>
+      <br />
+
+      <label class="fieldlabels">When could you first speak normally? </label>
+      <input type="text" name="first_speak" placeholder="" />
+      <br />
     </div>
 
     <div class="secondary-container">
       <h4 class="subsection-title">Immunization history</h4>
-    
+
       <div class="family-container">
         <div class="part">
           <div class="sub-part-row">
-            <h5 class="left">Add vaccine information</h3>
-              <!-- <button type="button" class="btn btn-outline-light add" onclick="addVaccineDetails()"></button> -->
+            <h5 class="left">Add vaccine information</h5>
+            <!-- <button type="button" class="btn btn-outline-light add" onclick="addVaccineDetails()"></button> -->
           </div>
-          <div class="sub-part">        
-            <div class="row">
-              <div class="col-3">
-                <label class="fieldlabels">Vaccine name</label>
-              </div>
-              <div class="col-4">
-                <label class="fieldlabels">Disases</label>
-              </div>
-              <div class="col-5">
-                <label class="fieldlabels">Status</label>
-              </div>
-            </div>
-            <div id="vaccineDetails">
-              <div class="row" id="vaccine">      
-                <div class="col-3">
-                  <p class="vaccineName">BCG</p>
+
+          <% if(typeof vaccineInfoJson != 'undefined'){ %>
+            <% for(let i = 0 ; i < vaccineInfoJson.length ; i++) {%>
+
+              <div class="sub-part each-vaccine-info">
+                  
+                <div class="vaccine-info-subsection">
+                  <label class="fieldlabels">Vaccine name</label>
+                  <p class="vaccineName"> <%= vaccineInfoJson[i].name %></p>
                 </div>
-                <div class="col-4">
-                  <p class="vaccineForDiseases">Tuberculosis</p>
+
+                <div class="vaccine-info-subsection">
+                  <label class="fieldlabels">Disases</label>
+                  <p class="vaccineForDiseases"> <%= vaccineInfoJson[i].diseases %> </p>
                 </div>
-                <div class="row">
-                  <div class="col">
-                    <div class="custom-control custom-checkbox">
-                      <input 
-                        type="radio" 
-                        class="custom-control-input" 
-                        id='vaccineBCGCompleted'
-                        name='BCG'
-                        value="completed"
-                        checked
-                      >
-                      <label class="custom-control-label" for='vaccineBCGCompleted'>
-                        completed
-                      </label>
+
+                <div class="vaccine-info-subsection">
+                  <label class="fieldlabels">Status</label>
+                  <div class="row">
+                    <div class="col">
+                      <div class="custom-control custom-checkbox">
+                        <input
+                          type="radio"
+                          class="custom-control-input"
+                          id="vaccine<%= vaccineInfoJson[i].name %>Completed"
+                          name= "<%= vaccineInfoJson[i].name %>"
+                          value="completed"
+                          checked
+                        />
+                        <label
+                          class="custom-control-label"
+                          for="vaccine<%= vaccineInfoJson[i].name %>Completed"
+                        >
+                          completed
+                        </label>
+                      </div>
                     </div>
-                  </div>
-                  <div class="col">
-                    <div class="custom-control custom-checkbox">
-                      <input 
-                        type="radio" 
-                        class="custom-control-input" 
-                        id='vaccineBCGNotCompleted'
-                        name='BCG'
-                        value="incomplete"                        
-                      >
-                      <label class="custom-control-label" for='vaccineBCGNotCompleted'>
-                        incomplete
-                      </label>
+                    <div class="col">
+                      <div class="custom-control custom-checkbox">
+                        <input
+                          type="radio"
+                          class="custom-control-input"
+                          id="vaccine<%= vaccineInfoJson[i].name %>NotCompleted"
+                          name="<%= vaccineInfoJson[i].name %>"
+                          value="incomplete"
+                        />
+                        <label
+                          class="custom-control-label"
+                          for="vaccine<%= vaccineInfoJson[i].name %>NotCompleted"
+                        >
+                          incomplete
+                        </label>
+                      </div>
                     </div>
-                  </div>
-                  <div class="col">
-                  </div>
-                </div>
-              </div>
-            </div>           
-          </div>
-  
-          <div class="sub-part">        
-            <div class="row">
-              <div class="col-3">
-                <label class="fieldlabels">Vaccine name</label>
-              </div>
-              <div class="col-4">
-                <label class="fieldlabels">Disases</label>
-              </div>
-              <div class="col-5">
-                <label class="fieldlabels">Status</label>
-              </div>
-            </div>
-            <div id="vaccineDetails">
-              <div class="row" id="vaccine">      
-                <div class="col-3">
-                  <p class="vaccineName">Pentavalent</p>
-                </div>
-                <div class="col-4">
-                  <p class="vaccineForDiseases">Diphtheria, Pertussis, Tetanus, Hepatitis B, Hemophilus Influenza B</p>
-                </div>
-                <div class="row">
-                  <div class="col">
-                    <div class="custom-control custom-checkbox">
-                      <input 
-                        type="radio" 
-                        class="custom-control-input" 
-                        id='vaccinePentavalentCompleted'
-                        name='Pentavalent'
-                        value="completed"
-                        checked
-                      >
-                      <label class="custom-control-label" for='vaccinePentavalentCompleted'>
-                        completed
-                      </label>
-                    </div>
-                  </div>
-                  <div class="col">
-                    <div class="custom-control custom-checkbox">
-                      <input 
-                        type="radio" 
-                        class="custom-control-input" 
-                        id='vaccinePentavalentNotCompleted'
-                        name='Pentavalent'
-                        value="incomplete"                        
-                      >
-                      <label class="custom-control-label" for='vaccinePentavalentNotCompleted'>
-                        incomplete
-                      </label>
-                    </div>
-                  </div>
-                  <div class="col">
+                    <div class="col"></div>
                   </div>
                 </div>
+
               </div>
-            </div>           
-          </div>
-  
-          <div class="sub-part">        
-            <div class="row">
-              <div class="col-3">
-                <label class="fieldlabels">Vaccine name</label>
-              </div>
-              <div class="col-4">
-                <label class="fieldlabels">Disases</label>
-              </div>
-              <div class="col-5">
-                <label class="fieldlabels">Status</label>
-              </div>
-            </div>
-            <div id="vaccineDetails">
-              <div class="row" id="vaccine">      
-                <div class="col-3">
-                  <p class="vaccineName">PCV</p>
-                </div>
-                <div class="col-4">
-                  <p class="vaccineForDiseases">Pneumococcal Pneumonia</p>
-                </div>
-                <div class="row">
-                  <div class="col">
-                    <div class="custom-control custom-checkbox">
-                      <input 
-                        type="radio" 
-                        class="custom-control-input" 
-                        id='vaccinePCVCompleted'
-                        name='PCV'
-                        value="completed"
-                        checked
-                      >
-                      <label class="custom-control-label" for='vaccinePCVCompleted'>
-                        completed
-                      </label>
-                    </div>
-                  </div>
-                  <div class="col">
-                    <div class="custom-control custom-checkbox">
-                      <input 
-                        type="radio" 
-                        class="custom-control-input" 
-                        id='vaccinePCVNotCompleted'
-                        name='PCV'
-                        value="incomplete"                        
-                      >
-                      <label class="custom-control-label" for='vaccinePCVNotCompleted'>
-                        incomplete
-                      </label>
-                    </div>
-                  </div>
-                  <div class="col">
-                  </div>
-                </div>
-              </div>
-            </div>           
-          </div>
-  
-          <div class="sub-part">        
-            <div class="row">
-              <div class="col-3">
-                <label class="fieldlabels">Vaccine name</label>
-              </div>
-              <div class="col-4">
-                <label class="fieldlabels">Disases</label>
-              </div>
-              <div class="col-5">
-                <label class="fieldlabels">Status</label>
-              </div>
-            </div>
-            <div id="vaccineDetails">
-              <div class="row" id="vaccine">      
-                <div class="col-3">
-                  <p class="vaccineName">OPV</p>
-                </div>
-                <div class="col-4">
-                  <p class="vaccineForDiseases">Poliomyelitis</p>
-                </div>
-                <div class="row">
-                  <div class="col">
-                    <div class="custom-control custom-checkbox">
-                      <input 
-                        type="radio" 
-                        class="custom-control-input" 
-                        id='vaccineOPVCompleted'
-                        name='OPV'
-                        value="completed"
-                        checked
-                      >
-                      <label class="custom-control-label" for='vaccineOPVCompleted'>
-                        completed
-                      </label>
-                    </div>
-                  </div>
-                  <div class="col">
-                    <div class="custom-control custom-checkbox">
-                      <input 
-                        type="radio" 
-                        class="custom-control-input" 
-                        id='vaccineOPVNotCompleted'
-                        name='OPV'
-                        value="incomplete"                        
-                      >
-                      <label class="custom-control-label" for='vaccineOPVNotCompleted'>
-                        incomplete
-                      </label>
-                    </div>
-                  </div>
-                  <div class="col">
-                  </div>
-                </div>
-              </div>
-            </div>           
-          </div>
-          <div class="sub-part">        
-            <div class="row">
-              <div class="col-3">
-                <label class="fieldlabels">Vaccine name</label>
-              </div>
-              <div class="col-4">
-                <label class="fieldlabels">Disases</label>
-              </div>
-              <div class="col-5">
-                <label class="fieldlabels">Status</label>
-              </div>
-            </div>
-            <div id="vaccineDetails">
-              <div class="row" id="vaccine">      
-                <div class="col-3">
-                  <p class="vaccineName">MR</p>
-                </div>
-                <div class="col-4">
-                  <p class="vaccineForDiseases">Measles Rubella</p>
-                </div>
-                <div class="row">
-                  <div class="col">
-                    <div class="custom-control custom-checkbox">
-                      <input 
-                        type="radio" 
-                        class="custom-control-input" 
-                        id='vaccineMRCompleted'
-                        name='MR'
-                        value="completed"
-                        checked
-                      >
-                      <label class="custom-control-label" for='vaccineMRCompleted'>
-                        completed
-                      </label>
-                    </div>
-                  </div>
-                  <div class="col">
-                    <div class="custom-control custom-checkbox">
-                      <input 
-                        type="radio" 
-                        class="custom-control-input" 
-                        id='vaccineMRNotCompleted'
-                        name='MR'
-                        value="incomplete"                        
-                      >
-                      <label class="custom-control-label" for='vaccineMRNotCompleted'>
-                        incomplete
-                      </label>
-                    </div>
-                  </div>
-                  <div class="col">
-                  </div>
-                </div>
-              </div>
-            </div>           
-          </div>
-  
-          <div class="sub-part">        
-            <div class="row">
-              <div class="col-3">
-                <label class="fieldlabels">Vaccine name</label>
-              </div>
-              <div class="col-4">
-                <label class="fieldlabels">Disases</label>
-              </div>
-              <div class="col-5">
-                <label class="fieldlabels">Status</label>
-              </div>
-            </div>
-            <div id="vaccineDetails">
-              <div class="row" id="vaccine">      
-                <div class="col-3">
-                  <p class="vaccineName">Measles</p>
-                </div>
-                <div class="col-4">
-                  <p class="vaccineForDiseases">Measles</p>
-                </div>
-                <div class="row">
-                  <div class="col">
-                    <div class="custom-control custom-checkbox">
-                      <input 
-                        type="radio" 
-                        class="custom-control-input" 
-                        id='vaccineMeaslesCompleted'
-                        name='Measles'
-                        value="completed"
-                        checked
-                      >
-                      <label class="custom-control-label" for='vaccineMeaslesCompleted'>
-                        completed
-                      </label>
-                    </div>
-                  </div>
-                  <div class="col">
-                    <div class="custom-control custom-checkbox">
-                      <input 
-                        type="radio" 
-                        class="custom-control-input" 
-                        id='vaccineMeaslesNotCompleted'
-                        name='Measles'
-                        value="incomplete"                        
-                      >
-                      <label class="custom-control-label" for='vaccineMeaslesNotCompleted'>
-                        incomplete
-                      </label>
-                    </div>
-                  </div>
-                  <div class="col">
-                  </div>
-                </div>
-              </div>
-            </div>           
-          </div>
-  
-          <div class="sub-part">        
-            <div class="row">
-              <div class="col-3">
-                <label class="fieldlabels">Vaccine name</label>
-              </div>
-              <div class="col-4">
-                <label class="fieldlabels">Disases</label>
-              </div>
-              <div class="col-5">
-                <label class="fieldlabels">Status</label>
-              </div>
-            </div>
-            <div id="vaccineDetails">
-              <div class="row" id="vaccine">      
-                <div class="col-3">
-                  <p class="vaccineName">TT (Tetanus toxoid)</p>
-                </div>
-                <div class="col-4">
-                  <p class="vaccineForDiseases">Tetanus</p>
-                </div>
-                <div class="row">
-                  <div class="col">
-                    <div class="custom-control custom-checkbox">
-                      <input 
-                        type="radio" 
-                        class="custom-control-input" 
-                        id='vaccineTTCompleted'
-                        name='TT'
-                        value="completed"
-                        checked
-                      >
-                      <label class="custom-control-label" for='vaccineTTCompleted'>
-                        completed
-                      </label>
-                    </div>
-                  </div>
-                  <div class="col">
-                    <div class="custom-control custom-checkbox">
-                      <input 
-                        type="radio" 
-                        class="custom-control-input" 
-                        id='vaccineTTNotCompleted'
-                        name='TT'
-                        value="incomplete"                        
-                      >
-                      <label class="custom-control-label" for='vaccineTTNotCompleted'>
-                        incomplete
-                      </label>
-                    </div>
-                  </div>
-                  <div class="col">
-                  </div>
-                </div>
-              </div>
-            </div>           
-          </div>
+
+            <% } %>
+          <% } %>
+
         </div>
       </div>
     </div>
-    
-    
-  </div>  
+  </div>
   <input type="button" name="next" class="next action-button" value="Next" />
 </fieldset>

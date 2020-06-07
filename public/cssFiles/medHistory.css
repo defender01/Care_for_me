@@ -141,6 +141,29 @@ h5.left.subsection-title{
     margin: 10px 100px 0 0;
 }
 
+.subtance-history-container{
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+}
+
+@media (max-width: 1200px) {
+    .subtance-history-container{
+        flex-direction: column;
+    }
+}
+
+.subtance-history-container .secondary-container{
+    width: 48%;
+}
+
+@media (max-width: 1200px) {
+    .subtance-history-container .secondary-container{
+        width: 100%;
+    }
+}
+
+
 .collapse-item-header{
     box-sizing: border-box;
     padding: 5px;
@@ -382,4 +405,46 @@ i.far.fa-plus-square:hover{
 
 .addButton{
     margin: 10px 10px 10px 10px;
+}
+
+.each-vaccine-info{
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+}
+
+@media (max-width: 1200px){
+    .each-vaccine-info{
+        flex-direction: column;
+    }
+}
+
+.each-vaccine-info .vaccine-info-subsection:nth-child(1){
+    width: 25%;
+}
+
+.each-vaccine-info .vaccine-info-subsection:nth-child(2){
+    width: 35%;
+}
+
+.each-vaccine-info .vaccine-info-subsection:nth-child(3){
+    width: 35%;
+}
+
+@media (max-width: 1200px){
+    .each-vaccine-info .vaccine-info-subsection:nth-child(1){
+        width: 95%;
+    }
+}
+
+@media (max-width: 1200px){
+    .each-vaccine-info .vaccine-info-subsection:nth-child(2){
+        width: 95%;
+    }
+}
+
+@media (max-width: 1200px){
+    .each-vaccine-info .vaccine-info-subsection:nth-child(3){
+        width: 95%;
+    }
 }
