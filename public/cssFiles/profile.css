@@ -1,113 +1,122 @@
- body{
-    background-color: #f5f5f5;
- }
- 
- hr.new{
-    margin-top: 1rem;
-    margin-bottom: 1rem;
-    border: 1px;
-    border-top: 1px solid rgba(0, 0, 0, 0.1);
-  }
-
-.profile-container{
-    margin: 20px 100px 10px 100px;
-    display: flex;
-    align-items: flex-start;
-
+body {
+  background-color: #f5f5f5;
 }
 
-.sidebar-container{
-    flex: 2;
-    background-color: #ffffff;;
-    padding: 10px 10px 10px 10px;
-    border-radius: 2px;
-    -webkit-box-shadow: 0 0 5px rgba(98, 97, 99, 0.76);
-    box-shadow: 0 0 5px rgba(98, 97, 99, 0.76);
-    margin-right: 10px;
+hr.new {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  border: 1px;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
 }
 
-.data-container{
-    flex: 10;
-    margin-left: 15px;
-}
-.part-container{
-    background-color: #ffffff;;
-    /* padding: 10px 10px 10px 10px; */
-    border-radius: 2px;
-    -webkit-box-shadow: 0 0 5px rgba(98, 97, 99, 0.76);
-    box-shadow: 0 0 5px rgba(98, 97, 99, 0.76);
-    margin-bottom: 15px;
+.profile-container {
+  margin: 20px 100px 10px 100px;
+  display: flex;
+  align-items: flex-start;
 }
 
-.row .tag{
-    text-align: right;
-    padding: 0 10px 10px 0;
-}
-.row .tag label{
-    font-size: 16px;
-    color: rgb(148, 148, 148);
-    margin: 0 0 0 30px;
-}
-.row .value p{
-    text-align: left;
-    padding: 0 0 0 50px;
-}
-.row .value a{
-    text-align: left;
-    padding: 0 0 0 50px;
+.sidebar-container {
+  flex: 2;
+  background-color: #ffffff;
+  padding: 10px 10px 10px 10px;
+  border-radius: 2px;
+  box-shadow: 0 0 5px rgba(98, 97, 99, 0.76);
+  margin-right: 10px;
 }
 
-.shadow{
-    -webkit-box-shadow: 0 0 15px rgba(98, 97, 99, 0.76);
-    box-shadow: 0 0 15px rgba(98, 97, 99, 0.76);
+.data-container {
+  flex: 10;
+  margin-left: 15px;
 }
 
-.empty-side{
-    flex: 2;
+.part-container {
+  background-color: #ffffff;
+  border-radius: 2px;
+  box-shadow: 0 0 5px rgba(98, 97, 99, 0.76);
+  margin-bottom: 15px;
 }
-.hrline{
-    border-bottom: 1px solid #e5e5e5;
-    margin: 0 10px 10px 10px;
+
+.row .tag {
+  text-align: right;
+  padding: 0 10px 10px 0;
 }
-.row .hrline{
-    border-bottom: 1px solid #e5e5e5;
-    margin: 0 10px 10px 10px;
+
+.row .tag label {
+  font-size: 16px;
+  color: #949494;
+  margin: 0 0 0 30px;
 }
-.nav-link .hrline{
-    border-bottom: 1px solid #e5e5e5;
-    margin: 0 0px 0px 0px;
+
+.row .tag label.data-title {
+  margin: 0 0 0 30px;
+  font-size: 17px;
+  color: black;
 }
-.selected-nav-item{
-    font-weight: bold;
-    border-bottom: 2px solid #4d8bff;
-    margin: 0 0px 0px 0px;
+
+.row .value p {
+  text-align: left;
+  padding: 0 0 0 50px;
 }
-.title-bar{
-    background-color: rgb(211, 226, 255);
-    padding: 5px 0px 5px 10px;
-    font-size: 17px;
-    margin-bottom: 10px;
+
+.row .value a {
+  text-align: left;
+  padding: 0 0 0 50px;
 }
-.row .tag label.data-title{
-    margin: 0 0 0 30px;
-    font-size: 17px;
-    color: black;
+
+.row .hrline {
+  border-bottom: 1px solid #e5e5e5;
+  margin: 0 10px 10px 10px;
 }
-.data-title{
-    font-size: 17px;
-    color: black;
+
+.shadow {
+  box-shadow: 0 0 15px rgba(98, 97, 99, 0.76);
 }
-nav#tertiary-nav.navbar.navbar-expand-lg.navbar-light{
-    background-color: rgb(212, 212, 255);
+
+.empty-side {
+  flex: 2;
 }
-.title-bar.subpart-title{
-    /* font-size: 17px; */
-    background-color: rgb(224, 232, 250);
+
+.hrline {
+  border-bottom: 1px solid #e5e5e5;
+  margin: 0 10px 10px 10px;
 }
-.title{
-    font-size: 16px;
-    color: black;
+
+.nav-link .hrline {
+  border-bottom: 1px solid #e5e5e5;
+  margin: 0 0px 0px 0px;
 }
-.see-more-btn{
-    margin: 0 10px 10px 10px;
+
+.selected-nav-item {
+  font-weight: bold;
+  border-bottom: 2px solid #4d8bff;
+  margin: 0 0px 0px 0px;
+}
+
+.title-bar {
+  background-color: #d3e2ff;
+  padding: 5px 0px 5px 10px;
+  font-size: 17px;
+  margin-bottom: 10px;
+}
+
+.data-title {
+  font-size: 17px;
+  color: black;
+}
+
+nav#tertiary-nav.navbar.navbar-expand-lg.navbar-light {
+  background-color: #d4d4ff;
+}
+
+.title-bar.subpart-title {
+  background-color: #e0e8fa;
+}
+
+.title {
+  font-size: 16px;
+  color: black;
+}
+
+.see-more-btn {
+  margin: 0 10px 10px 10px;
 }

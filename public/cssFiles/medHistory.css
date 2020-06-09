@@ -383,3 +383,16 @@ i.far.fa-plus-square:hover{
 .addButton{
     margin: 10px 10px 10px 10px;
 }
+
+.flx_prnt_input_opt{
+    padding: 5px;
+    display: flex;
+}
+.flx_chld_input{
+    margin: 5px;
+    flex: 2;
+}
+.flx_chld_opt{
+    margin: 5px;
+    flex: 1;
+}

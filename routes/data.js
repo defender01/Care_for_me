@@ -47,7 +47,7 @@ router.post('/input', async (req, res) => {
 router.get('/collection', checkAuthenticated, async (req, res) => {
   var displayName = req.user.name.displayName;
   await dataModel.find({}, (err, data) => {
-    if (err) throw err;
+    if (err) console.error(err);
     else res.render('info_display', { data, displayName });
   });
 });

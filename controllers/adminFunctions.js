@@ -1,4 +1,5 @@
-const {sectionModel, subSectionModel}= require('../models/inputCollection')
+const mongoose = require('mongoose')
+const {sectionModel, subSectionModel, questionModel, optionModel}= require('../models/inputCollection')
 
 // once sections and sub sections are uploaded, then these functions are no longer needed
 
@@ -41,6 +42,13 @@ async function saveSectionSubSection(){
     await saveSection(sections[i], subSections[i])
   }  
 }
+async function deleteSectionSubSection(){
+   // deleting all data from sectionModel and subSectionModel
+   await sectionModel.deleteMany({})
+   await subSectionModel.deleteMany({})
+  //  await questionModel.deleteMany({})
+  //  await optionModel.deleteMany({})
+}
 // once sections and sub sections are uploaded, then these upper functions are no longer needed
 
 let getSectionSubSection = async ()=>{
@@ -58,32 +66,77 @@ let getSectionSubSection = async ()=>{
     return {sectionNames, subSectionNames}
 }
 
-function preprocessOp(data, opNo=0, qNo=0, idAdder=''){
-  let option = {
-    name: data['option'][0],
-    hasRelatedQuestions: false,
-    options: []
-  }
-  for(var i=0; i<data['opCount'][qNo]; i++){
-    option.questions.push(preprocessOp(data,opNo, qNo+1, idAdder+toString(i+1)))
-  }
-  return option
+async function getWholeSection(sectionName, subSectionName){
+  let sectionData = await sectionModel.find({
+    name: sectionName
+  }).populate({
+    path: 'subSections',
+    match: {name: subSectionName}
+  }).exec()
+  return sectionData
 }
-function preprocessQues(data, opNo=0, qNo=0, idAdder=''){
-  
-  let question = {
-    name: data['question'][0],
-    inputType: data['type'+idAdder],
+
+// this function is for saving option to database
+async function saveOp(data, idAdder=''){
+  let cData = JSON.parse(JSON.stringify(data))
+  let qCount =  Array.isArray(data['qCount']) ? parseInt(data['qCount'].shift()) : parseInt(data['qCount'])
+  let option = new optionModel({
+    _id: new mongoose.Types.ObjectId(),
+    name: Array.isArray(data['option']) ? data['option'].shift() : data['option'],
+    hasRelatedQuestions: (qCount>0),
+    questions: []
+  })
+  if(option.hasRelatedQuestions){
+    //console.log({qCount})
+    for(var i=0; i<qCount ; i++){ 
+      let qId = await saveQues(data, idAdder+(i+1).toString())
+      //console.log({qId})
+      option.questions.push(qId)
+    }
+  }
+  await option.save((err, result) => {
+    if(err) console.error(err)
+  })
+  // console.log("In Options")
+  // console.log({cData})
+  // console.log({option})
+  // return option
+  return option._id
+}
+// this function is for saving questions to database
+async function saveQues(data, idAdder=''){
+  let cData = JSON.parse(JSON.stringify(data))
+  let opCount = Array.isArray(data['opCount']) ? parseInt(data['opCount'].shift()) : parseInt(data['opCount'])
+  let question = new questionModel({
+    _id: new mongoose.Types.ObjectId(),
+    name: Array.isArray(data['question']) ? data['question'].shift() : data['question'],
+    inputType: Array.isArray(data['typeIndicator']) ? data['typeIndicator'].shift() : data['typeIndicator'],
     options: []
+  })
+
+  if(question.inputType =='multiChoiceSingleAns'|| question.inputType =='multiChoiceMultiAns'){
+    //console.log({opCount})
+    for(var i=0; i< opCount; i++){
+      let opId = await saveOp(data, idAdder+(i+1).toString())
+      //console.log({opId})
+      question.options.push(opId)
+    }
   }
-  for(var i=0; i<data['opCount'][qNo]; i++){
-    question.options.push(preprocessOp(data,opNo, qNo+1, idAdder+toString(i+1)))
-  }
-  return question
+  await question.save((err, result) => {
+    if(err) console.error(err)
+  })
+  // console.log("In Questions")
+  // console.log({cData})
+  // console.log({question})
+//  return question
+  return question._id
 }
 
 
 module.exports ={
-    saveSectionSubSection: saveSectionSubSection,
-    getSectionSubSection: getSectionSubSection
+    saveSectionSubSection,
+    deleteSectionSubSection,
+    getSectionSubSection,
+    getWholeSection,
+    saveQues,
 }
