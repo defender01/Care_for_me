@@ -103,9 +103,20 @@ for(var i=0; i<substanceNames.length; i++){
 
 let physicalDiseases = ["Asthma", "Aneurysm", "Diabetes", "Epilepsy Seizures", "Headaches or migraines", "Heart diseases", "High blood pressure", "Kidney disease", "Lung Disease", "Migraine", "Arthritis", "Elevated cholesterol", "Multiple Sclerosis", "Stroke", "Thyroid", "Tuberculosis", "Bleeding disorder"]
 let mentalDiseases = ["Neurocognitive disordero: dementia/ alzheimer’s disease", "Neurodevelopmental disorder", "Obsessive compulsive disorder", "Schizophrenia", "Depression", "Panic disorder", "Mood disorder", "Attention deficit hyperactivity disorder", "Convulsions", "Somatoform disorder", "Stress disorder", "Eating disorder", "Impulsive control disorder", "Substance abuse disorder"]
+let vaccineNames = ["BCG","Pentavalent","PCV","OPV","MR,Measles","TT (Tetanus toxoid)"]
+let vaccineDiseases = ["Tuberculosis","Diphtheria, Pertussis, Tetanus, Hepatitis B, Hemophilus Influenza B","Pneumococcal Pneumonia","Poliomyelitis","Measles Rubella","Measles","Tetanus"]
 
 let physicalDiseasesJson = []
 let mentalDiseasesJson = []
+let vaccineInfoJson = []
+
+for(var i=0; i<vaccineNames.length; i++) {
+  vaccineInfoJson.push({    
+    name: vaccineNames[i],
+    id: camelCase(vaccineNames[i]),
+    diseases: vaccineDiseases[i]
+  })
+}
 
 for(var i=0; i<physicalDiseases.length; i++) {
   physicalDiseasesJson.push({    
@@ -122,7 +133,7 @@ app.get("/medHistory", async (req, res) => {
 
    await medHistoryModel.find({},(err, data) => {
     if (err) throw err
-    else res.render("medHistory", { data, substanceNamesJson, physicalDiseasesJson, mentalDiseasesJson})
+    else res.render("medHistory", { data, substanceNamesJson, physicalDiseasesJson, mentalDiseasesJson, vaccineInfoJson})
   })
 
 })
