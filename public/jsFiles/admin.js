@@ -10,8 +10,8 @@ function addOption(idAdder){
   $("#totalOpCounter"+idAdder).val(totalOpCount)  
   
   $("#addHelper"+idAdder).replaceWith('<!-- opiton -->'+
-                    '<div id ="optionContainer'+ idAdder+totalOpCount +'">'+
-                      '<div class="family-container" >'+
+                    '<div id ="optionContainer'+ idAdder+totalOpCount +'" class="">'+
+                      '<div class="option-Container family-container" >'+
                         '<!-- it stores the number of questions for this option -->'+
                         '<input type="number" id="qCounter'+ idAdder+opCount +'" name="qCount" value="0" style="display: none;" >'+
                         '<input type="number" id="totalQCounter'+ idAdder+totalOpCount +'" value="0" style="display: none;" >'+                      
@@ -59,8 +59,8 @@ function addQuestion(idAdder){
   $("#totalQCounter"+idAdder).val(totalQCount)
   
   $("#addHelper"+idAdder).replaceWith('<!-- question -->'+
-                  '<div id="questionContainer'+ idAdder+totalQCount +'">'+
-                    '<div class="family-container">'+
+                  '<div id="questionContainer'+ idAdder+totalQCount +'" class="">'+
+                    '<div class="question-Container family-container">'+
                       '<!-- it stores the number of options -->'+
                       '<input type="number" id="opCounter'+ idAdder+qCount +'" name="opCount" value="0" style="display: none;" >'+
                       '<input type="number" id="totalOpCounter'+ idAdder+totalQCount +'" value="0" style="display: none;" >'+ 

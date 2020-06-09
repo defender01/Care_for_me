@@ -28,7 +28,7 @@ const {
       subSectionNames
     })
   })
-  // this is for deleting section subsection
+  // this is for deleting section subsection....have to delete this later
   router.get("/deleteSectionSubsection",  async (req, res) =>{
     // deleting data of sections subSections
     await deleteSectionSubSection()
@@ -41,6 +41,8 @@ const {
     })
     
   })
+
+  
   router.post("/addQues", async (req, res) => {
     // return res.json(req.body)
     console.log(req.body)
