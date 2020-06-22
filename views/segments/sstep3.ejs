@@ -1,0 +1,449 @@
+<fieldset>
+    <div class="form-card">
+  
+      <div class="secondary-container title-bar">
+        <div class="row">
+          <div class="col-7">
+            <h2 class="fs-title">Lifestyle</h2>
+          </div>
+          <div class="col-5">
+            <h2 class="steps">Step 3 - 6</h2>
+          </div>
+        </div>
+      </div>
+      
+      <div id="addPlace3"></div>
+  
+      <div>
+        <div class="secondary-container">
+  
+          <h4 class="subsection-title">General Information</h4>
+  
+          <label class="fieldlabels" for="currentWeight">Current weight: </label>
+          <input type="number" name="currentWeight" id="currentWeight" placeholder="" />
+  
+          <label class="fieldlabels" for="heaviestLifetimeWeight">Heaviest lifetime weight: </label>
+          <input type="number" name="heaviestLifetimeWeight" id="heaviestLifetimeWeight" placeholder="" />
+  
+          <label class="fieldlabels" for="height">Height: </label>
+          <input type="text" name="height" id="height" placeholder="" />
+  
+          <label class="fieldlabels" for="workHourPerWeek">How many hours per week do you work?</label>
+          <input type="text" name="workHourPerWeek" id="workHourPerWeek" placeholder="" />
+  
+          <label class="fieldlabels" for="workHourPerDay">How many hours daily is your commute to work?</label>
+          <input type="text" name="workHourPerDay" id="workHourPerDay" placeholder="" />
+  
+          <label class="fieldlabels" for="relationshipStatus">Relationship status:</label>
+          <input type="text" name="relationshipStatus" id="relationshipStatus" placeholder="" />
+  
+          <label class="fieldlabels">Currently sexually active?</label>
+  
+          <div class="row">
+            <div class="col-4">
+              <div class="custom-control custom-radio">
+                <input type="radio" class="custom-control-input" id='sexuallyActive' name='sexuallyActive' value="yes">
+                <label class="custom-control-label" for='sexuallyActive'>
+                  Yes
+                </label>
+              </div>
+            </div>
+            <div class="col-4">
+              <div class="custom-control custom-radio">
+                <input type="radio" class="custom-control-input" id='notSexuallyActive' name='sexuallyActive' value="no">
+                <label class="custom-control-label" for='notSexuallyActive'>
+                  No
+                </label>
+              </div>
+            </div>
+  
+          </div>
+  
+        </div>
+  
+        <div class="secondary-container">
+  
+          <h4 class="subsection-title">Food Habit</h4>
+  
+          <label class="fieldlabels" for="mealsPerDay">How many meals do you take everyday?</label>
+          <input type="text" name="mealsPerDay" id="mealsPerDay" placeholder="" />
+  
+          <label class="fieldlabels" for="mealTypes">What your meals typically includes?</label>
+          <input type="text" name="mealTypes" id="mealTypes" placeholder="" />
+  
+          <label class="fieldlabels" for="homeCookedMeals">What percent of your meals are home cooked?</label>
+          <input type="text" name="homeCookedMeals" id="homeCookedMeals" placeholder="" />
+  
+          <label class="fieldlabels" for="mealsAtRestaurant">How many times per week do you eat at restaurants?</label>
+          <input type="text" name="mealsAtRestaurant" id="mealsAtRestaurant" placeholder="" />
+  
+          <label class="fieldlabels" for="allergicFoods"> Are there any foods that you can't tolerate? </label>
+          <input type="text" name="allergicFoods" id="allergicFoods" placeholder="" />
+  
+        </div>
+  
+        <div class="secondary-container">
+  
+          <h4 class="subsection-title">Sleep Pattern</h4>
+  
+          <label class="fieldlabels">Do you sleep well?</label>
+  
+          <div class="row">
+            <div class="col-4">
+              <div class="custom-control custom-radio">
+                <input type="radio" class="custom-control-input" id='sleepWell' name='sleepWell' value="yes">
+                <label class="custom-control-label" for='sleepWell'>
+                  Yes
+                </label>
+              </div>
+            </div>
+  
+            <div class="col-4">
+              <div class="custom-control custom-radio">
+                <input type="radio" class="custom-control-input" id='notWellSleep' name='sleepWell' value="no">
+                <label class="custom-control-label" for='notWellSleep'>
+                  No
+                </label>
+              </div>
+            </div>
+  
+          </div>
+  
+          <br>
+  
+          <label class="fieldlabels" for="bedTime">What time do you go to bed usually?</label>
+          <input type="text" name="bedTime" id="bedTime" placeholder="" />
+  
+          <label class="fieldlabels" for="riseTime">What time do you rise usually?</label>
+          <input type="text" name="riseTime" id="riseTime" placeholder="" />
+  
+          <label class="fieldlabels">Do you wake in the middle of the night?</label>
+  
+          <div class="row">
+            <div class="col-4">
+              <div class="custom-control custom-radio">
+                <input type="radio" class="custom-control-input" id='wakeInTheMidnight' name='wakeInTheMidnight'
+                  onclick="displayConditionalSection(this.id, 'atWhatTimesWakeInTheMidnight')" value="yes">
+                <label class="custom-control-label" for='wakeInTheMidnight'>
+                  Yes
+                </label>
+              </div>
+            </div>
+  
+            <div class="col-4">
+              <div class="custom-control custom-radio">
+                <input type="radio" class="custom-control-input" id='doesnotWakeInTheMidnight' name='wakeInTheMidnight'
+                  onclick="displayConditionalSection(this.id, 'atWhatTimesWakeInTheMidnight')" value="no">
+                <label class="custom-control-label" for='doesnotWakeInTheMidnight'>
+                  No
+                </label>
+              </div>
+            </div>
+  
+          </div>
+  
+          <br>
+  
+          <div id="atWhatTimesWakeInTheMidnight" style="display: none">
+            <label class="fieldlabels"> At what times? </label>
+            <input type="text" name="wakeTimeInTheMidnight" placeholder="" />
+          </div>
+  
+  
+          <label class="fieldlabels">Do you feel well rested upon waking in the morning?</label>
+          <div class="row">
+            <div class="col-4">
+              <div class="custom-control custom-radio">
+                <input type="radio" class="custom-control-input" id='feel_well_rested_in_monring'
+                  name='feel_well_rested_in_monring' value="yes">
+                <label class="custom-control-label" for='feel_well_rested_in_monring'>
+                  Yes
+                </label>
+              </div>
+            </div>
+  
+            <div class="col-4">
+              <div class="custom-control custom-radio">
+                <input type="radio" class="custom-control-input" id='doesnot_feel_well_rested_in_monring'
+                  name='feel_well_rested_in_monring' value="no">
+                <label class="custom-control-label" for='doesnot_feel_well_rested_in_monring'>
+                  No
+                </label>
+              </div>
+            </div>
+  
+          </div>
+  
+          <br>
+  
+  
+          <label class="fieldlabels">Do you regularly experience daytime sleepiness?</label>
+          <div class="row">
+            <div class="col-4">
+              <div class="custom-control custom-radio">
+                <input type="radio" class="custom-control-input" id='sleepWell' name='sleepWell' value="yes">
+                <label class="custom-control-label" for='sleepWell'>
+                  Yes
+                </label>
+              </div>
+            </div>
+  
+            <div class="col-4">
+              <div class="custom-control custom-radio">
+                <input type="radio" class="custom-control-input" id='sleep_not_well' name='sleepWell' value="no">
+                <label class="custom-control-label" for='sleep_not_well'>
+                  No
+                </label>
+              </div>
+            </div>
+  
+          </div>
+  
+          <br>
+  
+          <label class="fieldlabels">Do you snore loudly while sleeping?(if known)</label>
+          <div class="row">
+            <div class="col-4">
+              <div class="custom-control custom-radio">
+                <input type="radio" class="custom-control-input" id='sleepWell' name='sleepWell' value="yes">
+                <label class="custom-control-label" for='sleepWell'>
+                  Yes
+                </label>
+              </div>
+            </div>
+  
+            <div class="col-4">
+              <div class="custom-control custom-radio">
+                <input type="radio" class="custom-control-input" id='sleep_not_well' name='sleepWell' value="no">
+                <label class="custom-control-label" for='sleep_not_well'>
+                  No
+                </label>
+              </div>
+            </div>
+  
+          </div>
+  
+          <br>
+  
+  
+        </div>
+  
+  
+        <div class="secondary-container">
+  
+          <h4 class="subsection-title">Physical Exercise</h4>
+  
+          <label class="fieldlabels" for="exercise_types">What type of physical exercises you typically do?</label>
+          <input type="text" name="exercise_types" id="exercise_types" placeholder="" />
+  
+          <label class="fieldlabels" for="exercise_per_week">How many times you do physical exercise per week?</label>
+          <input type="text" name="exercise_per_week" id="exercise_per_week" placeholder="" />
+  
+        </div>
+  
+        <div class="secondary-container">
+  
+          <h4 class="subsection-title">Smoking History</h4>
+  
+          <label class="fieldlabels" for="sticks_per_day">How many sticks per day?</label>
+          <input type="number" name="sticks_per_day" id="sticks_per_day" placeholder="" />
+  
+        </div>
+  
+  
+        <div class="secondary-container">
+  
+          <h4 class="subsection-title">Substance Use History</h4>
+  
+        </div>
+  
+  
+        <div class="subtance-history-container">
+  
+  
+  
+          <div class="accordion secondary-container" id="substanceAccordion-1">
+  
+            <% if(typeof substanceNamesJson != 'undefined'){ %>
+            <% for(let i = 0 ; i < Math.ceil(substanceNamesJson.length/2); i++) {%>
+  
+            <div class="card collapse-item">
+  
+              <div class="card-header collapse-item-header" id="heading-<%= i %>" data-toggle="collapse"
+                data-target="#collapse-<%= i %>">
+  
+  
+                <% if(i == 0){ %>
+  
+                <a class="btn text-left" role="button" aria-expanded="true" aria-controls="collapse-<%= i %>">
+                  <h6> <%= substanceNamesJson[i].name %></h6>
+                </a>
+  
+                <% }else{ %>
+  
+                <a class="btn collapsed text-left" role="button" aria-expanded="false" aria-controls="collapse-<%= i %>">
+                  <h6> <%= substanceNamesJson[i].name %></h6>
+                </a>
+  
+                <% } %>
+  
+  
+              </div>
+  
+              <% if(i == 0){ %>
+              <div id="collapse-<%= i %>" class="collapse show" aria-labelledby="heading-<%= i %>"
+                data-parent="#substanceAccordion-1">
+  
+                <% } else{ %>
+                <div id="collapse-<%= i %>" class="collapse" aria-labelledby="heading-<%= i %>"
+                  data-parent="#substanceAccordion-1">
+                  <% } %>
+                  <div class="card-body">
+  
+                    <label class="fieldlabels" for="for_popup_first_use_<%= i %>">Age when you first used this:</label>
+                    <input type="text" name="for_popup_first_use_<%= i %>" id="for_popup_first_use_<%= i %>"
+                      placeholder="" />
+  
+                    <label class="fieldlabels" for="for_popup_how_much_use_<%= i %>">How much & how often did you use
+                      this?</label>
+                    <input type="text" name="for_popup_how_much_use_<%= i %>" id="for_popup_how_much_use_<%= i %>"
+                      placeholder="" />
+  
+                    <label class="fieldlabels" for="for_popup_how_many_year_<%= i %>">How many years did you use
+                      this?</label>
+                    <input type="text" name="for_popup_how_many_year_<%= i %>" id="for_popup_how_many_year_<%= i %>"
+                      placeholder="" />
+  
+                    <label class="fieldlabels" for="for_popup_last_use_<%= i %>">When did you last use this?</label>
+                    <input type="text" name="for_popup_last_use_<%= i %>" id="for_popup_last_use_<%= i %>"
+                      placeholder="" />
+  
+                    <label class="fieldlabels" for="currently_use">Do you currently use this?</label>
+                    <div>
+                      <div class="custom-control custom-radio">
+                        <input type="radio" id="radio_yes_<%= i %>" name="for_popup_currently_use_<%= i %>"
+                          class="custom-control-input" value="yes">
+                        <label class="custom-control-label" for="radio_yes_<%= i %>">Yes</label>
+                      </div>
+                      <div class="custom-control custom-radio">
+                        <input type="radio" id="radio_no_<%= i %>" name="for_popup_currently_use_<%= i %>"
+                          class="custom-control-input" value="no">
+                        <label class="custom-control-label" for="radio_no_<%= i %>">No</label>
+                      </div>
+                    </div>
+  
+  
+                  </div>
+  
+                </div>
+  
+              </div>
+  
+              <% } %>
+              <% } %>
+  
+            </div>
+  
+  
+            <div class="accordion secondary-container" id="substanceAccordion-2">
+  
+              <% if(typeof substanceNamesJson != 'undefined'){ %>
+              <% for(let i = Math.ceil(substanceNamesJson.length/2) ; i < substanceNamesJson.length; i++) {%>
+  
+              <div class="card collapse-item">
+  
+                <div class="card-header collapse-item-header" id="heading-<%= i %>" data-toggle="collapse"
+                  data-target="#collapse-<%= i %>">
+  
+  
+                  <% if(i == Math.ceil(substanceNamesJson.length/2)){ %>
+  
+                  <a class="btn text-left" role="button" aria-expanded="true" aria-controls="collapse-<%= i %>">
+                    <h6> <%= substanceNamesJson[i].name %></h6>
+                  </a>
+  
+                  <% }else{ %>
+  
+                  <a class="btn collapsed text-left" role="button" aria-expanded="false"
+                    aria-controls="collapse-<%= i %>">
+                    <h6> <%= substanceNamesJson[i].name %></h6>
+                  </a>
+  
+                  <% } %>
+  
+  
+                </div>
+  
+                <% if(i == Math.ceil(substanceNamesJson.length/2)){ %>
+                <div id="collapse-<%= i %>" class="collapse show" aria-labelledby="heading-<%= i %>"
+                  data-parent="#substanceAccordion-2">
+  
+                  <% } else{ %>
+                  <div id="collapse-<%= i %>" class="collapse" aria-labelledby="heading-<%= i %>"
+                    data-parent="#substanceAccordion-2">
+                    <% } %>
+                    <div class="card-body">
+  
+                      <label class="fieldlabels" for="for_popup_first_use_<%= i %>">Age when you first used this:</label>
+                      <input type="text" name="for_popup_first_use_<%= i %>" id="for_popup_first_use_<%= i %>"
+                        placeholder="" />
+  
+                      <label class="fieldlabels" for="for_popup_how_much_use_<%= i %>">How much & how often did you use
+                        this?</label>
+                      <input type="text" name="for_popup_how_much_use_<%= i %>" id="for_popup_how_much_use_<%= i %>"
+                        placeholder="" />
+  
+                      <label class="fieldlabels" for="for_popup_how_many_year_<%= i %>">How many years did you use
+                        this?</label>
+                      <input type="text" name="for_popup_how_many_year_<%= i %>" id="for_popup_how_many_year_<%= i %>"
+                        placeholder="" />
+  
+                      <label class="fieldlabels" for="for_popup_last_use_<%= i %>">When did you last use this?</label>
+                      <input type="text" name="for_popup_last_use_<%= i %>" id="for_popup_last_use_<%= i %>"
+                        placeholder="" />
+  
+                      <label class="fieldlabels" for="currently_use">Do you currently use this?</label>
+                      <div>
+                        <div class="custom-control custom-radio">
+                          <input type="radio" id="radio_yes_<%= i %>" name="for_popup_currently_use_<%= i %>"
+                            class="custom-control-input" value="yes">
+                          <label class="custom-control-label" for="radio_yes_<%= i %>">Yes</label>
+                        </div>
+                        <div class="custom-control custom-radio">
+                          <input type="radio" id="radio_no_<%= i %>" name="for_popup_currently_use_<%= i %>"
+                            class="custom-control-input" value="no">
+                          <label class="custom-control-label" for="radio_no_<%= i %>">No</label>
+                        </div>
+                      </div>
+  
+                    </div>
+  
+                  </div>
+  
+                </div>
+  
+                <% } %>
+                <% } %>
+  
+              </div>
+            </div>
+  
+          </div>
+  
+        </div>
+  
+        <input type="button" name="next" class="next action-button" value="Next" />
+        <input type="button" name="previous" class="previous action-button-previous" value="Previous" />
+
+        <script>
+          // $.get("/admin/getSectionData/Lifestyle", (data) => {
+          //   let elmStr = "";
+          //   for (let i = 0; i < data.subSections.length; i++) {
+          //     elmStr += getSubSectionStr(data.subSections[i]);
+          //   }
+          //   $("#addPlace3").replaceWith(elmStr);
+          // });
+         
+      </script>
+
+  </fieldset>

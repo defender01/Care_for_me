@@ -41,8 +41,7 @@
       <div class="col-11 col-sm-9 col-md-7 col-lg-6 col-xl-9 text-center p-0 mt-3 mb-2">
         <div class="primary-card">
           <h2 id="heading">Please edit the information you want.</h2>
-          
-          <form id="msform">
+          <form id="msform" method="POST" action="/profileEdit">
             <!-- progressbar -->
             <ul id="progressbar">
               <li class="active" id="step1"><strong>Birth and Developmental</strong></li> 
@@ -56,13 +55,13 @@
                 aria-valuemax="100"></div>
             </div> <br> 
             
-            <% include ./segments/step1 %>   
-            <% include ./segments/step2 %>   
+            <% include ./segments/sstep1 %>   
+            <% include ./segments/sstep2 %>   
 
-            <% include ./segments/step3 %>
-            <% include ./segments/step4 %>
+            <% include ./segments/sstep3 %>
+            <% include ./segments/sstep4 %>
             
-            <% include ./segments/step5 %>           
+            <% include ./segments/sstep5 %>           
             
             
           </form>

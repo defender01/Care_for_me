@@ -3,22 +3,26 @@ const Schema = mongoose.Schema;
 
 const sectionSchema = new Schema({
   name: String,
+  id: String,
   subSections: [{ type: Schema.Types.ObjectId, ref: 'subSection' }],
 });
 
 const subSectionSchema = new Schema({
   name: String,
+  id: String,
   questions: [{ type: Schema.Types.ObjectId, ref: 'question' }]
 });
 
 const questionSchema = new Schema({
   name: String,
+  id: String,
   inputType: String,
   options: [{ type: Schema.Types.ObjectId, ref: 'option' }],
 });
 
 const optionSchema = new Schema({
   name: String,
+  id: String,
   hasRelatedQuestions: {
     type: Boolean,
     default: false,

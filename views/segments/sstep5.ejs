@@ -1,0 +1,649 @@
+<fieldset>
+    <div class="form-card">
+      <div class="secondary-container title-bar">
+        <div class="row">
+          <div class="col-7">
+            <h2 class="fs-title">Previous Diseases and Disorders:</h2>
+          </div>
+          <div class="col-5">
+            <h2 class="steps">Step 5 - 5</h2>
+          </div>
+        </div>
+      </div>
+
+      <div id="addPlace5"></div>
+  
+      <div class="secondary-container">
+        <label class="fieldlabels"
+          >In the past month, have you had any of the following problems?</label
+        >
+        <br />
+  
+        <div class="row">
+          <div class="col">
+            <div id="generalDisorder">
+              <h6>GENERAL</h6>
+  
+              <!-- <div class="extraInput" style="display: block">
+                            <label class="fieldlabels">How much? </label>
+                            <br>
+                            <input class="fieldInputs" type="text" name="how_much" placeholder="" />
+                        </div> -->
+  
+              <script>
+                var generalDisorders = [
+                  "Recent weight gain",
+                  "Recent weight loss",
+                  "Fatigue",
+                  "Weakness",
+                  "Fever",
+                  "Night sweats",
+                ];
+                var generalDisordersForName = [
+                  "recentWeightGain",
+                  "recentWeightLoss",
+                  "fatigue",
+                  "weakness",
+                  "fever",
+                  "nightSweats",
+                  "nervousSystem",
+                ];
+                var parent = document.getElementById("generalDisorder");
+  
+                for (var i = 0; i < generalDisorders.length; i++) {
+                  var newDiv = document.createElement("div");
+                  parent.appendChild(newDiv);
+                  newDiv.outerHTML =
+                    '<div class="custom-control custom-checkbox">' +
+                    '<input type="checkbox" class="custom-control-input" id="generalDisorderID_' +
+                    (i + 1) +
+                    '" name="' +
+                    generalDisordersForName[i] +
+                    '" onclick="displayHowMuchInputField(this.id)">' +
+                    '<label class="custom-control-label" for="generalDisorderID_' +
+                    (i + 1) +
+                    '">' +
+                    generalDisorders[i] +
+                    "</label>" +
+                    "</div>";
+                  if (i == 0 || i == 1) {
+                    var anotherDiv = document.createElement("div");
+                    parent.appendChild(anotherDiv);
+                    anotherDiv.outerHTML =
+                      '<div id="howMuchGeneralDisorder_' +
+                      (i + 1) +
+                      '" class="extraInput" style="display: none">' +
+                      '<label for= "howMuch' +
+                      generalDisordersForName[i] +
+                      '" class="fieldlabels">How much? </label>' +
+                      "<br>" +
+                      '<input class="fieldInputs" type="text" id= "howMuch' +
+                      generalDisordersForName[i] +
+                      '" name="how_much_' +
+                      generalDisordersForName[i] +
+                      '" placeholder="" />' +
+                      "</div>";
+                  }
+                }
+              </script>
+            </div>
+  
+            <br />
+  
+            <div id="earsDisorder">
+              <h6>EARS</h6>
+  
+              <script>
+                var earsDisorders = ["Ringing in ears", "Loss of hearing"];
+                var earsDisordersForName = ["ringingInEars", "lossOfHearing"];
+                var parent = document.getElementById("earsDisorder");
+  
+                for (var i = 0; i < earsDisorders.length; i++) {
+                  var newDiv = document.createElement("div");
+                  parent.appendChild(newDiv);
+                  newDiv.outerHTML =
+                    '<div class="custom-control custom-checkbox">' +
+                    '<input type="checkbox" class="custom-control-input" id="earsDisorderID_' +
+                    (i + 1) +
+                    '" name="' +
+                    earsDisordersForName[i] +
+                    '">' +
+                    '<label class="custom-control-label" for="earsDisorderID_' +
+                    (i + 1) +
+                    '">' +
+                    earsDisorders[i] +
+                    "</label>" +
+                    "</div>";
+                }
+              </script>
+            </div>
+  
+            <br />
+  
+            <div id="eyesDisorder">
+              <h6>EYES</h6>
+  
+              <script>
+                var eyesDisorders = [
+                  "Pain",
+                  "Redness",
+                  "Loss of vision",
+                  "Double or blurred vision",
+                  "Dryness",
+                ];
+                var eyesDisordersForName = [
+                  "pain",
+                  "redness",
+                  "lossOfVision",
+                  "doubleOrBlurredVision",
+                  "dryness",
+                ];
+                var parent = document.getElementById("eyesDisorder");
+  
+                for (var i = 0; i < eyesDisorders.length; i++) {
+                  var newDiv = document.createElement("div");
+                  parent.appendChild(newDiv);
+                  newDiv.outerHTML =
+                    '<div class="custom-control custom-checkbox">' +
+                    '<input type="checkbox" class="custom-control-input" id="eyesDisorderID_' +
+                    (i + 1) +
+                    '" name="' +
+                    eyesDisordersForName[i] +
+                    '">' +
+                    '<label class="custom-control-label" for="eyesDisorderID_' +
+                    (i + 1) +
+                    '">' +
+                    eyesDisorders[i] +
+                    "</label>" +
+                    "</div>";
+                }
+              </script>
+            </div>
+  
+            <br />
+  
+            <div id="throatDisorder">
+              <h6>THROAT</h6>
+  
+              <script>
+                var throatDisorders = [
+                  "Frequent sore throats",
+                  "Hoarseness",
+                  "Difficulty in swallowing",
+                  "Pain in jaw",
+                ];
+                var throatDisordersForName = [
+                  "frequentSoreThroats",
+                  "hoarseness",
+                  "difficultyInSwallowing",
+                  "painInJaw",
+                ];
+                var parent = document.getElementById("throatDisorder");
+  
+                for (var i = 0; i < throatDisorders.length; i++) {
+                  var newDiv = document.createElement("div");
+                  parent.appendChild(newDiv);
+                  newDiv.outerHTML =
+                    '<div class="custom-control custom-checkbox">' +
+                    '<input type="checkbox" class="custom-control-input" id="throatDisorderID_' +
+                    (i + 1) +
+                    '" name="' +
+                    throatDisordersForName[i] +
+                    '">' +
+                    '<label class="custom-control-label" for="throatDisorderID_' +
+                    (i + 1) +
+                    '">' +
+                    throatDisorders[i] +
+                    "</label>" +
+                    "</div>";
+                }
+              </script>
+            </div>
+  
+            <br />
+  
+            <div id="kidneyDisorder">
+              <h6>KIDNEY/URINE/BLADDER</h6>
+  
+              <script>
+                var kidneyDisorders = [
+                  "Frequent or painful urination",
+                  "Blood in urine",
+                ];
+                var kidneyDisordersForName = [
+                  "frequentOrPainfulUrination",
+                  "bloodInUrine",
+                ];
+                var parent = document.getElementById("kidneyDisorder");
+  
+                for (var i = 0; i < kidneyDisorders.length; i++) {
+                  var newDiv = document.createElement("div");
+                  parent.appendChild(newDiv);
+                  newDiv.outerHTML =
+                    '<div class="custom-control custom-checkbox">' +
+                    '<input type="checkbox" class="custom-control-input" id="kidneyDisorderID_' +
+                    (i + 1) +
+                    '" name="' +
+                    kidneyDisordersForName[i] +
+                    '">' +
+                    '<label class="custom-control-label" for="kidneyDisorderID_' +
+                    (i + 1) +
+                    '">' +
+                    kidneyDisorders[i] +
+                    "</label>" +
+                    "</div>";
+                }
+              </script>
+            </div>
+  
+            <br />
+  
+            <div id="womernDisorder">
+              <h6>WOMEN ONLY</h6>
+  
+              <script>
+                var womernDisorders = [
+                  "Abnormal Pap smear",
+                  "Irregular periods",
+                  "Bleeding between periods",
+                  "PMS",
+                ];
+                var womernDisordersForName = [
+                  "abnormalPapSmear",
+                  "irregularPeriods",
+                  "bleedingBetweenPeriods",
+                  "pms",
+                ];
+                var parent = document.getElementById("womernDisorder");
+  
+                for (var i = 0; i < womernDisorders.length; i++) {
+                  var newDiv = document.createElement("div");
+                  parent.appendChild(newDiv);
+                  newDiv.outerHTML =
+                    '<div class="custom-control custom-checkbox">' +
+                    '<input type="checkbox" class="custom-control-input" id="womernDisorderID_' +
+                    (i + 1) +
+                    '" name="' +
+                    womernDisordersForName[i] +
+                    '">' +
+                    '<label class="custom-control-label" for="womernDisorderID_' +
+                    (i + 1) +
+                    '">' +
+                    womernDisorders[i] +
+                    "</label>" +
+                    "</div>";
+                }
+              </script>
+            </div>
+          </div>
+  
+          <div class="col">
+            <div id="muscleDisorder">
+              <h6>MUSCLE/JOINTS/BONES</h6>
+  
+              <script>
+                var muscleDisorders = [
+                  "Numbness",
+                  "Joint pain",
+                  "Muscle weakness",
+                  "Joint swelling",
+                ];
+                var muscleDisordersForName = [
+                  "numbness",
+                  "jointPain",
+                  "muscleWeakness",
+                  "jointSwelling",
+                ];
+                var parent = document.getElementById("muscleDisorder");
+  
+                for (var i = 0; i < muscleDisorders.length; i++) {
+                  var newDiv = document.createElement("div");
+                  parent.appendChild(newDiv);
+                  newDiv.outerHTML =
+                    '<div class="custom-control custom-checkbox">' +
+                    '<input type="checkbox" class="custom-control-input" id="muscleDisorderID_' +
+                    (i + 1) +
+                    '" name="' +
+                    muscleDisordersForName[i] +
+                    '"  onclick="displayWhereInputField(this.id)">' +
+                    '<label class="custom-control-label" for="muscleDisorderID_' +
+                    (i + 1) +
+                    '">' +
+                    muscleDisorders[i] +
+                    "</label>" +
+                    "</div>";
+  
+                  var anotherDiv = document.createElement("div");
+                  parent.appendChild(anotherDiv);
+                  anotherDiv.outerHTML =
+                    '<div id="whereMuscleDisorder_' +
+                    (i + 1) +
+                    '" class="extraInput" style="display: none">' +
+                    '<label for= "where' +
+                    muscleDisordersForName[i] +
+                    '" class="fieldlabels">Where? </label>' +
+                    "<br>" +
+                    '<input class="fieldInputs" type="text" id= "where' +
+                    muscleDisordersForName[i] +
+                    '" name="where_' +
+                    muscleDisordersForName[i] +
+                    '" placeholder="" />' +
+                    "</div>";
+                }
+              </script>
+            </div>
+  
+            <br />
+  
+            <div id="nervousSystemDisorder">
+              <h6>NERVOUS SYSTEM</h6>
+  
+              <script>
+                var nervousSystemDisorders = [
+                  "Headaches",
+                  "Dizziness",
+                  "Fainting or loss of consciousness",
+                  "Numbness or tingling",
+                  "Memory loss",
+                ];
+                var nervousSystemDisordersForName = [
+                  "headaches",
+                  "dizziness",
+                  "faintingOrLossOfConsciousness",
+                  "numbnessOrTingling",
+                  "memoryLoss",
+                ];
+                var parent = document.getElementById("nervousSystemDisorder");
+  
+                for (var i = 0; i < nervousSystemDisorders.length; i++) {
+                  var newDiv = document.createElement("div");
+                  parent.appendChild(newDiv);
+                  newDiv.outerHTML =
+                    '<div class="custom-control custom-checkbox">' +
+                    '<input type="checkbox" class="custom-control-input" id="nervousSystemDisorderID_' +
+                    (i + 1) +
+                    '" name="' +
+                    nervousSystemDisordersForName[i] +
+                    '">' +
+                    '<label class="custom-control-label" for="nervousSystemDisorderID_' +
+                    (i + 1) +
+                    '">' +
+                    nervousSystemDisorders[i] +
+                    "</label>" +
+                    "</div>";
+                }
+              </script>
+            </div>
+  
+            <br />
+  
+            <div id="stomachDisorder">
+              <h6>STOMACH AND INTESTINES</h6>
+  
+              <script>
+                var stomachDisorders = [
+                  "Nausea",
+                  "Heartburn",
+                  "Stomach pain",
+                  "Vomiting",
+                  "Yellow jaundice",
+                  "Increasing constipation",
+                  "Persistent diarrhea",
+                  "Blood in stools",
+                  "Black stools",
+                ];
+                var stomachDisordersForName = [
+                  "nausea",
+                  "heartburn",
+                  "stomachPain",
+                  "vomiting",
+                  "yellowJaundice",
+                  "increasingConstipation",
+                  "persistentDiarrhea",
+                  "bloodInStools",
+                  "blackStools",
+                ];
+                var parent = document.getElementById("stomachDisorder");
+  
+                for (var i = 0; i < stomachDisorders.length; i++) {
+                  var newDiv = document.createElement("div");
+                  parent.appendChild(newDiv);
+                  newDiv.outerHTML =
+                    '<div class="custom-control custom-checkbox">' +
+                    '<input type="checkbox" class="custom-control-input" id="stomachDisorderID_' +
+                    (i + 1) +
+                    '" name="' +
+                    stomachDisordersForName[i] +
+                    '">' +
+                    '<label class="custom-control-label" for="stomachDisorderID_' +
+                    (i + 1) +
+                    '">' +
+                    stomachDisorders[i] +
+                    "</label>" +
+                    "</div>";
+                }
+              </script>
+            </div>
+  
+            <br />
+  
+            <div id="skinDisorder">
+              <h6>SKIN</h6>
+  
+              <script>
+                var skinDisorders = [
+                  "Redness",
+                  "Rash",
+                  "Nodules/bumps",
+                  "Hair loss",
+                  "Color changes of hands or feet",
+                ];
+                var skinDisordersForName = [
+                  "redness",
+                  "rash",
+                  "nodulesBumps",
+                  "hairLoss",
+                  "colorChangesOfHandsOrFeet",
+                ];
+                var parent = document.getElementById("skinDisorder");
+  
+                for (var i = 0; i < skinDisorders.length; i++) {
+                  var newDiv = document.createElement("div");
+                  parent.appendChild(newDiv);
+                  newDiv.outerHTML =
+                    '<div class="custom-control custom-checkbox">' +
+                    '<input type="checkbox" class="custom-control-input" id="skinDisorderID_' +
+                    (i + 1) +
+                    '" name="' +
+                    skinDisordersForName[i] +
+                    '">' +
+                    '<label class="custom-control-label" for="skinDisorderID_' +
+                    (i + 1) +
+                    '">' +
+                    skinDisorders[i] +
+                    "</label>" +
+                    "</div>";
+                }
+              </script>
+            </div>
+  
+            <br />
+  
+            <div id="bloodDisorder">
+              <h6>BLOOD</h6>
+  
+              <script>
+                var bloodDisorders = ["Anemia", "Clots"];
+                var bloodDisordersForName = ["anemia", "clots"];
+                var parent = document.getElementById("bloodDisorder");
+  
+                for (var i = 0; i < bloodDisorders.length; i++) {
+                  var newDiv = document.createElement("div");
+                  parent.appendChild(newDiv);
+                  newDiv.outerHTML =
+                    '<div class="custom-control custom-checkbox">' +
+                    '<input type="checkbox" class="custom-control-input" id="bloodDisorderID_' +
+                    (i + 1) +
+                    '" name="' +
+                    bloodDisordersForName[i] +
+                    '">' +
+                    '<label class="custom-control-label" for="bloodDisorderID_' +
+                    (i + 1) +
+                    '">' +
+                    bloodDisorders[i] +
+                    "</label>" +
+                    "</div>";
+                }
+              </script>
+            </div>
+          </div>
+  
+          <div class="col">
+            <div id="psychiatricDisorder">
+              <h6>PSYCHIATRIC</h6>
+  
+              <script>
+                var psychiatricDisorders = [
+                  "Depression",
+                  "Excessive worries",
+                  "Difficulty falling asleep",
+                  "Difficulty staying asleep",
+                  "Difficulties with sexual arousal",
+                  "Poor appetite",
+                  "Food cravings",
+                  "Frequent crying",
+                  "Sensitivity",
+                  "Thoughts of suicide / attempts",
+                  "Stress",
+                  "Irritability",
+                  "Poor concentration",
+                  "Racing thoughts",
+                  "Hallucinations",
+                  "Rapid speech",
+                  "Guilty thoughts",
+                  "Paranoia",
+                  "Mood swings",
+                  "Anxiety",
+                  "Risky behavior",
+                ];
+                var psychiatricDisordersForName = [
+                  "depression",
+                  "excessiveWorries",
+                  "difficultyFallingAsleep",
+                  "difficultyStayingAsleep",
+                  "difficultiesWithSexualArousal",
+                  "poorAppetite",
+                  "foodCravings",
+                  "frequentCrying",
+                  "sensitivity",
+                  "thoughtsOfSuicideAttempts",
+                  "stress",
+                  "irritability",
+                  "poorConcentration",
+                  "racingThoughts",
+                  "hallucinations",
+                  "rapidSpeech",
+                  "guiltyThoughts",
+                  "paranoia",
+                  "moodSwings",
+                  "anxiety",
+                  "riskyBehavior",
+                ];
+                var parent = document.getElementById("psychiatricDisorder");
+  
+                for (var i = 0; i < psychiatricDisorders.length; i++) {
+                  var newDiv = document.createElement("div");
+                  parent.appendChild(newDiv);
+                  newDiv.outerHTML =
+                    '<div class="custom-control custom-checkbox">' +
+                    '<input type="checkbox" class="custom-control-input" id="psychiatricDisorderID_' +
+                    (i + 1) +
+                    '" name="' +
+                    psychiatricDisordersForName[i] +
+                    '">' +
+                    '<label class="custom-control-label" for="psychiatricDisorderID_' +
+                    (i + 1) +
+                    '">' +
+                    psychiatricDisorders[i] +
+                    "</label>" +
+                    "</div>";
+                }
+              </script>
+            </div>
+  
+            <br />
+  
+            <div id="heartAndLungsDisorder">
+              <h6>HEART AND LUNGS</h6>
+  
+              <script>
+                var heartAndLungsDisorders = [
+                  "Chest pain",
+                  "Palpitations",
+                  "Shortness of breath",
+                  "Fainting",
+                  "Swollen legs or feet",
+                  "Cough",
+                ];
+                var heartAndLungsDisordersForName = [
+                  "chestPain",
+                  "palpitations",
+                  "shortnessOfBreath",
+                  "fainting",
+                  "swollenLegsOrFeet",
+                  "cough",
+                ];
+                var parent = document.getElementById("heartAndLungsDisorder");
+  
+                for (var i = 0; i < heartAndLungsDisorders.length; i++) {
+                  var newDiv = document.createElement("div");
+                  parent.appendChild(newDiv);
+                  newDiv.outerHTML =
+                    '<div class="custom-control custom-checkbox">' +
+                    '<input type="checkbox" class="custom-control-input" id="heartAndLungsDisorderID_' +
+                    (i + 1) +
+                    '" name="' +
+                    heartAndLungsDisordersForName[i] +
+                    '">' +
+                    '<label class="custom-control-label" for="heartAndLungsDisorderID_' +
+                    (i + 1) +
+                    '">' +
+                    heartAndLungsDisorders[i] +
+                    "</label>" +
+                    "</div>";
+                }
+              </script>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <input type="submit" class="next action-button" value="Submit" />
+    <input
+      type="button"
+      name="previous"
+      class="previous action-button-previous"
+      value="Previous"
+    />
+
+    <script>
+      $.get("/admin/getSectionData/Previous Diseases and Disorders", (data) => {
+        let elmStr = "";
+        for (let i = 0; i < data.subSections.length; i++) {
+          elmStr += getSubSectionStr5(data.subSections[i]);
+        }
+        $("#addPlace5").replaceWith(elmStr);
+      });
+      function getSubSectionStr5(subSection) {
+      let elmStr = "";
+      elmStr += '<h4 class="subsection-title">' + subSection.name + "</h4> <h5>In the past month, have you had any of the following problems?</h5>";
+      for (let i = 0; i < subSection.questions.length; i++) {
+        elmStr += getQuestionStr(subSection.questions[i]);
+      }
+
+      return '<div class="secondary-container">' + elmStr + "</div>";
+    }
+    </script>
+  </fieldset>
+  

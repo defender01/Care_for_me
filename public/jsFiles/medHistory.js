@@ -116,7 +116,7 @@ function displayWhereInputField(id){
 
 function changeButtonText(id)
 {
-    console.log(id)
+    // console.log(id)
     var elem = document.getElementById(id)
     if (elem.innerText=="See more") elem.innerText = "See less";
     else elem.innerText = "See more";
@@ -153,6 +153,7 @@ function hideConditionalSection(conditionalSectionIds){
       el.style.display = "none";
   }
 }
+
 
 
 function displayConditionalSectionCheckbox(id, conditionalSectionId){
@@ -226,7 +227,7 @@ function onStart()
      for(var i=0; i<idsForHiddenElements.length; i++){
        var el=document.getElementById(idsForHiddenElements[i])
        if(el!=null){
-          console.log(idsForHiddenElements[i])
+          // console.log(idsForHiddenElements[i])
           el.style.display="none";
        }
      }
@@ -241,7 +242,7 @@ function onStart()
     {
         var items = document.querySelectorAll('[id='+ids[i]+']')
         familyCnt[i] =  items.length
-        console.log(ids[i]+' '+items.length+'---------')
+        // console.log(ids[i]+' '+items.length+'---------')
         $('#'+cntIds[i]).html('Total number: '+ familyCnt[i])
 
         for(var j=0; j<items.length; j++){
