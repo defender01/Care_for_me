@@ -16,6 +16,5 @@ router.post("/addQues", saveQuesOp);
 // this is for deleting section subsection....have to delete this later
 router.get("/deleteSectionSubsection", deleteSecSubSecQuesOp);
 
-router.get("/getSectionData/:section", getSectionData)
 
 module.exports = router;

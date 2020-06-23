@@ -2,6 +2,10 @@ const express = require('express')
 const router = express.Router()
 const User = require('../models/userInfo')
 var medHistoryModel = require('../models/medHistoryInfo')
+const {
+  getSectionData
+} = require("../controllers/adminFunctions");
+
 
 
 //import camelCase function
@@ -78,7 +82,7 @@ router.get("/", checkAuthenticated, async (req, res) => {
     res.redirect('/profile/edit') 
   })
 
-  
+  router.get("/getSectionData/:section", getSectionData)
   
 
   module.exports = router;

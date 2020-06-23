@@ -12,178 +12,6 @@
     </div>
 
     <div id="addPlace1"></div>
-    
-    <div class="secondary-container">
-      <h4 class="subsection-title">Birth history</h4>
-      <label class="fieldlabels">Where were you born? </label>
-      <input type="text" name="birth_place" placeholder="" />
-
-      <label class="fieldlabels">Type of delivery? </label>
-      <br />
-      <div class="row">
-        <div class="col">
-          <div class="custom-control custom-radio">
-            <input
-              type="radio"
-              class="custom-control-input"
-              id="normalDelivery"
-              name="deliveryType"
-              value="Normal Vaginal Delivery(NVD)"
-            />
-            <label class="custom-control-label" for="normalDelivery">
-              Normal Vaginal Delivery(NVD)
-            </label>
-          </div>
-        </div>
-        <div class="col">
-          <div class="custom-control custom-radio">
-            <input
-              type="radio"
-              class="custom-control-input"
-              id="caesareanDelivery"
-              name="deliveryType"
-              value="Caesarean Section(CS)"
-            />
-            <label class="custom-control-label" for="caesareanDelivery">
-              Caesarean Section(CS)
-            </label>
-          </div>
-        </div>
-        <div class="col"></div>
-      </div>
-      <br />
-
-      <label class="fieldlabels"
-        >During which week of pregnancy did your delivery take place??
-      </label>
-      <input type="number" step="0.01" name="deleveryWeek" placeholder="" />
-
-      <label class="fieldlabels"
-        >What was your weight at the time of birth?(In Kg)
-      </label>
-      <input type="number" name="birthWeight" placeholder="" />
-
-      <label class="fieldlabels">Were there any complications? </label>
-      <br />
-      <div class="row">
-        <div class="col">
-          <div class="custom-control custom-checkbox">
-            <input
-              type="radio"
-              class="custom-control-input"
-              id="complicationsYes"
-              name="complications"
-              value="yes"
-            />
-            <label class="custom-control-label" for="complicationsYes">
-              Yes
-            </label>
-          </div>
-        </div>
-        <div class="col">
-          <div class="custom-control custom-checkbox">
-            <input
-              type="radio"
-              class="custom-control-input"
-              id="complicationsNo"
-              name="complications"
-              value="no"
-              checked
-            />
-            <label class="custom-control-label" for="complicationsNo">
-              No
-            </label>
-          </div>
-        </div>
-        <div class="col"></div>
-      </div>
-      <br />
-
-      <h4 class="subsection-title">Development history</h4>
-
-      <label class="fieldlabels"
-        >When did you first sit?(answer in month. e.g. 6th month)
-      </label>
-      <input type="number" name="first_sit" placeholder="" />
-      <label class="fieldlabels">When did you walk? </label>
-      <input type="text" name="first_walk" placeholder="" />
-
-      <label class="fieldlabels">Can you give a social smile? </label>
-      <br />
-      <div class="row">
-        <div class="col">
-          <div class="custom-control custom-checkbox">
-            <input
-              type="radio"
-              class="custom-control-input"
-              id="canGiveSocialSmile"
-              name="socialSmile"
-              value="yes"
-              checked
-            />
-            <label class="custom-control-label" for="canGiveSocialSmile">
-              Yes
-            </label>
-          </div>
-        </div>
-        <div class="col">
-          <div class="custom-control custom-checkbox">
-            <input
-              type="radio"
-              class="custom-control-input"
-              id="canNotGiveSocialSmile"
-              name="socialSmile"
-              value="no"
-            />
-            <label class="custom-control-label" for="canNotGiveSocialSmile">
-              No
-            </label>
-          </div>
-        </div>
-        <div class="col"></div>
-      </div>
-      <br />
-
-      <label class="fieldlabels">Were your linguistic development late </label>
-      <br />
-      <div class="row">
-        <div class="col">
-          <div class="custom-control custom-checkbox">
-            <input
-              type="radio"
-              class="custom-control-input"
-              id="linguisticDevLate"
-              name="linguisticDevelopment"
-              value="yes"
-            />
-            <label class="custom-control-label" for="linguisticDevLate">
-              Yes
-            </label>
-          </div>
-        </div>
-        <div class="col">
-          <div class="custom-control custom-checkbox">
-            <input
-              type="radio"
-              class="custom-control-input"
-              id="linguisticDevNotLate"
-              name="linguisticDevelopment"
-              value="no"
-              checked
-            />
-            <label class="custom-control-label" for="linguisticDevNotLate">
-              No
-            </label>
-          </div>
-        </div>
-        <div class="col"></div>
-      </div>
-      <br />
-
-      <label class="fieldlabels">When could you first speak normally? </label>
-      <input type="text" name="first_speak" placeholder="" />
-      <br />
-    </div>
 
     <div class="secondary-container">
       <h4 class="subsection-title">Immunization history</h4>
@@ -261,13 +89,13 @@
   </div>
   <input type="button" name="next" class="next action-button" value="Next" />
   <script>
-    // $.get("/admin/getSectionData/Birth and Developmental History", (data) => {
-    //   let elmStr = "";
-    //   for (let i = 0; i < data.subSections.length; i++) {
-    //     elmStr += getSubSectionStr(data.subSections[i]);
-    //   }
-    //   $("#addPlace1").replaceWith(elmStr);
-    // });
+    $.get("/profile/getSectionData/Birth and Developmental History", (data) => {
+      let elmStr = "";
+      for (let i = 0; i < data.subSections.length; i++) {
+        elmStr += getSubSectionStr(data.subSections[i]);
+      }
+      $("#addPlace1").replaceWith(elmStr);
+    });
 
     function getSubSectionStr(subSection) {
       let elmStr = "";

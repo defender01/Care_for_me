@@ -40,6 +40,10 @@
                 <div class="sub-part-row">
                   <h5 class="left subsection-title">Father's details</h5>               
                 </div>
+
+                <div id="addFatherDetails"></div>
+                <div id="addMotherDetails"></div>
+
                 <div class="sub-part" id='fatherDetails'>
   
                   <div class="sub-part-row">
@@ -236,8 +240,33 @@
     <input type="button" name="previous" class="previous action-button-previous" value="Previous" />
 
     <script>
+    //   $.get("/profile/getSectionData/Family Information", (data) => {
+    //   let fatherElm = "", motherElm = "", siblingElm = "", childrenElm = "", relativeElm = "", ;
+    //   for (let i = 0; i < data.subSections.length; i++) {
+    //     if(data.subSections[i].name == "Father's Details")
+    //      fatherElm += getSubSectionStr(data.subSections[i]);
+    //     else if(data.subSections[i].name == "Father's Details")
+    //      motherElm += getSubSectionStr(data.subSections[i]);
+    //     else if(data.subSections[i].name == "Father's Details")
+    //       siblingElm += getSubSectionStr(data.subSections[i]);
+    //     else if(data.subSections[i].name == "Father's Details")
+    //       childrenElm += getSubSectionStr(data.subSections[i]);
+    //     else if(data.subSections[i].name == "Father's Details")
+    //      relativeElm += getSubSectionStr(data.subSections[i]);
+    //   }
+    //   $("#addPlace1").replaceWith(elmStr);
+    // });
+    // function getSubSectionStr(subSection) {
+    //   let elmStr = "";
+
+    //   elmStr += '<h4 class="subsection-title">' + subSection.name + "</h4>";
+    //   for (let i = 0; i < subSection.questions.length; i++) {
+    //     elmStr += getQuestionStr(subSection.questions[i]);
+    //   }
+
+    //   return '<div class="secondary-container">' + elmStr + "</div>";
+    // }
        
-       
-      </script>
+    </script>
 
   </fieldset>
