@@ -10,9 +10,6 @@
           </div>
         </div>
       </div>
-      
-      <div id="addPlace2"></div>
-
       <div class="secondary-container">
         <!-- family history -->
         <div class="family-container">
@@ -34,199 +31,8 @@
                 aria-controls="relatives" aria-selected="false">Other relatives</a>
             </li>
           </ul>
-          <div class="tab-content" id="myTabContent">
-            <div class="tab-pane fade show active" id="parents" role="tabpanel" aria-labelledby="parents-tab">
-              <div class="part" id="parentsInfo">
-                <div class="sub-part-row">
-                  <h5 class="left subsection-title">Father's details</h5>               
-                </div>
 
-                <div id="addFatherDetails"></div>
-                <div id="addMotherDetails"></div>
-
-                <div class="sub-part" id='fatherDetails'>
-  
-                  <div class="sub-part-row">
-                    <p class="title">
-                      Name
-                    </p>
-                  </div>
-                  <div class="sub-sub-part">
-                    <input type="text" name="" name='name'></input>
-                  </div>
-                  <br>                
-                  <div class="collapse" id="collapseExamplefatherDetails">
-                    <div class="sub-part-row">
-                      <p class="title">
-                        Relation with you
-                      </p>
-                    </div>
-                    <div class="sub-sub-part">
-                      <input type="text" name=""></input>
-                    </div>
-                    <br>
-                    <div class="sub-part-row">
-                      <p class="title">
-                        Gender
-                      </p>
-                    </div>
-                    <div class="sub-sub-part">
-                      <input type="text"></input>
-                    </div>
-                    <br>
-                    <hr>
-                    <p class="title">
-                      Birth date
-                    </p>
-                    <div class="sub-sub-part">
-                      <input type="date" name='birthDate'></input>
-                    </div>
-                    <hr>
-                    <p class="title">
-                      Physical health
-                    </p>
-                    <p>Suffered physcal problems:</p>
-                    <div class="sub-sub-part">
-                      <div class="row">
-                        <div class="col">
-                          <% if(typeof physicalDiseasesJson != 'undefined'){ %>
-                          <% for(let i = 0 ; i < Math.floor(physicalDiseasesJson.length/2); i++) {%>
-                            <p class="physical-prob"><%= physicalDiseasesJson[i].name %></p>
-                          
-                          <% } %>
-                          <% } %>
-                        </div>
-                        <div class="col">
-                          <% if(typeof physicalDiseasesJson != 'undefined'){ %>
-                          <% for(let i = Math.floor(physicalDiseasesJson.length/2) ; i < physicalDiseasesJson.length; i++) {%>
-                            <p class="physical-prob"><%= physicalDiseasesJson[i].name %></p>
-                          
-                          <% } %>
-                          <% } %>
-                        </div>
-                      </div>
-                    </div>
-                    <hr>
-                    <p class="title">
-                      Mental health
-                    </p>
-                    <p>Suffered mental problems:</p>
-                    <div class="sub-sub-part">
-                      <div class="row">
-                        <div class="col">
-                          <% if(typeof mentalDiseasesJson != 'undefined'){ %>
-                          <% for(let i = 0 ; i < Math.floor(mentalDiseasesJson.length/2); i++) {%>
-  
-                          <div class="custom-control custom-checkbox">
-                            <input type="checkbox" class="custom-control-input" id='<%= mentalDiseasesJson[i].id %>'
-                              name='<%= mentalDiseasesJson[i].name%>' onclick="return false;">
-                            <label class="custom-control-label" for='<%= mentalDiseasesJson[i].id %>'>
-                              <%= mentalDiseasesJson[i].name %>
-                            </label>
-                          </div>
-                          <% } %>
-                          <% } %>
-                        </div>
-                        <div class="col">
-                          <% if(typeof mentalDiseasesJson != 'undefined'){ %>
-                          <% for(let i = Math.floor(mentalDiseasesJson.length/2) ; i < mentalDiseasesJson.length; i++) {%>
-  
-                          <div class="custom-control custom-checkbox">
-                            <input type="checkbox" class="custom-control-input" id='<%= mentalDiseasesJson[i].id %>'
-                              name='<%= mentalDiseasesJson[i].name%>' onclick="return false;" checked>
-                            <label class="custom-control-label" for='<%= mentalDiseasesJson[i].id %>'>
-                              <%= mentalDiseasesJson[i].name %>
-                            </label>
-                          </div>
-                          <% } %>
-                          <% } %>
-                        </div>
-                      </div>
-                    </div>
-                    <br>
-                    <p class="title">
-                      Occupation
-                    </p>
-                    <div class="sub-sub-part">
-                      <input type="text" name="question"></input>
-                    </div>
-                    <p class="title">
-                      Is the person dead?
-                    </p>
-                    <div class="custom-control custom-radio">
-                      <input type="radio" id="personDead" name="dead" class="custom-control-input" value="Yes" onclick="displayConditionalSection(['deathDetails']);">
-                      <label class="custom-control-label" for="personDead">Yes</label>
-                    </div>
-                    <div class="custom-control custom-radio">
-                      <input type="radio" id="personNotDead" name="dead" class="custom-control-input" value="No" onclick="hideConditionalSection(['deathDetails']);" >
-                      <label class="custom-control-label" for="personNotDead">No</label>
-                    </div>
-                    <div id="deathDetails">
-                      <p class="title">
-                        Date of death
-                      </p>
-                      <div class="sub-sub-part">
-                        <input type="text"></input>
-                      </div>
-                      <p class="title">
-                        Cause of death
-                      </p>
-                      <div class="sub-sub-part">
-                        <input type="text"></input>
-                      </div>
-                    </div>
-                    
-                  </div>
-                  <br>
-                  <div class="extend">
-                    <p>
-                      <a class="btn btn-light" data-toggle="collapse" href="#collapseExamplefatherDetails" id="seeMore"
-                        role="button" onclick="changeButtonText(this.id)" aria-expanded="false"
-                        aria-controls="collapseExample">
-                        See more
-                      </a>
-                    </p>
-                  </div>
-                </div>              
-              </div>
-            </div>
-            <div class="tab-pane fade" id="siblings" role="tabpanel" aria-labelledby="siblings-tab">
-              <div class="part" id="siblingsInfo">
-                <div class="sub-part-row">
-                  <h5 class="left subsection-title">Sibling's details</h5>              
-                    <i class="far fa-plus-square" onclick="togglePopUpFamilyHistoryAdd(this.parentElement.parentElement.id)"></i>
-                </div>
-                <p id="siblingsCnt" class="countShow">Total number: </p>              
-                <div class="sub-part" id='siblingsDetails'>
-                  
-                </div>
-              </div>
-            </div>
-            <div class="tab-pane fade" id="children" role="tabpanel" aria-labelledby="children-tab">
-              <div class="part" id="childrenInfo">
-                <div class="sub-part-row">
-                  <h5 class="left subsection-title">Children's details</h5>
-                  <i class="far fa-plus-square" onclick="togglePopUpFamilyHistoryAdd(this.parentElement.parentElement.id)"></i>
-                </div>
-                <p id="childrenCnt" class="countShow">total number: </p>
-                <div class="sub-part" id='childrenDetails'>
-                  
-                </div>
-              </div>
-            </div>
-            <div class="tab-pane fade" id="relatives" role="tabpanel" aria-labelledby="relatives-tab">
-              <div class="part" id="relativeInfo">
-                <div class="sub-part-row">
-                  <h5 class="left subsection-title">Relative details</h5>
-                    <i class="far fa-plus-square" onclick="togglePopUpFamilyHistoryRelativeAdd(this.parentElement.parentElement.id)"></i>
-                </div>
-                <p id="relativeCnt" class="countShow">total number: </p>
-                <div class="sub-part" id='relativeDetails'>
-                  
-                </div>
-              </div>
-            </div>
-          </div>
+          <div id="addPlace2"></div>
   
                 
   
@@ -241,31 +47,79 @@
 
     <script>
     //   $.get("/profile/getSectionData/Family Information", (data) => {
-    //   let fatherElm = "", motherElm = "", siblingElm = "", childrenElm = "", relativeElm = "", ;
+    //     console.log("family info came")
+    //   let elmStr = "", fatherElm = "", motherElm = "", siblingElm = "", childrenElm = "", relativeElm = ""
     //   for (let i = 0; i < data.subSections.length; i++) {
     //     if(data.subSections[i].name == "Father's Details")
-    //      fatherElm += getSubSectionStr(data.subSections[i]);
-    //     else if(data.subSections[i].name == "Father's Details")
-    //      motherElm += getSubSectionStr(data.subSections[i]);
-    //     else if(data.subSections[i].name == "Father's Details")
-    //       siblingElm += getSubSectionStr(data.subSections[i]);
-    //     else if(data.subSections[i].name == "Father's Details")
-    //       childrenElm += getSubSectionStr(data.subSections[i]);
-    //     else if(data.subSections[i].name == "Father's Details")
-    //      relativeElm += getSubSectionStr(data.subSections[i]);
+    //      fatherElm += getSubSectionStr2(data.subSections[i]);
+    //     else if(data.subSections[i].name == "Mother's Details")
+    //      motherElm += getSubSectionStr2(data.subSections[i]);
+    //     else if(data.subSections[i].name == "Sibling's Details")
+    //       siblingElm += getSubSectionStr2(data.subSections[i]);
+    //     else if(data.subSections[i].name == "Children's Details")
+    //       childrenElm += getSubSectionStr2(data.subSections[i]);
+    //     else if(data.subSections[i].name == "Relative's Details")
+    //      relativeElm += getSubSectionStr2(data.subSections[i]);
     //   }
-    //   $("#addPlace1").replaceWith(elmStr);
+    //   elmStr += '<div class="tab-content" id="myTabContent">'+
+    //               '<div class="tab-pane fade show active" id="parents" role="tabpanel" aria-labelledby="parents-tab">'+
+    //                 '<div class="part" id="parentsInfo">'+
+    //                   fatherElm + motherElm+
+    //                 '</div>'+
+    //               '</div>'+
+    //               '<div class="tab-pane fade" id="siblings" role="tabpanel" aria-labelledby="siblings-tab">'+
+    //                 '<div class="part" id="siblingsInfo">'+
+    //                   siblingElm+
+    //                 '</div>'+
+    //               '</div>'+
+    //               '<div class="tab-pane fade" id="children" role="tabpanel" aria-labelledby="children-tab">'+
+    //                 '<div class="part" id="childrenInfo">'+
+    //                   childrenElm+
+    //                 '</div>'+
+    //               '</div>'+
+    //               '<div class="tab-pane fade" id="relatives" role="tabpanel" aria-labelledby="relatives-tab">'+
+    //                 '<div class="part" id="relativeInfo">'+
+    //                   relativeElm+
+    //                 '</div>'+
+    //               '</div>'+
+    //             '</div>' 
+    //   $("#addPlace2").replaceWith(elmStr);
     // });
-    // function getSubSectionStr(subSection) {
-    //   let elmStr = "";
+    function getSubSectionStr2(subSection) {
+      let elmStr = "", qStr="";
+      if(subSection.name!="Father's Details" && subSection.name!="Mother's Details"){
+        elmStr += '<div class="sub-part-row">'+
+                    '<h5 class="left subsection-title">' + subSection.name + '</h5>'+
+                    '<i class="far fa-plus-square" onclick="togglePopUpFamilyHistoryAdd(this.parentElement.parentElement.id)"></i>'+
+                  '</div>'
+      }
+      else{ 
+        elmStr += '<div class="sub-part-row">'+
+                      '<h5 class="left subsection-title">' + subSection.name + '</h5>'+
+                  '</div>'
+      }
 
-    //   elmStr += '<h4 class="subsection-title">' + subSection.name + "</h4>";
-    //   for (let i = 0; i < subSection.questions.length; i++) {
-    //     elmStr += getQuestionStr(subSection.questions[i]);
-    //   }
+      for (let i = 0; i < subSection.questions.length; i++) {
+        // make collapse id unique while creating ans 
+        if(i==1)qStr+=  '<div class="collapse" id="collapse'+subSection._id+'">'
+        qStr += getQuestionStr(subSection.questions[i]);
+      }
+      // make href collapse id unique while creating ans 
+      // make seeMore id unique while creating ans 
+      qStr+= '</div>'+
+              '<br>'+
+              '<div class="extend">'+
+                '<p>'+
+                  '<a class="btn btn-light" data-toggle="collapse" href="#collapse'+subSection._id+'" id="'+subSection._id+'seeMore"'+
+                    'role="button" onclick="changeButtonText(this.id)" aria-expanded="false"'+
+                    'aria-controls="collapseExample">'+
+                    'See more'+
+                  '</a>'+
+                '</p>'+
+              '</div>'
 
-    //   return '<div class="secondary-container">' + elmStr + "</div>";
-    // }
+      return elmStr + '<div class="sub-part">' + qStr + "</div>";
+    }
        
     </script>
 

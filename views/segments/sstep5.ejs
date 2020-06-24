@@ -24,13 +24,13 @@
     />
 
     <script>
-      $.get("/profile/getSectionData/Previous Diseases and Disorders", (data) => {
-        let elmStr = "";
-        for (let i = 0; i < data.subSections.length; i++) {
-          elmStr += getSubSectionStr5(data.subSections[i]);
-        }
-        $("#addPlace5").replaceWith(elmStr);
-      });
+      // $.get("/profile/getSectionData/Previous Diseases and Disorders", (data) => {
+      //   let elmStr = "";
+      //   for (let i = 0; i < data.subSections.length; i++) {
+      //     elmStr += getSubSectionStr5(data.subSections[i]);
+      //   }
+      //   $("#addPlace5").replaceWith(elmStr);
+      // });
       function getSubSectionStr5(subSection) {
       let elmStr = "", qStr='';
       elmStr += ''
