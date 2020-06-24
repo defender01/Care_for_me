@@ -89,13 +89,13 @@
   </div>
   <input type="button" name="next" class="next action-button" value="Next" />
   <script>
-    // $.get("/profile/getSectionData/Birth and Developmental History", (data) => {
-    //   let elmStr = "";
-    //   for (let i = 0; i < data.subSections.length; i++) {
-    //     elmStr += getSubSectionStr(data.subSections[i]);
-    //   }
-    //   $("#addPlace1").replaceWith(elmStr);
-    // });
+    $.get("/profile/getSectionData/Birth and Developmental History", (data) => {
+      let elmStr = "";
+      for (let i = 0; i < data.subSections.length; i++) {
+        elmStr += getSubSectionStr(data.subSections[i]);
+      }
+      $("#addPlace1").replaceWith(elmStr);
+    });
 
     function getSubSectionStr(subSection) {
       let elmStr = "";

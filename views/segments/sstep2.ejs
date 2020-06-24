@@ -46,45 +46,45 @@
     <input type="button" name="previous" class="previous action-button-previous" value="Previous" />
 
     <script>
-    //   $.get("/profile/getSectionData/Family Information", (data) => {
-    //     console.log("family info came")
-    //   let elmStr = "", fatherElm = "", motherElm = "", siblingElm = "", childrenElm = "", relativeElm = ""
-    //   for (let i = 0; i < data.subSections.length; i++) {
-    //     if(data.subSections[i].name == "Father's Details")
-    //      fatherElm += getSubSectionStr2(data.subSections[i]);
-    //     else if(data.subSections[i].name == "Mother's Details")
-    //      motherElm += getSubSectionStr2(data.subSections[i]);
-    //     else if(data.subSections[i].name == "Sibling's Details")
-    //       siblingElm += getSubSectionStr2(data.subSections[i]);
-    //     else if(data.subSections[i].name == "Children's Details")
-    //       childrenElm += getSubSectionStr2(data.subSections[i]);
-    //     else if(data.subSections[i].name == "Relative's Details")
-    //      relativeElm += getSubSectionStr2(data.subSections[i]);
-    //   }
-    //   elmStr += '<div class="tab-content" id="myTabContent">'+
-    //               '<div class="tab-pane fade show active" id="parents" role="tabpanel" aria-labelledby="parents-tab">'+
-    //                 '<div class="part" id="parentsInfo">'+
-    //                   fatherElm + motherElm+
-    //                 '</div>'+
-    //               '</div>'+
-    //               '<div class="tab-pane fade" id="siblings" role="tabpanel" aria-labelledby="siblings-tab">'+
-    //                 '<div class="part" id="siblingsInfo">'+
-    //                   siblingElm+
-    //                 '</div>'+
-    //               '</div>'+
-    //               '<div class="tab-pane fade" id="children" role="tabpanel" aria-labelledby="children-tab">'+
-    //                 '<div class="part" id="childrenInfo">'+
-    //                   childrenElm+
-    //                 '</div>'+
-    //               '</div>'+
-    //               '<div class="tab-pane fade" id="relatives" role="tabpanel" aria-labelledby="relatives-tab">'+
-    //                 '<div class="part" id="relativeInfo">'+
-    //                   relativeElm+
-    //                 '</div>'+
-    //               '</div>'+
-    //             '</div>' 
-    //   $("#addPlace2").replaceWith(elmStr);
-    // });
+      $.get("/profile/getSectionData/Family Information", (data) => {
+        console.log("family info came")
+      let elmStr = "", fatherElm = "", motherElm = "", siblingElm = "", childrenElm = "", relativeElm = ""
+      for (let i = 0; i < data.subSections.length; i++) {
+        if(data.subSections[i].name == "Father's Details")
+         fatherElm += getSubSectionStr2(data.subSections[i]);
+        else if(data.subSections[i].name == "Mother's Details")
+         motherElm += getSubSectionStr2(data.subSections[i]);
+        else if(data.subSections[i].name == "Sibling's Details")
+          siblingElm += getSubSectionStr2(data.subSections[i]);
+        else if(data.subSections[i].name == "Children's Details")
+          childrenElm += getSubSectionStr2(data.subSections[i]);
+        else if(data.subSections[i].name == "Relative's Details")
+         relativeElm += getSubSectionStr2(data.subSections[i]);
+      }
+      elmStr += '<div class="tab-content" id="myTabContent">'+
+                  '<div class="tab-pane fade show active" id="parents" role="tabpanel" aria-labelledby="parents-tab">'+
+                    '<div class="part" id="parentsInfo">'+
+                      fatherElm + motherElm+
+                    '</div>'+
+                  '</div>'+
+                  '<div class="tab-pane fade" id="siblings" role="tabpanel" aria-labelledby="siblings-tab">'+
+                    '<div class="part" id="siblingsInfo">'+
+                      siblingElm+
+                    '</div>'+
+                  '</div>'+
+                  '<div class="tab-pane fade" id="children" role="tabpanel" aria-labelledby="children-tab">'+
+                    '<div class="part" id="childrenInfo">'+
+                      childrenElm+
+                    '</div>'+
+                  '</div>'+
+                  '<div class="tab-pane fade" id="relatives" role="tabpanel" aria-labelledby="relatives-tab">'+
+                    '<div class="part" id="relativeInfo">'+
+                      relativeElm+
+                    '</div>'+
+                  '</div>'+
+                '</div>' 
+      $("#addPlace2").replaceWith(elmStr);
+    });
     function getSubSectionStr2(subSection) {
       let elmStr = "", qStr="";
       if(subSection.name!="Father's Details" && subSection.name!="Mother's Details"){
