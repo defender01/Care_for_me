@@ -22,15 +22,21 @@
 	<link rel="stylesheet" href="/assets/cssFiles/navbar.css">
 
   <!-- stylesheet and script for MUltiple step form -->
-  <link rel="stylesheet" href="/assets/cssFiles/medHistory.css">
-  
+  <link rel="stylesheet" href="/assets/cssFiles/medHistory.css">  
   <script src='/assets/jsFiles/medHistory.js'></script>
+
+  <!-- for loader -->
+  <script src="/assets/jsFiles/loader.js"></script>    
+  <link rel="stylesheet" href="/assets/cssFiles/loader.css" />
 
   <title>Medical History</title>
 
 </head>
 
 <body onload="onStart()">
+  <!-- display loading icon -->
+  <div class="se-pre-con"></div>
+  <!-- ends -->
 
   <!-- navigation bar -->
 	<% include ./segments/navbar %>

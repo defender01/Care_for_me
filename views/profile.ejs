@@ -6,10 +6,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-
     <script src="https://code.jquery.com/jquery-3.4.1.js"
         integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
-
 
     <link href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.3/css/font-awesome.css'>
 
@@ -23,14 +21,21 @@
 
     <!-- stylesheet and script for MUltiple step form -->
     <link rel="stylesheet" href="/assets/cssFiles/profile.css">
-
     <script src='/assets/jsFiles/profile.js'></script>
+
+    <!-- for loader -->
+    <script src="/assets/jsFiles/loader.js"></script>    
+    <link rel="stylesheet" href="/assets/cssFiles/loader.css" />
+  
 
     <title>Profile</title>
 
 </head>
 
 <body onload="onStart()">
+    <!-- display loading icon -->
+    <div class="se-pre-con"></div>
+    <!-- ends -->
 
     <!-- navigation bar -->
     <% include ./segments/navbar %>

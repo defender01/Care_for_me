@@ -271,7 +271,6 @@ async function deleteSecSubSecQuesOp(req, res) {
 
 async function getSectionData(req, res) {
   let section = req.params.section;
-  console.log({ section });
   let data = await sectionModel
     .findOne({
       name: section,
@@ -299,7 +298,7 @@ async function getSectionData(req, res) {
     })
     .exec();
 
-  console.log(util.inspect({ data }, false, null, true /* enable colors */));
+  // console.log(util.inspect({ data }, false, null, true /* enable colors */));
   res.send(data);
 }
 
