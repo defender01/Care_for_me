@@ -13,48 +13,52 @@
       <span class="navbar-toggler-icon"></span>
     </button>
 
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav mr-auto ">
-        <li class="nav-item ">
-          <a class="nav-link" href="/home" 
-            >Home <span class="sr-only">(current)</span></a
-          >
-        </li>
-        <% if( typeof displayName == 'undefined' || displayName == '') { %>
-        <li class="nav-item ">
-          <a class="nav-link" href="/auth/login"
-            >Login <span class="sr-only">(current)</span></a
-          >
-        </li>
-        <% } %>
-        <li class="nav-item ">
-          <a class="nav-link" href="/data/collection"
-            >Data <span class="sr-only">(current)</span></a
-          >
-        </li>
-        <li class="nav-item ">
-          <a class="nav-link" href="/profile/edit" 
-            >Medical History <span class="sr-only">(current)</span></a
-          >
-        </li>
-        <li class="nav-item ">
-          <a class="nav-link" href="/profile" 
-            >Profile <span class="sr-only">(current)</span></a
-          >
-        </li>
-      </ul>
-      <ul class="navbar-nav">
-        <% if( typeof displayName != 'undefined' && displayName != '') { %>
-        <li class="nav-item dpName">
-          <h4><%= displayName %></h4>
-        </li>
-        <li class="nav-item ">
-          <a class="nav-link " href="/auth/logout"
-            >Logout <span class="sr-only">(current)</span></a
-          >
-        </li>
-        <% } %>
-      </ul>
+   
 
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <span class="navbar-text">
+        <ul class="navbar-nav mr-auto ">
+          <li class="nav-item ">
+            <a class="nav-link" href="/home" 
+              >Home </a
+            >
+          </li>
+          <% if( typeof displayName == 'undefined' || displayName == '') { %>
+          <li class="nav-item ">
+            <a class="nav-link" href="/auth/login"
+              >Login </a
+            >
+          </li>
+          <% } %>
+          <li class="nav-item ">
+            <a class="nav-link" href="/data/collection"
+              >Data </a
+            >
+          </li>
+          <li class="nav-item ">
+            <a class="nav-link" href="/profile/edit" 
+              >Medical History </a
+            >
+          </li>
+          <li class="nav-item ">
+            <a class="nav-link" href="/profile" 
+              >Profile </a
+            >
+          </li>
+        </ul>
+        <ul class="navbar-nav">
+          <% if( typeof displayName != 'undefined' && displayName != '') { %>
+          <li class="nav-item dpName">
+            <h4><%= displayName %></h4>
+          </li>
+          <li class="nav-item ">
+            <a class="nav-link " href="/auth/logout"
+              >Logout </a
+            >
+          </li>
+          <% } %>
+        </ul>
+      </span>
+  
     </div>
   </nav>
