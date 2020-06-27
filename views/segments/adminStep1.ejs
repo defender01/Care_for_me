@@ -1,0 +1,117 @@
+<fieldset>
+    <div class="form-card">
+      <div class="secondary-container title-bar">
+        <div class="row">
+          <div class="col-8">
+            <h2 class="fs-title">Birth and Developmental History:</h2>
+          </div>
+          <div class="col-4">
+            <h2 class="steps">Step 1 - 5</h2>
+          </div>
+        </div>
+      </div>
+  
+      <div id="addPlace1"></div>
+
+    </div>
+    <input type="button" name="next" class="next action-button" value="Next" />
+    <script>
+      $.get("/profile/getSectionData/Birth and Developmental History", (data) => {
+        let elmStr = "";
+        for (let i = 0; i < data.subSections.length; i++) {
+          elmStr += getSubSectionStr(data.subSections[i]);
+        }
+        $("#addPlace1").replaceWith(elmStr);
+      });
+  
+      function getSubSectionStr(subSection) {
+        let elmStr = "";
+        elmStr += '<h4 class="subsection-title">' + subSection.name + "</h4>";
+        for (let i = 0; i < subSection.questions.length; i++) {
+          elmStr += getQuestionStr(subSection.questions[i]);
+        }
+  
+        return '<div class="secondary-container">' + elmStr + "</div>";
+      }
+      function getQuestionStr(question) {
+        let elmStr = "";
+        elmStr += '<div class="flx_prnt_input_opt">'+
+                    '<div class="flx_chld_input">'+
+                      '<label class="fieldlabels">' + question.name + "</label>"+
+                    '</div>'+
+                    '<div class="flx_chld_opt">'+
+                      '<button type="button" class="btn btn-danger" onclick="editQues('+JSON.stringify(question)+')">Edit</button>'+
+                    '</div>'+
+                  '</div>'
+        if (question.inputType == "numerical")
+          elmStr +=' <input type="number" name="' + question._id + '" placeholder="" />';
+        else if (question.inputType == "date")
+          elmStr +=' <input type="date" name="' + question._id + '" placeholder="" />';
+        else if (question.inputType == "singleLine")
+          elmStr +=' <input type="text" name="' + question._id + '" placeholder="" />';
+        else if (question.inputType == "multiLine")
+          elmStr +='<textarea class="form-control" name="' + question._id + '"  rows="3"></textarea>'
+        else if (question.inputType == "multiChoiceSingleAns")
+          elmStr += getMultiChoiceSingleOp(question._id, question.options)
+        else if (question.inputType == "multiChoiceMultiAns")
+          elmStr += getMultiChoiceMultiOp(question._id, question.options)
+  
+        return elmStr+ '<br>';
+      }
+  
+      function getMultiChoiceSingleOp(qId, options){
+          let elmStr = ''
+          let conditionalPart='', condArrayStr = '['
+  
+          for(let i=0; i<options.length; i++){
+            if(options[i].questions.length>0)
+              condArrayStr += '\'conditional'+options[i]._id+'\', '
+          }
+          condArrayStr+=']'
+  
+          for(let i=0; i<options.length; i++){
+            if(options[i].questions.length>0){
+              let str = "\'conditional"+options[i]._id+"\'," 
+              let newCondArray = condArrayStr.replace(str, '')
+              elmStr += '<div class="custom-control custom-radio">'+
+              '<input type="radio" id="'+options[i]._id+'" name="'+ qId +'" class="custom-control-input" value="'+options[i].name+'" onclick="hideConditionalSection('+newCondArray+'); displayConditionalSection([\'conditional'+options[i]._id+'\']); ">'+
+              '<label class="custom-control-label" for="'+options[i]._id+'">'+options[i].name+'</label>'+
+              '</div>'
+              let qStr = ''
+              for(let j=0; j<options[i].questions.length; j++){
+                qStr+= getQuestionStr(options[i].questions[j])
+              }
+              conditionalPart += '<div id= "conditional'+options[i]._id+'" style="display: none;">'+ qStr +'</div>'
+            }
+            else{
+              elmStr += '<div class="custom-control custom-radio">'+
+              '<input type="radio" id="'+options[i]._id+'" name="'+ qId +'" class="custom-control-input" value="'+options[i].name+'" onclick="hideConditionalSection('+condArrayStr+');">'+
+              '<label class="custom-control-label" for="'+options[i]._id+'">'+options[i].name+'</label>'+
+              '</div>'
+            }
+          }
+          return elmStr+conditionalPart
+      }
+  
+      function getMultiChoiceMultiOp(qId, options){
+        let elmStr = ''
+  
+        for(let i=0; i<options.length; i++){
+          elmStr += '<div class="custom-control custom-checkbox">'+
+            '<input type="checkbox" id="'+options[i]._id+'" name="'+ qId +'" class="custom-control-input" value="'+options[i].name+'" onclick="displayConditionalSectionCheckbox(\''+options[i]._id+'\' , \'conditional'+options[i]._id+'\'); ">'+
+            '<label class="custom-control-label" for="'+options[i]._id+'">'+options[i].name+'</label>'+
+            '</div>'
+          
+          if(options[i].questions.length>0){  
+            let qStr = ''
+            for(let j=0; j<options[i].questions.length; j++){
+              qStr+= getQuestionStr(options[i].questions[j])
+            }
+            elmStr += '<div id= "conditional'+options[i]._id+'" style="display: none;">'+ qStr +'</div>'
+          }
+        }
+        return elmStr
+      }
+    </script>
+  </fieldset>
+  

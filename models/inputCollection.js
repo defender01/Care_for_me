@@ -15,6 +15,7 @@ const questionSchema = new Schema({
   name: String,
   inputType: String,
   options: [{ type: Schema.Types.ObjectId, ref: 'option' }],
+  qLabel: String
 });
 
 const optionSchema = new Schema({

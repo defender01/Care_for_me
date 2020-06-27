@@ -441,3 +441,19 @@ i.far.fa-plus-square {
     background-color: #a2b4ff;   
     
 }
+.flx_prnt_input_opt{
+	width: 100%;
+	height: 100%;
+	@media (min-width:800px){		
+		display: flex;
+		justify-content: space-between;
+	}
+	.flx_chld_input{
+		margin-right: 20px;
+		flex: 3;
+	}
+	.flx_chld_opt{
+		text-align: end;
+		flex:1;
+	}
+}

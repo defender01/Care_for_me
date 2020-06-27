@@ -67,13 +67,16 @@ function addQuestion(idAdder){
                       'Question :' +
                       '<br>'+
                       '<div class="flx_prnt_input_opt">'+
-                          '<div class="flx_chld_input">'+
-                            '<input type="text" name="question" required>'+
-                          '</div>'+
-                          '<div class="flx_chld_opt">'+
-                            '<button type="button" class="btn btn-danger" onclick="deleteQuestion('+'\'qCounter'+idAdder+'\','+'\'questionContainer'+idAdder+totalQCount+'\')">Delete</button>'+
-                          '</div>'+
+                        '<div class="flx_chld_input">'+
+                          '<input type="text" name="question" required>'+
                         '</div>'+
+                        '<div class="flx_chld_opt">'+
+                          '<button type="button" class="btn btn-danger" onclick="deleteQuestion('+'\'qCounter'+idAdder+'\','+'\'questionContainer'+idAdder+totalQCount+'\')">Delete</button>'+
+                        '</div>'+
+                      '</div>'+
+                      '<br>'+
+                      '<label class="fieldlabels">Write a label for this question:(E.g. Question: What is your name?, Label for it: Name) </label>'+
+                      '<input type="text" name="qLabel" placeholder="" required/>'+
                       '<br>     '+
                       '<label class="fieldlabels">Select your question type form below:</label>'+
                       '<div class="custom-control custom-radio">'+
@@ -160,6 +163,10 @@ function getSubSections(id, subSectionNames) {
     rawhtml+= '<option value="'+subSectionNames[ind][i]+'">'+ subSectionNames[ind][i] +'</option>'
   }
   document.getElementById('subSectionId').innerHTML= rawhtml
+}
+
+function editQues(question){
+  console.log({question})
 }
   
 function onStart(){

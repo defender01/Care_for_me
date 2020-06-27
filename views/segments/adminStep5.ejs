@@ -1,0 +1,36 @@
+<fieldset>
+    <div class="form-card">
+      <div class="secondary-container title-bar">
+        <div class="row">
+          <div class="col-7">
+            <h2 class="fs-title">Previous Diseases and Disorders:</h2>
+          </div>
+          <div class="col-5">
+            <h2 class="steps">Step 5 - 5</h2>
+          </div>
+        </div>
+      </div>
+
+      <div id="addPlace5"></div>
+  
+    </div>
+  
+   
+    <input
+      type="button"
+      name="previous"
+      class="previous action-button-previous"
+      value="Previous"
+    />
+
+    <script>
+     $.get("/profile/getSectionData/Previous Diseases and Disorders", (data) => {
+      let elmStr = "";
+      for (let i = 0; i < data.subSections.length; i++) {
+        elmStr += getSubSectionStr(data.subSections[i]);
+      }
+      $("#addPlace5").replaceWith(elmStr);
+    });
+    </script>
+  </fieldset>
+  

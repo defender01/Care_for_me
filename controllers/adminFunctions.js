@@ -160,6 +160,9 @@ async function saveQues(data, idAdder = "") {
       ? data["typeIndicator"].shift()
       : data["typeIndicator"],
     options: [],
+    qLabel: Array.isArray(data["qLabel"])
+    ? data["qLabel"].shift()
+    : data["qLabel"]
   });
 
   if (
@@ -186,7 +189,7 @@ async function saveQues(data, idAdder = "") {
 async function sendSectionSubSec(req, res) {
   let { sectionNames, subSectionNames } = await getSectionSubSection();
 
-  res.render("addQues", {
+  res.render("adminAddProfileQues", {
     sectionNames,
     subSectionNames,
   });
@@ -224,29 +227,29 @@ async function saveQuesOp(req, res) {
     }
   );
 
-  let datas = await subSectionModel
-    .find({
-      _id: subSectionData._id,
-    })
-    .populate({
-      path: "questions",
-      populate: {
-        path: "options",
-        populate: {
-          path: "questions",
-          populate: {
-            path: "options",
-            populate: {
-              path: "questions",
-              populate: {
-                path: "options",
-              },
-            },
-          },
-        },
-      },
-    })
-    .exec();
+  // let datas = await subSectionModel
+  //   .find({
+  //     _id: subSectionData._id,
+  //   })
+  //   .populate({
+  //     path: "questions",
+  //     populate: {
+  //       path: "options",
+  //       populate: {
+  //         path: "questions",
+  //         populate: {
+  //           path: "options",
+  //           populate: {
+  //             path: "questions",
+  //             populate: {
+  //               path: "options",
+  //             },
+  //           },
+  //         },
+  //       },
+  //     },
+  //   })
+  //   .exec();
   // console.log(util.inspect({ datas }, false, null, true /* enable colors */));
 
   res.redirect("/admin/addQues");
