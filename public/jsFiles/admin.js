@@ -166,7 +166,7 @@ function getSubSections(id, subSectionNames) {
 }
 
 function editQues(question){
-  console.log({question})
+  
 }
   
 function onStart(){

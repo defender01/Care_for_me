@@ -52,6 +52,6 @@ router.get('/collection', checkAuthenticated, async (req, res) => {
   });
 });
 
-router.post('/medHistory', checkAuthenticated, async (req, res) => {});
+
 
 module.exports = router;

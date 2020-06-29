@@ -15,7 +15,8 @@
   
     </div>
   
-    <input type="submit" class="next action-button" value="Submit" />
+    <!-- <input type="submit" class="next action-button" value="Submit" /> -->
+    <input type="button" onclick="submitForm()" value="Submit" />
     <input
       type="button"
       name="previous"
@@ -24,6 +25,19 @@
     />
 
     <script>
+      function submitForm(){
+        console.log('came in submit')
+        var form = $("#msform")
+        $.ajax({
+           type: "POST",
+           url: '/profile/formSubmit',
+           data: form.serialize(), // serializes the form's elements.
+           success: function(data)
+           {
+               console.log(data); // show response from the php script.
+           }
+         });
+      }
       $.get("/profile/getSectionData/Previous Diseases and Disorders", (data) => {
         let elmStr = "";
         for (let i = 0; i < data.subSections.length; i++) {
