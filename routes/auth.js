@@ -48,6 +48,7 @@ router.post('/register', (req, res) => {
       gender 
     })
   } else {
+    // Need to check for unique phone Number as Authentication is done by email or phone
     User.findOne({ email: email }).then(user => {
       if (user) {
         errors.push({ msg: 'Email already exists' })

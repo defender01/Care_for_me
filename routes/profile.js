@@ -1,7 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const User = require('../models/userInfo')
-var medHistoryModel = require('../models/medHistoryInfo')
+const {answerModel} = require('../models/inputCollection')
 const {
   getSectionData
 } = require("../controllers/adminFunctions");
@@ -39,13 +39,13 @@ router.get("/", checkAuthenticated, async (req, res) => {
   //console.log(substanceNamesJson)
   
   
-  let physicalDiseases = ["Asthma", "Aneurysm", "Diabetes", "Epilepsy Seizures", "Headaches or migraines", "Heart diseases", "High blood pressure", "Kidney disease", "Lung Disease", "Migraine", "Arthritis", "Elevated cholesterol", "Multiple Sclerosis", "Stroke", "Thyroid", "Tuberculosis", "Bleeding disorder"]
-  let mentalDiseases = ["Neurocognitive disordero: dementia/ alzheimer’s disease", "Neurodevelopmental disorder", "Obsessive compulsive disorder", "Schizophrenia", "Depression", "Panic disorder", "Mood disorder", "Attention deficit hyperactivity disorder", "Convulsions", "Somatoform disorder", "Stress disorder", "Eating disorder", "Impulsive control disorder", "Substance abuse disorder"]
+  // let physicalDiseases = ["Asthma", "Aneurysm", "Diabetes", "Epilepsy Seizures", "Headaches or migraines", "Heart diseases", "High blood pressure", "Kidney disease", "Lung Disease", "Migraine", "Arthritis", "Elevated cholesterol", "Multiple Sclerosis", "Stroke", "Thyroid", "Tuberculosis", "Bleeding disorder"]
+  // let mentalDiseases = ["Neurocognitive disordero: dementia/ alzheimer’s disease", "Neurodevelopmental disorder", "Obsessive compulsive disorder", "Schizophrenia", "Depression", "Panic disorder", "Mood disorder", "Attention deficit hyperactivity disorder", "Convulsions", "Somatoform disorder", "Stress disorder", "Eating disorder", "Impulsive control disorder", "Substance abuse disorder"]
   let vaccineNames = ["BCG","Pentavalent","PCV","OPV","MR,Measles","TT (Tetanus toxoid)"]
   let vaccineDiseases = ["Tuberculosis","Diphtheria, Pertussis, Tetanus, Hepatitis B, Hemophilus Influenza B","Pneumococcal Pneumonia","Poliomyelitis","Measles Rubella","Measles","Tetanus"]
   
-  let physicalDiseasesJson = []
-  let mentalDiseasesJson = []
+  // let physicalDiseasesJson = []
+  // let mentalDiseasesJson = []
   let vaccineInfoJson = []
   
   for(var i=0; i<vaccineNames.length; i++) {
@@ -56,29 +56,29 @@ router.get("/", checkAuthenticated, async (req, res) => {
     })
   }
   
-  for(var i=0; i<physicalDiseases.length; i++) {
-    physicalDiseasesJson.push({    
-      name: physicalDiseases[i],
-      id: camelCase(physicalDiseases[i])})
-  }
-  for(var i=0; i<mentalDiseases.length; i++) {
-    mentalDiseasesJson.push({
-      name: mentalDiseases[i],
-      id: camelCase(mentalDiseases[i])})
-  }
+  // for(var i=0; i<physicalDiseases.length; i++) {
+  //   physicalDiseasesJson.push({    
+  //     name: physicalDiseases[i],
+  //     id: camelCase(physicalDiseases[i])})
+  // }
+  // for(var i=0; i<mentalDiseases.length; i++) {
+  //   mentalDiseasesJson.push({
+  //     name: mentalDiseases[i],
+  //     id: camelCase(mentalDiseases[i])})
+  // }
   
   router.get("/edit", async (req, res) => {
   
-     await medHistoryModel.find({},(err, data) => {
-      if (err) throw err
-      else res.render("medHistory", { data, substanceNamesJson, physicalDiseasesJson, mentalDiseasesJson, vaccineInfoJson})
-    })
-  
+      res.render("medHistory", {substanceNamesJson, vaccineInfoJson}) 
   })
   
   router.post("/edit", async (req, res) => {
-  
     console.log(req.body)
+
+    // for (var key of Object.keys(req.body)) {
+      
+    // }
+
     res.redirect('/profile/edit') 
   })
 

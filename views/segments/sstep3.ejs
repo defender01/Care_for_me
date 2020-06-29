@@ -126,13 +126,13 @@
     let elmStr = "";
     elmStr += '<label class="fieldlabels">' + question.name + "</label>";
     if (question.inputType == "numerical")
-      elmStr +=' <input type="number" name="' + question._id + '" placeholder="" />';
+      elmStr +=' <input type="number" name="' + question._id + '-' + substanceName.name + '" placeholder="" />';
     else if (question.inputType == "date")
-      elmStr +=' <input type="date" name="' + question._id + '" placeholder="" />';
+      elmStr +=' <input type="date" name="' + question._id + '-' + substanceName.name + '" placeholder="" />';
     else if (question.inputType == "singleLine")
-      elmStr +=' <input type="text" name="' + question._id + '" placeholder="" />';
+      elmStr +=' <input type="text" name="' + question._id + '-' + substanceName.name + '" placeholder="" />';
     else if (question.inputType == "multiLine")
-      elmStr +='<textarea class="form-control" name="' + question._id + '"  rows="3"></textarea>'
+      elmStr +='<textarea class="form-control" name="' + question._id + '-' + substanceName.name + '"  rows="3"></textarea>'
     else if (question.inputType == "multiChoiceSingleAns")
       elmStr += getMultiChoiceSingleOp3(substanceName, question._id, question.options)
     else if (question.inputType == "multiChoiceMultiAns")
@@ -147,27 +147,27 @@
 
       for(let i=0; i<options.length; i++){
         if(options[i].questions.length>0)
-          condArrayStr += '\'conditional'+substanceName+options[i]._id+'\', '
+          condArrayStr += '\'conditional'+substanceName.name+options[i]._id+'\', '
       }
       condArrayStr+=']'
 
       for(let i=0; i<options.length; i++){
         if(options[i].questions.length>0){
-          let str = "\'conditional"+substanceName+options[i]._id+"\'," 
+          let str = "\'conditional"+substanceName.name+options[i]._id+"\'," 
           let newCondArray = condArrayStr.replace(str, '')
           elmStr += '<div class="custom-control custom-radio">'+
-          '<input type="radio" id="'+options[i]._id+'" name="'+substanceName + qId +'" class="custom-control-input" value="'+options[i].name+'" onclick="hideConditionalSection('+newCondArray+'); displayConditionalSection([\'conditional'+substanceName+options[i]._id+'\']); ">'+
+          '<input type="radio" id="'+options[i]._id+'" name="' + qId + '-' + substanceName.name + '" class="custom-control-input" value="'+options[i].name+'" onclick="hideConditionalSection('+newCondArray+'); displayConditionalSection([\'conditional'+substanceName.name+options[i]._id+'\']); ">'+
           '<label class="custom-control-label" for="'+options[i]._id+'">'+options[i].name+'</label>'+
           '</div>'
           let qStr = ''
           for(let j=0; j<options[i].questions.length; j++){
             qStr+= getQuestionStr3(substanceName, options[i].questions[j])
           }
-          conditionalPart += '<div id= "conditional'+substanceName+options[i]._id+'" style="display: none;">'+ qStr +'</div>'
+          conditionalPart += '<div id= "conditional'+substanceName.name+options[i]._id+'" style="display: none;">'+ qStr +'</div>'
         }
         else{
           elmStr += '<div class="custom-control custom-radio">'+
-          '<input type="radio" id="'+options[i]._id+'" name="'+substanceName + qId +'" class="custom-control-input" value="'+options[i].name+'" onclick="hideConditionalSection('+condArrayStr+');">'+
+          '<input type="radio" id="'+options[i]._id+'" name="' + qId + '-' + substanceName.name + '" class="custom-control-input" value="'+options[i].name+'" onclick="hideConditionalSection('+condArrayStr+');">'+
           '<label class="custom-control-label" for="'+options[i]._id+'">'+options[i].name+'</label>'+
           '</div>'
         }
@@ -180,7 +180,7 @@
 
     for(let i=0; i<options.length; i++){
       elmStr += '<div class="custom-control custom-checkbox">'+
-        '<input type="checkbox" id="'+options[i]._id+'" name="'+ qId +'" class="custom-control-input" value="'+options[i].name+'" onclick="displayConditionalSectionCheckbox(\''+options[i]._id+'\' , \'conditional'+substanceName+options[i]._id+'\'); ">'+
+        '<input type="checkbox" id="'+options[i]._id+'" name="' + qId + '-' + substanceName.name + '" class="custom-control-input" value="'+options[i].name+'" onclick="displayConditionalSectionCheckbox(\''+options[i]._id+'\' , \'conditional'+substanceName.name+options[i]._id+'\'); ">'+
         '<label class="custom-control-label" for="'+options[i]._id+'">'+options[i].name+'</label>'+
         '</div>'
       
@@ -189,7 +189,7 @@
         for(let j=0; j<options[i].questions.length; j++){
           qStr+= getQuestionStr3(substanceName, options[i].questions[j])
         }
-        elmStr += '<div id= "conditional'+substanceName+options[i]._id+'" style="display: none;">'+ qStr +'</div>'
+        elmStr += '<div id= "conditional'+substanceName.name+options[i]._id+'" style="display: none;">'+ qStr +'</div>'
       }
     }
     return elmStr

@@ -27,7 +27,22 @@ const optionSchema = new Schema({
   questions: [{ type: Schema.Types.ObjectId, ref: 'question' }],
 });
 
+const answerSchema = new Schema({
+   userid : {
+     type : Schema.Types.ObjectId 
+   },
+   question : {
+     type: Schema.Types.ObjectId,
+     ref: 'question'
+   },
+   additionalId:{
+     type : String
+   },
+   answer : [String]
+})
+
 exports.sectionModel = mongoose.model('section', sectionSchema);
 exports.subSectionModel = mongoose.model('subSection', subSectionSchema);
 exports.questionModel = mongoose.model('question', questionSchema);
 exports.optionModel = mongoose.model('option', optionSchema);
+exports.answerModel = mongoose.model('answer', answerSchema);
