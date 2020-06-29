@@ -81,6 +81,9 @@ router.get("/", checkAuthenticated, async (req, res) => {
 
     res.redirect('/profile/edit') 
   })
+  router.post('/formSubmit', async (req, res) => {
+    // console.log(req.body)
+  });
 
   router.get("/getSectionData/:section", getSectionData)
   
