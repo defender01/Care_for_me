@@ -90,7 +90,8 @@
       if(subSection.name!="Father's Details" && subSection.name!="Mother's Details"){
         elmStr += '<div class="sub-part-row">'+
                     '<h5 class="left subsection-title">' + subSection.name + '</h5>'+
-                    '<i class="far fa-plus-square" onclick="togglePopUpFamilyHistoryAdd(this.parentElement.parentElement.id)"></i>'+
+                    // have to implement addNewMember()
+                    '<i class="far fa-plus-square" onclick="addNewMember(this.parentElement.parentElement.id)"></i>'+
                   '</div>'
       }
       else{ 
@@ -99,9 +100,10 @@
                   '</div>'
       }
 
+      // here this for loop will iterate for every relative
       for (let i = 0; i < subSection.questions.length; i++) {
         // make collapse id unique while creating ans 
-        if(i==1)qStr+=  '<div class="collapse" id="collapse'+subSection._id+'">'
+        if(i==2)qStr+=  '<div class="collapse" id="collapse'+subSection._id+'">'
         qStr += getQuestionStr(subSection.questions[i]);
       }
       // make href collapse id unique while creating ans 
