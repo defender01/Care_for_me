@@ -170,52 +170,6 @@ function displayConditionalSectionCheckbox(id, conditionalSectionId){
   }
 }
 
-// function addVaccineDetails(){
-//     var parent = document.getElementById("vaccineDetails")
-//     var newDiv = document.createElement("div")
-//     parent.appendChild(newDiv)
-//     newDiv.outerHTML = '<div class="row" id= "vaccine">'+
-//     '<div class="col-7">'+
-//       '<input type="text" name="vaccine" placeholder="Vaccine name" />'+
-//     '</div>'+
-//     '<div class="row">'+
-//                   '<div class="col">'+
-//                     '<div class="custom-control custom-checkbox">'+
-//                       '<input '+
-//                         'type="radio" '+
-//                         'class="custom-control-input"'+
-//                         'id="vaccineCompleted"'+
-//                         'name="linguisticDevelopment"'+
-//                         'value="completed"'+
-//                         'checked'+
-//                       '>'+
-//                       '<label class="custom-control-label" for="vaccineCompleted">'+
-//                         'completed'+
-//                       '</label>'+
-//                     '</div>'+
-//                   '</div>'+
-//                   '<div class="col">'+
-//                     '<div class="custom-control custom-checkbox">'+
-//                       '<input '+
-//                         'type="radio"'+
-//                         'class="custom-control-input" '+
-//                         'id="vaccineNotCompleted"'+
-//                         'name="linguisticDevelopment"'+
-//                         'value="incomplete"'+
-//                       '>'+
-//                       '<label class="custom-control-label" for="vaccineNotCompleted">'+
-//                         'incomplete'+
-//                       '</label>'+
-//                     '</div>'+
-//                   '</div>'+
-//                   '<div class="col">'+
-//                   '</div>'+
-//                 '</div>'+
-//   '</div>'
-// }
-
-
-
 function onStart()
 {
      // keep occupation details of step4 hidden at the beginning

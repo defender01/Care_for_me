@@ -39,14 +39,18 @@ const answerSchema = new Schema({
       additionalId: {
         type: Schema.Types.ObjectId,
       },
-      isMCQ: {
+      isItForMCQ: {
         type: Boolean,
         default: false
       },
       answers: [String],
       optionIDsforMCQAnswer : [{
         type: Schema.Types.ObjectId,
-      }]
+      }],
+      updated: { 
+        type: Date, 
+        default: Date.now
+      }
     },
   ],
 });

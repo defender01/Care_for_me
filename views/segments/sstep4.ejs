@@ -14,97 +14,6 @@
       
       <div id="addPlace4"></div>
   
-      <div class="secondary-container">
-        <h4 class="subsection-title">Educational Background</h4>
-        <label class="fieldlabels">What is your highest educational degree? </label>
-        <input type="text" name="highestEduDegree" placeholder="" />
-        <br>
-        <br>
-        <div class="family-container">
-          <div class="part">
-            <div class="sub-part-row">
-              <h5 class="left">Specialization (if any):</h3>
-                <button type="button" class="btn btn-outline-light add" onclick="togglePopUpFamilyHistoryAdd(this.parentElement.parentElement.id)"></button>
-            </div>
-            <div class="sub-part">
-              <div class="sub-part-row">
-                <p class="title">
-                  Degree Name
-                </p>
-                <button type="button" class="btn btn-outline-dark" onclick="togglePopUpFamilyHistory(this.parentElement.parentElement.id)">Edit</button>
-              </div>
-              <div class="sub-sub-part">
-                <p>
-                  Master of Science
-                </p>
-              </div>
-              <div class="collapse" id="collapseExampleSpecialization">
-                <hr>
-                <p class="title">
-                  Passing date:
-                </p>
-                <div class="sub-sub-part">
-                  <p>
-                    05.05.1967
-                  </p>
-                </div>
-                <hr>
-                <p class="title">
-                  University:
-                </p>
-                <div class="sub-sub-part">
-                  <p>
-                    Berlin Institute of Technology
-                  </p>
-                </div>
-                <hr>
-                <p class="title">
-                  Certificate Link:
-                </p>
-                <div class="sub-sub-part">
-                  <p>
-                    <a href="">Go to link</a>
-                  </p>
-                </div>
-              </div>
-              <div class="extend">
-                <p>
-                  <a class="btn btn-light" data-toggle="collapse" href="#collapseExampleSpecialization" id="seeMore" role="button"
-                    onclick="changeButtonText(this.id)" aria-expanded="false" aria-controls="collapseExample">
-                    See more
-                  </a>
-                </p>
-              </div>
-            </div>
-          </div>
-          
-            <!-- For popup design-->
-    
-          <div class="modal-bg" id="popupFamilyHistory" style="display: none" >
-            <div class="modal-container" > 
-              <div class="primary-card">
-                <p id='calledFrom' style="display: none" ></p>
-                <label class="fieldlabels" for="degreeName">Degree Name:</label>
-                <input type="text" name="degreeName" id='degreeName' placeholder="" cols="5"/>     
-                <label class="fieldlabels" for="passingDate">Passing date:</label>
-                <input type="text" name="passingDate" id='passingDate' placeholder="" cols="5"/>
-                <label class="fieldlabels" for="universityName">University:</label>
-                <input type="text" name="universityName" id='universityName' placeholder="" cols="5"/>
-                <label class="fieldlabels" for="certificateLink">Certificate Link:</label>
-                <input type="text" name="certificateLink" id='certificateLink' placeholder="" cols="5"/>
-    
-                <div class="rowRowElementHolder">
-                  <button type="button" class="btn btn-outline-success singleElement" id='popupOk' onclick="togglePopUpFamilyHistory('ok')">Ok</button>
-                  <button type="button" class="btn btn-outline-danger singleElement" id='popupCancel' onclick="togglePopUpFamilyHistory('cancel')">Cancel</button>
-                </div>
-              </div>  
-            </div>
-          </div>
-    
-        </div>
-        <br>
-      </div>
-      
     </div>
     <input type="button" name="next" class="next action-button" value="Next" />
     <input type="button" name="previous" class="previous action-button-previous" value="Previous" />
@@ -113,9 +22,48 @@
       $.get("/profile/getSectionData/Education and Occupation Details", (data) => {
         let elmStr = "";
         for (let i = 0; i < data.subSections.length; i++) {
-          elmStr += getSubSectionStr(data.subSections[i]);
+          if(data.subSections[i].name == 'Specialization'){
+            elmStr += getSubSectionStr4(data.subSections[i]);
+          }
+          else{
+            elmStr += getSubSectionStr(data.subSections[i]);
+          }
         }
         $("#addPlace4").replaceWith(elmStr);
       });
+    function getSubSectionStr4(subSection) {
+      let elmStr = "";
+      elmStr += '<div class = "part">'+
+                  '<div class="sub-part-row">'+
+                    '<h5 class="left">' + subSection.name + '</h5>'+
+                    '<i class="far fa-plus-square" onclick="addSpecialization(this.parentElement.parentElement.id)"></i>'+
+                  '</div>'+
+                '</div>'
+
+      
+      let qStr = '<div class="family-container">'
+      for (let i = 0; i < subSection.questions.length; i++) {
+        // make collapse id unique while creating ans 
+        if(i==2)qStr+=  '<div class="collapse" id="collapse'+subSection._id+'">'
+        qStr += getQuestionStr(subSection.questions[i]);
+      }
+      // make href collapse id unique while creating ans 
+      // make seeMore id unique while creating ans 
+      qStr+= '</div>'+
+              '<br>'+
+              '<div class="extend">'+
+                '<p>'+
+                  '<a class="btn btn-light" data-toggle="collapse" href="#collapse'+subSection._id+'" id="'+subSection._id+'seeMore"'+
+                    'role="button" onclick="changeButtonText(this.id)" aria-expanded="false"'+
+                    'aria-controls="collapseExample">'+
+                    'See more'+
+                  '</a>'+
+                '</p>'+
+              '</div>'+
+              '</div>'
+
+
+      return '<div class="secondary-container">' + elmStr +qStr + "</div>";
+    }
     </script>
   </fieldset>

@@ -17,12 +17,17 @@ const {
 } = require("../controllers/auth_helper");
 
 router.get("/", checkAuthenticated, async (req, res) => {
-  var displayName = req.user.name.displayName;
-  await User.find({ email: req.user.email }, (err, data) => {
-    console.log(data);
-    if (err) throw err;
-    else res.render("profile", { data, displayName });
-  });
+  let displayName = req.user.name.displayName;
+  let data;
+  let errors = []
+  
+  try{
+    data = await User.find({ email: req.user.email });
+  }catch(err){
+    errors.push({ msg: 'Internal Server Error' })
+    console.log(err)
+  }
+  res.render("profile", {errors, data , displayName });
 });
 
 // let physicalDiseases = ["Asthma", "Aneurysm", "Diabetes", "Epilepsy Seizures", "Headaches or migraines", "Heart diseases", "High blood pressure", "Kidney disease", "Lung Disease", "Migraine", "Arthritis", "Elevated cholesterol", "Multiple Sclerosis", "Stroke", "Thyroid", "Tuberculosis", "Bleeding disorder"]
@@ -44,20 +49,20 @@ router.get("/", checkAuthenticated, async (req, res) => {
 router.get("/edit", checkAuthenticated, async (req, res) => {
   let displayName = req.user.name.displayName;
   let substanceData, vaccineData;
+  let errors = []
   
-  await vaccineModel.find({}, (err, data) => {
-    console.log(data);
-    if (err) throw err;
-    else vaccineData = data;
-  });
+  try{
+    vaccineData = await vaccineModel.find({});
+    substanceData = await substanceModel.find({});
+  }catch(err){
+    errors.push({ msg: 'Internal Server Error' })
+    console.log(err)
+  }
 
-  await substanceModel.find({}, (err, data) => {
-    console.log(data);
-    if (err) throw err;
-    else substanceData = data;
-  });
+  // console.log(vaccineData)
+  // console.log(substanceData)
 
-  res.render("medHistory", {displayName, substanceData, vaccineData });
+  res.render("medHistory", {errors, displayName, substanceData, vaccineData });
 });
 
 router.post("/edit", async (req, res) => {

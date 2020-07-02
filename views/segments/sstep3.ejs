@@ -1,6 +1,5 @@
 <fieldset>
   <div class="form-card">
-
     <div class="secondary-container title-bar">
       <div class="row">
         <div class="col-7">
@@ -21,6 +20,8 @@
 
   <script>
     let substanceData = <%- JSON.stringify(substanceData)%>
+    console.log(substanceData)
+  
     $.get("/profile/getSectionData/Lifestyle", (data) => {
       let elmStr = "";
       for (let i = 0; i < data.subSections.length; i++) {
@@ -36,7 +37,7 @@
       for(let i = 0 ; i < Math.ceil(substanceData.length/2); i++) {
         let qStr = ''
         for (let j = 0; j < subSection.questions.length; j++) {
-          qStr += getQuestionStr3(substanceData[i], subSection.questions[j]);
+          qStr += getQuestionStr3(substanceData[i]._id, subSection.questions[j]);
         }
 
         elmStr1+= '<div class="card collapse-item">'+
@@ -71,7 +72,7 @@
       for(let i = Math.ceil(substanceData.length/2) ; i < substanceData.length; i++) {
         let qStr = ''
         for (let j = 0; j < subSection.questions.length; j++) {
-          qStr += getQuestionStr3(substanceData[i], subSection.questions[j]);
+          qStr += getQuestionStr3(substanceData[i]._id, subSection.questions[j]);
         }
 
         elmStr2+= '<div class="card collapse-item">'+
@@ -121,75 +122,75 @@
 
     }
 
-  function getQuestionStr3(substanceName, question) {
-    console.log('came in 3')
+  function getQuestionStr3(additionalID, question) {
+    // console.log('came in 3')
     let elmStr = "";
     elmStr += '<label class="fieldlabels">' + question.name + "</label>";
     if (question.inputType == "numerical")
-      elmStr +=' <input type="number" name="' + question._id + '-' + substanceName.name + '" placeholder="" />';
+      elmStr +=' <input type="number" name="' + question._id + '#####' + additionalID + '" placeholder="" />';
     else if (question.inputType == "date")
-      elmStr +=' <input type="date" name="' + question._id + '-' + substanceName.name + '" placeholder="" />';
+      elmStr +=' <input type="date" name="' + question._id + '#####' + additionalID + '" placeholder="" />';
     else if (question.inputType == "singleLine")
-      elmStr +=' <input type="text" name="' + question._id + '-' + substanceName.name + '" placeholder="" />';
+      elmStr +=' <input type="text" name="' + question._id + '#####' + additionalID + '" placeholder="" />';
     else if (question.inputType == "multiLine")
-      elmStr +='<textarea class="form-control" name="' + question._id + '-' + substanceName.name + '"  rows="3"></textarea>'
+      elmStr +='<textarea class="form-control" name="' + question._id + '#####' + additionalID + '"  rows="3"></textarea>'
     else if (question.inputType == "multiChoiceSingleAns")
-      elmStr += getMultiChoiceSingleOp3(substanceName, question._id, question.options)
+      elmStr += getMultiChoiceSingleOp3(additionalID, question._id, question.options)
     else if (question.inputType == "multiChoiceMultiAns")
-      elmStr += getMultiChoiceMultiOp3(substanceName, question._id, question.options)
+      elmStr += getMultiChoiceMultiOp3(additionalID, question._id, question.options)
 
     return elmStr+ '<br>';
   }
 
-  function getMultiChoiceSingleOp3(substanceName, qId, options){
+  function getMultiChoiceSingleOp3(additionalID, qId, options){
       let elmStr = ''
       let conditionalPart='', condArrayStr = '['
 
       for(let i=0; i<options.length; i++){
         if(options[i].questions.length>0)
-          condArrayStr += '\'conditional'+substanceName.name+options[i]._id+'\', '
+          condArrayStr += '\'conditional'+ options[i]._id+ '##' + additionalID +'\', '
       }
       condArrayStr+=']'
 
       for(let i=0; i<options.length; i++){
         if(options[i].questions.length>0){
-          let str = "\'conditional"+substanceName.name+options[i]._id+"\'," 
+          let str = "\'conditional"+ options[i]._id+ '##' + additionalID +"\'," 
           let newCondArray = condArrayStr.replace(str, '')
           elmStr += '<div class="custom-control custom-radio">'+
-          '<input type="radio" id="'+options[i]._id+'" name="' + qId + '-' + substanceName.name + '" class="custom-control-input" value="'+options[i].name+'" onclick="hideConditionalSection('+newCondArray+'); displayConditionalSection([\'conditional'+substanceName.name+options[i]._id+'\']); ">'+
-          '<label class="custom-control-label" for="'+options[i]._id+'">'+options[i].name+'</label>'+
+          '<input type="radio" id="'+ options[i]._id+ '##' + additionalID + '" name="' + qId + '#####' + additionalID + '" class="custom-control-input" value="'+options[i].name+'" onclick="hideConditionalSection('+newCondArray+'); displayConditionalSection([\'conditional'+ options[i]._id+ '##' + additionalID +'\']); ">'+
+          '<label class="custom-control-label" for="'+ options[i]._id+ '##' + additionalID +'">'+options[i].name+'</label>'+
           '</div>'
           let qStr = ''
           for(let j=0; j<options[i].questions.length; j++){
-            qStr+= getQuestionStr3(substanceName, options[i].questions[j])
+            qStr+= getQuestionStr3(additionalID, options[i].questions[j])
           }
-          conditionalPart += '<div id= "conditional'+substanceName.name+options[i]._id+'" style="display: none;">'+ qStr +'</div>'
+          conditionalPart += '<div id= "conditional'+ options[i]._id+ '##' + additionalID +'" style="display: none;">'+ qStr +'</div>'
         }
         else{
           elmStr += '<div class="custom-control custom-radio">'+
-          '<input type="radio" id="'+options[i]._id+'" name="' + qId + '-' + substanceName.name + '" class="custom-control-input" value="'+options[i].name+'" onclick="hideConditionalSection('+condArrayStr+');">'+
-          '<label class="custom-control-label" for="'+options[i]._id+'">'+options[i].name+'</label>'+
+          '<input type="radio" id="'+ options[i]._id+ '##' + additionalID +'" name="' + qId + '#####' + additionalID + '" class="custom-control-input" value="'+options[i].name+'" onclick="hideConditionalSection('+condArrayStr+');">'+
+          '<label class="custom-control-label" for="'+ options[i]._id+ '##' + additionalID +'">'+options[i].name+'</label>'+
           '</div>'
         }
       }
       return elmStr+conditionalPart
   }
 
-  function getMultiChoiceMultiOp3(substanceName, qId, options){
+  function getMultiChoiceMultiOp3(additionalID, qId, options){
     let elmStr = ''
 
     for(let i=0; i<options.length; i++){
       elmStr += '<div class="custom-control custom-checkbox">'+
-        '<input type="checkbox" id="'+options[i]._id+'" name="' + qId + '-' + substanceName.name + '" class="custom-control-input" value="'+options[i].name+'" onclick="displayConditionalSectionCheckbox(\''+options[i]._id+'\' , \'conditional'+substanceName.name+options[i]._id+'\'); ">'+
-        '<label class="custom-control-label" for="'+options[i]._id+'">'+options[i].name+'</label>'+
+        '<input type="checkbox" id="'+ options[i]._id+ '##' + additionalID +'" name="' + qId + '#####' + additionalID + '" class="custom-control-input" value="'+options[i].name+'" onclick="displayConditionalSectionCheckbox(\''+ options[i]._id+ '##' + additionalID +'\' , \'conditional'+ options[i]._id+ '##' + additionalID +'\'); ">'+
+        '<label class="custom-control-label" for="'+ options[i]._id+ '##' + additionalID +'">'+options[i].name+'</label>'+
         '</div>'
       
       if(options[i].questions.length>0){  
         let qStr = ''
         for(let j=0; j<options[i].questions.length; j++){
-          qStr+= getQuestionStr3(substanceName, options[i].questions[j])
+          qStr+= getQuestionStr3(additionalID, options[i].questions[j])
         }
-        elmStr += '<div id= "conditional'+substanceName.name+options[i]._id+'" style="display: none;">'+ qStr +'</div>'
+        elmStr += '<div id= "conditional'+ options[i]._id+ '##' + additionalID +'" style="display: none;">'+ qStr +'</div>'
       }
     }
     return elmStr

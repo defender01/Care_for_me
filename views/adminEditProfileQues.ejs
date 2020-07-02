@@ -23,11 +23,13 @@
 
   <link rel="stylesheet" href="/assets/cssFiles/medHistory.css">
 
-  <title>Add Question</title>
+  <script src='/assets/jsFiles/adminEditProfileQues.js'></script>
+
+  <title>Edit Question</title>
 
 </head>
 
-<body onload="onStart()">
+<body >
 
   <!-- navigation bar -->
 	<% include ./segments/navbar %>
@@ -37,18 +39,18 @@
       <div class="col-11 col-sm-9 col-md-7 col-lg-6 col-xl-9 text-center p-0 mt-3 mb-2">
         <div class="primary-card">
           
-          <form id="msform"  method="POST" action="/admin/addQues">
+          <form id="msform"  method="POST" action="/admin/profile/edit">
               <div class="form-card">
                 <div class="secondary-container title-bar">
                   <div class="row">
                     <div class="col-8">
-                      <h2 class="fs-title">Add your new question here:</h2>
+                      <h2 class="fs-title">Edit Your Question:</h2>
                     </div>
                   </div>
                 </div>
                 
                 <!-- question -->
-                <div class="addPlace"></div>
+                <div id="addPlace"></div>
               </div>                  
             <!-- </fieldset> -->
             <button type="submit" class="btn btn-success addButton">Save</button>
@@ -58,7 +60,6 @@
       </div>
     </div>
   </div>
-
   <!-- Optional JavaScript -->
   <!-- jQuery first, then Popper.js, then Bootstrap JS -->
   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
@@ -69,121 +70,14 @@
     crossorigin="anonymous"></script>
 
 <script>
-  function addQuestion(idAdder){
-    console.log(idAdder)
-    console.log('idAdder='+idAdder)
-    let qCount= parseInt($("#qCounter"+idAdder).val())+1
-    let totalQCount= parseInt($("#totalQCounter"+idAdder).val())+1
-    console.log('qCount='+qCount)
-    console.log('idAdder+qCount='+idAdder+qCount)
-
-    $("#qCounter"+idAdder).val(qCount)
-    $("#totalQCounter"+idAdder).val(totalQCount)
-    
-    $("#addHelper"+idAdder).replaceWith('<!-- question -->'+
-                    '<div id="questionContainer'+ idAdder+totalQCount +'" class="">'+
-                        '<div class="question-Container family-container">'+
-                        'Question :' +
-                        '<br>'+
-                        '<div class="flx_prnt_input_opt">'+
-                            '<div class="flx_chld_input">'+
-                            '<input type="text" name="question" required>'+
-                            '</div>'+
-                            '<div class="flx_chld_opt">'+
-                            '<button type="button" class="btn btn-danger" onclick="deleteQuestion('+'\'qCounter'+idAdder+'\','+'\'questionContainer'+idAdder+totalQCount+'\')">Delete</button>'+
-                            '</div>'+
-                        '</div>'+
-                        '<br>'+
-                        '<label class="fieldlabels">Write a label for this question:(E.g. Question: What is your name?, Label for it: Name) </label>'+
-                        '<input type="text" name="qLabel" placeholder="" required/>'+
-                        '<br>     '+
-                        '<label class="fieldlabels">Select your question type form below:</label>'+
-                        '<div class="custom-control custom-radio">'+
-                            '<input type="radio" id="numericalType'+ idAdder+qCount +'" name="type'+ idAdder+qCount +'" class="custom-control-input" value="numerical"  onclick="hideConditionalSection(['+'\'multiChoiceOptions'+ idAdder+qCount +'\']); setTypeIndicator(\'typeIndicator'+idAdder+qCount +'\',\'numerical\');" required>'+
-                            '<label class="custom-control-label" for="numericalType'+ idAdder+qCount +'">Numerical answer</label>'+
-                        '</div>'+
-                        '<div class="custom-control custom-radio">'+
-                            '<input type="radio" id="dateType'+ idAdder+qCount +'" name="type'+ idAdder+qCount +'" class="custom-control-input" value="date"  onclick="hideConditionalSection(['+'\'multiChoiceOptions'+ idAdder+qCount +'\']); setTypeIndicator(\'typeIndicator'+idAdder+qCount +'\',\'date\');">'+
-                            '<label class="custom-control-label" for="dateType'+ idAdder+qCount +'">Date answer</label>'+
-                        '</div>'+
-                        '<div class="custom-control custom-radio">'+
-                            '<input type="radio" id="singleLineType'+ idAdder+qCount +'" name="type'+ idAdder+qCount +'" class="custom-control-input" value="singleLine"  onclick="hideConditionalSection(['+'\'multiChoiceOptions'+ idAdder+qCount +'\']); setTypeIndicator(\'typeIndicator'+idAdder+qCount +'\',\'singleLine\');" required>'+
-                            '<label class="custom-control-label" for="singleLineType'+ idAdder+qCount +'">Single line answer</label>'+
-                        '</div>'+
-                        '<div class="custom-control custom-radio">'+
-                            '<input type="radio" id="multiLineType'+ idAdder+qCount +'" name="type'+ idAdder+qCount +'" class="custom-control-input" value="multiLine"  onclick="hideConditionalSection(['+'\'multiChoiceOptions'+ idAdder+qCount +'\']); setTypeIndicator(\'typeIndicator'+idAdder+qCount +'\',\'multiLine\');">'+
-                            '<label class="custom-control-label" for="multiLineType'+ idAdder+qCount +'">Multiple line answer</label>'+
-                        '</div>'+
-                        '<div class="custom-control custom-radio">'+
-                            '<input type="radio" id="multiChoiceSingleType'+ idAdder+qCount +'" name="type'+ idAdder+qCount +'" class="custom-control-input" value="multiChoiceSingleAns" onclick="displayConditionalSection(['+'\'multiChoiceOptions'+ idAdder+qCount +'\']); setTypeIndicator(\'typeIndicator'+idAdder+qCount +'\',\'multiChoiceSingleAns\');">'+
-                            '<label class="custom-control-label" for="multiChoiceSingleType'+ idAdder+qCount +'">Multiple choice with single answer</label>'+
-                        '</div>'+                    
-                        '<!-- radio for multiple choice multiple ans type  -->'+
-                        '<div class="custom-control custom-radio">'+
-                            '<input type="radio" id="multiChoiceMultiType'+ idAdder+qCount +'" name="type'+ idAdder+qCount +'" class="custom-control-input" value="multiChoiceMultiAns" onclick="displayConditionalSection(['+'\'multiChoiceOptions'+idAdder+qCount +'\']); setTypeIndicator(\'typeIndicator'+idAdder+qCount +'\',\'multiChoiceMultiAns\');">'+
-                            '<label class="custom-control-label" for="multiChoiceMultiType'+ idAdder+qCount +'">Multiple choice with multiple answer</label>'+
-                        '</div>'+
-                        '<input type="text" id="typeIndicator'+ idAdder+qCount +'" name="typeIndicator"  style="display: none;"  >'+
-                        '<div id="multiChoiceOptions'+ idAdder+qCount +'">'+
-                            '<div id="addHelper'+ idAdder+qCount +'"></div>'+
-                            '<button type="button" class="btn btn-secondary addButton" onclick="addOption('+ idAdder+qCount +')">Add option</button>'+
-                        '</div>'+
-                        '</div>'+
-                    '</div>'+
-                    '<!-- next question adding place -->'+
-                    '<div id="addHelper'+idAdder+'"></div>')
-    
-                    hideConditionalSection(['multiChoiceOptions'+idAdder+qCount ])
-  }  
-  function addOption(idAdder){
-  console.log('idAdder='+idAdder)
-  let opCount= parseInt($("#opCounter"+idAdder).val())+1
-  let totalOpCount= parseInt($("#totalOpCounter"+idAdder).val())+1
-  console.log('opCount='+opCount)
-
-  console.log('idAdder+opCount='+idAdder+opCount)
-  $("#opCounter"+idAdder).val(opCount)  
-  $("#totalOpCounter"+idAdder).val(totalOpCount)  
-  
-  $("#addHelper"+idAdder).replaceWith('<!-- opiton -->'+
-                      '<div id ="optionContainer'+ idAdder+totalOpCount +'" class="">'+
-                      '<div class="option-Container family-container" >'+
-                          '<!-- it stores the number of questions for this option -->'+
-                          '<input type="number" id="qCounter'+ idAdder+opCount +'" name="qCount" value="0" style="display: none;" >'+
-                          '<input type="number" id="totalQCounter'+ idAdder+totalOpCount +'" value="0" style="display: none;" >'+                      
-                          'Option :' +
-                          '<br>'+
-                          '<div class="flx_prnt_input_opt">'+
-                          '<div class="flx_chld_input">'+
-                              '<input type="text" name="option" required>'+
-                          '</div>'+
-                          '<div class="flx_chld_opt">'+
-                              '<button type="button" class="btn btn-danger" onclick="deleteOption('+'\'opCounter'+idAdder+'\','+'\'optionContainer'+idAdder+totalOpCount+'\')">Delete</button>'+
-                          '</div>'+
-                          '</div>'+
-                          '<!-- question for this option adding place -->'+
-                          '<div id="addHelper'+idAdder+opCount+'"></div>'+
-                          '<!-- question for this option -->'+
-                          '<button type="button" class="btn btn-secondary addButton"  onclick="addQuestion('+idAdder+opCount+')">Add question</button>'+
-
-                          '<br>'+
-                      '</div>'+
-                      '</div>'+
-                      '<!-- next option adding place -->'+
-                      '<div id="addHelper'+idAdder+'"></div>')
+  let questions = [<%- JSON.stringify(question) %>]
+  function loadQuesOp(){
+    let str = createQuestion('', questions)
+    console.log({str})
+    $("#addPlace").replaceWith(str)
   }
-
-  function deleteOption(opCounterId, opContainerId){
-  console.log('delete opCounterId= '+opCounterId)
-  console.log('delete opContainerId = '+opContainerId)
-  let opCount= parseInt($("#"+opCounterId).val())-1
-  console.log('opCount='+opCount)
-
-  $("#"+opCounterId).val(opCount) 
-  $("#"+opContainerId).empty()
-  }
-
-</script>
+  loadQuesOp()
+  </script>
 </body>
 
 </html>

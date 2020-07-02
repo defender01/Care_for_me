@@ -4,7 +4,7 @@ let substanceCategories = ['Alcohol','Cannabis','Stimulants','Sleeping pills','O
 let substanceNames = [["Alcohol"],["Cannabis"],["Yaba","Cocaine"],["Diazepam", "Clonazepam", "Eszopiclone", "Flurazepam", "Lorazepam", "Midazolam", "Diphenhydramine hydrochloride"],["Opium", "Morphine", "Heroin"], ["LSD", "PCP", "MDA", "Mescaline", "Peyote", "Mushrooms", "Ecstasy(MDMA)", "Nitrous oxide"], ["Glue", "Gasoline", "Aerosols", "Paint thinner"]]
 
 let vaccineNames = ["BCG","Pentavalent","PCV","OPV","MR","Measles","TT (Tetanus toxoid)"]
-let vaccineDiseases = [["Tuberculosis"],["Diphtheria", "Pertussis", "Tetanus", "Hepatitis B", "Hemophilus Influenza B"],["Pneumococcal Pneumonia"],["Poliomyelitis"],["Measles and Rubella"],["Measles"],["Tetanus"]]
+let vaccineDiseases = [["Tuberculosis"],["Diphtheria", "Pertussis", "Tetanus", "Hepatitis B", "Hemophilus Influenza B"],["Pneumococcal Pneumonia"],["Poliomyelitis"],["Measles", "Rubella"],["Measles"],["Tetanus"]]
 
 let saveVaccine = async () =>
 {
@@ -19,9 +19,11 @@ let saveVaccine = async () =>
             diseases: vaccineDiseases[i]
         })
 
-        await vaccine.save((err) => {
-            if (err) console.error(err);
-        });
+        try{
+            await vaccine.save();
+        }catch(err){
+            console.error(err);
+        }
     }
 }
 
@@ -41,9 +43,11 @@ let saveSubstance = async () =>
                 category: substanceCategories[i]
             })
 
-            await substance.save((err) => {
-                if (err) console.error(err);
-            });
+            try{
+                await substance.save();
+            }catch(err){
+                console.error(err);
+            }
         }
 
     }
@@ -51,10 +55,10 @@ let saveSubstance = async () =>
 
 let uploadVaccineAndSubstanceToDB = async (req, res) => {
     
-    // clearing whole vaccine collection and uploading all vaccines to the database
+    // // clearing whole vaccine collection and uploading all vaccines to the database
     // await saveVaccine()
 
-    // clearing whole substance collection and uploading all substances to the database
+    // // clearing whole substance collection and uploading all substances to the database
     // await saveSubstance()
 
     // return res.json({
