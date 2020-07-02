@@ -23,19 +23,19 @@
             <!-- <button type="button" class="btn btn-outline-light add" onclick="addVaccineDetails()"></button> -->
           </div>
 
-          <% if(typeof vaccineInfoJson != 'undefined'){ %> <% for(let i = 0 ; i
-          < vaccineInfoJson.length ; i++) {%>
+          <% if(typeof vaccineData != 'undefined'){ %> <% for(let i = 0 ; i
+          < vaccineData.length ; i++) {%>
 
           <div class="sub-part each-vaccine-info">
             <div class="vaccine-info-subsection">
               <label class="fieldlabels">Vaccine name</label>
-              <p class="vaccineName"><%= vaccineInfoJson[i].name %></p>
+              <p class="vaccineName"><%= vaccineData[i].name %></p>
             </div>
 
             <div class="vaccine-info-subsection">
               <label class="fieldlabels">Disases</label>
               <p class="vaccineForDiseases">
-                <%= vaccineInfoJson[i].diseases %>
+                <%= vaccineData[i].diseases %>
               </p>
             </div>
 
@@ -47,14 +47,14 @@
                     <input
                       type="radio"
                       class="custom-control-input"
-                      id="vaccine<%= vaccineInfoJson[i].name %>Completed"
-                      name="<%= vaccineInfoJson[i].name %>"
+                      id="vaccine<%= vaccineData[i].name %>Completed"
+                      name="<%= vaccineData[i].name %>"
                       value="completed"
                       checked
                     />
                     <label
                       class="custom-control-label"
-                      for="vaccine<%= vaccineInfoJson[i].name %>Completed"
+                      for="vaccine<%= vaccineData[i].name %>Completed"
                     >
                       completed
                     </label>
@@ -65,13 +65,13 @@
                     <input
                       type="radio"
                       class="custom-control-input"
-                      id="vaccine<%= vaccineInfoJson[i].name %>NotCompleted"
-                      name="<%= vaccineInfoJson[i].name %>"
+                      id="vaccine<%= vaccineData[i].name %>NotCompleted"
+                      name="<%= vaccineData[i].name %>"
                       value="incomplete"
                     />
                     <label
                       class="custom-control-label"
-                      for="vaccine<%= vaccineInfoJson[i].name %>NotCompleted"
+                      for="vaccine<%= vaccineData[i].name %>NotCompleted"
                     >
                       incomplete
                     </label>

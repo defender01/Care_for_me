@@ -1,91 +1,75 @@
-const express = require('express')
-const router = express.Router()
-const User = require('../models/userInfo')
-const {answerModel} = require('../models/inputCollection')
+const express = require("express");
+const router = express.Router();
+const User = require("../models/userInfo");
 const {
-  getSectionData
-} = require("../controllers/adminFunctions");
-
-
+  vaccineModel,
+  substanceModel,
+  answerModel,
+} = require("../models/inputCollection");
+const { getSectionData } = require("../controllers/adminFunctions");
 
 //import camelCase function
-const camelCase = require('../controllers/functionCollection').camelCase
+const camelCase = require("../controllers/functionCollection").camelCase;
 
 const {
-    checkAuthenticated,
-    checkNotAuthenticated
-  } = require('../controllers/auth_helper');
-  
+  checkAuthenticated,
+  checkNotAuthenticated,
+} = require("../controllers/auth_helper");
 
 router.get("/", checkAuthenticated, async (req, res) => {
-    var displayName = req.user.name.displayName
-    await User.find({email : req.user.email}, (err, data) => {
-        console.log(data)
-        if (err) throw err
-        else res.render('profile', { data, displayName })
-    });
-  
-  })
+  var displayName = req.user.name.displayName;
+  await User.find({ email: req.user.email }, (err, data) => {
+    console.log(data);
+    if (err) throw err;
+    else res.render("profile", { data, displayName });
+  });
+});
 
-  let substanceNames = ['Alcohol','Cannabis','Stimulants','Amphetamines','Benzodiazepines/tranquilizers','Sedatives/hypnotics','Heroin','Street or illicit methadone','Opioids','Hallucinogens','Inhalants']
+// let physicalDiseases = ["Asthma", "Aneurysm", "Diabetes", "Epilepsy Seizures", "Headaches or migraines", "Heart diseases", "High blood pressure", "Kidney disease", "Lung Disease", "Migraine", "Arthritis", "Elevated cholesterol", "Multiple Sclerosis", "Stroke", "Thyroid", "Tuberculosis", "Bleeding disorder"]
+// let mentalDiseases = ["Neurocognitive disordero: dementia/ alzheimer’s disease", "Neurodevelopmental disorder", "Obsessive compulsive disorder", "Schizophrenia", "Depression", "Panic disorder", "Mood disorder", "Attention deficit hyperactivity disorder", "Convulsions", "Somatoform disorder", "Stress disorder", "Eating disorder", "Impulsive control disorder", "Substance abuse disorder"]
+// let physicalDiseasesJson = []
+// let mentalDiseasesJson = []
 
-  var substanceNamesJson=[]
-  for(var i=0; i<substanceNames.length; i++){
-    substanceNamesJson.push({
-      name: substanceNames[i],
-    })
-  }
-  
-  //console.log(substanceNamesJson)
-  
-  
-  // let physicalDiseases = ["Asthma", "Aneurysm", "Diabetes", "Epilepsy Seizures", "Headaches or migraines", "Heart diseases", "High blood pressure", "Kidney disease", "Lung Disease", "Migraine", "Arthritis", "Elevated cholesterol", "Multiple Sclerosis", "Stroke", "Thyroid", "Tuberculosis", "Bleeding disorder"]
-  // let mentalDiseases = ["Neurocognitive disordero: dementia/ alzheimer’s disease", "Neurodevelopmental disorder", "Obsessive compulsive disorder", "Schizophrenia", "Depression", "Panic disorder", "Mood disorder", "Attention deficit hyperactivity disorder", "Convulsions", "Somatoform disorder", "Stress disorder", "Eating disorder", "Impulsive control disorder", "Substance abuse disorder"]
-  let vaccineNames = ["BCG","Pentavalent","PCV","OPV","MR,Measles","TT (Tetanus toxoid)"]
-  let vaccineDiseases = ["Tuberculosis","Diphtheria, Pertussis, Tetanus, Hepatitis B, Hemophilus Influenza B","Pneumococcal Pneumonia","Poliomyelitis","Measles Rubella","Measles","Tetanus"]
-  
-  // let physicalDiseasesJson = []
-  // let mentalDiseasesJson = []
-  let vaccineInfoJson = []
-  
-  for(var i=0; i<vaccineNames.length; i++) {
-    vaccineInfoJson.push({    
-      name: vaccineNames[i],
-      id: camelCase(vaccineNames[i]),
-      diseases: vaccineDiseases[i]
-    })
-  }
-  
-  // for(var i=0; i<physicalDiseases.length; i++) {
-  //   physicalDiseasesJson.push({    
-  //     name: physicalDiseases[i],
-  //     id: camelCase(physicalDiseases[i])})
-  // }
-  // for(var i=0; i<mentalDiseases.length; i++) {
-  //   mentalDiseasesJson.push({
-  //     name: mentalDiseases[i],
-  //     id: camelCase(mentalDiseases[i])})
-  // }
-  
-  router.get("/edit", async (req, res) => {
-  
-      res.render("medHistory", {substanceNamesJson, vaccineInfoJson}) 
-  })
-  
-  router.post("/edit", async (req, res) => {
-    console.log(req.body)
+// for(var i=0; i<physicalDiseases.length; i++) {
+//   physicalDiseasesJson.push({
+//     name: physicalDiseases[i],
+//     id: camelCase(physicalDiseases[i])})
+// }
+// for(var i=0; i<mentalDiseases.length; i++) {
+//   mentalDiseasesJson.push({
+//     name: mentalDiseases[i],
+//     id: camelCase(mentalDiseases[i])})
+// }
 
-    // for (var key of Object.keys(req.body)) {
-      
-    // }
-
-    res.redirect('/profile/edit') 
-  })
-  router.post('/formSubmit', async (req, res) => {
-    // console.log(req.body)
+router.get("/edit", checkAuthenticated, async (req, res) => {
+  let displayName = req.user.name.displayName;
+  let substanceData, vaccineData;
+  
+  await vaccineModel.find({}, (err, data) => {
+    console.log(data);
+    if (err) throw err;
+    else vaccineData = data;
   });
 
-  router.get("/getSectionData/:section", getSectionData)
-  
+  await substanceModel.find({}, (err, data) => {
+    console.log(data);
+    if (err) throw err;
+    else substanceData = data;
+  });
 
-  module.exports = router;
+  res.render("medHistory", {displayName, substanceData, vaccineData });
+});
+
+router.post("/edit", async (req, res) => {
+  console.log(req.body);
+
+  // for (var key of Object.keys(req.body)) {
+
+  // }
+
+  res.redirect("/profile/edit");
+});
+
+router.get("/getSectionData/:section", getSectionData);
+
+module.exports = router;

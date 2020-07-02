@@ -8,6 +8,11 @@ const {
   deleteSecSubSecQuesOp,
   getSectionData
 } = require("../controllers/adminFunctions");
+
+const {
+  uploadVaccineAndSubstanceToDB
+} = require("../controllers/database_controller");
+
 const { questionModel } = require("../models/inputCollection");
 
 
@@ -45,5 +50,7 @@ router.get("/profile/edit/:qId", async (req, res) =>{
 // this is for deleting section subsection....have to delete this later
 router.get("/deleteSectionSubsection", deleteSecSubSecQuesOp);
 
+// this is for clearing whole vaccine collection, substance collection and uploading again all vaccines and subtances to the database
+router.get("/uploadVaccineAndSubstanceToDB", uploadVaccineAndSubstanceToDB);
 
 module.exports = router;

@@ -20,7 +20,7 @@
   <input type="button" name="previous" class="previous action-button-previous" value="Previous" />
 
   <script>
-    let substanceNames = <%- JSON.stringify(substanceNamesJson)%>
+    let substanceData = <%- JSON.stringify(substanceData)%>
     $.get("/profile/getSectionData/Lifestyle", (data) => {
       let elmStr = "";
       for (let i = 0; i < data.subSections.length; i++) {
@@ -33,10 +33,10 @@
     function getSubSectionStr3(subSection) {
       let  elmStr1= "", elmStr2=""
       
-      for(let i = 0 ; i < Math.ceil(substanceNames.length/2); i++) {
+      for(let i = 0 ; i < Math.ceil(substanceData.length/2); i++) {
         let qStr = ''
         for (let j = 0; j < subSection.questions.length; j++) {
-          qStr += getQuestionStr3(substanceNames[i], subSection.questions[j]);
+          qStr += getQuestionStr3(substanceData[i], subSection.questions[j]);
         }
 
         elmStr1+= '<div class="card collapse-item">'+
@@ -45,11 +45,11 @@
                       ((i == 0)?
 
                       ('<a class="btn text-left" role="button" aria-expanded="true" aria-controls="collapse-'+i+'">'+
-                        '<h6> '+substanceNames[i].name+'</h6>'+
+                        '<h6> '+substanceData[i].name+'</h6>'+
                       '</a>')
                       :
                       ('<a class="btn collapsed text-left" role="button" aria-expanded="false" aria-controls="collapse-'+i+'">'+
-                        '<h6> '+substanceNames[i].name+'</h6>'+
+                        '<h6> '+substanceData[i].name+'</h6>'+
                       '</a>'))+
 
                     '</div>'+
@@ -68,28 +68,28 @@
       
       }
 
-      for(let i = Math.ceil(substanceNames.length/2) ; i < substanceNames.length; i++) {
+      for(let i = Math.ceil(substanceData.length/2) ; i < substanceData.length; i++) {
         let qStr = ''
         for (let j = 0; j < subSection.questions.length; j++) {
-          qStr += getQuestionStr3(substanceNames[i], subSection.questions[j]);
+          qStr += getQuestionStr3(substanceData[i], subSection.questions[j]);
         }
 
         elmStr2+= '<div class="card collapse-item">'+
                     '<div class="card-header collapse-item-header" id="heading-'+i+'" data-toggle="collapse"'+
                       'data-target="#collapse-'+i+'">'+
-                      ((i == Math.ceil(substanceNames.length/2))?
+                      ((i == Math.ceil(substanceData.length/2))?
 
                       ('<a class="btn text-left" role="button" aria-expanded="true" aria-controls="collapse-'+i+'">'+
-                        '<h6> '+substanceNames[i].name+'</h6>'+
+                        '<h6> '+substanceData[i].name+'</h6>'+
                       '</a>')
                       :
                       ('<a class="btn collapsed text-left" role="button" aria-expanded="false" aria-controls="collapse-'+i+'">'+
-                        '<h6> '+substanceNames[i].name+'</h6>'+
+                        '<h6> '+substanceData[i].name+'</h6>'+
                       '</a>'))+
 
                     '</div>'+
 
-                    ((i == Math.ceil(substanceNames.length/2))?
+                    ((i == Math.ceil(substanceData.length/2))?
                     ('<div id="collapse-'+i+'" class="collapse show" aria-labelledby="heading-'+i+'"'+
                       'data-parent="#substanceAccordion-2">')
                     :

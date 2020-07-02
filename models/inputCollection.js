@@ -1,21 +1,21 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const sectionSchema = new Schema({
   name: String,
-  subSections: [{ type: Schema.Types.ObjectId, ref: 'subSection' }],
+  subSections: [{ type: Schema.Types.ObjectId, ref: "subSection" }],
 });
 
 const subSectionSchema = new Schema({
   name: String,
-  questions: [{ type: Schema.Types.ObjectId, ref: 'question' }]
+  questions: [{ type: Schema.Types.ObjectId, ref: "question" }],
 });
 
 const questionSchema = new Schema({
   name: String,
   inputType: String,
-  options: [{ type: Schema.Types.ObjectId, ref: 'option' }],
-  qLabel: String
+  options: [{ type: Schema.Types.ObjectId, ref: "option" }],
+  qLabel: String,
 });
 
 const optionSchema = new Schema({
@@ -24,25 +24,47 @@ const optionSchema = new Schema({
     type: Boolean,
     default: false,
   },
-  questions: [{ type: Schema.Types.ObjectId, ref: 'question' }],
+  questions: [{ type: Schema.Types.ObjectId, ref: "question" }],
 });
 
 const answerSchema = new Schema({
-   userid : {
-     type : Schema.Types.ObjectId 
-   },
-   question : {
-     type: Schema.Types.ObjectId,
-     ref: 'question'
-   },
-   additionalId:{
-     type : String
-   },
-   answer : [String]
+  userid: {
+    type: Schema.Types.ObjectId,
+  },
+  allAnswers: [
+    {
+      questionID: {
+        type: Schema.Types.ObjectId,
+      },
+      additionalId: {
+        type: Schema.Types.ObjectId,
+      },
+      isMCQ: {
+        type: Boolean,
+        default: false
+      },
+      answers: [String],
+      optionIDsforMCQAnswer : [{
+        type: Schema.Types.ObjectId,
+      }]
+    },
+  ],
+});
+
+const vaccineSchema = new Schema({
+  name: String,
+  diseases: [String]
 })
 
-exports.sectionModel = mongoose.model('section', sectionSchema);
-exports.subSectionModel = mongoose.model('subSection', subSectionSchema);
-exports.questionModel = mongoose.model('question', questionSchema);
-exports.optionModel = mongoose.model('option', optionSchema);
-exports.answerModel = mongoose.model('answer', answerSchema);
+const substanceSchema = new Schema({
+  name: String,
+  category: String
+})
+
+exports.sectionModel = mongoose.model("section", sectionSchema);
+exports.subSectionModel = mongoose.model("subSection", subSectionSchema);
+exports.questionModel = mongoose.model("question", questionSchema);
+exports.optionModel = mongoose.model("option", optionSchema);
+exports.answerModel = mongoose.model("answer", answerSchema);
+exports.vaccineModel = mongoose.model("vaccine", vaccineSchema);
+exports.substanceModel = mongoose.model("substance", substanceSchema);
