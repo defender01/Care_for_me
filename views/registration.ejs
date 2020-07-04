@@ -51,7 +51,7 @@
         </div>
         <div class="form-group ">
           <label for="firstName" class="col-sm-3 control-label"
-            >First Name</label
+            >First Name*</label
           >
           <div class="col-sm-7">
             <input
@@ -66,7 +66,7 @@
           </div>
         </div>
         <div class="form-group">
-          <label for="lastName" class="col-sm-3 control-label">Last Name</label>
+          <label for="lastName" class="col-sm-3 control-label">Last Name*</label>
           <div class="col-sm-7">
             <input
               type="text"
@@ -265,14 +265,14 @@
           </div>
         </div>
         <div class="form-group">
-          <!-- <label for="nidNumber" class="col-sm-3 control-label"
+          <!-- <label for="idNumber" class="col-sm-3 control-label"
             >NID/ Birth certificate/ Passport*
           </label> -->
 
           <div class="col-sm-1">
 
           </div>
-          <select class="form-control form-control-lg col-sm-2" onchange="changeIdName(this.value);">
+          <select class="form-control form-control-lg col-sm-2" name="idChoice" onchange="changeIdName(this.value);">
             <option value="nidNumber">NID*</option>
             <option value="birthCertificateNumber">Birth certificate*</option>
             <option value="passportNumber">Passport*</option>
@@ -283,8 +283,8 @@
               id="idNumber"
               placeholder="Please write your NID/ Birth certificate/ Passport number"
               class="form-control"
-              name="nidNumber"
-              value="<%= typeof nidNumber != 'undefined' ? nidNumber : '' %>"
+              name="idNumber"
+              value="<%= typeof idNumber != 'undefined' ? idNumber : '' %>"
             />
           </div>
         </div>
@@ -336,7 +336,7 @@
           >
           <div class="col-sm-7">
             <div class="form-check">
-              <input class="form-check-input " type="checkbox" value="" id="defaultCheck1">
+              <input class="form-check-input " name="termAgree" type="checkbox" value="Yes" id="defaultCheck1">
               <p class="agreement">I agree to the  <a href="/termsAndConditions">Terms & Conditions</a></p>
             </div>
           </div>

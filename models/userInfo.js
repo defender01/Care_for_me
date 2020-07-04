@@ -31,13 +31,26 @@ const UserSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  nidNumber : {
+  idChoice: String,
+  idNumber : {
     type: String,
     required: true
   },
   gender: {
     type: String,
     required: true
+  },
+  occupation: String,
+  organization: String,
+  location:{
+    country: String,
+    state: String,
+    city: String,
+    additionalAddress: String,
+  },
+  termAgree: {
+    type: String,
+    default: 'No'
   },
   updated: { 
     type: Date, 

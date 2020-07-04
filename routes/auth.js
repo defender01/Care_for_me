@@ -1,42 +1,74 @@
-const express = require('express')
-const router = express.Router()
-const bcrypt = require('bcryptjs')
-const passport = require('passport')
+const express = require("express");
+const router = express.Router();
+const bcrypt = require("bcryptjs");
+const passport = require("passport");
 // Load User model
-const User = require('../models/userInfo')
-const { checkNotAuthenticated } = require('../controllers/auth_helper')
-
+const User = require("../models/userInfo");
+const { checkNotAuthenticated } = require("../controllers/auth_helper");
 
 // Login Page
-router.get('/login', checkNotAuthenticated, (req, res) => res.render('login'))
+router.get("/login", checkNotAuthenticated, (req, res) => res.render("login"));
 
 // Register Page
-router.get('/register', checkNotAuthenticated, (req, res) => res.render('registration'))
+router.get("/register", checkNotAuthenticated, (req, res) =>
+  res.render("registration")
+);
 
 // Register
-router.post('/register', (req, res) => {
-  const {firstName, lastName, displayName, email, password, password2, birthDate, phoneNumber, nidNumber, birthCertificateNumber, passportNumber, gender } = req.body
-  let errors = []
+router.post("/register", (req, res) => {
+  const {
+    firstName,
+    lastName,
+    displayName,
+    email,
+    password,
+    password2,
+    birthDate,
+    phoneNumber,
+    idNumber,
+    gender,
+    idChoice,
+    occupation,
+    organization,
+    country,
+    state,
+    city,
+    additionalAddress,
+    termAgree
+  } = req.body;
+  let errors = [];
 
-  if (!firstName || !lastName || !displayName || !email || !password || !password2 || !birthDate || !phoneNumber || !(nidNumber || birthCertificateNumber || passportNumber) || !gender ) {
-    errors.push({ msg: 'Please enter all required fields' })
+  if (
+    !firstName ||
+    !lastName ||
+    !displayName ||
+    !email ||
+    !password ||
+    !password2 ||
+    !birthDate ||
+    !phoneNumber ||
+    !idNumber  ||
+    !gender||
+    !idChoice||
+    !termAgree
+  ) {
+    errors.push({ msg: "Please enter all required fields" });
   }
 
   if (password != password2) {
-    errors.push({ msg: 'Passwords do not match' })
+    errors.push({ msg: "Passwords do not match" });
   }
 
-  
   if (phoneNumber.length < 11) {
-    errors.push({ msg: 'Phone number must be atleast 11 digits' })
+    errors.push({ msg: "Phone number must be atleast 11 digits" });
   }
 
   if (password.length < 6) {
-    errors.push({ msg: 'Password must be at least 6 characters' })
+    errors.push({ msg: "Password must be at least 6 characters" });
   }
 
   if (errors.length > 0) {
-    res.render('registration', {
+    res.render("registration", {
       errors,
       firstName,
       lastName,
@@ -44,81 +76,115 @@ router.post('/register', (req, res) => {
       email,
       birthDate,
       phoneNumber,
-      nidNumber,
-      gender 
-    })
+      idNumber,
+      gender,
+      idChoice,
+      occupation,
+      organization,
+      country,
+      state,
+      city,
+      additionalAddress,
+      termAgree
+    });
   } else {
-    User.findOne({ email: email }).then(user => {
-      if (user) {
-        errors.push({ msg: 'Email already exists' })
-        res.render('registration', {
+    User.find({ $or: [ { email: email }, { phoneNumber: phoneNumber }, {idNumber: idNumber}  ]}).then((users) => {
+      console.log('came in users')
+      if (users.length) {
+        console.log(users)
+        users.forEach(user => {  
+          console.log(user)
+          if(user.email==email)
+            errors.push({ msg: "Email already exists" });
+          if(user.phoneNumber==phoneNumber)
+            errors.push({ msg: "Phone no already exists" });
+          if(user.idNumber==idNumber)
+            errors.push({ msg: "ID number(NID/ Passport/ Birth Certificate no) already exists" });
+        })
+        res.render("registration", {
           errors,
           firstName,
           lastName,
-          displayName,
           email,
           birthDate,
           phoneNumber,
-          nidNumber,
-          gender 
-        })
-      } 
-      else {
+          idNumber,
+          gender,
+          idChoice,
+          occupation,
+          organization,
+          country,
+          state,
+          city,
+          additionalAddress,
+        });
+      } else {
         const newUser = new User({
           name: {
-            firstName : firstName,
-            lastName : lastName,
-            displayName : displayName
+            firstName: firstName,
+            lastName: lastName,
+            displayName: displayName,
           },
           email: email,
           password: password,
-          birthDate : birthDate,
-          phoneNumber : phoneNumber,
-          nidNumber : nidNumber,
-          gender: gender
-        })
-
+          birthDate: birthDate,
+          phoneNumber: phoneNumber,
+          idNumber: idNumber,
+          gender: gender,
+          idChoice: idChoice,
+          occupation: occupation,
+          organization: organization,
+          location:{
+            country: country,
+            state: state,
+            city: city,
+            additionalAddress: additionalAddress,
+          },          
+          termAgree: termAgree
+        });
+        
+        console.log({newUser})
+        
         bcrypt.genSalt(10, (err, salt) => {
           bcrypt.hash(newUser.password, salt, (err, hash) => {
-            if (err) throw err
-            newUser.password = hash
+            if (err) throw err;
+            newUser.password = hash;
             newUser
               .save()
-              .then(user => {
+              .then((user) => {
                 req.flash(
-                  'success_msg',
-                  'You are now registered and can log in'
-                )
-                res.redirect('/auth/login')
+                  "success_msg",
+                  "You are now registered and can log in"
+                );
+                res.redirect("/auth/login");
               })
-              .catch(err => console.log(err))
-          })
-        })
+              .catch((err) => console.log(err));
+          });
+        });
       }
-    })
+    });
   }
-})
+});
 
 // Login
-router.post('/login', async (req, res, next) => {
-  console.log(req.body)
-  passport.authenticate('local', {
-    successRedirect: '/data/collection',
-    failureRedirect: '/auth/login',
-    failureFlash: true
-  })(req, res, next)
-})
+router.post("/login", async (req, res, next) => {
+  console.log(req.body);
+  passport.authenticate("local", {
+    successRedirect: "/data/collection",
+    failureRedirect: "/auth/login",
+    failureFlash: true,
+  })(req, res, next);
+});
 
 // Logout
-router.get('/logout', (req, res) => {
-  if(req.user){
-    req.logout()
-    req.flash('success_msg', 'You are logged out')  
+router.get("/logout", (req, res) => {
+  if (req.user) {
+    req.logout();
+    req.flash("success_msg", "You are logged out");
+  } else {
+    req.flash("error_msg", "You are not logged in");
   }
-  else{
-    req.flash('error_msg', 'You are not logged in')
-  }
-  res.redirect('/auth/login')
-})
+  res.redirect("/auth/login");
+});
 
-module.exports = router
+module.exports = router;

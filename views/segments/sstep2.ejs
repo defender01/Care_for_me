@@ -46,7 +46,9 @@
     <input type="button" name="previous" class="previous action-button-previous" value="Previous" />
 
     <script>
+      let savedData
       $.get("/profile/getSectionData/Family Information", (data) => {
+        savedData = data
         console.log("family info came")
       let elmStr = "", fatherElm = "", motherElm = "", siblingElm = "", childrenElm = "", relativeElm = ""
       for (let i = 0; i < data.subSections.length; i++) {
@@ -91,7 +93,7 @@
         elmStr += '<div class="sub-part-row">'+
                     '<h5 class="left subsection-title">' + subSection.name + '</h5>'+
                     // have to implement addNewMember()
-                    '<i class="far fa-plus-square" onclick="addNewMember(this.parentElement.parentElement.id)"></i>'+
+                    '<i class="far fa-plus-square" onclick="addNewMember()"></i>'+
                   '</div>'
       }
       else{ 
@@ -121,6 +123,10 @@
               '</div>'
 
       return elmStr + '<div class="sub-part">' + qStr + "</div>";
+    }
+    function addNewMember(obj){
+      // console.log({obj})
+      console.log(savedData)
     }
        
     </script>
