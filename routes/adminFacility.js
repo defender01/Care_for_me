@@ -11,6 +11,11 @@ const {
   editProfileQues,
   saveProfileQues
 } = require("../controllers/adminFunctions");
+
+const {
+  uploadVaccineAndSubstanceToDB
+} = require("../controllers/database_controller");
+
 const { questionModel, optionModel } = require("../models/inputCollection");
 
 
@@ -27,6 +32,9 @@ router.post("/profile/edit", saveProfileQues)
 
 // this is for deleting section subsection....have to delete this later
 router.get("/deleteSectionSubsection", deleteSecSubSecQuesOp);
+
+// this is for clearing whole vaccine collection, substance collection and uploading again all vaccines and subtances to the database
+router.get("/uploadVaccineAndSubstanceToDB", uploadVaccineAndSubstanceToDB);
 
 // this provides new id
 router.get('/getNewId', async (req, res) => {

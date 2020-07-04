@@ -186,7 +186,7 @@ h5.left.subsection-title {
   border-radius: 100px;
   color: black;
   padding: 3px 10px 3px 10px;
-  margin: 10px 100px 0 0;
+  margin: 10px 10px 10px 0;
 }
 
 .subtance-history-container {
@@ -509,7 +509,6 @@ i.far.fa-plus-square::before {
 }
 
 .sub-part-row i {
-  margin: 5px;
   text-align: end;
 }
 

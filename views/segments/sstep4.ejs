@@ -1,69 +1,99 @@
 <fieldset>
-    <div class="form-card">
-  
-      <div class="secondary-container title-bar">
-        <div class="row">
-          <div class="col-8">
-            <h2 class="fs-title">Education and Occupation Details</h2>
-          </div>
-          <div class="col-4">
-            <h2 class="steps">Step 4 - 6</h2>
-          </div>
+  <div class="form-card">
+
+    <div class="secondary-container title-bar">
+      <div class="row">
+        <div class="col-8">
+          <h2 class="fs-title">Education and Occupation Details</h2>
+        </div>
+        <div class="col-4">
+          <h2 class="steps">Step 4 - 6</h2>
         </div>
       </div>
-      
-      <div id="addPlace4"></div>
-  
     </div>
-    <input type="button" name="next" class="next action-button" value="Next" />
-    <input type="button" name="previous" class="previous action-button-previous" value="Previous" />
 
-    <script>
-      $.get("/profile/getSectionData/Education and Occupation Details", (data) => {
-        let elmStr = "";
-        for (let i = 0; i < data.subSections.length; i++) {
-          if(data.subSections[i].name == 'Specialization'){
-            elmStr += getSubSectionStr4(data.subSections[i]);
-          }
-          else{
-            elmStr += getSubSectionStr(data.subSections[i]);
-          }
-        }
-        $("#addPlace4").replaceWith(elmStr);
-      });
-    function getSubSectionStr4(subSection) {
+    <div id="addPlace4"></div>
+
+  </div>
+  <input type="button" name="next" class="next action-button" value="Next" />
+  <input type="button" name="previous" class="previous action-button-previous" value="Previous" />
+
+  <script>
+    let step4SubSections;
+
+    $.get("/profile/getSectionData/Education and Occupation Details", (data) => {
+
+      step4SubSections = data.subSections;
+
       let elmStr = "";
-      elmStr += '<div class = "part">'+
-                  '<div class="sub-part-row">'+
-                    '<h5 class="left">' + subSection.name + '</h5>'+
-                    '<i class="far fa-plus-square" onclick="addSpecialization(this.parentElement.parentElement.id)"></i>'+
-                  '</div>'+
-                '</div>'
-
-      
-      let qStr = '<div class="family-container">'
-      for (let i = 0; i < subSection.questions.length; i++) {
-        // make collapse id unique while creating ans 
-        if(i==2)qStr+=  '<div class="collapse" id="collapse'+subSection._id+'">'
-        qStr += getQuestionStr(subSection.questions[i]);
+      for (let i = 0; i < data.subSections.length; i++) {
+        if (data.subSections[i].name == 'Specialization') {
+          elmStr += getSubSectionStr4(i, 'specialization');
+        }
+        else {
+          elmStr += getSubSectionStr(data.subSections[i]);
+        }
       }
-      // make href collapse id unique while creating ans 
-      // make seeMore id unique while creating ans 
-      qStr+= '</div>'+
-              '<br>'+
-              '<div class="extend">'+
-                '<p>'+
-                  '<a class="btn btn-light" data-toggle="collapse" href="#collapse'+subSection._id+'" id="'+subSection._id+'seeMore"'+
-                    'role="button" onclick="changeButtonText(this.id)" aria-expanded="false"'+
-                    'aria-controls="collapseExample">'+
-                    'See more'+
-                  '</a>'+
-                '</p>'+
-              '</div>'+
-              '</div>'
+      $("#addPlace4").replaceWith(elmStr);
+    });
 
+    function getSubSectionStr4(sSIndex, sSNickname) {
 
-      return '<div class="secondary-container">' + elmStr +qStr + "</div>";
+      sSIndex = parseInt(sSIndex);
+      let subSection = step4SubSections[sSIndex];
+
+      let elmStr = "";
+      elmStr += '<div class = "part">' +
+        '<div class="sub-part-row">' +
+        '<h5 class="left">' + subSection.name + '</h5>' +
+        `<i class="far fa-plus-square" data-toggle="tooltip" data-placement="bottom" title="Click to add a new ${sSNickname} details" onclick="addNewMember2(${sSIndex}, '${sSNickname}')"></i>` +
+        '</div>' +
+        '</div>' +
+        '<div id="' + sSNickname + 'AddHelper"></div>'
+
+      return '<div class="secondary-container">' + elmStr + "</div>";
     }
-    </script>
-  </fieldset>
+
+    function addNewMember2(sSIndex, sSNickname) {
+
+      sSIndex = parseInt(sSIndex);
+      let subSection = step4SubSections[sSIndex];
+
+      $.get('/profile/edit/getNewId', data => {
+
+        console.log('ID for new generated ' + sSNickname + ' ' + data.id)
+
+        let elmStr = "", qStr = "";
+        qStr+= `<button type="button" id="delbtn${data.id}" class="btn btn-danger float-right" onclick="deleteMember(this.parentNode.id)">Delete</button> <br>`
+
+        for (let i = 0; i < subSection.questions.length; i++) {
+          // make collapse id unique while creating ans 
+          if (i == 2) qStr += '<div class="collapse" id="collapse' + data.id + '">'
+          qStr += getQuestionStr3(data.id, subSection.questions[i]); // Identical questions for same subsection are distinguished by additional ID
+        }
+
+        if (subSection.questions.length > 2) qStr += '</div>';
+        // make href collapse id unique while creating ans 
+        // make seeMore id unique while creating ans 
+        qStr += '<br>' +
+          '<div class="extend">' +
+          '<p>' +
+          '<a class="btn btn-light" data-toggle="collapse" href="#collapse' + data.id + '" id="' + data.id + 'seeMore"' +
+          'role="button" onclick="changeButtonText(this.id)" aria-expanded="false"' +
+          'aria-controls="collapse' + data.id + '">' +
+          'See more' +
+          '</a>' +
+          '</p>' +
+          '</div>' 
+
+        elmStr += `<div class="family-container" id="${data.id}">` + qStr + '</div>' + 
+          '<div id="' + sSNickname + 'AddHelper"></div>'
+
+        $("#" + sSNickname + "AddHelper").replaceWith(elmStr);
+
+      })
+
+    }
+
+  </script>
+</fieldset>

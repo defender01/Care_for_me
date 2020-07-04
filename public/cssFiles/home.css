@@ -1,137 +1,259 @@
-html{
-    height: 100%;
-    overflow: hidden;
+@import url("https://fonts.googleapis.com/css2?family=Lato&family=Nanum+Gothic&family=Poppins&family=Source+Sans+Pro&display=swap");
+body {
+  height: 100%;
+  width: 100%;
 }
 
-body{
-    color: #fff;
-    margin: 0;
-    padding: 0;
-    perspective: 1px;
-    /* transform-style: preserve-3d; */
-    height: 100%;
-    overflow-y: scroll;
-    overflow-x: hidden;
+main {
+  font-family: poppins;
 }
 
-header{
-    font-family: "Luna";
-    color: #1a0303;
-    box-sizing: border-box;
-    min-height: 100vh;
-    padding: 30vw 0 5vw;
-    position: relative;
-    transform-style: inherit;
-    width: 100vw;
-}
-header h1{
-    margin-top: -100px;
-}
-header, header::before{
-    background: 50% 50% /cover;
+.banner {
+  padding: 10%;
+  width: 100%;
+  height: 50vw;
+  background-color: blue;
+  background-image: url("/resources/takingRecord.jpg");
+  background-size: cover;
 }
 
-header::before{
-    bottom: 0;
-    content: "";
-    left: 0;
-    position: absolute;
-    right: 0;
-    top: 0;
-    display: block;
-    background-image: url(/resources/medicare.jpg);
-    opacity: .4;
+.banner .banner-title {
+  display: flex;
+  padding: 0 10vw 0 10vw;
+}
+
+.banner .banner-title h1 {
+  margin: auto;
+  text-align: center;
+  color: #ffffff;
+  text-shadow: 2px 2px #494040;
+  font-size: 60px;
+}
+
+.banner .banner-btn {
+  display: flex;
+  height: 200px;
+}
+
+.banner .banner-btn button {
+  margin: auto;
+  text-align: center;
+  color: #ffffff;
+  font-size: 30px;
+  background-color: coral;
+  border-width: 3px;
+  border-style: solid;
+  border-radius: 800px;
+  padding: 5px 20px 5px 20px;
+  border-color: #b63a0d;
+}
+
+.banner .banner-btn button:hover {
+  background-color: white;
+  color: #6d330c;
+}
+
+.about-us {
+  padding: 10%;
+}
+
+@media (min-width: 1200px) {
+  .about-us {
+    display: flex;
+  }
+}
+
+.about-us .text-container {
+  padding: 10px;
+  flex: 1;
+  text-align: justify;
+}
+
+.about-us .text-container h1 {
+  font-size: 40px;
+}
+
+.about-us .text-container p {
+  font-size: 22px;
+}
+
+.about-us .about-photo {
+  flex: 1;
+  padding: 40px;
+  display: flex;
+}
+
+.about-us .about-photo .img-container {
+  margin: auto;
+  background-color: #d35151;
+  width: 100%;
+  height: calc((100vw-20)*.59);
+}
+
+.about-us .about-photo .img-container img {
+  height: 100%;
+  width: 100%;
+}
+
+.service-container {
+  background-color: #f8c3916b;
+  padding: 10%;
+  color: #703a07;
+}
+
+.service-container .service-about h1 {
+  text-align: center;
+  font-size: 40px;
+}
+
+.service-container .all-services {
+  margin-top: 50px;
+}
+
+@media (min-width: 1000px) {
+  .service-container .all-services {
+    display: flex;
+  }
+}
+
+.service-container .all-services .service {
+  padding: 20px;
+  flex: 1;
+}
+
+.service-container .all-services .service .service-icon {
+  margin-bottom: 20px;
+  width: 100%;
+  height: 100px;
+  text-align: center;
+}
+
+.service-container .all-services .service .service-icon i {
+  font-size: 100px;
+}
+
+.service-container .all-services .service .service-detail {
+  font-size: 22px;
+  text-align: center;
+}
+
+.feature-container {
+  padding: 10%;
+  background-color: rgba(214, 214, 208, 0.87);
+}
+
+.feature-container .feature {
+  margin: 50px 0 50px 0;
+}
+
+@media (min-width: 1000px) {
+  .feature-container .feature {
+    display: flex;
+  }
+}
+
+.feature-container .feature .details {
+  flex: 1.5;
+}
+
+.feature-container .feature .details h1 {
+  font-size: 30px;
+}
+
+.feature-container .feature .details p {
+  text-align: justify;
+  font-size: 22px;
+}
+
+.feature-container .feature .image-container {
+  padding: 50px;
+  flex: 1;
+}
+
+.feature-container .feature .image-container .image-holder {
+  margin: auto;
+  background-color: #d35151;
+  width: 100%;
+  height: calc((100vw-20)*.59);
+}
+
+.feature-container .feature .image-container .image-holder img {
+  height: 100%;
+  width: 100%;
+}
+
+@media (max-width: 1000px) {
+  .banner {
+    padding: 10%;
+    width: 100%;
+    height: 50vw;
+    background-color: blue;
+    background-image: url("/resources/takingRecord.jpg");
     background-size: cover;
-    transform-origin: center center 0;
-    transform: translateZ(-1px) scale(2);
-    z-index: -1;
-    min-height: 100vh;
-}
-header * {
-    font-weight: normal;
-    letter-spacing: 0.2em;
-    text-align: center;
-    margin: 0;
-    padding: 1em 0;
-
-}
-
-
-
-.service-title{
-    text-align: center;
-    font-family: 'Courier Prime', monospace;
-    color: #1a0303;
-}
-
-
-.container{
-    width: 1000px;
-    position: relative;
+  }
+  .banner .banner-title {
     display: flex;
-    justify-content: space-between;
-    margin-bottom: 100px;
-}
-
-.container .card{
-    position: relative;
-    border-color: transparent;
-    background-color: transparent;
-}
-.container .card .part{
-    width: 300px;
-    height: 200px;
-    transition: 0.5s;
-}
-
-.container .card .part.subpart1{
-    position: relative;
-    background: rgb(2, 173, 45);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1;
-    transform: translateY(100px);
-}
-.container .card:hover .part.subpart1{
-    background: #2238f8;
-    transform: translateY(0);
-}
-.container .card .part.subpart1 .content {
-    opacity: 0.5;
-    transition: 0.5s;
-}
-.container .card:hover .part.subpart1 .content {
-    opacity: 1;
-}
-.container .card .part.subpart1 .content img{
-    max-width: 100px;
-}
-.container .card .part.subpart1 .content h3{
-    margin: 10px 0 0;
-    padding: 0;
-    color: #fff;
+    padding: 0 10vw 0 10vw;
+  }
+  .banner .banner-title h1 {
+    margin: auto;
     text-align: center;
-    font-size: 1.5em;
-}
-
-.container .card .part.subpart2{
-    position: relative;
-    background: #fff;
+    color: #ffffff;
+    text-shadow: 2px 2px #494040;
+    font-size: 30px;
+  }
+  .banner .banner-btn {
     display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 20px; 
-    box-sizing: border-box;
-    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8);  
-    transform: translateY(-100px);  
+    height: 100px;
+  }
+  .banner .banner-btn button {
+    margin: auto;
+    text-align: center;
+    color: #ffffff;
+    font-size: 20px;
+    background-color: coral;
+    border-width: 3px;
+    border-style: solid;
+    border-radius: 800px;
+    padding: 5px 20px 5px 20px;
+    border-color: #b63a0d;
+  }
+  .banner .banner-btn button:hover {
+    background-color: white;
+    color: #6d330c;
+  }
 }
 
-.container .card:hover .part.subpart2{
-    transform: translateY(0);
-}
-.container .card .part.subpart2 .content p{
-    color: #1a0303;
-    margin: 0;
-    padding: 0;
+@media (max-width: 600px) {
+  .banner {
+    padding: 10%;
+    width: 100%;
+    height: 50vw;
+    background-color: blue;
+    background-image: url("/resources/takingRecord.jpg");
+    background-size: cover;
+  }
+  .banner .banner-title {
+    display: none;
+  }
+  .banner .banner-btn {
+    display: flex;
+    height: 100px;
+  }
+  .banner .banner-btn button {
+    margin: auto;
+    text-align: center;
+    color: #ffffff;
+    font-size: 20px;
+    background-color: coral;
+    border-width: 3px;
+    border-style: solid;
+    border-radius: 800px;
+    padding: 5px 20px 5px 20px;
+    border-color: #b63a0d;
+  }
+  .banner .banner-btn button:hover {
+    background-color: white;
+    color: #6d330c;
+  }
 }

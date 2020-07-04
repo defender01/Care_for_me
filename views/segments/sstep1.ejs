@@ -13,86 +13,18 @@
 
     <div id="addPlace1"></div>
 
-    <div class="secondary-container">
-      <h4 class="subsection-title">Immunization history</h4>
-
-      <div class="family-container">
-        <div class="part">
-          <div class="sub-part-row">
-            <h5 class="left">Add vaccine information</h5>
-            <!-- <button type="button" class="btn btn-outline-light add" onclick="addVaccineDetails()"></button> -->
-          </div>
-
-          <% if(typeof vaccineInfoJson != 'undefined'){ %> <% for(let i = 0 ; i
-          < vaccineInfoJson.length ; i++) {%>
-
-          <div class="sub-part each-vaccine-info">
-            <div class="vaccine-info-subsection">
-              <label class="fieldlabels">Vaccine name</label>
-              <p class="vaccineName"><%= vaccineInfoJson[i].name %></p>
-            </div>
-
-            <div class="vaccine-info-subsection">
-              <label class="fieldlabels">Disases</label>
-              <p class="vaccineForDiseases">
-                <%= vaccineInfoJson[i].diseases %>
-              </p>
-            </div>
-
-            <div class="vaccine-info-subsection">
-              <label class="fieldlabels">Status</label>
-              <div class="row">
-                <div class="col">
-                  <div class="custom-control custom-checkbox">
-                    <input
-                      type="radio"
-                      class="custom-control-input"
-                      id="vaccine<%= vaccineInfoJson[i].name %>Completed"
-                      name="<%= vaccineInfoJson[i].name %>"
-                      value="completed"
-                      checked
-                    />
-                    <label
-                      class="custom-control-label"
-                      for="vaccine<%= vaccineInfoJson[i].name %>Completed"
-                    >
-                      completed
-                    </label>
-                  </div>
-                </div>
-                <div class="col">
-                  <div class="custom-control custom-checkbox">
-                    <input
-                      type="radio"
-                      class="custom-control-input"
-                      id="vaccine<%= vaccineInfoJson[i].name %>NotCompleted"
-                      name="<%= vaccineInfoJson[i].name %>"
-                      value="incomplete"
-                    />
-                    <label
-                      class="custom-control-label"
-                      for="vaccine<%= vaccineInfoJson[i].name %>NotCompleted"
-                    >
-                      incomplete
-                    </label>
-                  </div>
-                </div>
-                <div class="col"></div>
-              </div>
-            </div>
-          </div>
-
-          <% } %> <% } %>
-        </div>
-      </div>
-    </div>
   </div>
+
   <input type="button" name="next" class="next action-button" value="Next" />
   <script>
+    let vaccineData = <%- JSON.stringify(vaccineData) %>
+    // console.log(vaccineData) 
+
     $.get("/profile/getSectionData/Birth and Developmental History", (data) => {
       let elmStr = "";
       for (let i = 0; i < data.subSections.length; i++) {
-        elmStr += getSubSectionStr(data.subSections[i]);
+        if (data.subSections[i].name == "Immunization History") elmStr += getSubSectionStrForImmunization(data.subSections[i]);
+        else elmStr += getSubSectionStr(data.subSections[i]);
       }
       $("#addPlace1").replaceWith(elmStr);
     });
@@ -106,74 +38,126 @@
 
       return '<div class="secondary-container">' + elmStr + "</div>";
     }
+
+    function getSubSectionStrForImmunization(subSection) {
+      let elmStr = "", qStr = "";
+      let question = subSection.questions[0];
+      let options = question.options;
+
+      for(let i = 0 ; i < vaccineData.length ; i++) {
+
+        additionalID = vaccineData[i]._id;
+
+        qStr += '<div class="sub-part each-vaccine-info">' +
+                  '<div class="vaccine-info-subsection">' +
+                    '<label class="fieldlabels">Vaccine name</label>' +
+                    '<p class="vaccineName">' + vaccineData[i].name + '</p>' +
+                  '</div>' +
+                  '<div class="vaccine-info-subsection">' +
+                    '<label class="fieldlabels">Diseases</label>' +
+                    '<p class="vaccineForDiseases">' + vaccineData[i].diseases.toString() + '</p>' +
+                  '</div>' + 
+                  '<div class="vaccine-info-subsection">' + 
+                    '<label class="fieldlabels">' + question.name + '</label>' +
+                    '<div class="row">' +
+                      '<div class="col-4">' +
+                        '<div class="custom-control custom-radio">'+
+                          '<input type="radio" id="'+ options[0]._id+ '##' + additionalID + '" name="' + question._id + '#####' + additionalID + '" class="custom-control-input" value="'+options[0].name+'">'+
+                          '<label class="custom-control-label" for="'+ options[0]._id+ '##' + additionalID +'">'+options[0].name+'</label>'+
+                        '</div>' +
+                      '</div>' +
+                      '<div class="col-4">' + 
+                        '<div class="custom-control custom-radio">'+
+                          '<input type="radio" id="'+ options[1]._id+ '##' + additionalID + '" name="' + question._id + '#####' + additionalID + '" class="custom-control-input" value="'+options[1].name+'">'+
+                          '<label class="custom-control-label" for="'+ options[1]._id+ '##' + additionalID +'">'+options[1].name+'</label>'+
+                        '</div>' +
+                      '</div>' +
+                    '</div>' +
+                  '</div>' +
+                '</div>'
+        }
+
+      elmStr += '<div class="secondary-container">' +
+                  '<h4 class="subsection-title">' + subSection.name + '</h4>' +
+                  '<div class="family-container">' +
+                    '<div class="part">' +
+                        '<h5 class="left subsection-title">Add vaccine information</h5>' +
+                      qStr +
+                    '</div>' +
+                  '</div>' +
+                '</div>'
+
+      return elmStr;
+    }
+
     function getQuestionStr(question) {
       let elmStr = "";
       elmStr += '<label class="fieldlabels">' + question.name + "</label>";
       if (question.inputType == "numerical")
-        elmStr +=' <input type="number" name="' + question._id + '" placeholder="" />';
+        elmStr += ' <input type="number" name="' + question._id + '" placeholder="" />';
       else if (question.inputType == "date")
-        elmStr +=' <input type="date" name="' + question._id + '" placeholder="" />';
+        elmStr += ' <input type="date" name="' + question._id + '" placeholder="" />';
       else if (question.inputType == "singleLine")
-        elmStr +=' <input type="text" name="' + question._id + '" placeholder="" />';
+        elmStr += ' <input type="text" name="' + question._id + '" placeholder="" />';
       else if (question.inputType == "multiLine")
-        elmStr +='<textarea class="form-control" name="' + question._id + '"  rows="3"></textarea>'
+        elmStr += '<textarea class="form-control" name="' + question._id + '"  rows="3"></textarea>'
       else if (question.inputType == "multiChoiceSingleAns")
         elmStr += getMultiChoiceSingleOp(question._id, question.options)
       else if (question.inputType == "multiChoiceMultiAns")
         elmStr += getMultiChoiceMultiOp(question._id, question.options)
 
-      return elmStr+ '<br>';
+      return elmStr + '<br>';
     }
 
-    function getMultiChoiceSingleOp(qId, options){
-        let elmStr = ''
-        let conditionalPart='', condArrayStr = '['
+    function getMultiChoiceSingleOp(qId, options) {
+      let elmStr = ''
+      let conditionalPart = '', condArrayStr = '['
 
-        for(let i=0; i<options.length; i++){
-          if(options[i].questions.length>0)
-            condArrayStr += '\'conditional'+options[i]._id+'\', '
-        }
-        condArrayStr+=']'
+      for (let i = 0; i < options.length; i++) {
+        if (options[i].questions.length > 0)
+          condArrayStr += '\'conditional' + options[i]._id + '\', '
+      }
+      condArrayStr += ']'
 
-        for(let i=0; i<options.length; i++){
-          if(options[i].questions.length>0){
-            let str = "\'conditional"+options[i]._id+"\'," 
-            let newCondArray = condArrayStr.replace(str, '')
-            elmStr += '<div class="custom-control custom-radio">'+
-            '<input type="radio" id="'+options[i]._id+'" name="'+ qId +'" class="custom-control-input" value="'+options[i].name+'" onclick="hideConditionalSection('+newCondArray+'); displayConditionalSection([\'conditional'+options[i]._id+'\']); ">'+
-            '<label class="custom-control-label" for="'+options[i]._id+'">'+options[i].name+'</label>'+
+      for (let i = 0; i < options.length; i++) {
+        if (options[i].questions.length > 0) {
+          let str = "\'conditional" + options[i]._id + "\',"
+          let newCondArray = condArrayStr.replace(str, '')
+          elmStr += '<div class="custom-control custom-radio">' +
+            '<input type="radio" id="' + options[i]._id + '" name="' + qId + '" class="custom-control-input" value="' + options[i].name + '" onclick="hideConditionalSection(' + newCondArray + '); displayConditionalSection([\'conditional' + options[i]._id + '\']); ">' +
+            '<label class="custom-control-label" for="' + options[i]._id + '">' + options[i].name + '</label>' +
             '</div>'
-            let qStr = ''
-            for(let j=0; j<options[i].questions.length; j++){
-              qStr+= getQuestionStr(options[i].questions[j])
-            }
-            conditionalPart += '<div id= "conditional'+options[i]._id+'" style="display: none;">'+ qStr +'</div>'
+          let qStr = ''
+          for (let j = 0; j < options[i].questions.length; j++) {
+            qStr += getQuestionStr(options[i].questions[j])
           }
-          else{
-            elmStr += '<div class="custom-control custom-radio">'+
-            '<input type="radio" id="'+options[i]._id+'" name="'+ qId +'" class="custom-control-input" value="'+options[i].name+'" onclick="hideConditionalSection('+condArrayStr+');">'+
-            '<label class="custom-control-label" for="'+options[i]._id+'">'+options[i].name+'</label>'+
-            '</div>'
-          }
+          conditionalPart += '<div id= "conditional' + options[i]._id + '" style="display: none;">' + qStr + '</div>'
         }
-        return elmStr+conditionalPart
+        else {
+          elmStr += '<div class="custom-control custom-radio">' +
+            '<input type="radio" id="' + options[i]._id + '" name="' + qId + '" class="custom-control-input" value="' + options[i].name + '" onclick="hideConditionalSection(' + condArrayStr + ');">' +
+            '<label class="custom-control-label" for="' + options[i]._id + '">' + options[i].name + '</label>' +
+            '</div>'
+        }
+      }
+      return elmStr + conditionalPart
     }
 
-    function getMultiChoiceMultiOp(qId, options){
+    function getMultiChoiceMultiOp(qId, options) {
       let elmStr = ''
 
-      for(let i=0; i<options.length; i++){
-        elmStr += '<div class="custom-control custom-checkbox">'+
-          '<input type="checkbox" id="'+options[i]._id+'" name="'+ qId +'" class="custom-control-input" value="'+options[i].name+'" onclick="displayConditionalSectionCheckbox(\''+options[i]._id+'\' , \'conditional'+options[i]._id+'\'); ">'+
-          '<label class="custom-control-label" for="'+options[i]._id+'">'+options[i].name+'</label>'+
+      for (let i = 0; i < options.length; i++) {
+        elmStr += '<div class="custom-control custom-checkbox">' +
+          '<input type="checkbox" id="' + options[i]._id + '" name="' + qId + '" class="custom-control-input" value="' + options[i].name + '" onclick="displayConditionalSectionCheckbox(\'' + options[i]._id + '\' , \'conditional' + options[i]._id + '\'); ">' +
+          '<label class="custom-control-label" for="' + options[i]._id + '">' + options[i].name + '</label>' +
           '</div>'
-        
-        if(options[i].questions.length>0){  
+
+        if (options[i].questions.length > 0) {
           let qStr = ''
-          for(let j=0; j<options[i].questions.length; j++){
-            qStr+= getQuestionStr(options[i].questions[j])
+          for (let j = 0; j < options[i].questions.length; j++) {
+            qStr += getQuestionStr(options[i].questions[j])
           }
-          elmStr += '<div id= "conditional'+options[i]._id+'" style="display: none;">'+ qStr +'</div>'
+          elmStr += '<div id= "conditional' + options[i]._id + '" style="display: none;">' + qStr + '</div>'
         }
       }
       return elmStr

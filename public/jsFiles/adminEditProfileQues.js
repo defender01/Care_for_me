@@ -162,7 +162,7 @@ function createQuestion(opId, questions){
                             '<br>'+
                             '<div class="flx_prnt_input_opt">'+
                             '<div class="flx_chld_input">'+
-                                '<input type="text" name="opName'+opId+'" value="" required>'+
+                                '<input type="text" name="opName'+opId+'" value="" required>' +
                             '</div>'+
                             '<div class="flx_chld_opt">'+
                                 '<button type="button" class="btn btn-danger" onclick="deleteItem(\'optionContainer'+opId+'\')">Delete</button>'+

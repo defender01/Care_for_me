@@ -1,91 +1,86 @@
-const express = require('express')
-const router = express.Router()
-const User = require('../models/userInfo')
-var medHistoryModel = require('../models/medHistoryInfo')
+const express = require("express");
+const router = express.Router();
+const mongoose = require("mongoose");
+const User = require("../models/userInfo");
 const {
-  getSectionData
-} = require("../controllers/adminFunctions");
-
-
+  vaccineModel,
+  substanceModel,
+  answerModel,
+} = require("../models/inputCollection");
+const { getSectionData } = require("../controllers/adminFunctions");
 
 //import camelCase function
-const camelCase = require('../controllers/functionCollection').camelCase
+const camelCase = require("../controllers/functionCollection").camelCase;
 
 const {
-    checkAuthenticated,
-    checkNotAuthenticated
-  } = require('../controllers/auth_helper');
-  
+  checkAuthenticated,
+  checkNotAuthenticated,
+} = require("../controllers/auth_helper");
 
 router.get("/", checkAuthenticated, async (req, res) => {
-    var displayName = req.user.name.displayName
-    await User.find({email : req.user.email}, (err, data) => {
-        console.log(data)
-        if (err) throw err
-        else res.render('profile', { data, displayName })
-    });
+  let displayName = req.user.name.displayName;
+  let data;
+  let errors = []
   
-  })
-
-  let substanceNames = ['Alcohol','Cannabis','Stimulants','Amphetamines','Benzodiazepines/tranquilizers','Sedatives/hypnotics','Heroin','Street or illicit methadone','Opioids','Hallucinogens','Inhalants']
-
-  var substanceNamesJson=[]
-  for(var i=0; i<substanceNames.length; i++){
-    substanceNamesJson.push({
-      name: substanceNames[i],
-    })
+  try{
+    data = await User.find({ email: req.user.email });
+  }catch(err){
+    errors.push({ msg: 'Internal Server Error' })
+    console.log(err)
   }
-  
-  //console.log(substanceNamesJson)
-  
-  
-  let physicalDiseases = ["Asthma", "Aneurysm", "Diabetes", "Epilepsy Seizures", "Headaches or migraines", "Heart diseases", "High blood pressure", "Kidney disease", "Lung Disease", "Migraine", "Arthritis", "Elevated cholesterol", "Multiple Sclerosis", "Stroke", "Thyroid", "Tuberculosis", "Bleeding disorder"]
-  let mentalDiseases = ["Neurocognitive disordero: dementia/ alzheimer’s disease", "Neurodevelopmental disorder", "Obsessive compulsive disorder", "Schizophrenia", "Depression", "Panic disorder", "Mood disorder", "Attention deficit hyperactivity disorder", "Convulsions", "Somatoform disorder", "Stress disorder", "Eating disorder", "Impulsive control disorder", "Substance abuse disorder"]
-  let vaccineNames = ["BCG","Pentavalent","PCV","OPV","MR,Measles","TT (Tetanus toxoid)"]
-  let vaccineDiseases = ["Tuberculosis","Diphtheria, Pertussis, Tetanus, Hepatitis B, Hemophilus Influenza B","Pneumococcal Pneumonia","Poliomyelitis","Measles Rubella","Measles","Tetanus"]
-  
-  let physicalDiseasesJson = []
-  let mentalDiseasesJson = []
-  let vaccineInfoJson = []
-  
-  for(var i=0; i<vaccineNames.length; i++) {
-    vaccineInfoJson.push({    
-      name: vaccineNames[i],
-      id: camelCase(vaccineNames[i]),
-      diseases: vaccineDiseases[i]
-    })
-  }
-  
-  for(var i=0; i<physicalDiseases.length; i++) {
-    physicalDiseasesJson.push({    
-      name: physicalDiseases[i],
-      id: camelCase(physicalDiseases[i])})
-  }
-  for(var i=0; i<mentalDiseases.length; i++) {
-    mentalDiseasesJson.push({
-      name: mentalDiseases[i],
-      id: camelCase(mentalDiseases[i])})
-  }
-  
-  router.get("/edit", async (req, res) => {
-  
-     await medHistoryModel.find({},(err, data) => {
-      if (err) throw err
-      else res.render("medHistory", { data, substanceNamesJson, physicalDiseasesJson, mentalDiseasesJson, vaccineInfoJson})
-    })
-  
-  })
-  
-  router.post("/edit", async (req, res) => {
-  
-    console.log(req.body)
-    res.redirect('/profile/edit') 
-  })
-  router.post('/formSubmit', async (req, res) => {
-    // console.log(req.body)
-  });
+  res.render("profile", {errors, data , displayName });
+});
 
-  router.get("/getSectionData/:section", getSectionData)
-  
+// let physicalDiseases = ["Asthma", "Aneurysm", "Diabetes", "Epilepsy Seizures", "Headaches or migraines", "Heart diseases", "High blood pressure", "Kidney disease", "Lung Disease", "Migraine", "Arthritis", "Elevated cholesterol", "Multiple Sclerosis", "Stroke", "Thyroid", "Tuberculosis", "Bleeding disorder"]
+// let mentalDiseases = ["Neurocognitive disordero: dementia/ alzheimer’s disease", "Neurodevelopmental disorder", "Obsessive compulsive disorder", "Schizophrenia", "Depression", "Panic disorder", "Mood disorder", "Attention deficit hyperactivity disorder", "Convulsions", "Somatoform disorder", "Stress disorder", "Eating disorder", "Impulsive control disorder", "Substance abuse disorder"]
+// let physicalDiseasesJson = []
+// let mentalDiseasesJson = []
 
-  module.exports = router;
+// for(var i=0; i<physicalDiseases.length; i++) {
+//   physicalDiseasesJson.push({
+//     name: physicalDiseases[i],
+//     id: camelCase(physicalDiseases[i])})
+// }
+// for(var i=0; i<mentalDiseases.length; i++) {
+//   mentalDiseasesJson.push({
+//     name: mentalDiseases[i],
+//     id: camelCase(mentalDiseases[i])})
+// }
+
+router.get("/edit", checkAuthenticated, async (req, res) => {
+  let displayName = req.user.name.displayName;
+  let substanceData, vaccineData;
+  let errors = []
+  
+  try{
+    vaccineData = await vaccineModel.find({});
+    substanceData = await substanceModel.find({});
+  }catch(err){
+    errors.push({ msg: 'Internal Server Error' })
+    console.log(err)
+  }
+
+  // console.log(vaccineData)
+  // console.log(substanceData)
+
+  res.render("medHistory", {errors, displayName, substanceData, vaccineData });
+});
+
+router.post("/edit", async (req, res) => {
+  let data = req.body;
+
+  for (var key of Object.keys(data)) {  
+      console.log(key + " -> " + data[key])
+  }
+
+  res.redirect("/profile/edit");
+});
+
+router.get("/getSectionData/:section", getSectionData);
+
+// this provides new id
+router.get('/edit/getNewId', async (req, res) => {
+  res.send({ id: new mongoose.Types.ObjectId() })
+})
+
+module.exports = router;
