@@ -18,7 +18,7 @@
   <input type="button" name="next" class="next action-button" value="Next" />
   <script>
     let vaccineData = <%- JSON.stringify(vaccineData) %>
-    console.log(vaccineData) 
+    // console.log(vaccineData) 
 
     $.get("/profile/getSectionData/Birth and Developmental History", (data) => {
       let elmStr = "";

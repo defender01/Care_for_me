@@ -1,51 +1,61 @@
-<html>
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+
+    <title>Hello, world!</title>
+  </head>
   <body>
-    <form method="POST" action="/test">
-      <div class="dropdown">
-        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Dropdown button
-        </button>
-        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-          <a class="dropdown-item" href="#">Action</a>
-          <a class="dropdown-item" href="#">Another action</a>
-          <a class="dropdown-item" href="#">Something else here</a>
-        </div>
-      </div>
-      whats your name?
-      <br>
-      <input type="text" style="display: none;" value="44">
-      <input type="text" style="display: none;" name="hiddenVal" value="88">
-      <input type="text" name="v[0][0]" id="n1">
-      <br>
-      conditional ques:
-      <br>
-      first name:
-      <br>
-      <input type="text" name="f[0][0]" id="n1">
-      <br>
-      last name:
-      <br>
-      <input type="text" name="v[0][1]" id="n1">
-      <br>
-      whats your age?
-      <input type="text" name="f[0][1]" id="a1">
-      <br>
-      whats your hobby?
-      <br>
-      <input type="text" name="p" id="p1">
-      <br>
-      <% if(1) {%>
-        <div>
-          working
-        </div>
-      <% } else { %>
-        <div>
-          not working
-        </div>
 
-      <% } %>
+    <div class="HELLOWORLD"></div>
+    <div id="Hello"></div>
 
-      <button type="submit" class="btn btn-primary">Submit</button>      
-    </form>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
   </body>
+
+  
+  <script>
+    let x =
+      { name: 'sakib', age: 22 };
+    $('.HELLOWORLD').append(`
+      <button data-info='${JSON.stringify(x)}' class="newerAdded">
+        Hello
+      </button>
+    `);
+
+    $(document).on('click','.newerAdded', (e) => {
+      console.log(JSON.parse(e.target.dataset.info));
+    });
+  </script>
+
+<script>
+  let subSection = [{msg : 1}, {msg : "hu2"}, {msg : "hu3"}];
+  for (let i = 0; i < subSection.length; i++) {
+    let htmlCode = `
+      <div>
+        <a 
+          class="someClass"
+          role="button"
+          data-prop='${JSON.stringify(subSection[i])}'
+        > ${JSON.stringify(subSection[i])}
+      </a>
+      </div>
+    `;
+    $('#Hello').append(htmlCode);
+  }
+
+  $('.someClass').on('click', (e) => {
+    console.log('Hello World');
+    console.log(JSON.parse(e.target.dataset.prop));
+  });
+</script>
 </html>

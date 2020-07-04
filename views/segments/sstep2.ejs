@@ -10,6 +10,7 @@
         </div>
       </div>
     </div>
+
     <div class="secondary-container">
       <!-- family history -->
       <div class="family-container">
@@ -46,20 +47,25 @@
   <input type="button" name="previous" class="previous action-button-previous" value="Previous" />
 
   <script>
+    let step2SubSections;
+
     $.get("/profile/getSectionData/Family Information", (data) => {
       console.log("family info came")
+
+      step2SubSections = data.subSections;
+
       let elmStr = "", fatherElm = "", motherElm = "", siblingElm = "", childrenElm = "", relativeElm = ""
       for (let i = 0; i < data.subSections.length; i++) {
         if (data.subSections[i].name == "Father's Details")
-          fatherElm += getSubSectionStr2(data.subSections[i]);
+          fatherElm += getSubSectionStr2(i, 'father');
         else if (data.subSections[i].name == "Mother's Details")
-          motherElm += getSubSectionStr2(data.subSections[i]);
+          motherElm += getSubSectionStr2(i, 'mother');
         else if (data.subSections[i].name == "Sibling's Details")
-          siblingElm += getSubSectionStr2(data.subSections[i]);
+          siblingElm += getSubSectionStr2(i, 'sibling');
         else if (data.subSections[i].name == "Children's Details")
-          childrenElm += getSubSectionStr2(data.subSections[i]);
+          childrenElm += getSubSectionStr2(i, 'children');
         else if (data.subSections[i].name == "Relative's Details")
-          relativeElm += getSubSectionStr2(data.subSections[i]);
+          relativeElm += getSubSectionStr2(i, 'relative');
       }
       elmStr += '<div class="tab-content" id="myTabContent">' +
         '<div class="tab-pane fade show active" id="parents" role="tabpanel" aria-labelledby="parents-tab">' +
@@ -85,43 +91,100 @@
         '</div>'
       $("#addPlace2").replaceWith(elmStr);
     });
-    
-    function getSubSectionStr2(subSection) {
+
+    function getSubSectionStr2(sSIndex, sSNickname) {
+
+      sSIndex = parseInt(sSIndex);
+      let subSection = step2SubSections[sSIndex];
+
       let elmStr = "", qStr = "";
+
+      // for children, relatives and siblings
       if (subSection.name != "Father's Details" && subSection.name != "Mother's Details") {
         elmStr += '<div class="sub-part-row">' +
           '<h5 class="left subsection-title">' + subSection.name + '</h5>' +
-          // have to implement addNewMember()
-          '<i class="far fa-plus-square" onclick="addNewMember(this.parentElement.parentElement.id)"></i>' +
-          '</div>'
+          `<i class="far fa-plus-square" data-toggle="tooltip" data-placement="bottom" title="Click to add a new ${sSNickname} details" onclick="addNewMember(${sSIndex}, '${sSNickname}')"></i>` +
+          '</div>' +
+          '<div id="' + sSNickname + 'AddHelper"></div>'
+
       }
+      // for father and mother
       else {
         elmStr += '<div class="sub-part-row">' +
           '<h5 class="left subsection-title">' + subSection.name + '</h5>' +
           '</div>'
+
+        
+        for (let i = 0; i < subSection.questions.length; i++) {
+          // make collapse id unique while creating ans 
+          if (i == 2) qStr += '<div class="collapse" id="collapse' + subSection._id + '">'
+          qStr += getQuestionStr(subSection.questions[i]); // questions don't need additional ID
+        }
+
+        if (subSection.questions.length > 2) qStr += '</div>';
+        // make href collapse id unique while creating ans 
+        // make seeMore id unique while creating ans 
+        qStr += '<br>' +
+          '<div class="extend">' +
+          '<p>' +
+          '<a class="btn btn-light" data-toggle="collapse" href="#collapse' + subSection._id + '" id="' + subSection._id + 'seeMore"' +
+          'role="button" onclick="changeButtonText(this.id)" aria-expanded="false"' +
+          'aria-controls="collapse' + subSection._id + '">' +
+          'See more' +
+          '</a>' +
+          '</p>' +
+          '</div>'
+
+        elmStr += `<div class="sub-part" id="${subSection._id}">` + qStr + "</div>";
       }
 
-      // here this for loop will iterate for every relative
-      for (let i = 0; i < subSection.questions.length; i++) {
-        // make collapse id unique while creating ans 
-        if (i == 2) qStr += '<div class="collapse" id="collapse' + subSection._id + '">'
-        qStr += getQuestionStr(subSection.questions[i]);
-      }
-      // make href collapse id unique while creating ans 
-      // make seeMore id unique while creating ans 
-      qStr += '</div>' +
-        '<br>' +
-        '<div class="extend">' +
-        '<p>' +
-        '<a class="btn btn-light" data-toggle="collapse" href="#collapse' + subSection._id + '" id="' + subSection._id + 'seeMore"' +
-        'role="button" onclick="changeButtonText(this.id)" aria-expanded="false"' +
-        'aria-controls="collapseExample">' +
-        'See more' +
-        '</a>' +
-        '</p>' +
-        '</div>'
+      return elmStr
+    }
 
-      return elmStr + '<div class="sub-part">' + qStr + "</div>";
+    function addNewMember(sSIndex, sSNickname) {
+
+      sSIndex = parseInt(sSIndex);
+      let subSection = step2SubSections[sSIndex];
+
+      $.get('/profile/edit/getNewId', data => {
+
+        console.log('ID for new generated ' + sSNickname + ' ' + data.id)
+
+        let elmStr = "", qStr = "";
+        qStr+= `<button type="button" id="delbtn${data.id}" class="btn btn-danger float-right" onclick="deleteMember(this.parentNode.id)">Delete</button> <br>`
+
+        for (let i = 0; i < subSection.questions.length; i++) {
+          // make collapse id unique while creating ans 
+          if (i == 2) qStr += '<div class="collapse" id="collapse' + data.id + '">'
+          qStr += getQuestionStr3(data.id, subSection.questions[i]); // Identical questions for same subsection are distinguished by additional ID
+        }
+
+        if (subSection.questions.length > 2) qStr += '</div>';
+        // make href collapse id unique while creating ans 
+        // make seeMore id unique while creating ans 
+        qStr += '<br>' +
+                '<div class="extend">' +
+                '<p>' +
+                '<a class="btn btn-light" data-toggle="collapse" href="#collapse' + data.id + '" id="' + data.id + 'seeMore"' +
+                'role="button" onclick="changeButtonText(this.id)" aria-expanded="false"' +
+                'aria-controls="collapse' + data.id + '">' +
+                'See more' +
+                '</a>' +
+                '</p>' +
+                '</div>'
+        
+        
+        elmStr += `<div class="sub-part" id="${data.id}">` + qStr + '</div>' + 
+        '<div id="' + sSNickname + 'AddHelper"></div>'
+
+        $("#" + sSNickname + "AddHelper").replaceWith(elmStr);
+
+      })
+    }
+
+    function deleteMember(elemId){
+      console.log(elemId)
+      $("#"+elemId).remove()
     }
 
   </script>

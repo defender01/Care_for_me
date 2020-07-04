@@ -39,10 +39,6 @@ const answerSchema = new Schema({
       additionalId: {
         type: Schema.Types.ObjectId,
       },
-      isItForMCQ: {
-        type: Boolean,
-        default: false
-      },
       answers: [String],
       optionIDsforMCQAnswer : [{
         type: Schema.Types.ObjectId,

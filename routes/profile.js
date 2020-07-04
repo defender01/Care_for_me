@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+const mongoose = require("mongoose");
 const User = require("../models/userInfo");
 const {
   vaccineModel,
@@ -66,15 +67,20 @@ router.get("/edit", checkAuthenticated, async (req, res) => {
 });
 
 router.post("/edit", async (req, res) => {
-  console.log(req.body);
+  let data = req.body;
 
-  // for (var key of Object.keys(req.body)) {
-
-  // }
+  for (var key of Object.keys(data)) {  
+      console.log(key + " -> " + data[key])
+  }
 
   res.redirect("/profile/edit");
 });
 
 router.get("/getSectionData/:section", getSectionData);
+
+// this provides new id
+router.get('/edit/getNewId', async (req, res) => {
+  res.send({ id: new mongoose.Types.ObjectId() })
+})
 
 module.exports = router;

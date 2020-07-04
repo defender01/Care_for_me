@@ -1,6 +1,3 @@
-var familyCnt = [0,0,0];
-
-
 $(document).ready(function () {
 
     var current_fs, next_fs, previous_fs; //fieldsets
@@ -84,36 +81,6 @@ function camelCase(str) {
   }).replace(/\s+/g, '');
 }
 
-function displayHowMuchInputField(id)
-{
-    var elem = document.getElementById(id)
-    var extraDiv1 = document.getElementById("howMuchGeneralDisorder_1")
-    var extraDiv2 = document.getElementById("howMuchGeneralDisorder_2")
-
-    if(id == "generalDisorderID_1"){
-        if(elem.checked) extraDiv1.style.display = "block"
-        else extraDiv1.style.display = "none"
-    }
-
-    if(id == "generalDisorderID_2"){
-      if(elem.checked) extraDiv2.style.display = "block"
-      else extraDiv2.style.display = "none"
-    }
-}
-
-
-function displayWhereInputField(id){
-  var idx = id.indexOf('_')
-  var str = "whereMuscleDisorder_" + id[idx+1]
-
-  var elem = document.getElementById(id)
-  var extraDiv = document.getElementById(str)
-
-  if(elem.checked) extraDiv.style.display = "block"
-  else extraDiv.style.display = "none"
-
-}
-
 function changeButtonText(id)
 {
     // console.log(id)
@@ -173,7 +140,7 @@ function displayConditionalSectionCheckbox(id, conditionalSectionId){
 function onStart()
 {
      // keep occupation details of step4 hidden at the beginning
-     idsForHiddenElements=["coworkerInjuryDetails","substanceRashDetails", "offForIllnessDetails", "occuredBreathingProblemDetails", 
+     let idsForHiddenElements=["coworkerInjuryDetails","substanceRashDetails", "offForIllnessDetails", "occuredBreathingProblemDetails", 
                             "jobChangeForInjuryDetails", "backProblemDetails", "employmentDetails", "unemploymentDetails", "cancerTypeContainerFamilyMember",
                           "cancerTypeContainerRelative", "cancerTypeContainerParent", "deathDetails", "deathDetailsRelative", "deathDetailsParent", 
                         ]
@@ -181,27 +148,20 @@ function onStart()
      for(var i=0; i<idsForHiddenElements.length; i++){
        var el=document.getElementById(idsForHiddenElements[i])
        if(el!=null){
-          // console.log(idsForHiddenElements[i])
           el.style.display="none";
        }
      }
-    //  var el = document.getElementById("employmentDetails")
-    //  var uel = document.getElementById("unemploymentDetails")
-    //  el.style.display="none"
-    //  uel.style.display="none"
-    var ids= ['fatherDetails','motherDetails','siblingsDetails','childrenDetails','relativeDetails']
-    var cntIds = ['siblingsCnt','childrenCnt','relativeCnt']
 
-    for(var i = 0; i<ids.length; i++)
-    {
-        var items = document.querySelectorAll('[id='+ids[i]+']')
-        familyCnt[i] =  items.length
-        // console.log(ids[i]+' '+items.length+'---------')
-        $('#'+cntIds[i]).html('Total number: '+ familyCnt[i])
+    // var ids= ['fatherDetails','motherDetails','siblingsDetails','childrenDetails','relativeDetails']
 
-        for(var j=0; j<items.length; j++){
-            items[j].id = ids[i] + j.toString()
-            $('#'+items[j].id+' > .extend > p:eq(0) > a:eq(0)').attr('id', 'seeMore' + items[j].id)
-        }   
-    }
+    // for(var i = 0; i<ids.length; i++)
+    // {
+    //     var items = document.querySelectorAll('[id='+ids[i]+']')
+    //     console.log(ids[i]+' '+items.length+'---------')
+
+    //     for(var j=0; j<items.length; j++){
+    //         items[j].id = ids[i] + j.toString()
+    //         $('#'+items[j].id+' > .extend > p:eq(0) > a:eq(0)').attr('id', 'seeMore' + items[j].id)
+    //     }   
+    // }
 }
