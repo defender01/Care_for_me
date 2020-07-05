@@ -3,9 +3,13 @@ body{
     height: 100%;
     width: 100%;
 }
-
 main{
     font-family: poppins;
+    min-height: 100%;
+    .content-wrap{
+      overflow: auto;
+      padding-bottom: 270px;
+    }
 }
 .banner{
     padding: 10%;
@@ -126,7 +130,7 @@ main{
             display: flex;
         }
         .details{
-            flex: 1.5;
+            flex: 1.6;
             h1{
                 font-size: 30px;
             }
