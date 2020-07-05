@@ -48,6 +48,8 @@ main{
             &:hover{
                 background-color: rgb(255, 255, 255);
                 color: rgb(109, 51, 12);
+                animation-name: banner-btn-bg;
+                animation-duration: .3s;
             }
         }
     }
@@ -234,4 +236,23 @@ main{
             }
         }
     } 
+}
+
+@keyframes banner-btn-bg{
+    0%   {
+        background-color: coral;
+        color: rgba(109, 51, 12, 0.541);
+      }
+      25%  {
+        background-color: rgb(236, 145, 112);
+        color: rgba(109, 51, 12, 0.712);
+      }
+      50%  {
+        background-color: rgb(240, 180, 158);
+        color: rgba(109, 51, 12, 0.89);
+      }
+      100% {
+        background-color: rgb(255, 255, 255);
+        color: rgb(109, 51, 12);
+      }
 }
