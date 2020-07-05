@@ -55,7 +55,28 @@ nav.navbar.navbar-expand-lg.navbar-dark.nav-container .navbar-brand {
 }
 
 .navbar-dark .navbar-nav .nav-link:hover {
-  color: white;
   border-radius: 60px;
-  background-color: rgba(201, 113, 31, 0.89);
+  animation-name: nav-bar-bg-change;
+  color: white;
+  background-color: #c9711f;
+  animation-duration: .3s;
+}
+
+@keyframes nav-bar-bg-change {
+  0% {
+    color: #693c12;
+    background-color: rgba(201, 113, 31, 0.411);
+  }
+  25% {
+    color: rgba(182, 159, 138, 0.986);
+    background-color: rgba(201, 113, 31, 0.637);
+  }
+  50% {
+    color: #bda792;
+    background-color: rgba(201, 113, 31, 0.897);
+  }
+  100% {
+    color: white;
+    background-color: #c9711f;
+  }
 }
