@@ -4,7 +4,7 @@ const mongoose = require("mongoose");
 
 const {
     followupQuesModel 
-  } = require("../models/followUp");
+  } = require("../models/followup");
 
 router.get('/followupQues', (req, res) => {
     res.render('followupQues')
