@@ -1,0 +1,37 @@
+.footer {
+  position: relative;
+  min-height: 270px;
+  margin-top: -270px;
+}
+
+.footer .upper-body {
+  min-height: 220px;
+  background-color: #4f4d55;
+  display: flex;
+}
+
+.footer .upper-body .icon-container {
+  margin: auto;
+  width: 500px;
+  display: flex;
+}
+
+.footer .upper-body .icon-container .social-media {
+  flex: 1;
+  display: flex;
+  justify-content: space-around;
+}
+
+.footer .upper-body .icon-container .social-media i {
+  font-size: 40px;
+  color: white;
+}
+
+.footer .upper-body .icon-container .social-media i:hover {
+  color: #757479;
+}
+
+.footer .lower-body {
+  min-height: 50px;
+  background-color: #2b2b2c;
+}

@@ -1,0 +1,31 @@
+.footer {
+  position: relative;
+  min-height: 270px;
+  margin-top: -270px;
+  .upper-body {
+    min-height: 220px;
+    background-color: rgb(79, 77, 85);
+    display: flex;
+    .icon-container{
+      margin: auto;
+      width: 500px;
+      display: flex;
+      .social-media{
+        flex: 1;  
+        display: flex;
+        justify-content: space-around;      
+        i{
+          font-size: 40px;
+          color: white;
+          &:hover{
+            color: rgb(117, 116, 121);
+          } 
+        } 
+      }
+    }
+  }
+  .lower-body {
+    min-height: 50px;
+    background-color: rgb(43, 43, 44);
+  }
+}

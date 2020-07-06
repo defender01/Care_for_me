@@ -23,13 +23,7 @@
               >Home </a
             >
           </li>
-          <% if( typeof displayName == 'undefined' || displayName == '') { %>
-          <li class="nav-item ">
-            <a class="nav-link" href="/auth/login"
-              >Login </a
-            >
-          </li>
-          <% } %>
+          
           <li class="nav-item ">
             <a class="nav-link" href="/data/collection"
               >Data </a
@@ -45,6 +39,13 @@
               >Profile </a
             >
           </li>
+          <% if( typeof displayName == 'undefined' || displayName == '') { %>
+            <li class="nav-item ">
+              <a class="nav-link" href="/auth/login"
+                >Login </a
+              >
+            </li>
+            <% } %>
           <% if( typeof displayName != 'undefined' && displayName != '') { %>
             <li class="nav-item dpName">
               <h4><%= displayName %></h4>
