@@ -30,8 +30,8 @@
         for (let i = 0; i < subSection.questions.length; i++) {
           elmStr += getQuestionStr(subSection.questions[i]);
         }
-  
-        return '<div class="secondary-container">' + elmStr + "</div>";
+
+        return '<div class="secondary-container">' + elmStr +'<button type="button" class="btn btn-secondary" onclick="location.href=\'/admin/addQues\'" >ADD QUESTION</button>' +"</div>";
       }
       function getQuestionStr(question) {
         let elmStr = "";
