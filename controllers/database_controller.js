@@ -1,4 +1,4 @@
-const {vaccineModel, substanceModel} = require("../models/inputCollection") 
+const {vaccineModel, substanceModel, answerModel} = require("../models/inputCollection") 
 
 let substanceCategories = ['Alcohol','Cannabis','Stimulants','Sleeping pills','Opioids','Hallucinogens','Inhalants']
 let substanceNames = [["Alcohol"],["Cannabis"],["Yaba","Cocaine"],["Diazepam", "Clonazepam", "Eszopiclone", "Flurazepam", "Lorazepam", "Midazolam", "Diphenhydramine hydrochloride"],["Opium", "Morphine", "Heroin"], ["LSD", "PCP", "MDA", "Mescaline", "Peyote", "Mushrooms", "Ecstasy(MDMA)", "Nitrous oxide"], ["Glue", "Gasoline", "Aerosols", "Paint thinner"]]
@@ -70,6 +70,20 @@ let uploadVaccineAndSubstanceToDB = async (req, res) => {
     })
 }
 
+let clearWholeAnswerCollection = async (req, res) =>
+{
+    // await answerModel.deleteMany({})
+
+    // return res.send({
+    //     "msg" : "The whole answer collection is cleared."
+    // })
+
+    return res.json({
+        msg : "currently not available"
+    })
+}
+
 module.exports = {
-    uploadVaccineAndSubstanceToDB
+    uploadVaccineAndSubstanceToDB,
+    clearWholeAnswerCollection
 }
