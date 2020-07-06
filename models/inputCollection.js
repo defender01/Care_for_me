@@ -28,7 +28,13 @@ const optionSchema = new Schema({
 });
 
 const answerSchema = new Schema({
-  userid: {
+  userID: {
+    type: Schema.Types.ObjectId,
+  },
+  sectionID: {
+    type: Schema.Types.ObjectId,
+  },
+  subSectionID: {
     type: Schema.Types.ObjectId,
   },
   allAnswers: [
@@ -36,17 +42,13 @@ const answerSchema = new Schema({
       questionID: {
         type: Schema.Types.ObjectId,
       },
-      additionalId: {
+      additionalID: {
         type: Schema.Types.ObjectId,
       },
       answers: [String],
       optionIDsforMCQAnswer : [{
         type: Schema.Types.ObjectId,
       }],
-      updated: { 
-        type: Date, 
-        default: Date.now
-      }
     },
   ],
 });

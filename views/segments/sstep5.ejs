@@ -27,20 +27,21 @@
       $.get("/profile/getSectionData/Previous Diseases and Disorders", (data) => {
         let elmStr = "";
         for (let i = 0; i < data.subSections.length; i++) {
-          elmStr += getSubSectionStr5(data.subSections[i]);
+          elmStr += getSubSectionStr5(data._id, data.subSections[i]);
         }
         $("#addPlace5").replaceWith(elmStr);
       });
-      function getSubSectionStr5(subSection) {
+      function getSubSectionStr5(sectionID, subSection) {
       let elmStr = "", qStr='';
-      elmStr += ''
+      let oneThirdOfTotalQuestions = Math.ceil(subSection.questions.length / 3);
+
       for (let i = 0; i < subSection.questions.length; i++) {
-        if(i==5||i==10)
+        if(i && !(i % oneThirdOfTotalQuestions))
         {
           elmStr += '<div class="col">'+ qStr +'</div>';
           qStr = ''
         }
-        qStr+= getQuestionStr5(subSection.questions[i])
+        qStr+= getQuestionStr5(sectionID, subSection._id, subSection.questions[i])
       }
       elmStr += '<div class="col">'+ qStr +'</div>';
 
@@ -50,74 +51,74 @@
       '<div class="row">' + elmStr + '</div></div>'
     }
     
-    function getQuestionStr5(question) {
+    function getQuestionStr5(sectionID, subSectionID, question) {
       let elmStr = "";
       elmStr += '<label class="fieldlabels">' + question.name + "</label>";
       if (question.inputType == "numerical")
-        elmStr +=' <input type="number" name="' + question._id + '" placeholder="" />';
+        elmStr += ` <input type="number" name="${sectionID}#####${subSectionID}#####${question._id}" placeholder="" />`;
       else if (question.inputType == "date")
-        elmStr +=' <input type="date" name="' + question._id + '" placeholder="" />';
+        elmStr += ` <input type="date" name="${sectionID}#####${subSectionID}#####${question._id}" placeholder="" />`;
       else if (question.inputType == "singleLine")
-        elmStr +=' <input type="text" name="' + question._id + '" placeholder="" />';
+        elmStr += ` <input type="text" name="${sectionID}#####${subSectionID}#####${question._id}" placeholder="" />`;
       else if (question.inputType == "multiLine")
-        elmStr +='<textarea class="form-control" name="' + question._id + '"  rows="3"></textarea>'
+        elmStr += `<textarea class="form-control" name="${sectionID}#####${subSectionID}#####${question._id}"  rows="3"></textarea>`
       else if (question.inputType == "multiChoiceSingleAns")
-        elmStr += getMultiChoiceSingleOp5(question._id, question.options)
+        elmStr += getMultiChoiceSingleOp5(sectionID, subSectionID, question._id, question.options)
       else if (question.inputType == "multiChoiceMultiAns")
-        elmStr += getMultiChoiceMultiOp5(question._id, question.options)
+        elmStr += getMultiChoiceMultiOp5(sectionID, subSectionID, question._id, question.options)
 
-      return elmStr+ '<br>';
+      return elmStr + '<br>';
     }
 
-    function getMultiChoiceSingleOp5(qId, options){
-        let elmStr = ''
-        let conditionalPart='', condArrayStr = '['
+    function getMultiChoiceSingleOp5(sectionID, subSectionID, qId, options) {
+      let elmStr = ''
+      let conditionalPart = '', condArrayStr = '['
 
-        for(let i=0; i<options.length; i++){
-          if(options[i].questions.length>0)
-            condArrayStr += '\'conditional'+options[i]._id+'\', '
-        }
-        condArrayStr+=']'
+      for (let i = 0; i < options.length; i++) {
+        if (options[i].questions.length > 0)
+          condArrayStr += `'conditional${options[i]._id}', `
+      }
+      condArrayStr += ']'
 
-        for(let i=0; i<options.length; i++){
-          if(options[i].questions.length>0){
-            let str = "\'conditional"+options[i]._id+"\'," 
-            let newCondArray = condArrayStr.replace(str, '')
-            elmStr += '<div class="custom-control custom-radio">'+
-            '<input type="radio" id="'+options[i]._id+'" name="'+ qId +'" class="custom-control-input" value="'+options[i].name+'" onclick="hideConditionalSection('+newCondArray+'); displayConditionalSection([\'conditional'+options[i]._id+'\']); ">'+
-            '<label class="custom-control-label" for="'+options[i]._id+'">'+options[i].name+'</label>'+
+      for (let i = 0; i < options.length; i++) {
+        if (options[i].questions.length > 0) {
+          let str = `conditional${options[i]._id},`
+          let newCondArray = condArrayStr.replace(str, '')
+          elmStr += '<div class="custom-control custom-radio">' +
+            `<input type="radio" id="${options[i]._id}" name="${sectionID}#####${subSectionID}#####${qId}" class="custom-control-input" value="${options[i]._id}#####${options[i].name}" onclick="hideConditionalSection(${newCondArray}); displayConditionalSection(['conditional${options[i]._id}']); ">` +
+            `<label class="custom-control-label" for="${options[i]._id}">${options[i].name}</label>` +
             '</div>'
-            let qStr = ''
-            for(let j=0; j<options[i].questions.length; j++){
-              qStr+= getQuestionStr5(options[i].questions[j])
-            }
-            conditionalPart += '<div id= "conditional'+options[i]._id+'" style="display: none;">'+ qStr +'</div>'
+          let qStr = ''
+          for (let j = 0; j < options[i].questions.length; j++) {
+            qStr += getQuestionStr5(sectionID, subSectionID, options[i].questions[j])
           }
-          else{
-            elmStr += '<div class="custom-control custom-radio">'+
-            '<input type="radio" id="'+options[i]._id+'" name="'+ qId +'" class="custom-control-input" value="'+options[i].name+'" onclick="hideConditionalSection('+condArrayStr+');">'+
-            '<label class="custom-control-label" for="'+options[i]._id+'">'+options[i].name+'</label>'+
-            '</div>'
-          }
+          conditionalPart += `<div id= "conditional${options[i]._id}" style="display: none;">${qStr}</div>`
         }
-        return elmStr+conditionalPart
+        else {
+          elmStr += '<div class="custom-control custom-radio">' +
+            `<input type="radio" id="${options[i]._id}" name="${sectionID}#####${subSectionID}#####${qId}" class="custom-control-input" value="${options[i]._id}#####${options[i].name}" onclick="hideConditionalSection(${condArrayStr});">` +
+            `<label class="custom-control-label" for="${options[i]._id}">${options[i].name}</label>` +
+            '</div>'
+        }
+      }
+      return elmStr + conditionalPart
     }
 
-    function getMultiChoiceMultiOp5(qId, options){
+    function getMultiChoiceMultiOp5(sectionID, subSectionID, qId, options) {
       let elmStr = ''
 
-      for(let i=0; i<options.length; i++){
-        elmStr += '<div class="custom-control custom-checkbox">'+
-          '<input type="checkbox" id="'+options[i]._id+'" name="'+ qId +'" class="custom-control-input" value="'+options[i].name+'" onclick="displayConditionalSectionCheckbox(\''+options[i]._id+'\' , \'conditional'+options[i]._id+'\'); ">'+
-          '<label class="custom-control-label" for="'+options[i]._id+'">'+options[i].name+'</label>'+
+      for (let i = 0; i < options.length; i++) {
+        elmStr += '<div class="custom-control custom-checkbox">' +
+          `<input type="checkbox" id="${options[i]._id}" name="${sectionID}#####${subSectionID}#####${qId}" class="custom-control-input" value="${options[i]._id}#####${options[i].name}" onclick="displayConditionalSectionCheckbox('${options[i]._id}' , 'conditional${options[i]._id}'); ">` +
+          `<label class="custom-control-label" for="${options[i]._id}">${options[i].name}</label>` +
           '</div>'
-        
-        if(options[i].questions.length>0){  
+
+        if (options[i].questions.length > 0) {
           let qStr = ''
-          for(let j=0; j<options[i].questions.length; j++){
-            qStr+= getQuestionStr5(options[i].questions[j])
+          for (let j = 0; j < options[i].questions.length; j++) {
+            qStr += getQuestionStr5(sectionID, subSectionID, options[i].questions[j])
           }
-          elmStr += '<div id= "conditional'+options[i]._id+'" style="display: none;">'+ qStr +'</div>'
+          elmStr += `<div id= "conditional${options[i]._id}" style="display: none;">${qStr}</div>`
         }
       }
       return elmStr

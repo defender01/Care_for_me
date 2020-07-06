@@ -54,15 +54,15 @@
       let elmStr = "", fatherElm = "", motherElm = "", siblingElm = "", childrenElm = "", relativeElm = ""
       for (let i = 0; i < data.subSections.length; i++) {
         if (data.subSections[i].name == "Father's Details")
-          fatherElm += getSubSectionStr2(i, 'father');
+          fatherElm += getSubSectionStr2(data._id, i, 'father');
         else if (data.subSections[i].name == "Mother's Details")
-          motherElm += getSubSectionStr2(i, 'mother');
+          motherElm += getSubSectionStr2(data._id, i, 'mother');
         else if (data.subSections[i].name == "Sibling's Details")
-          siblingElm += getSubSectionStr2(i, 'sibling');
+          siblingElm += getSubSectionStr2(data._id, i, 'sibling');
         else if (data.subSections[i].name == "Children's Details")
-          childrenElm += getSubSectionStr2(i, 'children');
+          childrenElm += getSubSectionStr2(data._id, i, 'children');
         else if (data.subSections[i].name == "Relative's Details")
-          relativeElm += getSubSectionStr2(i, 'relative');
+          relativeElm += getSubSectionStr2(data._id, i, 'relative');
       }
       elmStr += '<div class="tab-content" id="myTabContent">' +
         '<div class="tab-pane fade show active" id="parents" role="tabpanel" aria-labelledby="parents-tab">' +
@@ -89,7 +89,7 @@
       $("#addPlace2").replaceWith(elmStr);
     });
 
-    function getSubSectionStr2(sSIndex, sSNickname) {
+    function getSubSectionStr2(sectionID, sSIndex, sSNickname) {
 
       sSIndex = parseInt(sSIndex);
       let subSection = step2SubSections[sSIndex];
@@ -100,7 +100,7 @@
       if (subSection.name != "Father's Details" && subSection.name != "Mother's Details") {
         elmStr += '<div class="sub-part-row">' +
           '<h5 class="left subsection-title">' + subSection.name + '</h5>' +
-          `<i class="far fa-plus-square" data-toggle="tooltip" data-placement="bottom" title="Click to add a new ${sSNickname} details" onclick="addNewMember(${sSIndex}, '${sSNickname}')"></i>` +
+          `<i class="far fa-plus-square" data-toggle="tooltip" data-placement="bottom" title="Click to add a new ${sSNickname} details" onclick="addNewMember('${sectionID}', ${sSIndex}, '${sSNickname}')"></i>` +
           '</div>' +
           '<div id="' + sSNickname + 'AddHelper"></div>'
 
@@ -115,7 +115,7 @@
         for (let i = 0; i < subSection.questions.length; i++) {
           // make collapse id unique while creating ans 
           if (i == 2) qStr += '<div class="collapse" id="collapse' + subSection._id + '">'
-          qStr += getQuestionStr(subSection.questions[i]); // questions don't need additional ID
+          qStr += getQuestionStr(sectionID, subSection._id, subSection.questions[i]); // questions don't need additional ID
         }
 
         if (subSection.questions.length > 2) qStr += '</div>';
@@ -138,7 +138,7 @@
       return elmStr
     }
 
-    function addNewMember(sSIndex, sSNickname) {
+    function addNewMember(sectionID, sSIndex, sSNickname) {
 
       sSIndex = parseInt(sSIndex);
       let subSection = step2SubSections[sSIndex];
@@ -153,7 +153,7 @@
         for (let i = 0; i < subSection.questions.length; i++) {
           // make collapse id unique while creating ans 
           if (i == 2) qStr += '<div class="collapse" id="collapse' + data.id + '">'
-          qStr += getQuestionStr3(data.id, subSection.questions[i]); // Identical questions for same subsection are distinguished by additional ID
+          qStr += getQuestionStr3(sectionID, subSection._id, data.id, subSection.questions[i]); // Identical questions for same subsection are distinguished by additional ID
         }
 
         if (subSection.questions.length > 2) qStr += '</div>';

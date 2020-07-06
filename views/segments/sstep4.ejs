@@ -28,16 +28,16 @@
       let elmStr = "";
       for (let i = 0; i < data.subSections.length; i++) {
         if (data.subSections[i].name == 'Specialization') {
-          elmStr += getSubSectionStr4(i, 'specialization');
+          elmStr += getSubSectionStr4(data._id, i, 'specialization');
         }
         else {
-          elmStr += getSubSectionStr(data.subSections[i]);
+          elmStr += getSubSectionStr(data._id, data.subSections[i]);
         }
       }
       $("#addPlace4").replaceWith(elmStr);
     });
 
-    function getSubSectionStr4(sSIndex, sSNickname) {
+    function getSubSectionStr4(sectionID, sSIndex, sSNickname) {
 
       sSIndex = parseInt(sSIndex);
       let subSection = step4SubSections[sSIndex];
@@ -46,7 +46,7 @@
       elmStr += '<div class = "part">' +
         '<div class="sub-part-row">' +
         '<h5 class="left">' + subSection.name + '</h5>' +
-        `<i class="far fa-plus-square" data-toggle="tooltip" data-placement="bottom" title="Click to add a new ${sSNickname} details" onclick="addNewMember2(${sSIndex}, '${sSNickname}')"></i>` +
+        `<i class="far fa-plus-square" data-toggle="tooltip" data-placement="bottom" title="Click to add a new ${sSNickname} details" onclick="addNewMember2('${sectionID}', ${sSIndex}, '${sSNickname}')"></i>` +
         '</div>' +
         '</div>' +
         '<div id="' + sSNickname + 'AddHelper"></div>'
@@ -54,7 +54,7 @@
       return '<div class="secondary-container">' + elmStr + "</div>";
     }
 
-    function addNewMember2(sSIndex, sSNickname) {
+    function addNewMember2(sectionID, sSIndex, sSNickname) {
 
       sSIndex = parseInt(sSIndex);
       let subSection = step4SubSections[sSIndex];
@@ -69,7 +69,7 @@
         for (let i = 0; i < subSection.questions.length; i++) {
           // make collapse id unique while creating ans 
           if (i == 2) qStr += '<div class="collapse" id="collapse' + data.id + '">'
-          qStr += getQuestionStr3(data.id, subSection.questions[i]); // Identical questions for same subsection are distinguished by additional ID
+          qStr += getQuestionStr3(sectionID, subSection._id, data.id, subSection.questions[i]); // Identical questions for same subsection are distinguished by additional ID
         }
 
         if (subSection.questions.length > 2) qStr += '</div>';

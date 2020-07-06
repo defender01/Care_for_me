@@ -13,7 +13,8 @@ const {
 } = require("../controllers/adminFunctions");
 
 const {
-  uploadVaccineAndSubstanceToDB
+  uploadVaccineAndSubstanceToDB,
+  clearWholeAnswerCollection
 } = require("../controllers/database_controller");
 
 const { questionModel, optionModel } = require("../models/inputCollection");
@@ -35,6 +36,9 @@ router.get("/deleteSectionSubsection", deleteSecSubSecQuesOp);
 
 // this is for clearing whole vaccine collection, substance collection and uploading again all vaccines and subtances to the database
 router.get("/uploadVaccineAndSubstanceToDB", uploadVaccineAndSubstanceToDB);
+
+// This is for clearing whole answer collection
+router.get("/clearWholeAnswerCollection", clearWholeAnswerCollection)
 
 // this provides new id
 router.get('/getNewId', async (req, res) => {
