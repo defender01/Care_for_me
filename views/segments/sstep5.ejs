@@ -29,7 +29,8 @@
         for (let i = 0; i < data.subSections.length; i++) {
           elmStr += getSubSectionStr5(data._id, data.subSections[i]);
         }
-        $("#addPlace5").replaceWith(elmStr);
+        $("#addPlace5").replaceWith(elmStr);        
+        $(".se-pre-con").fadeOut("slow");
       });
       function getSubSectionStr5(sectionID, subSection) {
       let elmStr = "", qStr='';

@@ -19,7 +19,6 @@
   <script>
     let vaccineData = <%- JSON.stringify(vaccineData) %>
     // console.log(vaccineData) 
-
     $.get("/profile/getSectionData/Birth and Developmental History", (data) => {
       let elmStr = "";
       for (let i = 0; i < data.subSections.length; i++) {
