@@ -53,14 +53,56 @@ let checkNotNull = (val) => {
   return (typeof val !== 'undefined') && (val !== '') && (val !== null)  
 }
 
+let processAnswerModelData = (medicalHistoryData) => {
+
+  let mapQuesToAnswer = {}, mapSubSecToAdditionalIDs = {} 
+
+  for(let i = 0, max = medicalHistoryData.length; i<max; i++){
+    let subSecID = checkNotNull(medicalHistoryData[i].subSectionID) ? medicalHistoryData[i].subSectionID.toString() : medicalHistoryData[i].subSectionID;
+    let allAns = medicalHistoryData[i].allAnswers;
+
+    for(let j = 0, max2 = allAns.length; j<max2; j++){
+      let singleAnswer =  allAns[j]
+      let qID = checkNotNull(singleAnswer.questionID) ? singleAnswer.questionID.toString() : singleAnswer.questionID
+      let addID = checkNotNull(singleAnswer.additionalID) ? singleAnswer.additionalID.toString() : singleAnswer.additionalID
+      let answers = singleAnswer.answers
+      let tempAns;
+      let optionIDsforMCQ = singleAnswer.optionIDsforMCQAnswer
+      
+      optionIDsforMCQ.forEach((ID)=>{
+        ID = ID.toString()
+      })
+
+      if(optionIDsforMCQ.length) tempAns = optionIDsforMCQ; // MCQ. So an option will be checked if option ID appears in this array
+      else tempAns = answers; // Not Multiple choice questions. So answer will be inserted to the value attribute in the input element.
+
+      if(checkNotNull(addID)){
+        mapQuesToAnswer[qID + '#####' + addID] = tempAns;
+
+        if(mapSubSecToAdditionalIDs.hasOwnProperty(subSecID)) mapSubSecToAdditionalIDs[subSecID].add(addID)
+      else mapSubSecToAdditionalIDs[subSecID] = new Set(), mapSubSecToAdditionalIDs[subSecID].add(addID)
+      }
+      else mapQuesToAnswer[qID] = tempAns
+    }
+  }
+
+  // Converting each set to Array in the mapSubSecToAdditionalIDs object
+  for(let key of Object.keys(mapSubSecToAdditionalIDs)){
+    mapSubSecToAdditionalIDs[key] = Array.from(mapSubSecToAdditionalIDs[key])
+  }
+
+  return {mapQuesToAnswer, mapSubSecToAdditionalIDs}
+}
+
 router.get("/edit", checkAuthenticated, async (req, res) => {
   let displayName = req.user.name.displayName;
-  let substanceData, vaccineData;
+  let substanceData, vaccineData, medicalHistoryData;
   let errors = [];
 
   try {
     vaccineData = await vaccineModel.find({});
     substanceData = await substanceModel.find({});
+    medicalHistoryData = await answerModel.find({userID: req.user._id})
   } catch (err) {
     errors.push({ msg: "Internal Server Error" });
     console.log(err);
@@ -68,8 +110,17 @@ router.get("/edit", checkAuthenticated, async (req, res) => {
 
   // console.log(vaccineData)
   // console.log(substanceData)
+  // console.log(medicalHistoryData)
 
-  res.render("medHistory", { errors, displayName, substanceData, vaccineData });
+  if(medicalHistoryData.length) {
+    const {mapQuesToAnswer, mapSubSecToAdditionalIDs} = processAnswerModelData(medicalHistoryData);
+    res.render("medHistory", { errors, displayName, substanceData, vaccineData, mapQuesToAnswer, mapSubSecToAdditionalIDs });
+  }
+  else  
+  {
+    let mapQuesToAnswer = {}, mapSubSecToAdditionalIDs = {}
+    res.render("medHistory", { errors, displayName, substanceData, vaccineData, mapQuesToAnswer, mapSubSecToAdditionalIDs });
+  }
 });
 
 router.post("/edit", checkAuthenticated, async (req, res) => {
@@ -167,7 +218,7 @@ router.post("/edit", checkAuthenticated, async (req, res) => {
             await subSectionAllAnswers.save()
           }
           else{
-            console.log(`Answers for section ${sectionID} and subsection ${subSectionID} exist and thus need to be updated - ${i}`)
+            // console.log(`Answers for section ${sectionID} and subsection ${subSectionID} exist and thus need to be updated - ${i}`)
             existingDocs[idx].allAnswers = allAnswers
 
             await existingDocs[idx].save()
