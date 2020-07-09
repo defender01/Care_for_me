@@ -5,6 +5,7 @@ body {
 }
 
 main {
+  margin-top: 80px;
   font-family: poppins;
   min-height: 100%;
 }

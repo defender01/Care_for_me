@@ -33,100 +33,102 @@
 
   <!-- navigation bar -->
 	<% include ./segments/navbar %>
-  
-  <div class="container-fluid">
-    <div class="row justify-content-center">
-      <div class="col-11 col-sm-9 col-md-7 col-lg-6 col-xl-9 text-center p-0 mt-3 mb-2">
-        <div class="primary-card">
-          
-          <form id="msform"  method="POST" action="/admin/addQues">
-              <div class="form-card">
-                <div class="secondary-container title-bar">
-                  <div class="row">
-                    <div class="col-8">
-                      <h2 class="fs-title">Add your new question here:</h2>
+  <main>
+    <div class="container-fluid">
+      <div class="row justify-content-center">
+        <div class="col-11 col-sm-9 col-md-7 col-lg-6 col-xl-9 text-center p-0 mt-3 mb-2">
+          <div class="primary-card">
+            
+            <form id="msform"  method="POST" action="/admin/addQues">
+                <div class="form-card">
+                  <div class="secondary-container title-bar">
+                    <div class="row">
+                      <div class="col-8">
+                        <h2 class="fs-title">Add your new question here:</h2>
+                      </div>
                     </div>
                   </div>
-                </div>
-                
-                <!-- question -->
-               
-                <script>
-                  // ssNames stores subSectionNames which we will use to pass through getSubSections(this.id, ssNames) function 
-                  var ssNames = <%-JSON.stringify(subSectionNames)%>
-                </script>
-                <div class="family-container">  
-                  <select  class="btn btn-info" name="section" id="sectionId" onchange="getSubSections(this.id, ssNames)" required>
-                    <option disabled selected value> -- Select a Section -- </option>
-                    <% for(var i = 0 ; i < sectionNames.length; i++) {%>
-                      <option value="<%= sectionNames[i] %>"><%= sectionNames[i] %></option>                    
-                    <% } %>                    
-                  </select>
-                  <br>
-                  <br>
-                  <select class="btn btn-info" name="subSection" id="subSectionId" required>
-                    <option disabled selected value> -- Select a Sub Section -- </option>                    
-                  </select>          
-                  <br>        
-                  <br>
-                  <!-- it stores the number of options in this question -->
-                  <input type="number" id="opCounter" name="opCount" value="0" style="display: none;" >
-                  <input type="number" id="totalOpCounter" value="0" style="display: none;" >
-
-                  <label class="fieldlabels">Write your quesion here: </label>
-                  <input type="text" name="question" placeholder="" required/>
-                  <br>
-                  <label class="fieldlabels">Write a label for this question:(E.g. Question: What is your name?, Label for it: Name) </label>
-                  <input type="text" name="qLabel" placeholder="" required/>
-
-                  <br>     
-                  <label class="fieldlabels">Select your question type form below:</label>
-                  <div class="custom-control custom-radio">
-                    <input type="radio" id="numericalType" name="type" class="custom-control-input" value="numerical" onclick="hideConditionalSection(['multiChoiceOptions']); setTypeIndicator('typeIndicator', 'numerical');" required>
-                    <label class="custom-control-label" for="numericalType">Numerical answer</label>
-                  </div>
-                  <div class="custom-control custom-radio">
-                    <input type="radio" id="dateType" name="type" class="custom-control-input" value="date" onclick="hideConditionalSection(['multiChoiceOptions']); setTypeIndicator('typeIndicator', 'date');" >
-                    <label class="custom-control-label" for="dateType">Date answer</label>
-                  </div>
-                  <div class="custom-control custom-radio">
-                    <input type="radio" id="singleLineType" name="type" class="custom-control-input" value="singleLine" onclick="hideConditionalSection(['multiChoiceOptions']); setTypeIndicator('typeIndicator', 'singleLine');" >
-                    <label class="custom-control-label" for="singleLineType">Single line answer</label>
-                  </div>
-                  <div class="custom-control custom-radio">
-                    <input type="radio" id="multiLineType" name="type" class="custom-control-input" value="multiLine" onclick="hideConditionalSection(['multiChoiceOptions']); setTypeIndicator('typeIndicator','multiLine');" >
-                    <label class="custom-control-label" for="multiLineType">Multiple line answer</label>
-                  </div>
-                  <div class="custom-control custom-radio">
-                    <input type="radio" id="multiChoiceSingleType" name="type" class="custom-control-input" value="multiChoiceSingleAns" onclick="displayConditionalSection(['multiChoiceOptions']); setTypeIndicator('typeIndicator','multiChoiceSingleAns'); ">
-                    <label class="custom-control-label" for="multiChoiceSingleType">Multiple choice with single answer</label>
-                  </div>                
-
-                  <!-- radio for multiple choice multiple ans type  -->
-                  <div class="custom-control custom-radio">
-                    <input type="radio" id="multiChoiceMultiType" name="type" class="custom-control-input" value="multiChoiceMultiAns" onclick="displayConditionalSection(['multiChoiceOptions']); setTypeIndicator('typeIndicator','multiChoiceMultiAns'); ">
-                    <label class="custom-control-label" for="multiChoiceMultiType">Multiple choice with multiple answer</label>
-                  </div>     
                   
-                  <input type="text" id="typeIndicator" name="typeIndicator" value="" style="display: none;" >
-                  
-                  <!--  options are added here -->
-                  <div id="multiChoiceOptions">
-                    <div id="addHelper"></div>
-                    <button type='button' class="btn btn-secondary addButton" onclick="addOption('')">Add option</button>
-                  </div>                               
-                                   
-                </div>
-              </div>                  
-            <!-- </fieldset> -->
-            <button type="submit" class="btn btn-success addButton">Save</button>
-            
-          </form> 
+                  <!-- question -->
+                 
+                  <script>
+                    // ssNames stores subSectionNames which we will use to pass through getSubSections(this.id, ssNames) function 
+                    var ssNames = <%-JSON.stringify(subSectionNames)%>
+                  </script>
+                  <div class="family-container">  
+                    <select  class="btn btn-info" name="section" id="sectionId" onchange="getSubSections(this.id, ssNames)" required>
+                      <option disabled selected value> -- Select a Section -- </option>
+                      <% for(var i = 0 ; i < sectionNames.length; i++) {%>
+                        <option value="<%= sectionNames[i] %>"><%= sectionNames[i] %></option>                    
+                      <% } %>                    
+                    </select>
+                    <br>
+                    <br>
+                    <select class="btn btn-info" name="subSection" id="subSectionId" required>
+                      <option disabled selected value> -- Select a Sub Section -- </option>                    
+                    </select>          
+                    <br>        
+                    <br>
+                    <!-- it stores the number of options in this question -->
+                    <input type="number" id="opCounter" name="opCount" value="0" style="display: none;" >
+                    <input type="number" id="totalOpCounter" value="0" style="display: none;" >
+  
+                    <label class="fieldlabels">Write your quesion here: </label>
+                    <input type="text" name="question" placeholder="" required/>
+                    <br>
+                    <label class="fieldlabels">Write a label for this question:(E.g. Question: What is your name?, Label for it: Name) </label>
+                    <input type="text" name="qLabel" placeholder="" required/>
+  
+                    <br>     
+                    <label class="fieldlabels">Select your question type form below:</label>
+                    <div class="custom-control custom-radio">
+                      <input type="radio" id="numericalType" name="type" class="custom-control-input" value="numerical" onclick="hideConditionalSection(['multiChoiceOptions']); setTypeIndicator('typeIndicator', 'numerical');" required>
+                      <label class="custom-control-label" for="numericalType">Numerical answer</label>
+                    </div>
+                    <div class="custom-control custom-radio">
+                      <input type="radio" id="dateType" name="type" class="custom-control-input" value="date" onclick="hideConditionalSection(['multiChoiceOptions']); setTypeIndicator('typeIndicator', 'date');" >
+                      <label class="custom-control-label" for="dateType">Date answer</label>
+                    </div>
+                    <div class="custom-control custom-radio">
+                      <input type="radio" id="singleLineType" name="type" class="custom-control-input" value="singleLine" onclick="hideConditionalSection(['multiChoiceOptions']); setTypeIndicator('typeIndicator', 'singleLine');" >
+                      <label class="custom-control-label" for="singleLineType">Single line answer</label>
+                    </div>
+                    <div class="custom-control custom-radio">
+                      <input type="radio" id="multiLineType" name="type" class="custom-control-input" value="multiLine" onclick="hideConditionalSection(['multiChoiceOptions']); setTypeIndicator('typeIndicator','multiLine');" >
+                      <label class="custom-control-label" for="multiLineType">Multiple line answer</label>
+                    </div>
+                    <div class="custom-control custom-radio">
+                      <input type="radio" id="multiChoiceSingleType" name="type" class="custom-control-input" value="multiChoiceSingleAns" onclick="displayConditionalSection(['multiChoiceOptions']); setTypeIndicator('typeIndicator','multiChoiceSingleAns'); ">
+                      <label class="custom-control-label" for="multiChoiceSingleType">Multiple choice with single answer</label>
+                    </div>                
+  
+                    <!-- radio for multiple choice multiple ans type  -->
+                    <div class="custom-control custom-radio">
+                      <input type="radio" id="multiChoiceMultiType" name="type" class="custom-control-input" value="multiChoiceMultiAns" onclick="displayConditionalSection(['multiChoiceOptions']); setTypeIndicator('typeIndicator','multiChoiceMultiAns'); ">
+                      <label class="custom-control-label" for="multiChoiceMultiType">Multiple choice with multiple answer</label>
+                    </div>     
+                    
+                    <input type="text" id="typeIndicator" name="typeIndicator" value="" style="display: none;" >
+                    
+                    <!--  options are added here -->
+                    <div id="multiChoiceOptions">
+                      <div id="addHelper"></div>
+                      <button type='button' class="btn btn-secondary addButton" onclick="addOption('')">Add option</button>
+                    </div>                               
+                                     
+                  </div>
+                </div>                  
+              <!-- </fieldset> -->
+              <button type="submit" class="btn btn-success addButton">Save</button>
+              
+            </form> 
+          </div>
         </div>
       </div>
     </div>
-  </div>
-
+  
+  </main>
+ 
   <!-- Optional JavaScript -->
   <!-- jQuery first, then Popper.js, then Bootstrap JS -->
   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"

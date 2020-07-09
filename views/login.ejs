@@ -25,27 +25,29 @@
 	<!-- navigation bar -->
 	<% include ./segments/navbar %>
 
-	<div class = "container">
-		<div class="wrapper">
-			<% include ./segments/messages %>
-			<form action="/auth/login" method="post" name="Login_Form" class="form-signin">       
-				<h3 class="form-signin-heading">Welcome! Please Sign In</h3>
-				
-				<input type="text" class="form-control" name="emailOrPhone" placeholder="email or phone no" required="" autofocus="" />
-				<input type="password" class="form-control" name="password" placeholder="password" required=""/>     		  
-				
-				<button class="btn btn-lg btn-primary btn-block"  name="Submit" value="Login" type="Submit">Login</button>  		
-				<br>
-			</form>			
+	<main>
+		<div class = "container">
+			<div class="wrapper">
+				<% include ./segments/messages %>
+				<form action="/auth/login" method="post" name="Login_Form" class="form-signin">       
+					<h3 class="form-signin-heading">Welcome! Please Sign In</h3>
+					
+					<input type="text" class="form-control" name="emailOrPhone" placeholder="email or phone no" required="" autofocus="" />
+					<input type="password" class="form-control" name="password" placeholder="password" required=""/>     		  
+					
+					<button class="btn btn-lg btn-primary btn-block"  name="Submit" value="Login" type="Submit">Login</button>  		
+					<br>
+				</form>			
+			</div>
+			<div class="wrapper2">
+				<form action="/auth/register" method="GET" name="Login_Form" class="form-signin">
+					<p>Don't have an account? Register first</p>       
+					<button class="btn btn-lg btn-primary btn-block" id="regesterBtn"  name="Register" value="Register" type="submit">Register</button>  			
+				</form>			
+			</div>
 		</div>
-		<div class="wrapper2">
-			<form action="/auth/register" method="GET" name="Login_Form" class="form-signin">
-				<p>Don't have an account? Register first</p>       
-				<button class="btn btn-lg btn-primary btn-block" id="regesterBtn"  name="Register" value="Register" type="submit">Register</button>  			
-			</form>			
-		</div>
-	</div>
-
+	
+	</main>
 	<!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>

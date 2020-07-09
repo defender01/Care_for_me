@@ -1,5 +1,5 @@
 <link rel="stylesheet" href="/assets/cssFiles/navbar.css">
-<nav class="navbar navbar-expand-lg navbar-dark nav-container ">
+<nav class="navbar navbar-expand-lg navbar-light bg-light nav-container ">
     <a class="navbar-brand" href="/home">Care for me</a>
     <button
       class="navbar-toggler"
@@ -45,8 +45,7 @@
                 >Login </a
               >
             </li>
-            <% } %>
-          <% if( typeof displayName != 'undefined' && displayName != '') { %>
+            <% }  else { %>
             <li class="nav-item dpName">
               <h4><%= displayName %></h4>
             </li>

@@ -40,62 +40,64 @@
     <!-- navigation bar -->
     <% include ./segments/navbar %>
 
-    <div class="profile-container">
+    <main>
+        <div class="profile-container">
 
-        <div class="nav flex-column sidebar-container " id="sidebar-tab" role="tablist" aria-orientation="vertical">
-
-            <a class="nav-link active hrline" id="about-tab" data-toggle="tab" href="#about" role="tab" onclick="changeAppearance(this.id)" aria-controls="about"
-                aria-selected="true">About</a>
-
-            <a class="nav-link hrline" id="work-and-education-tab" data-toggle="tab" href="#work-and-education" role="tab"onclick="changeAppearance(this.id)"
-                aria-controls="work-and-education" aria-selected="false">Work and Education</a>
-
-            <a class="nav-link hrline" id="birth-and-development-tab" data-toggle="tab" href="#birth-and-development" onclick="changeAppearance(this.id)"
-                role="tab" aria-controls="birth-and-development" aria-selected="false">Birth and Development History</a>
-
-            <a class="nav-link hrline" id="family-info-tab" data-toggle="tab" href="#family-info" role="tab" onclick="changeAppearance(this.id)"
-                aria-controls="family-info" aria-selected="false">Family Information</a>
-
-            <a class="nav-link hrline" id="lifestyle-tab" data-toggle="tab" href="#lifestyle" role="tab" onclick="changeAppearance(this.id)"
-                aria-controls="lifestyle" aria-selected="false">Lifestyle</a>
-
-            <a class="nav-link" id="prev-diseases-tab" data-toggle="tab" href="#prev-diseases" role="tab" onclick="changeAppearance(this.id)"
-                aria-controls="prev-diseases" aria-selected="false"> Previous Diseases and Disorders</a>
-
+            <div class="nav flex-column sidebar-container " id="sidebar-tab" role="tablist" aria-orientation="vertical">
+    
+                <a class="nav-link active hrline" id="about-tab" data-toggle="tab" href="#about" role="tab" onclick="changeAppearance(this.id)" aria-controls="about"
+                    aria-selected="true">About</a>
+    
+                <a class="nav-link hrline" id="work-and-education-tab" data-toggle="tab" href="#work-and-education" role="tab"onclick="changeAppearance(this.id)"
+                    aria-controls="work-and-education" aria-selected="false">Work and Education</a>
+    
+                <a class="nav-link hrline" id="birth-and-development-tab" data-toggle="tab" href="#birth-and-development" onclick="changeAppearance(this.id)"
+                    role="tab" aria-controls="birth-and-development" aria-selected="false">Birth and Development History</a>
+    
+                <a class="nav-link hrline" id="family-info-tab" data-toggle="tab" href="#family-info" role="tab" onclick="changeAppearance(this.id)"
+                    aria-controls="family-info" aria-selected="false">Family Information</a>
+    
+                <a class="nav-link hrline" id="lifestyle-tab" data-toggle="tab" href="#lifestyle" role="tab" onclick="changeAppearance(this.id)"
+                    aria-controls="lifestyle" aria-selected="false">Lifestyle</a>
+    
+                <a class="nav-link" id="prev-diseases-tab" data-toggle="tab" href="#prev-diseases" role="tab" onclick="changeAppearance(this.id)"
+                    aria-controls="prev-diseases" aria-selected="false"> Previous Diseases and Disorders</a>
+    
+            </div>
+    
+            <div class="tab-content data-container" id="sidebar-tabContent">
+    
+                <div class="tab-pane fade show active" id="about" role="tabpanel" aria-labelledby="about-tab">
+                    <% include ./profileSegments/about %>
+                </div>
+    
+                <div class="tab-pane fade" id="work-and-education" role="tabpanel" aria-labelledby="work-and-education-tab">
+                    <% include ./profileSegments/workAndEducation %>
+                </div>
+                <div class="tab-pane fade" id="birth-and-development" role="tabpanel"
+                    aria-labelledby="birth-and-development-tab">
+                    <% include ./profileSegments/birthAndDevelopmentHistory %>
+                </div>
+                <div class="tab-pane fade" id="family-info" role="tabpanel" aria-labelledby="family-info-tab">
+                    <% include ./profileSegments/familyInfo %>
+                </div>
+    
+                <div class="tab-pane fade" id="lifestyle" role="tabpanel" aria-labelledby="lifestyle-tab">
+                    <% include ./profileSegments/about %>
+                </div>
+    
+                <div class="tab-pane fade" id="prev-diseases" role="tabpanel" aria-labelledby="prev-diseases-tab">
+                    <% include ./profileSegments/about %>
+                </div>
+            </div>
+    
+            <div class=" empty-side " aria-orientation="vertical">
+                <!-- this section is created to look the page good by keeping 2 flex right empty. We can use this later -->
+            </div>
+    
         </div>
-
-        <div class="tab-content data-container" id="sidebar-tabContent">
-
-            <div class="tab-pane fade show active" id="about" role="tabpanel" aria-labelledby="about-tab">
-                <% include ./profileSegments/about %>
-            </div>
-
-            <div class="tab-pane fade" id="work-and-education" role="tabpanel" aria-labelledby="work-and-education-tab">
-                <% include ./profileSegments/workAndEducation %>
-            </div>
-            <div class="tab-pane fade" id="birth-and-development" role="tabpanel"
-                aria-labelledby="birth-and-development-tab">
-                <% include ./profileSegments/birthAndDevelopmentHistory %>
-            </div>
-            <div class="tab-pane fade" id="family-info" role="tabpanel" aria-labelledby="family-info-tab">
-                <% include ./profileSegments/familyInfo %>
-            </div>
-
-            <div class="tab-pane fade" id="lifestyle" role="tabpanel" aria-labelledby="lifestyle-tab">
-                <% include ./profileSegments/about %>
-            </div>
-
-            <div class="tab-pane fade" id="prev-diseases" role="tabpanel" aria-labelledby="prev-diseases-tab">
-                <% include ./profileSegments/about %>
-            </div>
-        </div>
-
-        <div class=" empty-side " aria-orientation="vertical">
-            <!-- this section is created to look the page good by keeping 2 flex right empty. We can use this later -->
-        </div>
-
-    </div>
-
+    
+    </main>
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->

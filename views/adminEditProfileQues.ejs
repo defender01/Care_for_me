@@ -34,32 +34,35 @@
   <!-- navigation bar -->
 	<% include ./segments/navbar %>
   
-  <div class="container-fluid">
-    <div class="row justify-content-center">
-      <div class="col-11 col-sm-9 col-md-7 col-lg-6 col-xl-9 text-center p-0 mt-3 mb-2">
-        <div class="primary-card">
-          
-          <form id="msform"  method="POST" action="/admin/profile/edit">
-              <div class="form-card">
-                <div class="secondary-container title-bar">
-                  <div class="row">
-                    <div class="col-8">
-                      <h2 class="fs-title">Edit Your Question:</h2>
+  <main>
+    <div class="container-fluid">
+      <div class="row justify-content-center">
+        <div class="col-11 col-sm-9 col-md-7 col-lg-6 col-xl-9 text-center p-0 mt-3 mb-2">
+          <div class="primary-card">
+            
+            <form id="msform"  method="POST" action="/admin/profile/edit">
+                <div class="form-card">
+                  <div class="secondary-container title-bar">
+                    <div class="row">
+                      <div class="col-8">
+                        <h2 class="fs-title">Edit Your Question:</h2>
+                      </div>
                     </div>
                   </div>
-                </div>
-                
-                <!-- question -->
-                <div id="addPlace"></div>
-              </div>                  
-            <!-- </fieldset> -->
-            <button type="submit" class="btn btn-success addButton">Save</button>
-            <input type="text" name="baseQuestionId" value="<%=question._id%>" style="display: none;">
-          </form> 
+                  
+                  <!-- question -->
+                  <div id="addPlace"></div>
+                </div>                  
+              <!-- </fieldset> -->
+              <button type="submit" class="btn btn-success addButton">Save</button>
+              <input type="text" name="baseQuestionId" value="<%=question._id%>" style="display: none;">
+            </form> 
+          </div>
         </div>
       </div>
     </div>
-  </div>
+    
+  </main>
   
   <!-- Optional JavaScript -->
   <!-- jQuery first, then Popper.js, then Bootstrap JS -->

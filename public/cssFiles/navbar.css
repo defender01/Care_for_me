@@ -1,7 +1,13 @@
 @import url("https://fonts.googleapis.com/css2?family=Lato&family=Nanum+Gothic&family=Poppins&family=Source+Sans+Pro&display=swap");
 .nav-container {
+  width: 100%;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
   height: 80px;
   background-color: #ffffff;
+  border-bottom: 2px solid #bdc3c754;
 }
 
 .nav-container .elm-container {
@@ -36,17 +42,17 @@ nav ul li:hover {
   }
 }
 
-nav.navbar.navbar-expand-lg.navbar-dark.nav-container {
+nav.navbar.navbar-expand-lg.navbar-light.bg-light.nav-container {
   padding: 0 60px 0 30px;
 }
 
-nav.navbar.navbar-expand-lg.navbar-dark.nav-container .navbar-brand {
+nav.navbar.navbar-expand-lg.navbar-light.bg-light.nav-container .navbar-brand {
   font-size: 30px;
   font-family: 'Poppins';
   color: #693c12;
 }
 
-.navbar-dark .navbar-nav .nav-link {
+.navbar-light .navbar-nav .nav-link {
   margin-left: 10px;
   margin-right: 10px;
   font-family: 'Poppins';
@@ -54,12 +60,16 @@ nav.navbar.navbar-expand-lg.navbar-dark.nav-container .navbar-brand {
   font-size: 18px;
 }
 
-.navbar-dark .navbar-nav .nav-link:hover {
+.navbar-light .navbar-nav .nav-link:hover {
   border-radius: 60px;
   animation-name: nav-bar-bg-change;
   color: white;
   background-color: #c9711f;
   animation-duration: .3s;
+}
+
+.navbar-collapse.collapse.show {
+  background-color: white;
 }
 
 @keyframes nav-bar-bg-change {
@@ -79,4 +89,8 @@ nav.navbar.navbar-expand-lg.navbar-dark.nav-container .navbar-brand {
     color: white;
     background-color: #c9711f;
   }
+}
+
+.bg-light {
+  background-color: #ffffff !important;
 }
