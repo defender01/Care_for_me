@@ -46,15 +46,24 @@
       elmStr += '<div class = "part">' +
         '<div class="sub-part-row">' +
         '<h5 class="left">' + subSection.name + '</h5>' +
-        `<i class="far fa-plus-square" data-toggle="tooltip" data-placement="bottom" title="Click to add a new ${sSNickname} details" onclick="addNewMember2('${sectionID}', ${sSIndex}, '${sSNickname}')"></i>` +
+        `<i class="far fa-plus-square" data-toggle="tooltip" data-placement="bottom" title="Click to add a new ${sSNickname} details" onclick="addNewSpecialization('${sectionID}', ${sSIndex}, '${sSNickname}')"></i>` +
         '</div>' +
-        '</div>' +
-        '<div id="' + sSNickname + 'AddHelper"></div>'
+        '</div>'
+
+      if (typeof mapSubSecToAdditionalIDs[subSection._id.toString()] !== 'undefined') {
+        let allExistingSpecializationIDs = mapSubSecToAdditionalIDs[subSection._id.toString()];
+
+        for (let i = 0, max = allExistingSpecializationIDs.length; i < max; i++) {
+          elmStr += loadExistingSpecialization(sectionID, allExistingSpecializationIDs[i], sSIndex, sSNickname)
+        }
+      }
+
+      elmStr += '<div id="' + sSNickname + 'AddHelper"></div>'
 
       return '<div class="secondary-container">' + elmStr + "</div>";
     }
 
-    function addNewMember2(sectionID, sSIndex, sSNickname) {
+    function addNewSpecialization(sectionID, sSIndex, sSNickname) {
 
       sSIndex = parseInt(sSIndex);
       let subSection = step4SubSections[sSIndex];
@@ -64,7 +73,7 @@
         console.log('ID for new generated ' + sSNickname + ' ' + data.id)
 
         let elmStr = "", qStr = "";
-        qStr+= `<button type="button" id="delbtn${data.id}" class="btn btn-danger float-right" onclick="deleteMember(this.parentNode.id)">Delete</button> <br>`
+        qStr += `<button type="button" id="delbtn${data.id}" class="btn btn-danger float-right" onclick="deleteMember(this.parentNode.id)">Delete</button> <br>`
 
         for (let i = 0; i < subSection.questions.length; i++) {
           // make collapse id unique while creating ans 
@@ -84,15 +93,48 @@
           'See more' +
           '</a>' +
           '</p>' +
-          '</div>' 
+          '</div>'
 
-        elmStr += `<div class="family-container" id="${data.id}">` + qStr + '</div>' + 
+        elmStr += `<div class="family-container" id="${data.id}">` + qStr + '</div>' +
           '<div id="' + sSNickname + 'AddHelper"></div>'
 
         $("#" + sSNickname + "AddHelper").replaceWith(elmStr);
 
       })
 
+    }
+
+    function loadExistingSpecialization(sectionID, specializationID, sSIndex, sSNickname) {
+
+      sSIndex = parseInt(sSIndex);
+      let subSection = step4SubSections[sSIndex];
+
+      let elmStr = "", qStr = "";
+      qStr += `<button type="button" id="delbtn${specializationID}" class="btn btn-danger float-right" onclick="deleteMember(this.parentNode.id)">Delete</button> <br>`
+
+      for (let i = 0; i < subSection.questions.length; i++) {
+        // make collapse id unique while creating ans 
+        if (i == 2) qStr += '<div class="collapse" id="collapse' + specializationID + '">'
+        qStr += getQuestionStr3(sectionID, subSection._id, specializationID, subSection.questions[i]); // Identical questions for same subsection are distinguished by additionalID(specializationID)
+      }
+
+      if (subSection.questions.length > 2) qStr += '</div>';
+      // make href collapse id unique while creating ans 
+      // make seeMore id unique while creating ans 
+      qStr += '<br>' +
+        '<div class="extend">' +
+        '<p>' +
+        '<a class="btn btn-light" data-toggle="collapse" href="#collapse' + specializationID + '" id="' + specializationID + 'seeMore"' +
+        'role="button" onclick="changeButtonText(this.id)" aria-expanded="false"' +
+        'aria-controls="collapse' + specializationID + '">' +
+        'See more' +
+        '</a>' +
+        '</p>' +
+        '</div>'
+
+      elmStr += `<div class="family-container" id="${specializationID}">` + qStr + '</div>'
+
+      return elmStr
     }
 
   </script>
