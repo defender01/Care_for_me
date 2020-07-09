@@ -15,7 +15,7 @@
   
     </div>
   
-    <input type="submit" class="next action-button" value="Submit"/>
+    <input type="submit" class="next action-button" onclick="showLoader()" value="Submit"/>
     <input
       type="button"
       name="previous"
@@ -24,6 +24,10 @@
     />
 
     <script>
+      function showLoader(){
+        $(".se-pre-con").fadeIn();
+      }
+      
       $.get("/profile/getSectionData/Previous Diseases and Disorders", (data) => {
         let elmStr = "";
         for (let i = 0; i < data.subSections.length; i++) {
