@@ -7,6 +7,9 @@
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 
+    <!-- fontawesome cdn -->
+    <link rel="stylesheet" href="//use.fontawesome.com/releases/v5.0.7/css/all.css">
+
     <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
     crossorigin="anonymous"></script>
 
@@ -31,8 +34,14 @@
     
     <main>
       <div class="side-bar">
-        <div class="topic">
-          <h3>Parameters</h3>
+        <div class="topic-container">
+          <div class="topic">
+            <h3>Parameters</h3>
+          </div>
+          <div class="angle">
+            <i class="fas fa-arrow-alt-circle-right"  id="rightAngle" style="display: none;" onclick="displaySidebar()"></i>
+            <i class="fas fa-arrow-alt-circle-left" id="leftAngle"  onclick="hideSidebar()"></i>
+          </div>
         </div>
         <% for(let i=0; i<50; i++) {%>
           <div class="parameter">
@@ -91,8 +100,33 @@
     
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <!-- <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script> -->
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+
+    <script>
+      function displaySidebar(){
+        $('#rightAngle').css('display','none')
+        $('#leftAngle').css('display','block')
+        $('.side-bar').css('left', '0')
+      }
+      function hideSidebar(){
+        $('#leftAngle').css('display','none')
+        $('#rightAngle').css('display','block')
+        $('.side-bar').css('left', '-250px')
+      }
+      // $(window).on('resize', function(){
+      //   var win = $(this); //this = window        
+      //   console(win.width)
+      //   if (win.width() >= 1000) { 
+          
+      //   }
+      // });
+      window.onresize = function() {
+        console.log(window.innerWidth)
+          if (window.innerWidth >= 1000) {
+            $('.side-bar').css('left', '0')
+          }
+      }
+    </script>
   </body>
 </html>

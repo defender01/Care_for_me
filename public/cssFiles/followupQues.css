@@ -14,9 +14,15 @@ main .side-bar {
   font-family: popins;
   min-width: 300px;
   padding-bottom: 150px;
+  background-color: white;
 }
 
-main .side-bar .topic {
+main .side-bar .topic-container {
+  display: flex;
+}
+
+main .side-bar .topic-container .topic {
+  flex: 1;
   margin: auto;
   background-color: rgba(245, 147, 19, 0.89);
   color: white;
@@ -25,8 +31,22 @@ main .side-bar .topic {
   display: flex;
 }
 
-main .side-bar .topic h3 {
+main .side-bar .topic-container .topic h3 {
   margin: auto 0 auto 0;
+}
+
+main .side-bar .topic-container .angle {
+  width: 60px;
+  background-color: rgba(245, 147, 19, 0.89);
+  min-height: 70px;
+  display: flex;
+  display: none;
+}
+
+main .side-bar .topic-container .angle i {
+  margin: auto;
+  font-size: 40px;
+  color: #fdfdfd;
 }
 
 main .side-bar .parameter {
@@ -135,14 +155,32 @@ main .wrapper .ques-holder {
 
 @media (max-width: 1000px) {
   main .side-bar {
-    display: none;
-    width: 0px;
+    z-index: 11;
+    overflow: hidden;
+  }
+  main .side-bar .topic-container .angle {
+    display: block;
+    width: 50px;
+    background-color: rgba(245, 147, 19, 0.89);
+    min-height: 70px;
+    display: flex;
+  }
+  main .side-bar .topic-container .angle i {
+    margin: auto;
+    font-size: 40px;
+    color: #fdfdfd;
   }
   main .wrapper {
-    margin-left: 0px;
+    margin-left: 50px;
   }
   main .wrapper .notify-bar {
-    margin-left: 0px;
+    margin-left: 50px;
     width: 100%;
+  }
+  main .wrapper .notify-bar .selected-current {
+    display: none;
+  }
+  main .wrapper .notify-bar .total-selected {
+    display: none;
   }
 }
