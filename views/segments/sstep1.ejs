@@ -81,15 +81,13 @@
                 '</div>'
         }
 
-      elmStr += '<div class="secondary-container">' +
-                  '<h4 class="subsection-title">' + subSection.name + '</h4>' +
+      elmStr += 
                   '<div class="family-container">' +
                     '<div class="part">' +
-                        '<h5 class="left subsection-title">Add vaccine information</h5>' +
+                        '<h5 class="left subsection-title">'+ subSection.name +'</h5>' +
                       qStr +
                     '</div>' +
-                  '</div>' +
-                '</div>'
+                  '</div>' 
 
       return elmStr;
     }

@@ -19,7 +19,9 @@
       $.get("/profile/getSectionData/Birth and Developmental History", (data) => {
         let elmStr = "";
         for (let i = 0; i < data.subSections.length; i++) {
-          elmStr += getSubSectionStr(data.subSections[i]);
+          if(data.subSections[i].name !== 'Immunization History'){
+            elmStr += getSubSectionStr(data.subSections[i]);
+          }
         }
         $("#addPlace1").replaceWith(elmStr);
       });

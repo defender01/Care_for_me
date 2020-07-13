@@ -160,7 +160,8 @@ function getSubSections(id, subSectionNames) {
 
   let rawhtml='<option disabled selected value> -- Select a Sub Section -- </option>'
   for(var i = 0 ; i < subSectionNames[ind].length; i++) {
-    rawhtml+= '<option value="'+subSectionNames[ind][i]+'">'+ subSectionNames[ind][i] +'</option>'
+    if(subSectionNames[ind][i]!='Immunization History')
+      rawhtml+= '<option value="'+subSectionNames[ind][i]+'">'+ subSectionNames[ind][i] +'</option>'
   }
   document.getElementById('subSectionId').innerHTML= rawhtml
 }

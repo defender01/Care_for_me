@@ -7,7 +7,7 @@ const {
   substanceModel,
   answerModel,
 } = require("../models/inputCollection");
-const { getSectionData } = require("../controllers/adminFunctions");
+const { getSectionData, getSectionSubSection } = require("../controllers/adminFunctions");
 
 //import camelCase function
 const camelCase = require("../controllers/functionCollection").camelCase;
@@ -22,14 +22,14 @@ router.get("/", checkAuthenticated, async (req, res) => {
   let displayName = req.user.name.displayName;
   let data;
   let errors = [];
-
+  let { sectionNames, subSectionNames } = await getSectionSubSection();
   try {
     data = await User.find({ email: req.user.email });
   } catch (err) {
     errors.push({ msg: "Internal Server Error" });
     console.log(err);
   }
-  res.render("profile", { errors, data, displayName });
+  res.render("profile", { errors, data, displayName, sectionNames, subSectionNames });
 });
 
 // let physicalDiseases = ["Asthma", "Aneurysm", "Diabetes", "Epilepsy Seizures", "Headaches or migraines", "Heart diseases", "High blood pressure", "Kidney disease", "Lung Disease", "Migraine", "Arthritis", "Elevated cholesterol", "Multiple Sclerosis", "Stroke", "Thyroid", "Tuberculosis", "Bleeding disorder"]

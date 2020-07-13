@@ -39,8 +39,8 @@
             <h3>Parameters</h3>
           </div>
           <div class="angle">
-            <i class="fas fa-arrow-alt-circle-right"  id="rightAngle" style="display: none;" onclick="displaySidebar()"></i>
-            <i class="fas fa-arrow-alt-circle-left" id="leftAngle"  onclick="hideSidebar()"></i>
+            <i class="fas fa-angle-right"  id="rightAngle" style="display: none;" onclick="displaySidebar()"></i>
+            <i class="fas fa-angle-left" id="leftAngle"  onclick="hideSidebar()"></i>
           </div>
         </div>
         <% for(let i=0; i<50; i++) {%>
@@ -114,13 +114,7 @@
         $('#rightAngle').css('display','block')
         $('.side-bar').css('left', '-250px')
       }
-      // $(window).on('resize', function(){
-      //   var win = $(this); //this = window        
-      //   console(win.width)
-      //   if (win.width() >= 1000) { 
-          
-      //   }
-      // });
+      
       window.onresize = function() {
         console.log(window.innerWidth)
           if (window.innerWidth >= 1000) {

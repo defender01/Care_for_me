@@ -1,112 +1,284 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-
-<head>
+  <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <script src="https://code.jquery.com/jquery-3.4.1.js"
-        integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 
-    <link href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.3/css/font-awesome.css'>
+    <!-- fontawesome cdn -->
+    <link rel="stylesheet" href="//use.fontawesome.com/releases/v5.0.7/css/all.css">
 
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <script src='https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js'></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+    crossorigin="anonymous"></script>
 
     <!-- stylesheet for navbar -->
     <link rel="stylesheet" href="/assets/cssFiles/navbar.css">
-
-    <!-- stylesheet and script for MUltiple step form -->
-    <link rel="stylesheet" href="/assets/cssFiles/profile.css">
-    <script src='/assets/jsFiles/profile.js'></script>
-
+    <link rel="stylesheet" href="/assets/cssFiles/profile.css" />
     <!-- for loader -->
     <script src="/assets/jsFiles/loader.js"></script>    
     <link rel="stylesheet" href="/assets/cssFiles/loader.css" />
-  
 
-    <title>Profile</title>
 
-</head>
+    <title>Registration-Care for me</title>
+  </head>
 
-<body onload="onStart()">
+  <body>
     <!-- display loading icon -->
     <div class="se-pre-con"></div>
     <!-- ends -->
 
     <!-- navigation bar -->
     <% include ./segments/navbar %>
-
+    
     <main>
-        <div class="profile-container">
-
-            <div class="nav flex-column sidebar-container " id="sidebar-tab" role="tablist" aria-orientation="vertical">
-    
-                <a class="nav-link active hrline" id="about-tab" data-toggle="tab" href="#about" role="tab" onclick="changeAppearance(this.id)" aria-controls="about"
-                    aria-selected="true">About</a>
-    
-                <a class="nav-link hrline" id="work-and-education-tab" data-toggle="tab" href="#work-and-education" role="tab"onclick="changeAppearance(this.id)"
-                    aria-controls="work-and-education" aria-selected="false">Work and Education</a>
-    
-                <a class="nav-link hrline" id="birth-and-development-tab" data-toggle="tab" href="#birth-and-development" onclick="changeAppearance(this.id)"
-                    role="tab" aria-controls="birth-and-development" aria-selected="false">Birth and Development History</a>
-    
-                <a class="nav-link hrline" id="family-info-tab" data-toggle="tab" href="#family-info" role="tab" onclick="changeAppearance(this.id)"
-                    aria-controls="family-info" aria-selected="false">Family Information</a>
-    
-                <a class="nav-link hrline" id="lifestyle-tab" data-toggle="tab" href="#lifestyle" role="tab" onclick="changeAppearance(this.id)"
-                    aria-controls="lifestyle" aria-selected="false">Lifestyle</a>
-    
-                <a class="nav-link" id="prev-diseases-tab" data-toggle="tab" href="#prev-diseases" role="tab" onclick="changeAppearance(this.id)"
-                    aria-controls="prev-diseases" aria-selected="false"> Previous Diseases and Disorders</a>
-    
-            </div>
-    
-            <div class="tab-content data-container" id="sidebar-tabContent">
-    
-                <div class="tab-pane fade show active" id="about" role="tabpanel" aria-labelledby="about-tab">
-                    <% include ./profileSegments/about %>
-                </div>
-    
-                <div class="tab-pane fade" id="work-and-education" role="tabpanel" aria-labelledby="work-and-education-tab">
-                    <% include ./profileSegments/workAndEducation %>
-                </div>
-                <div class="tab-pane fade" id="birth-and-development" role="tabpanel"
-                    aria-labelledby="birth-and-development-tab">
-                    <% include ./profileSegments/birthAndDevelopmentHistory %>
-                </div>
-                <div class="tab-pane fade" id="family-info" role="tabpanel" aria-labelledby="family-info-tab">
-                    <% include ./profileSegments/familyInfo %>
-                </div>
-    
-                <div class="tab-pane fade" id="lifestyle" role="tabpanel" aria-labelledby="lifestyle-tab">
-                    <% include ./profileSegments/about %>
-                </div>
-    
-                <div class="tab-pane fade" id="prev-diseases" role="tabpanel" aria-labelledby="prev-diseases-tab">
-                    <% include ./profileSegments/about %>
-                </div>
-            </div>
-    
-            <div class=" empty-side " aria-orientation="vertical">
-                <!-- this section is created to look the page good by keeping 2 flex right empty. We can use this later -->
-            </div>
-    
+      <div class="side-bar">
+        <div class="topic-container">
+          <div class="topic">
+            <h3>Sections</h3>
+          </div>
+          <div class="angle">
+            <i class="fas fa-angle-right"  id="rightAngle" style="display: none;" onclick="displaySidebar()"></i>
+            <i class="fas fa-angle-left" id="leftAngle"  onclick="hideSidebar()"></i>
+          </div>
         </div>
-    
-    </main>
+        <!-- here are all sidebar items -->
+        <div class="nav-sec-cont">
+          <% for(let i=0; i<sectionNames.length; i++) {%>
+          <div class="sec-cont">
+            <div class="sec-name-and-cnt">
+              <div class="sec-name">
+                <% if(i==0||i==3) {%>
+                  <a onclick="displaySec('sidebarSection<%=i%>')"><%=sectionNames[i]%></a>          
+                <% } else { %>       
+                  <a onclick="expandSec('sidebarSection<%=i%>')"><%=sectionNames[i]%></a>
+                <% } %>       
+              </div>
+            </div>
+            <!-- sub-sections -->
+            <% if(i==1) {%>
+              <div id="sidebarSection<%=i%>" style="display: none;">
+                <% for(let j=0; j<subSectionNames[i].length; j++) {%>
+                <div class="sub-sec-cont">
+                  <div class="sub-sec-name">  
+                    <p onclick="displaySubsections('sidebarSubSection$$<%=subSectionNames[i][j]%>')"><%=subSectionNames[i][j]%></p> 
+                  </div>
+                </div>
+                <% } %>
+              </div> 
+            <% } else if(i==2) { %>
+            <div id="sidebarSection<%=i%>" style="display: none;">
+              <div class="sub-sec-cont">
+                <div class="sub-sec-name">  
+                  <p onclick="displaySubsections('sidebarSubSection$$lifestyleGeneral')">General</p> 
+                </div>
+              </div>
+              <div class="sub-sec-cont">
+                <div class="sub-sec-name">  
+                  <p onclick="displaySubsections('sidebarSubSection$$substances')">Substances</p> 
+                </div>
+              </div>
+            </div> 
+            <% } else if(i==4) {%>
+            <div id="sidebarSection<%=i%>" style="display: none;">
+              <div class="sub-sec-cont">
+                <div class="sub-sec-name">  
+                  <p onclick="displaySubsections('sidebarSubSection$$educationGeneral')">General</p> 
+                </div>
+              </div>
+              <div class="sub-sec-cont">
+                <div class="sub-sec-name">  
+                  <p onclick="displaySubsections('sidebarSubSection$$specialization')">Specialization</p> 
+                </div>
+              </div>
+            </div> 
+            <% } %>
+          </div>
+          <% } %>
 
+        </div>
+      </div>
+      <div class="wrapper">
+        <div class="notify-bar">
+          <div class="sec-title">
+            Lifestyle
+          </div>
+          <div class="edit">
+            <button>
+              Edit
+            </button>
+          </div>
+        </div>
+
+        <div id="addPlace"></div>
+
+        <!-- subsec holder starts here -->
+
+        <div class="sec-holder">
+          <div class="subsec-holder">
+            
+            <div class="subsec" id="subsecId1">
+              <div class="mytable">
+                  <div class="table-title">
+                    Birth History
+                  </div>
+                  <% for(let j=0;j<10; j++){ %>
+                  <div class="table-row">
+                      <div class="label">
+                        <p>
+                          Email
+                        </p>                          
+                      </div>
+                      <div class="detail">
+                        <p>r.r.rahman.r.r@gmail.com r.r.rahman.r.r@gmail.com</p>   
+                      </div>
+                  </div>
+                  <% } %>
+              </div> 
+            </div>
+
+            <div class="subsec" id="subsecId2">
+              <div class="mytable">
+                  <div class="table-title">
+                    Development History
+                  </div>
+                  <% for(let j=0;j<10; j++){ %>
+                  <div class="table-row">
+                      <div class="label">
+                        <p>
+                          Email
+                        </p>                          
+                      </div>
+                      <div class="detail">
+                        <p>r.r.rahman.r.r@gmail.com r.r.rahman.r.r@gmail.com</p>   
+                      </div>
+                  </div>
+                  <% } %>
+              </div> 
+            </div>
+
+            <div class="subsec" id="subsecId3">
+              <div class="mytable">
+                  <div class="table-title">
+                    Immunization History
+                  </div>
+                  <% for(let j=0;j<10; j++){ %>
+                  <div class="table-row">
+                      <div class="label">
+                        <p>
+                          Email
+                        </p>                                                  
+                      </div>
+                      <div class="detail">
+                        <p>r.r.rahman.r.r@gmail.com r.r.rahman.r.r@gmail.com</p>   
+                      </div>
+                  </div>
+                  <% } %>
+              </div> 
+            </div>
+
+          </div>
+          <!-- scrollspy -->
+          <div class="sub-sec-scrollspy">
+            <div class="sub-sec-each">
+              <a href="#subsecId1"> Birth History</a>               
+            </div>
+            <div class="sub-sec-each">
+              <a href="#subsecId2"> Development History</a>                
+            </div>
+            <div class="sub-sec-each">
+              <a href="#subsecId3"> Immunization History</a>                
+            </div>
+          </div> 
+        </div>
+
+
+      </div>
+    </main>
+    
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
-        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
-        crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
-        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
-        crossorigin="anonymous"></script>
-</body>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
 
+    <script>
+      $('body').scrollspy({target: ".sub-sec-scrollspy", offset: 50});
+      function displaySidebar(){
+        $('#rightAngle').css('display','none')
+        $('#leftAngle').css('display','block')
+        $('.side-bar').css('left', '0')
+      }
+      function hideSidebar(){
+        $('#leftAngle').css('display','none')
+        $('#rightAngle').css('display','block')
+        $('.side-bar').css('left', '-250px')
+      }
+      
+      window.onresize = function() {
+        console.log(window.innerWidth)
+          if (window.innerWidth >= 1000) {
+            $('.side-bar').css('left', '0')
+          }
+      }
+      function changeBtnText(){
+        if($('#angleDown').css('display')=='block'){
+          $('#angleDown').css('display','none')
+          $('#angleUp').css('display','block')
+        } 
+        else{
+          $('#angleDown').css('display','block')
+          $('#angleUp').css('display','none')
+        }       
+      }
+
+      function expandSec(id){
+        console.log(id)
+        if($('#'+id).css('display')=='none'){
+          $('#'+id).css('display', 'block')
+        } 
+        else{
+          $('#'+id).css('display', 'none')
+        }
+      }
+
+      function displaySubsections(){
+
+      }
+      function displaySec(){
+
+      }
+
+    $(document).ready(function(){
+      // Add scrollspy to <body>
+      // $('body').scrollspy({target: ".navbar", offset: 50});   
+
+      // Add smooth scrolling on all links inside the navbar
+      $(".sub-sec-each a").on('click', function(event) {
+        // Make sure this.hash has a value before overriding default behavior
+        if (this.hash !== "") {
+          // Prevent default anchor click behavior
+          event.preventDefault();
+
+          // Store hash
+          var hash = this.hash;
+
+          // Using jQuery's animate() method to add smooth page scroll
+          // The optional number (400) specifies the number of milliseconds it takes to scroll to the specified area
+          let scrollToPosition =($(hash).offset().top- 200)
+          $('html, body').animate({
+            scrollTop: scrollToPosition
+          }, 400, function(){
+      
+            // Add hash (#) to URL when done scrolling (default click behavior)
+            // this line actually sets url of the page such as localhost:5000/profile/#hash->(the value of hash)
+            // window.location.hash = hash;
+            $('html').animate({ 'scrollTop': scrollToPosition }, 0);
+          });
+        }  // End if
+      });
+    });
+    
+    </script>
+  </body>
 </html>
