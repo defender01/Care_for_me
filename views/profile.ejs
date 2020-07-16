@@ -216,7 +216,6 @@
       }
       
       window.onresize = function() {
-        console.log(window.innerWidth)
           if (window.innerWidth >= 1000) {
             $('.side-bar').css('left', '0')
           }
@@ -233,7 +232,6 @@
       }
 
       function expandSec(id){
-        console.log(id)
         if($('#'+id).css('display')=='none'){
           $('#'+id).css('display', 'block')
         } 

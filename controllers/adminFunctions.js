@@ -404,6 +404,15 @@ async function saveProfileQues (req, res) {
   res.redirect('/admin/profile/edit')
 }
 
+async function getAddQuesDoctor(req, res) {
+
+  res.render("adminAddDoctorQues");
+}
+
+async function saveDoctorQues(req, res){
+  console.log(req.body)
+}
+
 module.exports = {
   saveSectionSubSection,
   deleteSectionSubSection,
@@ -416,5 +425,7 @@ module.exports = {
   deleteSecSubSecQuesOp,
   getSectionData,
   editProfileQues,
-  saveProfileQues
+  saveProfileQues,
+  getAddQuesDoctor,
+  saveDoctorQues
 };

@@ -9,7 +9,9 @@ const {
   deleteSecSubSecQuesOp,
   getSectionData,
   editProfileQues,
-  saveProfileQues
+  saveProfileQues,
+  getAddQuesDoctor,
+  saveDoctorQues
 } = require("../controllers/adminFunctions");
 
 const {
@@ -20,8 +22,11 @@ const {
 const { questionModel, optionModel } = require("../models/inputCollection");
 
 
-router.get("/addQues", sendSectionSubSec);
-router.post("/addQues", saveQuesOp);
+router.get("/addQues/profile", sendSectionSubSec);
+router.post("/addQues/profile", saveQuesOp);
+
+router.get("/addQues/doctor", getAddQuesDoctor);
+router.post("/addQues/doctor", saveDoctorQues);
 
 router.get("/profile/edit", (req, res) =>{
   res.render('adminProfileQuesCollection')

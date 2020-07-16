@@ -19,6 +19,10 @@
     <!-- for loader -->
     <script src="/assets/jsFiles/loader.js"></script>    
     <link rel="stylesheet" href="/assets/cssFiles/loader.css" />
+    <!-- for date range picker -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 
 
     <title>Registration-Care for me</title>
@@ -36,23 +40,29 @@
       <div class="side-bar">
         <div class="topic-container">
           <div class="topic">
-            <h3>Parameters</h3>
+            <h3>Sections</h3>
           </div>
           <div class="angle">
             <i class="fas fa-angle-right"  id="rightAngle" style="display: none;" onclick="displaySidebar()"></i>
             <i class="fas fa-angle-left" id="leftAngle"  onclick="hideSidebar()"></i>
           </div>
         </div>
-        <% for(let i=0; i<50; i++) {%>
-          <div class="parameter">
-            <div class="param-name">
-              Pain
-            </div>
-            <div class="param-ques">
-              20 
+        <!-- here are all sidebar items -->
+        <div class="nav-sec-cont">
+          <% for(let i=0; i<50; i++) {%>
+          <div class="sec-cont">
+            <div class="sec-name-and-cnt">
+              <div class="sec-name">
+                <a onclick="displayQues()">Pain</a>
+              </div>
+              <div class="sec-items-cnt">
+                20
+              </div>
             </div>
           </div>
-        <% } %>
+          <% } %>
+
+        </div>
       </div>
       <div class="wrapper">
         <div class="notify-bar">
@@ -63,7 +73,7 @@
             Total Selected: 15
           </div>
           <div class="continue">
-            <button>
+            <button onclick="save()">
               Continue and Save
             </button>
           </div>
@@ -82,18 +92,28 @@
               </tr>
             </thead>
             <tbody>
-            <% for(let i=0; i<30; i++) { %>
+            <% for(let i=0; i<20; i++) { %>
               <tr>
-                <th scope="row"> <input type="checkbox"> </th>
-                <td> What is your temperature?</td>
-                <td> <input class="form-control" type="number" > </td>
-                <td> <input class="form-control" type="number" > </td>
+                <th scope="row"> <input type="checkbox" name="checkbox<%=i%>"> </th>
+                <td> What is your temperature?</td>                
+                <td> <input class="form-control" type="text" name="dateRange" > </td>
+                <td> 
+                  <select class="form-control" name="frequency" id="sectionId" >
+                    <option selected value='1d'> 1 day </option>
+                    <% for(let i = 1 ; i < 24; i++) {%>
+                      <option value="<%=i%>h"><%= i %> hour</option>                    
+                    <% } %>
+                    <% for(let i = 1 ; i < 10; i++) {%>
+                      <option value="<%=i%>d"><%= i %> day</option>                    
+                    <% } %>                    
+                  </select>
+                </td>
                 <td> <input class="form-control" type="number" > </td>
                 <td> <input class="form-control" type="number" > </td>
               </tr>            
             <% } %>
             </tbody>
-          </table>
+          </table>          
         </div>
       </div>
     </main>
@@ -104,6 +124,19 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
 
     <script>
+      var stDate = new Date();
+      var enDate = new Date(stDate.getFullYear(), stDate.getMonth(), stDate.getDate()+10)
+      var stDateStr = stDate.getDate()+'/'+stDate.getMonth()+'/'+stDate.getFullYear()
+      var enDateStr = enDate.getDate()+'/'+enDate.getMonth()+'/'+enDate.getFullYear()
+
+      $(function() {
+        $('input[name="dateRange"]').daterangepicker({
+          opens: 'left'
+        }, function(start, end, label) {
+          console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
+        });
+      });
+
       function displaySidebar(){
         $('#rightAngle').css('display','none')
         $('#leftAngle').css('display','block')
@@ -116,10 +149,20 @@
       }
       
       window.onresize = function() {
-        console.log(window.innerWidth)
           if (window.innerWidth >= 1000) {
             $('.side-bar').css('left', '0')
           }
+      }
+
+      function save(){
+        let items = $('input[type="checkbox"]')
+        let ques =[]
+        for(let i=0; i<items.length; i++){
+          if(items[i].checked){
+            ques.push(items[i].name)
+          }
+        }
+        console.log(ques)
       }
     </script>
   </body>

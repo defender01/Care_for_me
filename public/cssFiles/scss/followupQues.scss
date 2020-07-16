@@ -2,6 +2,10 @@
 
 $base-color: rgba(245, 147, 19, 0.89);
 $hover-color: #96bbc2;
+$title-color: #6a3c19;
+$bg-color: #ffffff;
+$label-color:#90949c;
+
 
 body{
 	width: 100%;
@@ -21,8 +25,9 @@ main{
         top: 0;
         left: 0;
         overflow-x: hidden;
-        margin-top: 80px;
-
+        overflow-y: hidden;
+		margin-top: 80px;
+		
         width: 300px;
         padding-bottom: 150px;        
         background-color: white;
@@ -54,21 +59,46 @@ main{
                 display: none;
             }
         }
-        .parameter{
+        .nav-sec-cont{
             font-size: 20px;
-            padding: 10px 10px 10px 30px;
-            display: flex;
-            .param-name{
-                flex: 2;
-            }
-            .param-ques{
-                flex: 1;
-                padding: 0 10px 0 10px;
-            }
-            &:hover{
-                background-color: $hover-color;
-                color: white;
-            }
+            padding: 10px 10px 10px 20px;            
+            overflow-y: scroll;
+            height: 100%;
+            
+           .sec-cont{
+            color: $label-color;
+				.sec-name-and-cnt{
+					display: flex;
+					font-size: 18px;                    
+					.sec-name{
+                        flex: 2;
+                        margin: 10px;
+					}					
+                    .sec-items-cnt{
+                        width: 50px;
+                        margin: 10px;
+                    }
+                    &:hover{
+						// background-color: $hover-color;
+                        color: rgb(86, 124, 228);
+                        text-shadow: blue;
+                        cursor: pointer;
+                    }
+				}   
+				.sub-sec-cont{
+					display: flex;					
+					font-size: 16px;
+					padding-left: 20px;
+					.sub-sec-name{
+						flex: 2;
+					}
+					&:hover{
+						color: rgb(86, 124, 228);
+                        text-shadow: blue;                        
+                        cursor: pointer;
+					}
+				}
+		   }     
         }
     }
     .wrapper{
