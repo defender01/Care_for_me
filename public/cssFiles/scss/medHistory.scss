@@ -1,10 +1,15 @@
-/* family history */
-/* 
-.family-container .part h5{
-    padding-top: 10px;
-} */
+@import url('https://fonts.googleapis.com/css2?family=Lato&family=Nanum+Gothic&family=Poppins&family=Source+Sans+Pro&display=swap');
+
+$base-color: rgba(245, 147, 19, 0.89);
+$hover-color: #96bbc2;
+$title-color: #6a3c19;
+$bg-color: #ffffff;
+$label-color:#90949c;
+$title-bar-bg: #ffd75feb;
+
+
 body {
-	background-color: #f5f5f5;
+	background-color: rgb(255, 255, 255);
 }
 main{
     margin-top: 80px;
@@ -17,7 +22,7 @@ p {
 }
 #heading {
 	text-transform: uppercase;
-	color: #673AB7;
+	color:#c0392b;
 	font-weight: normal;
 }
 #msform {
@@ -25,7 +30,7 @@ p {
 	position: relative;
 	margin-top: 20px;
 	fieldset {
-		background: #f5f5f5;
+		background: white;
 		border: 0 none;
 		border-radius: 0.5rem;
 		box-sizing: border-box;
@@ -137,7 +142,7 @@ p {
 	margin: 10px 0 0 0;
 }
 .primary-card {
-	background-color: #f5f5f5;
+	background-color: white;
 	padding: 10px 20px 10px 20px;
 	z-index: 0;
 	border: none;
@@ -145,7 +150,7 @@ p {
 }
 .fs-title {
 	font-size: 25px;
-	color: #673AB7;
+	color: $title-color;
 	margin-bottom: 15px;
 	font-weight: normal;
 	text-align: left;
@@ -158,18 +163,20 @@ p {
 	text-align: left;
 }
 h4.subsection-title {
-	background-color: #d3e2ff;
-	border-radius: 100px;
-	color: black;
+	border-left: 5px solid $title-color;
+	// border-radius: 100px;
+	color: $title-color;
 	padding: 3px 10px 3px 10px;
-	margin: 10px 0px 10px 0;
+	margin: 10px 0px 20px 0;
+	font-size: 24px;
 }
 h5.left.subsection-title {
-	background-color: #d3e2ff;
-	border-radius: 100px;
-	color: black;
+	background-color: white;
+	border-left: 5px solid $title-color;
+	color: $title-color;
 	padding: 3px 10px 3px 10px;
 	margin: 10px 10px 10px 0;
+	font-size: 24px;
 }
 .subtance-history-container {
 	display: flex;
@@ -216,86 +223,11 @@ h5.left.subsection-title {
 	color: gray;
 	text-align: left;
 }
-#progressbar {
-	margin-bottom: 30px;
-	overflow: hidden;
-	color: lightgrey;
-	.active {
-		color: #673AB7;
-	}
-	li {
-		font-size: 15px;
-		width: 20%;
-		float: left;
-		position: relative;
-		font-weight: 400;
-		&:before {
-			width: 50px;
-			height: 50px;
-			line-height: 45px;
-			display: block;
-			font-size: 20px;
-			color: #ffffff;
-			background: lightgray;
-			border-radius: 50%;
-			margin: 0 auto 10px auto;
-			padding: 2px;
-		}
-		&:after {
-			content: '';
-			width: 100%;
-			height: 2px;
-			background: lightgray;
-			position: absolute;
-			left: 0;
-			top: 25px;
-			z-index: -1;
-		}
-	}
-	#step1 {
-		&:before {
-			font-family: FontAwesome;
-			content: "\f13e";
-		}
-	}
-	#step2 {
-		&:before {
-			font-family: FontAwesome;
-			content: "\f007";
-		}
-	}
-	#step3 {
-		&:before {
-			font-family: FontAwesome;
-			content: "\f030";
-		}
-	}
-	#step4 {
-		&:before {
-			font-family: FontAwesome;
-			content: "\f00c";
-		}
-	}
-	#step5 {
-		&:before {
-			font-family: FontAwesome;
-			content: "\f030";
-		}
-	}
-	li.active {
-		&:before {
-			background: #673AB7;
-		}
-		&:after {
-			background: #673AB7;
-		}
-	}
-}
 .progress {
 	height: 20px;
 }
 .progress-bar {
-	background-color: #673AB7;
+	background-color: $base-color;
 }
 .fit-image {
 	width: 100%;
@@ -371,7 +303,7 @@ h5.left.subsection-title {
 	font-size: 17px;
 }
 .title-bar {
-	background-color: #d3e2ff;
+	background-color: #e6e8ef;
 }
 i.far.fa-plus-square {
 	width: 35px;
@@ -458,11 +390,13 @@ i.far.fa-plus-square {
 		padding: 10px 10px 0px 0px;
 		h5 {
 			flex: 1;
-			text-align: start;			
-			background-color: #d3e2ff;
-			border-radius: 100px;
+			text-align: start;		
+			font-weight: normal;	
+			color: $title-color;
 			padding: 3px 10px 3px 10px;
-			margin: 10px 10px 0 0;
+			margin: 10px 10px 0 0px;
+			font-size: 24px;
+			border-left: 5px solid $title-color;
 		}
 		i{
 			text-align: end;

@@ -1,0 +1,29 @@
+body{
+    width: 100vw;
+    height: 100vh;
+}
+
+main{
+    width: 100%;
+    height: 100%;
+    margin-top: 80px;
+    .icon{
+        padding-top: 100px;
+        width: 100%;        
+        display: flex;
+        i{
+            margin: auto;
+            font-size: 70px;
+            color: red;
+        }
+    }   
+    .warning{
+        width: 100%;
+        display: flex;
+        h1{
+            margin: auto;
+            font-size: 50px;
+            color: saddlebrown;
+        }
+    }
+}

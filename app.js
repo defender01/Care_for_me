@@ -64,6 +64,7 @@ app.use(function(req, res, next) {
   next()
 })
 
+
 app.get("/home", async (req, res) => {
   if(req.user)
     displayName = req.user.name.displayName
@@ -82,7 +83,12 @@ app.get("/", async (req, res) => {
 app.get("/test", async (req, res) => {
   res.render("test")
 })
-                      
+        
+
+app.post("/test", async (req, res) => {
+  console.log(req.body)
+})
+        
 
 app.get("/termsAndConditions", (req, res) => {
     res.render("termsAndConditions")
@@ -95,6 +101,27 @@ app.use("/auth", require("./routes/auth.js"))
 app.use("/profile", require("./routes/profile.js"))
 app.use("/admin", require("./routes/adminFacility.js"))
 app.use("/doctor", require("./routes/doctor.js"))
+
+
+// 404
+app.use(function(req, res, next){
+  res.status(404);
+
+  // respond with html page
+  if (req.accepts('html')) {
+    res.render('404', { error: '404 Page Not Found' });
+    return;
+  }
+
+  // respond with json
+  if (req.accepts('json')) {
+    res.send({ error: 'Not found' });
+    return;
+  }
+
+  // default to plain-text. send()
+  res.type('txt').send('Not found');
+});
 
 
 var PORT = process.env.PORT || 5000

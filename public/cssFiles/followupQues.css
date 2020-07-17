@@ -17,6 +17,7 @@ main .side-bar {
   top: 0;
   left: 0;
   overflow-x: hidden;
+  overflow-y: hidden;
   margin-top: 80px;
   width: 300px;
   padding-bottom: 150px;
@@ -55,24 +56,52 @@ main .side-bar .topic-container .angle i {
   color: #fdfdfd;
 }
 
-main .side-bar .parameter {
+main .side-bar .nav-sec-cont {
   font-size: 20px;
-  padding: 10px 10px 10px 30px;
-  display: flex;
+  padding: 10px 10px 10px 20px;
+  overflow-y: scroll;
+  height: 100%;
 }
 
-main .side-bar .parameter .param-name {
+main .side-bar .nav-sec-cont .sec-cont {
+  color: #90949c;
+}
+
+main .side-bar .nav-sec-cont .sec-cont .sec-name-and-cnt {
+  display: flex;
+  font-size: 18px;
+}
+
+main .side-bar .nav-sec-cont .sec-cont .sec-name-and-cnt .sec-name {
+  flex: 2;
+  margin: 10px;
+}
+
+main .side-bar .nav-sec-cont .sec-cont .sec-name-and-cnt .sec-items-cnt {
+  width: 50px;
+  margin: 10px;
+}
+
+main .side-bar .nav-sec-cont .sec-cont .sec-name-and-cnt:hover {
+  color: #567ce4;
+  text-shadow: blue;
+  cursor: pointer;
+}
+
+main .side-bar .nav-sec-cont .sec-cont .sub-sec-cont {
+  display: flex;
+  font-size: 16px;
+  padding-left: 20px;
+}
+
+main .side-bar .nav-sec-cont .sec-cont .sub-sec-cont .sub-sec-name {
   flex: 2;
 }
 
-main .side-bar .parameter .param-ques {
-  flex: 1;
-  padding: 0 10px 0 10px;
-}
-
-main .side-bar .parameter:hover {
-  background-color: #96bbc2;
-  color: white;
+main .side-bar .nav-sec-cont .sec-cont .sub-sec-cont:hover {
+  color: #567ce4;
+  text-shadow: blue;
+  cursor: pointer;
 }
 
 main .wrapper {

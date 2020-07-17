@@ -62,7 +62,6 @@ nav.navbar.navbar-expand-lg.navbar-light.bg-light.nav-container .navbar-brand {
 
 .navbar-light .navbar-nav .nav-link:hover {
   border-radius: 60px;
-  animation-name: nav-bar-bg-change;
   color: white;
   background-color: #c9711f;
   animation-duration: .3s;
@@ -70,25 +69,6 @@ nav.navbar.navbar-expand-lg.navbar-light.bg-light.nav-container .navbar-brand {
 
 .navbar-collapse.collapse.show {
   background-color: white;
-}
-
-@keyframes nav-bar-bg-change {
-  0% {
-    color: #693c12;
-    background-color: rgba(201, 113, 31, 0.411);
-  }
-  25% {
-    color: rgba(182, 159, 138, 0.986);
-    background-color: rgba(201, 113, 31, 0.637);
-  }
-  50% {
-    color: #bda792;
-    background-color: rgba(201, 113, 31, 0.897);
-  }
-  100% {
-    color: white;
-    background-color: #c9711f;
-  }
 }
 
 .bg-light {
