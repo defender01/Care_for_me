@@ -1,0 +1,52 @@
+<link rel="stylesheet" href="/assets/cssFiles/navbar.css">
+<nav class="navbar navbar-expand-lg navbar-light bg-light nav-container ">
+    <a class="navbar-brand" >Care for me</a>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-toggle="collapse"
+      data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+   
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <span class="navbar-text">
+        <ul class="navbar-nav mr-auto ">
+          <li class="nav-item ">
+            <a class="nav-link" href="/admin/profile/edit" 
+              >Profile Questions </a
+            >
+          </li>
+          
+          <li class="nav-item ">
+            <a class="nav-link" href="/admin/followupQues/edit"
+              >Doctor Questions</a
+            >
+          </li>
+          <% if( typeof displayName == 'undefined' || displayName == '') { %>
+            <li class="nav-item ">
+              <a class="nav-link" href="/auth/login"
+                >Login </a
+              >
+            </li>
+            <% }  else { %>
+            <li class="nav-item dpName">
+              <h4><%= displayName %></h4>
+            </li>
+            <li class="nav-item ">
+              <a class="nav-link " href="/auth/logout"
+                >Logout </a
+              >
+            </li>
+            <% } %>
+        </ul>
+      </span>
+  
+    </div>
+  </nav>

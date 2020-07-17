@@ -208,7 +208,7 @@ main .wrapper .sec-holder .subsec-holder .subsec .mytable .table-row {
 
 main .wrapper .sec-holder .subsec-holder .subsec .mytable .table-row .label {
   margin: auto;
-  min-width: 200px;
+  flex: 1;
   padding: 5px;
   padding-left: 10px;
   font-size: 17px;
@@ -217,7 +217,7 @@ main .wrapper .sec-holder .subsec-holder .subsec .mytable .table-row .label {
 
 main .wrapper .sec-holder .subsec-holder .subsec .mytable .table-row .detail {
   margin: auto;
-  flex: 1;
+  flex: 4;
   text-align: left;
   padding: 5px;
   padding-left: 60px;

@@ -13,6 +13,11 @@ const questionSchema = new Schema({
   frequency: Number
 })
 
+const parameterSchema =  new Schema({
+  name: String,
+})
+
 module.exports = {
-    followupQuesModel: mongoose.model("followupQuesModel", questionSchema)
+    followupQuesModel: mongoose.model("followupQuesModel", questionSchema),
+    parameterModel: mongoose.model("parameterModel", parameterSchema),
 };

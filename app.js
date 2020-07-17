@@ -104,7 +104,7 @@ app.use("/doctor", require("./routes/doctor.js"))
 
 
 // 404
-app.use(function(req, res, next){
+app.use((req, res, next) => {
   res.status(404);
 
   // respond with html page

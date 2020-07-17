@@ -21,6 +21,11 @@ const {
 
 const { questionModel, optionModel } = require("../models/inputCollection");
 
+const { parameterModel } = require("../models/followup");
+
+router.get('/', (req, res)=> {
+  res.render('admin')
+})
 
 router.get("/addQues/profile", sendSectionSubSec);
 router.post("/addQues/profile", saveQuesOp);

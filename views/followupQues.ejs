@@ -49,11 +49,11 @@
         </div>
         <!-- here are all sidebar items -->
         <div class="nav-sec-cont">
-          <% for(let i=0; i<50; i++) {%>
+          <% for(let i=0; i<parameters.length; i++) {%>
           <div class="sec-cont">
-            <div class="sec-name-and-cnt">
+            <div class="sec-name-and-cnt" onclick="displayQues('paramQues<%=i%>')">
               <div class="sec-name">
-                <a onclick="displayQues()">Pain</a>
+                <a ><%= parameters[i].name%></a>
               </div>
               <div class="sec-items-cnt">
                 20
@@ -78,7 +78,7 @@
             </button>
           </div>
         </div>
-
+        
         <div class="ques-holder">
           <table class="table table-striped table-bordered">
             <thead >
@@ -100,11 +100,11 @@
                 <td> 
                   <select class="form-control" name="frequency" id="sectionId" >
                     <option selected value='1d'> 1 day </option>
-                    <% for(let i = 1 ; i < 24; i++) {%>
-                      <option value="<%=i%>h"><%= i %> hour</option>                    
+                    <% for(let j = 1 ; j < 24; j++) {%>
+                      <option value="<%=j%>h"><%= j %> hour</option>                    
                     <% } %>
-                    <% for(let i = 1 ; i < 10; i++) {%>
-                      <option value="<%=i%>d"><%= i %> day</option>                    
+                    <% for(let j = 1 ; j < 10; j++) {%>
+                      <option value="<%=j%>d"><%= j %> day</option>                    
                     <% } %>                    
                   </select>
                 </td>
@@ -163,6 +163,10 @@
           }
         }
         console.log(ques)
+      }
+
+      function displayQues(id){
+        console.log(id)
       }
     </script>
   </body>
