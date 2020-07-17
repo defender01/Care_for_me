@@ -15,7 +15,7 @@
   
     </div>
   
-    <input type="submit" class="next action-button" onclick="showLoader()" value="Submit"/>
+    <input type="button" class="next action-button" id="submit-btn" value="Submit"/>
     <input
       type="button"
       name="previous"
@@ -27,16 +27,21 @@
       function showLoader(){
         $(".se-pre-con").fadeIn();
       }
-      
+
       $.get("/profile/getSectionData/Previous Diseases and Disorders", (data) => {
         let elmStr = "";
         for (let i = 0; i < data.subSections.length; i++) {
           elmStr += getSubSectionStr5(data._id, data.subSections[i]);
         }
         $("#addPlace5").replaceWith(elmStr); 
-        // fading preloader       
-        $(".se-pre-con").fadeOut("slow");
       });
+
+      $('#submit-btn').click((e) => {
+        e.preventDefault();
+        showLoader()
+        $('#msform').submit();
+      })
+
       function getSubSectionStr5(sectionID, subSection) {
       let elmStr = "", qStr='';
       let oneThirdOfTotalQuestions = Math.ceil(subSection.questions.length / 3);

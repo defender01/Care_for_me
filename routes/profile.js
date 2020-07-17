@@ -3,11 +3,12 @@ const router = express.Router();
 const mongoose = require("mongoose");
 const User = require("../models/userInfo");
 const {
+  sectionModel,
   vaccineModel,
   substanceModel,
   answerModel,
 } = require("../models/inputCollection");
-const { getSectionData, getSectionSubSection } = require("../controllers/adminFunctions");
+const { getSectionData} = require("../controllers/adminFunctions");
 
 //import camelCase function
 const camelCase = require("../controllers/functionCollection").camelCase;
@@ -18,36 +19,62 @@ const {
 } = require("../controllers/auth_helper");
 const { exists } = require("../models/userInfo");
 
+let getQuestionsFromAllSections = async () => 
+{
+  let data;
+  try{
+    data = await sectionModel
+    .find({})
+    .populate({
+      path: "subSections",
+      populate: {
+        path: "questions",
+        populate: {
+          path: "options",
+          populate: {
+            path: "questions",
+            populate: {
+              path: "options",
+              populate: {
+                path: "questions",
+                populate: {
+                  path: "options",
+                },
+              },
+            },
+          },
+        },
+      },
+    })
+    .exec();
+  }catch(err){
+    console.error(err)
+    res.send({'error': err.message})
+  }
+  // console.log(util.inspect({ data }, false, null, true /* enable colors */));
+  return data;
+}
+
 router.get("/", checkAuthenticated, async (req, res) => {
   let displayName = req.user.name.displayName;
-  let data;
-  let errors = [];
-  let { sectionNames, subSectionNames } = await getSectionSubSection();
+  let userDetails, wholeSectionCollection, medicalHistoryData, vaccineData, substanceData;
   try {
-    data = await User.find({ email: req.user.email });
-  } catch (err) {
-    errors.push({ msg: "Internal Server Error" });
+    userDetails = await User.findOne({ _id: req.user._id });
+    wholeSectionCollection = await getQuestionsFromAllSections();
+    vaccineData = await vaccineModel.find({});
+    substanceData = await substanceModel.find({});
+    medicalHistoryData = await answerModel.find({userID: req.user._id})
+    const {mapQuesToAnswer, mapSubSecToAdditionalIDs} = processAnswerModelData(medicalHistoryData);
+
+    res.render("profile", { userDetails, displayName, vaccineData, substanceData, wholeSectionCollection, mapQuesToAnswer, mapSubSecToAdditionalIDs });
+  }catch (err) {
     console.log(err);
+    res.send({ msg: err.message })
   }
-  res.render("profile", { errors, data, displayName, sectionNames, subSectionNames });
 });
 
 // let physicalDiseases = ["Asthma", "Aneurysm", "Diabetes", "Epilepsy Seizures", "Headaches or migraines", "Heart diseases", "High blood pressure", "Kidney disease", "Lung Disease", "Migraine", "Arthritis", "Elevated cholesterol", "Multiple Sclerosis", "Stroke", "Thyroid", "Tuberculosis", "Bleeding disorder"]
 // let mentalDiseases = ["Neurocognitive disordero: dementia/ alzheimer’s disease", "Neurodevelopmental disorder", "Obsessive compulsive disorder", "Schizophrenia", "Depression", "Panic disorder", "Mood disorder", "Attention deficit hyperactivity disorder", "Convulsions", "Somatoform disorder", "Stress disorder", "Eating disorder", "Impulsive control disorder", "Substance abuse disorder"]
-// let physicalDiseasesJson = []
-// let mentalDiseasesJson = []
-
-// for(var i=0; i<physicalDiseases.length; i++) {
-//   physicalDiseasesJson.push({
-//     name: physicalDiseases[i],
-//     id: camelCase(physicalDiseases[i])})
-// }
-// for(var i=0; i<mentalDiseases.length; i++) {
-//   mentalDiseasesJson.push({
-//     name: mentalDiseases[i],
-//     id: camelCase(mentalDiseases[i])})
-// }
-
 
 let checkNotNull = (val) => {
   return (typeof val !== 'undefined') && (val !== '') && (val !== null)  
@@ -104,7 +131,7 @@ router.get("/edit", checkAuthenticated, async (req, res) => {
     substanceData = await substanceModel.find({});
     medicalHistoryData = await answerModel.find({userID: req.user._id})
   } catch (err) {
-    errors.push({ msg: "Internal Server Error" });
+    errors.push({ msg: err.message });
     console.log(err);
   }
 
@@ -250,9 +277,10 @@ router.post("/edit", checkAuthenticated, async (req, res) => {
     }
   }catch(err){
     console.error(err)
+    res.send({'error': err.message})
   }
 
-  res.redirect("/profile/edit");
+  res.redirect("/profile");
 });
 
 router.get("/getSectionData/:section", getSectionData);
