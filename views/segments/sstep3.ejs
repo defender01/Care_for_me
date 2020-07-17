@@ -149,7 +149,7 @@
 
       for(let i=0; i<options.length; i++){
         if(options[i].questions.length>0)
-          condArrayStr += `'conditional${options[i]._id}##${additionalID}', `
+          condArrayStr += `'conditional${options[i]._id}--${additionalID}', `
       }
       condArrayStr+=']'
 
@@ -158,22 +158,22 @@
         displayNone = (typeof mapQuesToAnswer[fullQID] !== 'undefined' && mapQuesToAnswer[fullQID].includes(options[i]._id.toString())) ? '' : 'style="display: none;"'
         
         if(options[i].questions.length>0){
-          let str = `'conditional${options[i]._id}##${additionalID}',` 
+          let str = `'conditional${options[i]._id}--${additionalID}',` 
           let newCondArray = condArrayStr.replace(str, '')
           elmStr += '<div class="custom-control custom-radio">'+
-          `<input type="radio" id="${options[i]._id}##${additionalID}" name="${sectionID}#####${subSectionID}#####${qId}#####${additionalID}" class="custom-control-input" value="${options[i]._id}#####${options[i].name}" onclick="hideConditionalSection(${newCondArray}); displayConditionalSection(['conditional${options[i]._id}##${additionalID}']);" ${checked}>` +
-          `<label class="custom-control-label" for="${options[i]._id}##${additionalID}">${options[i].name}</label>` +
+          `<input type="radio" id="${options[i]._id}--${additionalID}" name="${sectionID}#####${subSectionID}#####${qId}#####${additionalID}" class="custom-control-input" value="${options[i]._id}#####${options[i].name}" onclick="hideConditionalSection(${newCondArray}); displayConditionalSection(['conditional${options[i]._id}--${additionalID}']);" ${checked}>` +
+          `<label class="custom-control-label" for="${options[i]._id}--${additionalID}">${options[i].name}</label>` +
           '</div>'
           let qStr = ''
           for(let j=0; j<options[i].questions.length; j++){
             qStr+= getQuestionStr3(sectionID, subSectionID, additionalID, options[i].questions[j])
           }
-          conditionalPart += `<div id= "conditional${options[i]._id}##${additionalID}" ${displayNone}>${qStr}</div>`
+          conditionalPart += `<div id= "conditional${options[i]._id}--${additionalID}" ${displayNone}>${qStr}</div>`
         }
         else{
           elmStr += '<div class="custom-control custom-radio">'+
-          `<input type="radio" id="${options[i]._id}##${additionalID}" name="${sectionID}#####${subSectionID}#####${qId}#####${additionalID}" class="custom-control-input" value="${options[i]._id}#####${options[i].name}" onclick="hideConditionalSection(${condArrayStr});" ${checked}>` +
-          `<label class="custom-control-label" for="${options[i]._id}##${additionalID}">${options[i].name}</label>` +
+          `<input type="radio" id="${options[i]._id}--${additionalID}" name="${sectionID}#####${subSectionID}#####${qId}#####${additionalID}" class="custom-control-input" value="${options[i]._id}#####${options[i].name}" onclick="hideConditionalSection(${condArrayStr});" ${checked}>` +
+          `<label class="custom-control-label" for="${options[i]._id}--${additionalID}">${options[i].name}</label>` +
           '</div>'
         }
       }
@@ -189,8 +189,8 @@
       displayNone = (typeof mapQuesToAnswer[fullQID] !== 'undefined' && mapQuesToAnswer[fullQID].includes(options[i]._id.toString())) ? '' : 'style="display: none;"'
         
       elmStr += '<div class="custom-control custom-checkbox">'+
-        `<input type="checkbox" id="${options[i]._id}##${additionalID}" name="${sectionID}#####${subSectionID}#####${qId}#####${additionalID}" class="custom-control-input" value="${options[i]._id}#####${options[i].name}" onclick="displayConditionalSectionCheckbox('${options[i]._id}##${additionalID}' , 'conditional${options[i]._id}##${additionalID}'); " ${checked}>` +
-        `<label class="custom-control-label" for="${options[i]._id}##${additionalID}">${options[i].name}</label>` +
+        `<input type="checkbox" id="${options[i]._id}--${additionalID}" name="${sectionID}#####${subSectionID}#####${qId}#####${additionalID}" class="custom-control-input" value="${options[i]._id}#####${options[i].name}" onclick="displayConditionalSectionCheckbox('${options[i]._id}--${additionalID}' , 'conditional${options[i]._id}--${additionalID}'); " ${checked}>` +
+        `<label class="custom-control-label" for="${options[i]._id}--${additionalID}">${options[i].name}</label>` +
         '</div>'
       
       if(options[i].questions.length>0){  
@@ -198,7 +198,7 @@
         for(let j=0; j<options[i].questions.length; j++){
           qStr+= getQuestionStr3(sectionID, subSectionID, additionalID, options[i].questions[j])
         }
-        elmStr += `<div id= "conditional${options[i]._id}##${additionalID}" ${displayNone}>${qStr}</div>`
+        elmStr += `<div id= "conditional${options[i]._id}--${additionalID}" ${displayNone}>${qStr}</div>`
       }
     }
     return elmStr
