@@ -146,17 +146,18 @@
 
     <div class="wrapper">
       <div class="notify-bar">
-        <div class="sec-title" id="notify-bar-title">
+        <div class="sec-title" id="notifyBarTitle">
           Personal Information
         </div>
         <div class="edit">
-          <button>
+          <button id="notifyBarEditBtn">
             Edit
           </button>
         </div>
       </div>
 
       <!-- Hidden inputs -->
+      <input type="text" id="notifyBarSectionID" value="personalInfo" style="display: none;"/>
       <input type="text" id="currentVisibleSectionID" value="sectionID-personalInfo" style="display: none;"/>
 
       <!-- subsec holder starts here -->
@@ -347,6 +348,12 @@
     let mapSubSecToAdditionalIDs = <%- JSON.stringify(mapSubSecToAdditionalIDs) %> ;
 
     $('body').scrollspy({ target: ".sub-sec-scrollspy", offset: 50 });
+
+    $('#notifyBarEditBtn').click((e) => {
+        let secID = $("#notifyBarSectionID").val()
+        location = `/profile/update/${secID}`;
+    });
+
     function displaySidebar() {
       $('#rightAngle').css('display', 'none')
       $('#leftAngle').css('display', 'block')
@@ -410,7 +417,8 @@
       if ($(`#sectionID-${secID}--${partialSecID}`).length){
         let currentVisibleSectionID = $('#currentVisibleSectionID').val()
         
-        $("#notify-bar-title").html(sectionName)
+        $("#notifyBarSectionID").val(secID)
+        $("#notifyBarTitle").html(sectionName)
         $('#' + currentVisibleSectionID).css('display', 'none')
         $(`#sectionID-${secID}--${partialSecID}`).css('display', 'block')
         $('#currentVisibleSectionID').val(`sectionID-${secID}--${partialSecID}`)
@@ -438,7 +446,8 @@
       $("#sectionAddHelper").replaceWith(wholeSectionTabHtml);
 
       let currentVisibleSectionID = $('#currentVisibleSectionID').val()
-      $("#notify-bar-title").html(sectionName)
+      $("#notifyBarSectionID").val(secID)
+      $("#notifyBarTitle").html(sectionName)
       $('#' + currentVisibleSectionID).css('display', 'none')
       $(`#sectionID-${secID}--${partialSecID}`).css('display', 'block')
       $('#currentVisibleSectionID').val(`sectionID-${secID}--${partialSecID}`)                             
@@ -458,7 +467,8 @@
       if ($(`#sectionID-${secID}--${subSecID}`).length){
         let currentVisibleSectionID = $('#currentVisibleSectionID').val()
 
-        $("#notify-bar-title").html(subSection.name)
+        $("#notifyBarSectionID").val(secID)
+        $("#notifyBarTitle").html(subSection.name)
         $('#' + currentVisibleSectionID).css('display', 'none')
         $(`#sectionID-${secID}--${subSecID}`).css('display', 'block')
         $('#currentVisibleSectionID').val(`sectionID-${secID}--${subSecID}`)
@@ -514,7 +524,8 @@
       $("#sectionAddHelper").replaceWith(wholeSectionTabHtml);
 
       let currentVisibleSectionID = $('#currentVisibleSectionID').val()
-      $("#notify-bar-title").html(subSection.name)
+      $("#notifyBarSectionID").val(secID)
+      $("#notifyBarTitle").html(subSection.name)
       $('#' + currentVisibleSectionID).css('display', 'none')
       $(`#sectionID-${secID}--${subSecID}`).css('display', 'block')
       $('#currentVisibleSectionID').val(`sectionID-${secID}--${subSecID}`)
@@ -523,27 +534,29 @@
 
 
     function displaySection(secID) {
-
-      let sectionIndex = wholeSectionCollection.findIndex(x => x._id.toString() === secID); 
-      let sectionName = wholeSectionCollection[sectionIndex].name
-      let subSections = wholeSectionCollection[sectionIndex].subSections;
-      let elmStr = '', scrollspyStr = ''
       
       if(secID === 'personalInfo'){
         let currentVisibleSectionID = $('#currentVisibleSectionID').val()
 
-        $("#notify-bar-title").html("Personal Information")
+        $("#notifyBarSectionID").val(secID)
+        $("#notifyBarTitle").html("Personal Information")
         $('#' + currentVisibleSectionID).css('display', 'none')
         $('#sectionID-' + secID).css('display', 'block')
         $('#currentVisibleSectionID').val('sectionID-personalInfo')
         return
       }
 
+      let sectionIndex = wholeSectionCollection.findIndex(x => x._id.toString() === secID); 
+      let sectionName = wholeSectionCollection[sectionIndex].name
+      let subSections = wholeSectionCollection[sectionIndex].subSections;
+      let elmStr = '', scrollspyStr = ''
+
       // checking either the section exists or not
       if ($('#sectionID-' + secID).length){
         let currentVisibleSectionID = $('#currentVisibleSectionID').val()
 
-        $("#notify-bar-title").html(sectionName)
+        $("#notifyBarSectionID").val(secID)
+        $("#notifyBarTitle").html(sectionName)
         $('#' + currentVisibleSectionID).css('display', 'none')
         $('#sectionID-' + secID).css('display', 'block')
         $('#currentVisibleSectionID').val('sectionID-' + secID)
@@ -573,7 +586,8 @@
       $("#sectionAddHelper").replaceWith(wholeSectionTabHtml);
 
       let currentVisibleSectionID = $('#currentVisibleSectionID').val()
-      $("#notify-bar-title").html(sectionName)
+      $("#notifyBarSectionID").val(secID)
+      $("#notifyBarTitle").html(sectionName)
       $('#' + currentVisibleSectionID).css('display', 'none')
       $('#sectionID-' + secID).css('display', 'block')
       $('#currentVisibleSectionID').val('sectionID-' + secID)                             
@@ -752,7 +766,7 @@
       // $('body').scrollspy({target: ".navbar", offset: 50});   
 
       // Add smooth scrolling on all links inside the navbar
-      $(".sub-sec-each a").on('click', function (event) {
+      $(".wrapper").on('click', ".sub-sec-each a", function (event) {
         // Make sure this.hash has a value before overriding default behavior
         if (this.hash !== "") {
           // Prevent default anchor click behavior

@@ -42,10 +42,11 @@
       <div class="container box-container">
         <% include ./segments/messages %>
         <form
+          id="registerForm"  
           class="form-horizontal"
           role="form"
           method="POST"
-          action="/auth/register"
+          action="/profile/update-personalInfo"
         >
           <div class="form-title">
             <h3>Please fill up the form to register</h3>
@@ -61,7 +62,7 @@
                 placeholder="First Name"
                 class="form-control"
                 name="firstName"
-                value="<%= typeof firstName != 'undefined' ? firstName : '' %>"
+                value="<%= typeof userDetails.name.firstName != 'undefined' ? userDetails.name.firstName : '' %>"
                 autofocus
               />
             </div>
@@ -75,7 +76,7 @@
                 placeholder="Last Name"
                 class="form-control"
                 name="lastName"
-                value="<%= typeof lastName!= 'undefined' ? lastName : '' %>"
+                value="<%= typeof userDetails.name.lastName!= 'undefined' ? userDetails.name.lastName : '' %>"
                 autofocus
               />
             </div>
@@ -91,7 +92,7 @@
                 placeholder="User Name"
                 class="form-control"
                 name="displayName"
-                value="<%= typeof displayName != 'undefined' ? displayName : '' %>"
+                value="<%= typeof userDetails.name.displayName != 'undefined' ? userDetails.name.displayName : '' %>"
                 aria-describedby="displayNameHelpBlock"
               />
               <small id="displayNameHelpBlock" class="form-text text-muted">
@@ -102,6 +103,16 @@
           </div>
           <div class="form-group">
             <label class="control-label col-sm-3">Gender*</label>
+
+            <%  let checkedForFemale = '', checkedForMale = '', checkedForNotInterested = '', checkedForOther = '';
+                if(typeof userDetails.gender !== 'undefined') {
+                    checkedForMale = (userDetails.gender.toString() =='male') ? 'checked' : ''
+                    checkedForFemale = (userDetails.gender.toString() =='female') ? 'checked' : ''
+                    checkedForOther = (userDetails.gender.toString() =='other') ? 'checked' : ''
+                    checkedForNotInterested = (userDetails.gender.toString() =='notInterested') ? 'checked' : '' 
+                }
+            %>
+
             <div class="col-sm-7">
               <div class="row">
                 <div class="col-sm-4">
@@ -111,28 +122,20 @@
                       id="femaleRadio"
                       value="female"
                       name="gender"
+                      <%= checkedForFemale %>
                     />Female
                   </label>
                 </div>
                 <div class="col-sm-4">
                   <label class="radio-inline">
-                    <% if(typeof gender != 'undefined' && gender.toString() ==
-                    'male'){ %>
                     <input
                       type="radio"
                       id="maleRadio"
                       value="male"
                       name="gender"
-                      checked
+                      <%= checkedForMale %>
                     />
-                    <% } else{ %>
-                    <input
-                      type="radio"
-                      id="maleRadio"
-                      value="male"
-                      name="gender"
-                    />
-                    <% } %> Male
+                    Male
                   </label>
                 </div>
                 <div class="col-sm-4">
@@ -142,6 +145,7 @@
                       id="otherRadio"
                       value="other"
                       name="gender"
+                      <%= checkedForOther %>
                     />Other
                   </label>
                 </div>
@@ -152,6 +156,7 @@
                       id="notInterestedRadio"
                       value="notInterested"
                       name="gender"
+                      <%= checkedForNotInterested %>
                     />Not Interested
                   </label>
                 </div>
@@ -168,7 +173,7 @@
                 id="birthDate"
                 class="form-control"
                 name="birthDate"
-                value="<%= typeof birthDate != 'undefined' ? birthDate : '' %>"
+                value="<%= typeof userDetails.birthDate != 'undefined' ? userDetails.birthDate.toLocaleDateString() : '' %>"
               />
             </div>
           </div>
@@ -183,7 +188,7 @@
                 id="occupation"
                 class="form-control"
                 name="occupation"
-                value="<%= typeof occupation != 'undefined' ? occupation : '' %>"
+                value="<%= typeof userDetails.occupation != 'undefined' ? userDetails.occupation : '' %>"
               />
             </div>
           </div>
@@ -197,7 +202,7 @@
                 id="organization"
                 class="form-control"
                 name="organization"
-                value="<%= typeof organization != 'undefined' ? organization : '' %>"
+                value="<%= typeof userDetails.organization != 'undefined' ? userDetails.organization : '' %>"
               />
             </div>
           </div>
@@ -209,21 +214,21 @@
             <div class="col-sm-3">
               <select name="country" class="countries  selector " id="countryId">
                 <option
-                  value="<%= typeof country != 'undefined' ? country : '' %>"
+                  value="<%= typeof userDetails.location.country != 'undefined' ? userDetails.location.country : '' %>"
                   >Select Country</option
                 >
               </select>
             </div>
             <div class="col-sm-2 ">
               <select name="state" class="states selector " id="stateId">
-                <option value="<%= typeof state != 'undefined' ? state : '' %>"
+                <option value="<%= typeof userDetails.location.state != 'undefined' ? userDetails.location.state : '' %>"
                   >Select State</option
                 >
               </select>
             </div>
             <div class="col-sm-2">
               <select name="city" class="cities selector" id="cityId">
-                <option value="<%= typeof city != 'undefined' ? city : '' %>"
+                <option value="<%= typeof userDetails.location.city != 'undefined' ? userDetails.location.city : '' %>"
                   >Select City</option
                 >
               </select>
@@ -239,7 +244,7 @@
                 placeholder="Additional address information"
                 class="form-control"
                 name="additionalAddress"
-                value="<%= typeof additionalAddress != 'undefined' ? additionalAddress : '' %>"
+                value="<%= typeof userDetails.location.additionalAddress !== 'undefined' ? userDetails.location.additionalAddress : '' %>"
                 autofocus
               />
             </div>
@@ -258,7 +263,7 @@
                 placeholder="Phone number"
                 class="form-control"
                 name="phoneNumber"
-                value="<%= typeof phoneNumber != 'undefined' ? phoneNumber : '' %>"
+                value="<%= typeof userDetails.phoneNumber != 'undefined' ? userDetails.phoneNumber : '' %>"
               />
               <span class="help-block"
                 >Your phone number won't be disclosed anywhere
@@ -270,13 +275,20 @@
               >NID/ Birth certificate/ Passport*
             </label> -->
   
-            <div class="col-sm-1">
-  
-            </div>
+            <div class="col-sm-1"> </div>
+            
+            <%  let nidSelected = '', birthCertificateSelected = '', passportSelected = '';
+                if (typeof userDetails.idChoice !== 'undefined'){
+                    nidSelected = (userDetails.idChoice.toString() == 'nidNumber') ? 'selected' : ''
+                    birthCertificateSelected = (userDetails.idChoice.toString() == 'birthCertificateNumber') ? 'selected' : ''
+                    passportSelected = (userDetails.idChoice.toString() == 'passportNumber') ? 'selected' : ''
+                }
+            %>
+            
             <select class="form-control form-control-lg col-sm-2" name="idChoice">
-              <option value="nidNumber">NID*</option>
-              <option value="birthCertificateNumber">Birth certificate*</option>
-              <option value="passportNumber">Passport*</option>
+              <option value="birthCertificateNumber" <%= birthCertificateSelected %> >Birth certificate*</option>
+              <option value="nidNumber" <%= nidSelected %> >NID*</option>
+              <option value="passportNumber" <%= passportSelected %> >Passport*</option>
             </select>
             <div class="col-sm-7">
               <input
@@ -285,7 +297,7 @@
                 placeholder="Please write your NID/ Birth certificate/ Passport number"
                 class="form-control"
                 name="idNumber"
-                value="<%= typeof idNumber != 'undefined' ? idNumber : '' %>"
+                value="<%= typeof userDetails.idNumber != 'undefined' ? userDetails.idNumber : '' %>"
               />
             </div>
           </div>
@@ -298,7 +310,7 @@
                 placeholder="Email"
                 class="form-control"
                 name="email"
-                value="<%= typeof email != 'undefined' ? email : '' %>"
+                value="<%= typeof userDetails.email != 'undefined' ? userDetails.email : '' %>"
               />
             </div>
           </div>
@@ -349,8 +361,8 @@
               <span class="help-block">*Required fields</span>
             </div>
           </div>
-          <button type="submit" class="btn btn-primary btn-block">
-            Register
+          <button id="submitButton" class="btn btn-primary btn-block">
+            Update
           </button>
         </form>
         <!-- /form -->
@@ -378,5 +390,13 @@
     <!-- for country,state,city -->
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script src="//geodata.solutions/includes/countrystatecity.js"></script>
+
+    <script>
+        $('#submitButton').click((e) => {
+            e.preventDefault();
+            $('#registerForm').submit();
+        })
+    </script>
+
   </body>
 </html>
