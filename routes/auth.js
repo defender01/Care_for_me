@@ -23,6 +23,7 @@ router.get("/register/:role", checkNotAuthenticated, (req, res) =>{
 
 // Register
 router.post("/register", (req, res) => {
+  console.log(req.body)
   const {
     firstName,
     lastName,
@@ -79,7 +80,6 @@ router.post("/register", (req, res) => {
       errors,
       firstName,
       lastName,
-      displayName,
       email,
       birthDate,
       phoneNumber,

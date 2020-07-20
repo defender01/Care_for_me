@@ -1,0 +1,419 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  
+  <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+    crossorigin="anonymous"></script>
+
+  
+  <!-- <link href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.3/css/font-awesome.css'> -->
+  <link rel="stylesheet" href="//use.fontawesome.com/releases/v5.0.7/css/all.css">
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <script src='https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js'></script>
+
+  <!-- stylesheet for navbar -->
+	<link rel="stylesheet" href="/assets/cssFiles/navbar.css">
+
+  <!-- stylesheet and script for MUltiple step form -->
+  <link rel="stylesheet" href="/assets/cssFiles/medHistory.css">  
+  <script src='/assets/jsFiles/updateMedHistory.js'></script>
+
+  <!-- for loader -->
+  <!-- <script src="/assets/jsFiles/loader.js"></script>     -->
+  <link rel="stylesheet" href="/assets/cssFiles/loader.css" />
+
+  <title>Medical History</title>
+
+</head>
+
+<body onload="onStart()">
+  <!-- display loading icon -->
+  <div class="se-pre-con"></div>
+  <!-- ends -->
+
+  <!-- navigation bar -->
+	<% include ./segments/navbar %>
+  
+  <!-- For multiple step form-->
+  <main>
+    <div class="container-fluid">
+        <div class="row justify-content-center">
+          <div class="col-11 col-sm-9 col-md-7 col-lg-6 col-xl-9 text-center p-0 mt-3 mb-2">
+            <div class="primary-card">
+              <h2 id="heading">Please edit the information you want.</h2>
+              <form id="msform" method="POST" action="/profile/update/<%= sectionID %>">
+                <!-- progressbar -->
+                <div class="progress">
+                  <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuemin="0"
+                    aria-valuemax="100"></div>
+                </div> <br>
+
+              
+                
+                <fieldset>
+                  <div class="form-card">
+                
+                    <div class="secondary-container title-bar">
+                      <div class="row">
+                        <div class="col-8">
+                          <h2 class="fs-title">Education and Occupation Details</h2>
+                        </div>
+                        <div class="col-4">
+                          <h2 class="steps">Step 4 - 6</h2>
+                        </div>
+                      </div>
+                    </div>
+                
+                    <div id="addPlace4"></div>
+                
+                  </div>
+
+                  <input type="button" class="next action-button" id="submitButton" value="Submit"/>
+                  
+                </fieldset>           
+                
+                
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    
+  </main>
+ 
+
+  <!-- Optional JavaScript -->
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+    integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+    integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+    crossorigin="anonymous"></script>
+
+    <script>
+      let step4SubSections;
+      let mapQuesToAnswer = <%- JSON.stringify(mapQuesToAnswer) %> ;
+      let mapSubSecToAdditionalIDs = <%- JSON.stringify(mapSubSecToAdditionalIDs) %> ;
+        
+
+      function showLoader(){
+        $(".se-pre-con").fadeIn();
+      }
+
+      $('#submitButton').click((e) => {
+        e.preventDefault();
+        showLoader()
+        $('#msform').submit();
+      })
+  
+      $.get("/profile/getSectionData/Education and Occupation Details", (data) => {
+  
+        step4SubSections = data.subSections;
+  
+        let elmStr = "";
+        for (let i = 0; i < data.subSections.length; i++) {
+          if (data.subSections[i].name == 'Specialization') {
+            elmStr += getSubSectionStr4(data._id, i, 'specialization');
+          }
+          else {
+            elmStr += getSubSectionStr(data._id, data.subSections[i]);
+          }
+        }
+        $("#addPlace4").replaceWith(elmStr);
+
+        // fading preloader       
+        $(".se-pre-con").fadeOut("slow");
+      });
+
+    function getSubSectionStr(sectionID, subSection) {
+      let elmStr = "";
+      elmStr += '<h4 class="subsection-title">' + subSection.name + "</h4>";
+      for (let i = 0; i < subSection.questions.length; i++) {
+        elmStr += getQuestionStr(sectionID, subSection._id, subSection.questions[i]);
+      }
+
+      return '<div class="secondary-container">' + elmStr + "</div>";
+    }
+  
+      function getSubSectionStr4(sectionID, sSIndex, sSNickname) {
+  
+        sSIndex = parseInt(sSIndex);
+        let subSection = step4SubSections[sSIndex];
+  
+        let elmStr = "";
+        elmStr += '<div class = "part">' +
+          '<div class="sub-part-row">' +
+          '<h5 class="left">' + subSection.name + '</h5>' +
+          `<i class="far fa-plus-square" data-toggle="tooltip" data-placement="bottom" title="Click to add a new ${sSNickname} details" onclick="addNewSpecialization('${sectionID}', ${sSIndex}, '${sSNickname}')"></i>` +
+          '</div>' +
+          '</div>'
+  
+        if (typeof mapSubSecToAdditionalIDs[subSection._id.toString()] !== 'undefined') {
+          let allExistingSpecializationIDs = mapSubSecToAdditionalIDs[subSection._id.toString()];
+  
+          for (let i = 0, max = allExistingSpecializationIDs.length; i < max; i++) {
+            elmStr += loadExistingSpecialization(sectionID, allExistingSpecializationIDs[i], sSIndex, sSNickname)
+          }
+        }
+  
+        elmStr += '<div id="' + sSNickname + 'AddHelper"></div>'
+  
+        return '<div class="secondary-container">' + elmStr + "</div>";
+      }
+  
+      function addNewSpecialization(sectionID, sSIndex, sSNickname) {
+  
+        sSIndex = parseInt(sSIndex);
+        let subSection = step4SubSections[sSIndex];
+  
+        $.get('/profile/edit/getNewId', data => {
+  
+          console.log('ID for new generated ' + sSNickname + ' ' + data.id)
+  
+          let elmStr = "", qStr = "";
+          qStr += `<button type="button" id="delbtn${data.id}" class="btn btn-danger float-right" onclick="deleteMember(this.parentNode.id)">Delete</button> <br>`
+  
+          for (let i = 0; i < subSection.questions.length; i++) {
+            // make collapse id unique while creating ans 
+            if (i == 2) qStr += '<div class="collapse" id="collapse' + data.id + '">'
+            qStr += getQuestionStr3(sectionID, subSection._id, data.id, subSection.questions[i]); // Identical questions for same subsection are distinguished by additional ID
+          }
+  
+          if (subSection.questions.length > 2) qStr += '</div>';
+          // make href collapse id unique while creating ans 
+          // make seeMore id unique while creating ans 
+          qStr += '<br>' +
+            '<div class="extend">' +
+            '<p>' +
+            '<a class="btn btn-light" data-toggle="collapse" href="#collapse' + data.id + '" id="' + data.id + 'seeMore"' +
+            'role="button" onclick="changeButtonText(this.id)" aria-expanded="false"' +
+            'aria-controls="collapse' + data.id + '">' +
+            'See more' +
+            '</a>' +
+            '</p>' +
+            '</div>'
+  
+          elmStr += `<div class="family-container" id="${data.id}">` + qStr + '</div>' +
+            '<div id="' + sSNickname + 'AddHelper"></div>'
+  
+          $("#" + sSNickname + "AddHelper").replaceWith(elmStr);
+  
+        })
+  
+      }
+
+      function deleteMember(elemId) {
+          console.log(elemId)
+          $("#" + elemId).remove()
+      }
+  
+      function loadExistingSpecialization(sectionID, specializationID, sSIndex, sSNickname) {
+  
+        sSIndex = parseInt(sSIndex);
+        let subSection = step4SubSections[sSIndex];
+  
+        let elmStr = "", qStr = "";
+        qStr += `<button type="button" id="delbtn${specializationID}" class="btn btn-danger float-right" onclick="deleteMember(this.parentNode.id)">Delete</button> <br>`
+  
+        for (let i = 0; i < subSection.questions.length; i++) {
+          // make collapse id unique while creating ans 
+          if (i == 2) qStr += '<div class="collapse" id="collapse' + specializationID + '">'
+          qStr += getQuestionStr3(sectionID, subSection._id, specializationID, subSection.questions[i]); // Identical questions for same subsection are distinguished by additionalID(specializationID)
+        }
+  
+        if (subSection.questions.length > 2) qStr += '</div>';
+        // make href collapse id unique while creating ans 
+        // make seeMore id unique while creating ans 
+        qStr += '<br>' +
+          '<div class="extend">' +
+          '<p>' +
+          '<a class="btn btn-light" data-toggle="collapse" href="#collapse' + specializationID + '" id="' + specializationID + 'seeMore"' +
+          'role="button" onclick="changeButtonText(this.id)" aria-expanded="false"' +
+          'aria-controls="collapse' + specializationID + '">' +
+          'See more' +
+          '</a>' +
+          '</p>' +
+          '</div>'
+  
+        elmStr += `<div class="family-container" id="${specializationID}">` + qStr + '</div>'
+  
+        return elmStr
+      }
+
+      function getQuestionStr3(sectionID, subSectionID, additionalID, question) {
+      let qID = question._id.toString() + '#####' + additionalID.toString()
+      let value = (typeof mapQuesToAnswer[qID] !== 'undefined') ? mapQuesToAnswer[qID] : ''
+
+      let elmStr = "";
+      elmStr += '<label class="fieldlabels">' + question.name + '</label>';
+      if (question.inputType == "numerical")
+        elmStr += ` <input type="number" name="${sectionID}#####${subSectionID}#####${question._id}#####${additionalID}" placeholder="" value="${value}"/>`;
+      else if (question.inputType == "date")
+        elmStr += ` <input type="date" name="${sectionID}#####${subSectionID}#####${question._id}#####${additionalID}" placeholder="" value="${value}"/>`;
+      else if (question.inputType == "singleLine")
+        elmStr += ` <input type="text" name="${sectionID}#####${subSectionID}#####${question._id}#####${additionalID}" placeholder="" value="${value}"/>`;
+      else if (question.inputType == "multiLine")
+        elmStr += `<textarea class="form-control" name="${sectionID}#####${subSectionID}#####${question._id}#####${additionalID}"  rows="3">${value}</textarea>`
+      else if (question.inputType == "multiChoiceSingleAns")
+        elmStr += getMultiChoiceSingleOp3(sectionID, subSectionID, additionalID, question._id, question.options)
+      else if (question.inputType == "multiChoiceMultiAns")
+        elmStr += getMultiChoiceMultiOp3(sectionID, subSectionID, additionalID, question._id, question.options)
+
+      return elmStr + '<br>';
+    }
+
+    function getMultiChoiceSingleOp3(sectionID, subSectionID, additionalID, qId, options) {
+      let elmStr = '', checked, displayNone
+      let conditionalPart = '', condArrayStr = '['
+      let fullQID = qId.toString() + '#####' + additionalID.toString()
+
+      for (let i = 0; i < options.length; i++) {
+        if (options[i].questions.length > 0)
+          condArrayStr += `'conditional${options[i]._id}--${additionalID}', `
+      }
+      condArrayStr += ']'
+
+      for (let i = 0; i < options.length; i++) {
+        checked = (typeof mapQuesToAnswer[fullQID] !== 'undefined' && mapQuesToAnswer[fullQID].includes(options[i]._id.toString())) ? 'checked' : ''
+        displayNone = (typeof mapQuesToAnswer[fullQID] !== 'undefined' && mapQuesToAnswer[fullQID].includes(options[i]._id.toString())) ? '' : 'style="display: none;"'
+
+        if (options[i].questions.length > 0) {
+          let str = `'conditional${options[i]._id}--${additionalID}',`
+          let newCondArray = condArrayStr.replace(str, '')
+          elmStr += '<div class="custom-control custom-radio">' +
+            `<input type="radio" id="${options[i]._id}--${additionalID}" name="${sectionID}#####${subSectionID}#####${qId}#####${additionalID}" class="custom-control-input" value="${options[i]._id}#####${options[i].name}" onclick="hideConditionalSection(${newCondArray}); displayConditionalSection(['conditional${options[i]._id}--${additionalID}']);" ${checked}>` +
+            `<label class="custom-control-label" for="${options[i]._id}--${additionalID}">${options[i].name}</label>` +
+            '</div>'
+          let qStr = ''
+          for (let j = 0; j < options[i].questions.length; j++) {
+            qStr += getQuestionStr3(sectionID, subSectionID, additionalID, options[i].questions[j])
+          }
+          conditionalPart += `<div id= "conditional${options[i]._id}--${additionalID}" ${displayNone}>${qStr}</div>`
+        }
+        else {
+          elmStr += '<div class="custom-control custom-radio">' +
+            `<input type="radio" id="${options[i]._id}--${additionalID}" name="${sectionID}#####${subSectionID}#####${qId}#####${additionalID}" class="custom-control-input" value="${options[i]._id}#####${options[i].name}" onclick="hideConditionalSection(${condArrayStr});" ${checked}>` +
+            `<label class="custom-control-label" for="${options[i]._id}--${additionalID}">${options[i].name}</label>` +
+            '</div>'
+        }
+      }
+      return elmStr + conditionalPart
+    }
+
+    function getMultiChoiceMultiOp3(sectionID, subSectionID, additionalID, qId, options) {
+      let elmStr = '', checked, displayNone
+      let fullQID = qId.toString() + '#####' + additionalID.toString()
+
+      for (let i = 0; i < options.length; i++) {
+        checked = (typeof mapQuesToAnswer[fullQID] !== 'undefined' && mapQuesToAnswer[fullQID].includes(options[i]._id.toString())) ? 'checked' : ''
+        displayNone = (typeof mapQuesToAnswer[fullQID] !== 'undefined' && mapQuesToAnswer[fullQID].includes(options[i]._id.toString())) ? '' : 'style="display: none;"'
+
+        elmStr += '<div class="custom-control custom-checkbox">' +
+          `<input type="checkbox" id="${options[i]._id}--${additionalID}" name="${sectionID}#####${subSectionID}#####${qId}#####${additionalID}" class="custom-control-input" value="${options[i]._id}#####${options[i].name}" onclick="displayConditionalSectionCheckbox('${options[i]._id}--${additionalID}' , 'conditional${options[i]._id}--${additionalID}'); " ${checked}>` +
+          `<label class="custom-control-label" for="${options[i]._id}--${additionalID}">${options[i].name}</label>` +
+          '</div>'
+
+        if (options[i].questions.length > 0) {
+          let qStr = ''
+          for (let j = 0; j < options[i].questions.length; j++) {
+            qStr += getQuestionStr3(sectionID, subSectionID, additionalID, options[i].questions[j])
+          }
+          elmStr += `<div id= "conditional${options[i]._id}--${additionalID}" ${displayNone}>${qStr}</div>`
+        }
+      }
+      return elmStr
+    }
+
+    function getQuestionStr(sectionID, subSectionID, question) {
+          let value = (typeof mapQuesToAnswer[question._id.toString()] !== 'undefined') ? mapQuesToAnswer[question._id.toString()]: ''
+          let elmStr = "";
+          elmStr += '<label class="fieldlabels">' + question.name + "</label>";
+          if (question.inputType == "numerical")
+            elmStr += ` <input type="number" name="${sectionID}#####${subSectionID}#####${question._id}" placeholder="" value="${value}" />`;
+          else if (question.inputType == "date")
+            elmStr += ` <input type="date" name="${sectionID}#####${subSectionID}#####${question._id}" placeholder="" value="${value}"/>`;
+          else if (question.inputType == "singleLine")
+            elmStr += ` <input type="text" name="${sectionID}#####${subSectionID}#####${question._id}" placeholder="" value="${value}"/>`;
+          else if (question.inputType == "multiLine")
+            elmStr += `<textarea class="form-control" name="${sectionID}#####${subSectionID}#####${question._id}"  rows="3" >${value}</textarea>`
+          else if (question.inputType == "multiChoiceSingleAns")
+            elmStr += getMultiChoiceSingleOp(sectionID, subSectionID, question._id, question.options)
+          else if (question.inputType == "multiChoiceMultiAns")
+            elmStr += getMultiChoiceMultiOp(sectionID, subSectionID, question._id, question.options)
+    
+          return elmStr + '<br>';
+        }
+    
+        function getMultiChoiceSingleOp(sectionID, subSectionID, qId, options) {
+    
+          let elmStr = '', checked, displayNone
+          let conditionalPart = '', condArrayStr = '['
+    
+          for (let i = 0; i < options.length; i++) {
+            if (options[i].questions.length > 0)
+              condArrayStr += `'conditional${options[i]._id}', `
+          }
+          condArrayStr += ']'
+    
+          for (let i = 0; i < options.length; i++) {
+            checked = (typeof mapQuesToAnswer[qId.toString()] !== 'undefined' && mapQuesToAnswer[qId.toString()].includes(options[i]._id.toString())) ? 'checked' : ''
+            displayNone = (typeof mapQuesToAnswer[qId.toString()] !== 'undefined' && mapQuesToAnswer[qId.toString()].includes(options[i]._id.toString())) ? '' : 'style="display: none;"'
+    
+            if (options[i].questions.length > 0) {
+              let str = `conditional${options[i]._id},`
+              let newCondArray = condArrayStr.replace(str, '')
+              elmStr += '<div class="custom-control custom-radio">' +
+                `<input type="radio" id="${options[i]._id}" name="${sectionID}#####${subSectionID}#####${qId}" class="custom-control-input" value="${options[i]._id}#####${options[i].name}" onclick="hideConditionalSection(${newCondArray}); displayConditionalSection(['conditional${options[i]._id}']);"  ${checked}>` +
+                `<label class="custom-control-label" for="${options[i]._id}">${options[i].name}</label>` +
+                '</div>'
+              let qStr = ''
+              for (let j = 0; j < options[i].questions.length; j++) {
+                qStr += getQuestionStr(sectionID, subSectionID, options[i].questions[j])
+              }
+              conditionalPart += `<div id= "conditional${options[i]._id}" ${displayNone}>${qStr}</div>`
+            }
+            else {
+              elmStr += '<div class="custom-control custom-radio">' +
+                `<input type="radio" id="${options[i]._id}" name="${sectionID}#####${subSectionID}#####${qId}" class="custom-control-input" value="${options[i]._id}#####${options[i].name}" onclick="hideConditionalSection(${condArrayStr});" ${checked}>` +
+                `<label class="custom-control-label" for="${options[i]._id}">${options[i].name}</label>` +
+                '</div>'
+            }
+          }
+          return elmStr + conditionalPart
+        }
+    
+        function getMultiChoiceMultiOp(sectionID, subSectionID, qId, options) {
+          let elmStr = '', checked, displayNone
+    
+          for (let i = 0; i < options.length; i++) {
+            checked = (typeof mapQuesToAnswer[qId.toString()] !== 'undefined' && mapQuesToAnswer[qId.toString()].includes(options[i]._id.toString())) ? 'checked' : ''
+            displayNone = (typeof mapQuesToAnswer[qId.toString()] !== 'undefined' && mapQuesToAnswer[qId.toString()].includes(options[i]._id.toString())) ? '' : 'style="display: none;"'
+    
+            elmStr += '<div class="custom-control custom-checkbox">' +
+              `<input type="checkbox" id="${options[i]._id}" name="${sectionID}#####${subSectionID}#####${qId}" class="custom-control-input" value="${options[i]._id}#####${options[i].name}" onclick="displayConditionalSectionCheckbox('${options[i]._id}' , 'conditional${options[i]._id}');" ${checked}>` +
+              `<label class="custom-control-label" for="${options[i]._id}">${options[i].name}</label>` +
+              '</div>'
+    
+            if (options[i].questions.length > 0) {
+              let qStr = ''
+              for (let j = 0; j < options[i].questions.length; j++) {
+                qStr += getQuestionStr(sectionID, subSectionID, options[i].questions[j])
+              }
+              elmStr += `<div id= "conditional${options[i]._id}" ${displayNone}>${qStr}</div>`
+            }
+          }
+          return elmStr
+        }
+  
+    </script>
+</body>
+
+</html>
