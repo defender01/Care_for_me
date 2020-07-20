@@ -31,18 +31,35 @@
 				<% include ./segments/messages %>
 				<form action="/auth/login" method="post" name="Login_Form" class="form-signin">       
 					<h3 class="form-signin-heading">Welcome! Please Sign In</h3>
+
+					<h5>Choose a role,</h5>
+					<div class="role-container">						
+						<div class="role-each">
+							<input class="form-check-input" type="radio" name="role" id="role1" value="generalUser" checked required>
+							<label class="form-check-label" for="role1">
+								Geneeral User
+							</label>
+						</div>	
+						<div class="role-each">
+							<input class="form-check-input" type="radio" name="role" id="role2" value="doctor" >
+							<label class="form-check-label" for="role2">
+								Doctor
+							</label>
+						</div>						
+					</div>
 					
 					<input type="text" class="form-control" name="emailOrPhone" placeholder="email or phone no" required="" autofocus="" />
-					<input type="password" class="form-control" name="password" placeholder="password" required=""/>     		  
-					
+					<input type="password" class="form-control" name="password" placeholder="password" required=""/>   
+										
 					<button class="btn btn-lg btn-primary btn-block"  name="Submit" value="Login" type="Submit">Login</button>  		
 					<br>
 				</form>			
 			</div>
 			<div class="wrapper2">
-				<form action="/auth/register" method="GET" name="Login_Form" class="form-signin">
+				<form  name="Login_Form" class="form-signin">
 					<p>Don't have an account? Register first</p>       
-					<button class="btn btn-lg btn-primary btn-block" id="regesterBtn"  name="Register" value="Register" type="submit">Register</button>  			
+					<button class="btn btn-lg btn-primary btn-block" id="regesterBtn" onclick="document.location='/auth/register/general'"  name="Register" value="Register" type="button">General User</button>  			
+					<button class="btn btn-lg btn-primary btn-block" id="regesterBtn2" onclick="document.location='/auth/register/doctor'" name="Register" value="Register" type="button">Doctor</button>  			
 				</form>			
 			</div>
 		</div>

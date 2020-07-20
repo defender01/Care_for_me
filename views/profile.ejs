@@ -524,10 +524,6 @@
 
     function displaySection(secID) {
 
-      let sectionIndex = wholeSectionCollection.findIndex(x => x._id.toString() === secID); 
-      let sectionName = wholeSectionCollection[sectionIndex].name
-      let subSections = wholeSectionCollection[sectionIndex].subSections;
-      let elmStr = '', scrollspyStr = ''
       
       if(secID === 'personalInfo'){
         let currentVisibleSectionID = $('#currentVisibleSectionID').val()
@@ -539,6 +535,12 @@
         return
       }
 
+      
+      let sectionIndex = wholeSectionCollection.findIndex(x => x._id.toString() === secID); 
+      let sectionName = wholeSectionCollection[sectionIndex].name
+      let subSections = wholeSectionCollection[sectionIndex].subSections;
+      let elmStr = '', scrollspyStr = ''
+      
       // checking either the section exists or not
       if ($('#sectionID-' + secID).length){
         let currentVisibleSectionID = $('#currentVisibleSectionID').val()
@@ -749,14 +751,16 @@
 
     $(document).ready(function () {
       // Add scrollspy to <body>
-      // $('body').scrollspy({target: ".navbar", offset: 50});   
-
+      $('body').scrollspy({target: ".navbar", offset: 50});   
+      console.log('came in transition doc body')
       // Add smooth scrolling on all links inside the navbar
       $(".sub-sec-each a").on('click', function (event) {
         // Make sure this.hash has a value before overriding default behavior
+        console.log('came in transition')
         if (this.hash !== "") {
           // Prevent default anchor click behavior
           event.preventDefault();
+          console.log('came in transition inside')
 
           // Store hash
           var hash = this.hash;
