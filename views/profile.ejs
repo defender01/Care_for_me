@@ -546,19 +546,10 @@
         return
       }
 
-<<<<<<< HEAD
-      
-=======
->>>>>>> ea5bcf6b75ef02de44f92ff03378de02f018d7db
       let sectionIndex = wholeSectionCollection.findIndex(x => x._id.toString() === secID); 
       let sectionName = wholeSectionCollection[sectionIndex].name
       let subSections = wholeSectionCollection[sectionIndex].subSections;
       let elmStr = '', scrollspyStr = ''
-<<<<<<< HEAD
-      
-=======
-
->>>>>>> ea5bcf6b75ef02de44f92ff03378de02f018d7db
       // checking either the section exists or not
       if ($('#sectionID-' + secID).length){
         let currentVisibleSectionID = $('#currentVisibleSectionID').val()
