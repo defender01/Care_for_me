@@ -43,3 +43,13 @@ input[type="password"] {
 #regesterBtn {
   background-color: #fa9960;
 }
+
+.role-container {
+  width: 100%;
+  display: flex;
+  margin: 10px 20px 10px 20px;
+}
+
+.role-container .role-each {
+  flex: 1;
+}

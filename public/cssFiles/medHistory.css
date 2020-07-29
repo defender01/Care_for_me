@@ -85,7 +85,7 @@ p {
 
 #msform .action-button {
   width: 100px;
-  background: #673AB7;
+  background: rgba(245, 147, 19, 0.89);
   font-weight: bold;
   color: white;
   border: 0 none;
@@ -97,11 +97,11 @@ p {
 }
 
 #msform .action-button:hover {
-  background-color: #311B92;
+  background-color: #6a3c19;
 }
 
 #msform .action-button:focus {
-  background-color: #311B92;
+  background-color: #6a3c19;
 }
 
 #msform .action-button-previous {
@@ -337,11 +337,11 @@ i.far.fa-plus-square {
   width: 35px;
   height: 35px;
   margin-top: 10px;
-  color: #877aff;
+  color: rgba(245, 147, 19, 0.89);
 }
 
 i.far.fa-plus-square:hover {
-  color: #0a1a24;
+  color: #6a3c19;
 }
 
 i.far.fa-plus-square::before {
@@ -440,6 +440,7 @@ i.far.fa-plus-square::before {
 }
 
 .sub-part-row i {
+  color: rgba(245, 147, 19, 0.89);
   text-align: end;
 }
 

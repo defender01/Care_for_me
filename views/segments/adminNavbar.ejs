@@ -1,6 +1,6 @@
 <link rel="stylesheet" href="/assets/cssFiles/navbar.css">
 <nav class="navbar navbar-expand-lg navbar-light bg-light nav-container ">
-    <a class="navbar-brand" href="/home">Care for me</a>
+    <a class="navbar-brand" >Care for me</a>
     <button
       class="navbar-toggler"
       type="button"
@@ -19,30 +19,14 @@
       <span class="navbar-text">
         <ul class="navbar-nav mr-auto ">
           <li class="nav-item ">
-            <a class="nav-link" href="/home" 
-              >Home </a
-            >
-          </li>
-
-          <li class="nav-item ">
-            <a class="nav-link" href="/doctor/followupQues"
-              >Follow Up </a
+            <a class="nav-link" href="/admin/profile/edit" 
+              >Profile Questions </a
             >
           </li>
           
           <li class="nav-item ">
-            <a class="nav-link" href="/data/collection"
-              >Data </a
-            >
-          </li>
-          <li class="nav-item ">
-            <a class="nav-link" href="/profile/edit" 
-              >Medical History </a
-            >
-          </li>
-          <li class="nav-item ">
-            <a class="nav-link" href="/profile" 
-              >Profile </a
+            <a class="nav-link" href="/admin/followupQues/edit"
+              >Doctor Questions</a
             >
           </li>
           <% if( typeof displayName == 'undefined' || displayName == '') { %>

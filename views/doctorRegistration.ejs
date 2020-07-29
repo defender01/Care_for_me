@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+
+    <!-- fontawesome cdn -->
+    <link rel="stylesheet" href="//use.fontawesome.com/releases/v5.0.7/css/all.css">
+
+    <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+    crossorigin="anonymous"></script>
+
+    <!-- stylesheet for navbar -->
+    <link rel="stylesheet" href="/assets/cssFiles/navbar.css">
+    <link rel="stylesheet" href="/assets/cssFiles/doctorRegistration.css" />
+    <script src="/assets/jsFiles/doctor.js"></script>  
+    <!-- for loader -->
+    <script src="/assets/jsFiles/loader.js"></script>    
+    <link rel="stylesheet" href="/assets/cssFiles/loader.css" />
+    <!-- for date range picker -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+
+    <!-- for address cdn -->    
+    <script src="//geodata.solutions/includes/countrystatecity.js"></script>
+
+    <title>Registration-Care for me</title>
+  </head>
+
+  <body>
+    <!-- display loading icon -->
+    <div class="se-pre-con"></div>
+    <!-- ends -->
+
+    <!-- navigation bar -->
+    <% include ./segments/navbar %>
+    
+    <main>
+      <div class="wrapper">
+        <div class="notify-bar">
+          <div class="title">
+            Doctor registration form
+          </div>
+        </div>
+        <form action="">
+          <div class="ques-container">          
+            <div class="single-ques">
+              <div class="label">
+                *First name:
+              </div>
+              <div class="input-field">
+                <input type="text" name="firstName" class="form-control" required>
+              </div>
+            </div>
+            <div class="single-ques">
+              <div class="label">
+                *Last name:
+              </div>
+              <div class="input-field">
+                <input type="text" name="lastName" class="form-control" required>
+              </div>
+            </div>
+            <div class="single-ques">
+              <div class="label">
+                *Display name:
+              </div>
+              <div class="input-field">
+                <input type="text" name="displayName" class="form-control" required>
+              </div>
+            </div>
+            <div class="single-ques">
+              <div class="label">
+                *Email:
+              </div>
+              <div class="input-field">
+                <input type="email" name="email" class="form-control" required>
+              </div>
+            </div>
+            <div class="single-ques">
+              <div class="label">
+                *Password:
+              </div>
+              <div class="input-field">
+                <input type="password" name="password" class="form-control" required>
+              </div>
+            </div>
+            <div class="single-ques">
+              <div class="label">
+                *Confirm password:
+              </div>
+              <div class="input-field">
+                <input type="password" name="password2"  class="form-control" required>
+              </div>
+            </div>
+            <div class="single-ques">
+              <div class="label">
+                Birth date:
+              </div>
+              <div class="input-field">
+                <input type="date" name="birthDate" class="form-control" >
+              </div>
+            </div>
+            <div class="single-ques">
+              <div class="label">
+                *Phone no:
+              </div>
+              <div class="input-field">
+                <input type="text" name="phoneNumber" class="form-control" required>
+              </div>
+            </div>
+            <div class="single-ques">
+              <div class="label">
+                *Liscense or Registration no:
+              </div>
+              <div class="input-field">
+                <input type="text" name="lisenceOrReg"  class="form-control" required>
+              </div>
+            </div>
+            <div class="single-ques">
+              <div class="label">
+               Gender:
+              </div>
+              <div class="gender-cont">
+                <div class="gender-each">
+                  <input class="form-check-input" type="radio" name="gender" value="male" >Male
+                </div>
+                <div class="gender-each">
+                  <input class="form-check-input" type="radio" name="gender" value="female" >Female
+                </div>
+                <div class="gender-each">
+                  <input class="form-check-input" type="radio" name="gender" value="other" >Other
+                </div>
+
+              </div>
+            </div>
+            <div class="single-ques">
+              <div class="label">
+                Address:
+              </div>
+              
+            </div>
+            <div class="address-cont">
+              <div class="sec-title">Address:</div>
+              <div class="item-holder">
+                <select name="country" class="countries" id="countryId">
+                  <option value="">Select Country</option>
+                </select>
+                <select name="state" class="states" id="stateId">
+                  <option value="">Select State</option>
+                </select>
+                <select name="city" class="cities" id="cityId">
+                  <option value="">Select City</option>
+                </select>
+              </div>              
+            </div>
+            <div class="single-ques">
+              <div class="label">
+                About Yourself:
+              </div>
+              <div class="input-field">
+                <textarea class="form-control" name="about" rows="3"></textarea>
+              </div>
+            </div>
+            <div class="single-ques">
+              <div class="label">
+                *Designation:
+              </div>
+              <div class="input-field">
+                <input type="text" name="designation" class="form-control" required>
+              </div>
+            </div>
+            <div class="single-ques">
+              <div class="label">
+                Affiliation:
+              </div>
+              <div class="input-field">
+                <input type="text" name="affiliation" class="form-control" >
+              </div>
+            </div>
+            <div class="single-ques">
+              <div class="label">
+                Research Area:
+              </div>
+              <div class="input-field">
+                <input type="text" name="researchArea" class="form-control" >
+              </div>
+            </div>
+            <div class="single-ques">
+              <div class="label">
+                Expertise Area:
+              </div>
+              <div class="input-field">
+                <input type="text" name="expertiseArea" class="form-control" >
+              </div>
+            </div>
+  
+            <div class="multi-cont">
+              <div class="sec-title">Education</div>
+              <div class="item-holder" id="education">
+                <div class="delete-btn">
+                  <button onclick="deleteItem('education')">Delete</button>
+                </div> 
+                <div class="single-ques">
+                  <div class="label">
+                    *Degree:
+                  </div>
+                  <div class="input-field">
+                    <input type="text" name="degree" class="form-control"  required>
+                  </div>
+                </div> 
+                <div class="single-ques">
+                  <div class="label">
+                    Institute:
+                  </div>
+                  <div class="input-field">
+                    <input type="text" name="institute" class="form-control" >
+                  </div>
+                </div>      
+                <div class="single-ques">
+                  <div class="label">
+                    Passing Year:
+                  </div>
+                  <div class="input-field">
+                    <input type="number" min="1900" max="2099" step="1" name="passingYear" class="form-control" >
+                  </div>
+                </div>
+                <div class="single-ques">
+                  <div class="label">
+                    Subject:
+                  </div>
+                  <div class="input-field">
+                    <input type="text" name="subject" class="form-control" >
+                  </div>
+                </div>                                            
+              </div>
+              <div id="addPlaceEducation"></div>
+              <div class="add-button">
+                <button type="button" onclick="createEducation()">Add New</button>
+              </div>                                
+            </div>
+  
+            <div class="multi-cont">
+              <div class="sec-title">Traingings</div>
+              <div class="item-holder" id='training'>
+                <div class="delete-btn">
+                  <button onclick="deleteItem('training')">Delete</button>
+                </div> 
+                <div class="single-ques">
+                  <div class="label">
+                    *Name:
+                  </div>
+                  <div class="input-field">
+                    <input type="text" name="traintingName" class="form-control"  required>
+                  </div>
+                </div>   
+                <div class="single-ques">
+                  <div class="label">
+                    Year:
+                  </div>
+                  <div class="input-field">
+                    <input type="number" min="1900" max="2099" step="1" name="trainingYear" class="form-control"  >
+                  </div>
+                </div>   
+                <div class="single-ques">
+                  <div class="label">
+                    Details:
+                  </div>
+                  <div class="input-field">
+                    <textarea class="form-control" name="trainingDetails" rows="3"></textarea>
+                  </div>
+                </div>           
+              </div>
+              <div id="addPlaceTraining"></div>
+              <div class="add-button">
+                <button type="button" onclick="createTraining()">Add New</button>
+              </div>
+            </div>
+            
+            <div class="multi-cont">
+              <div class="sec-title">Work and Experience</div>
+              <div class="item-holder" id="work">
+                <div class="delete-btn">
+                  <button onclick="deleteItem('work')">Delete</button>
+                </div> 
+                <div class="single-ques">
+                  <div class="label">
+                    *Work Place:
+                  </div>
+                  <div class="input-field">
+                    <input type="text" name="workPlace" class="form-control"  required>
+                  </div>
+                </div>   
+                <div class="single-ques">
+                  <div class="label">
+                    Work From(year):
+                  </div>
+                  <div class="input-field">
+                    <input type="number" min="1900" max="2099" step="1" name="workFromYear" class="form-control"  >
+                  </div>
+                </div>   
+                <div class="single-ques">
+                  <div class="label">
+                    Work To(year):
+                  </div>
+                  <div class="input-field">
+                    <input type="number" min="1900" max="2099" step="1" name="workToYear" class="form-control"  >
+                  </div>
+                </div>           
+              </div>
+              <div id="addPlaceWork"></div>
+              <div class="add-button">
+                <button type="button" onclick="createWork()">Add New</button>
+              </div>
+            </div>
+            <div class="multi-cont">
+              <div class="sec-title">Award and Honour</div>
+              <div class="item-holder" id="award">
+                <div class="delete-btn">
+                  <button onclick="deleteItem('award')">Delete</button>
+                </div> 
+                <div class="single-ques">
+                  <div class="label">
+                    *Name:
+                  </div>
+                  <div class="input-field">
+                    <input type="text" name="awardName" class="form-control"  required>
+                  </div>
+                </div>   
+                <div class="single-ques">
+                  <div class="label">
+                    Year:
+                  </div>
+                  <div class="input-field">
+                    <input type="number" min="1900" max="2099" step="1" name="awardYear" class="form-control"  >
+                  </div>
+                </div>   
+                <div class="single-ques">
+                  <div class="label">
+                    Details:
+                  </div>
+                  <div class="input-field">
+                    <textarea class="form-control" name="awardDetails" rows="3"></textarea>
+                  </div>
+                </div>           
+              </div>
+              <div id="addPlaceAward"></div>
+              <div class="add-button">
+                <button type="button" onclick="createAward()">Add New</button>
+              </div>
+            </div>
+            <div class="terms">
+              <input class="form-check-input" type="checkbox" name="termAgree" value="Yes" id="termAgree">
+              <label class="form-check-label" for="termAgree">
+                I agree to the  <a href="/termsAndConditions">Terms & Conditions</a>
+              </label>
+            </div>
+            <div class="help-block">
+              *Required fields
+            </div>
+            <div class="submit-btn">
+              <button type="submit">Submit</button>
+            </div>
+          </div> 
+            
+        </form>
+        
+      </div>
+     
+      
+    </main>
+    
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+
+  </body>
+</html>

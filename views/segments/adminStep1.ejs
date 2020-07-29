@@ -27,10 +27,19 @@
       });
   
       function getSubSectionStr(subSection) {
+        let specialSUbSec =[
+          "Father's Details",
+          "Mother's Details",
+          "Sibling's Details",
+          "Children's Details",
+          "Relative's Details",
+          "Specialization"
+        ]
         let elmStr = "";
         elmStr += '<h4 class="subsection-title">' + subSection.name + "</h4>";
         for (let i = 0; i < subSection.questions.length; i++) {
-          elmStr += getQuestionStr(subSection.questions[i]);
+          if(!(specialSUbSec.includes(subSection.name) && !i))
+            elmStr += getQuestionStr(subSection.questions[i]);
         }
 
         return '<div class="secondary-container">' + elmStr +'<button type="button" class="btn btn-secondary" onclick="location.href=\'/admin/addQues\'" >ADD QUESTION</button>' +"</div>";
