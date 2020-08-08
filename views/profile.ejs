@@ -400,7 +400,12 @@
       else if(number === 2) return "2nd"
       else if(number === 3) return "3rd"
       return (number + "th")
-    }  
+    }
+    
+    function checkNotNull(val)
+    {
+      return (typeof val !== 'undefined') && (val !== '') && (val !== null) && (val.length)
+    }
 
     function displayPartialSection(IDs)
     {
@@ -488,20 +493,28 @@
 
           for(let i=0, max = allMemberIDs.length; i<max; i++){
             if(subSection.name === "Sibling's Details") {
-              elmStr += getSubSectionMemberStr(subSection, allMemberIDs[i], mapToOrdinal(i+1) + " Sibling")
-              scrollspyStr += getScrollspyStr(mapToOrdinal(i+1) + " Sibling", allMemberIDs[i].toString())
+              let firstQuestionID = subSection.questions[0]._id.toString() + '#####' + allMemberIDs[i].toString()
+              let memberName = (checkNotNull(mapQuesToAnswer[firstQuestionID])) ? mapQuesToAnswer[firstQuestionID] : mapToOrdinal(i+1) + " Sibling" 
+              elmStr += getSubSectionMemberStr(subSection, allMemberIDs[i], memberName)
+              scrollspyStr += getScrollspyStr(memberName, allMemberIDs[i].toString())
             }
             else if(subSection.name === "Children's Details") {
-              elmStr += getSubSectionMemberStr(subSection, allMemberIDs[i], mapToOrdinal(i+1) + " Child")
-              scrollspyStr += getScrollspyStr(mapToOrdinal(i+1) + " Child", allMemberIDs[i].toString())
+              let firstQuestionID = subSection.questions[0]._id.toString() + '#####' + allMemberIDs[i].toString()
+              let memberName = (checkNotNull(mapQuesToAnswer[firstQuestionID])) ? mapQuesToAnswer[firstQuestionID] : mapToOrdinal(i+1) + " Child" 
+              elmStr += getSubSectionMemberStr(subSection, allMemberIDs[i], memberName)
+              scrollspyStr += getScrollspyStr(memberName, allMemberIDs[i].toString())
             }
             else if(subSection.name === "Relative's Details") {
-              elmStr += getSubSectionMemberStr(subSection, allMemberIDs[i], mapToOrdinal(i+1) + " Relative")
-              scrollspyStr += getScrollspyStr(mapToOrdinal(i+1) + " Relative", allMemberIDs[i].toString())
+              let firstQuestionID = subSection.questions[0]._id.toString() + '#####' + allMemberIDs[i].toString()
+              let memberName = (checkNotNull(mapQuesToAnswer[firstQuestionID])) ? mapQuesToAnswer[firstQuestionID] : mapToOrdinal(i+1) + " Relative" 
+              elmStr += getSubSectionMemberStr(subSection, allMemberIDs[i], memberName)
+              scrollspyStr += getScrollspyStr(memberName, allMemberIDs[i].toString())
             }
             else if(subSection.name === "Specialization") {
-              elmStr += getSubSectionMemberStr(subSection, allMemberIDs[i], mapToOrdinal(i+1) + " Specialization")
-              scrollspyStr += getScrollspyStr(mapToOrdinal(i+1) + " Specialization", allMemberIDs[i].toString())
+              let firstQuestionID = subSection.questions[0]._id.toString() + '#####' + allMemberIDs[i].toString()
+              let memberName = (checkNotNull(mapQuesToAnswer[firstQuestionID])) ? mapQuesToAnswer[firstQuestionID] : mapToOrdinal(i+1) + " Specialization" 
+              elmStr += getSubSectionMemberStr(subSection, allMemberIDs[i], memberName)
+              scrollspyStr += getScrollspyStr(memberName, allMemberIDs[i].toString())
             }
           }
         }
@@ -646,13 +659,14 @@
         let value = ''
 
         for(let j=0, max2=options.length; j<max2; j++){
-          if(typeof mapQuesToAnswer[qID] !== 'undefined' && mapQuesToAnswer[qID].includes(options[j]._id.toString()))
+          if(checkNotNull(mapQuesToAnswer[qID]) && mapQuesToAnswer[qID].includes(options[j]._id.toString()))
           {
             value += (options[j].name + ', ');
           }
         }
         // remove extra 2 characters ", " from the tail of value 
         if(value.length>2) value = value.slice(0, -2);
+        if(!value.length) value = '-'
 
         vaccineStr = '<div class="table-row">' +
                         '<div class="label">' +
@@ -684,7 +698,7 @@
 
       if (question.inputType === "multiChoiceMultiAns" ||  question.inputType === "multiChoiceSingleAns"){
         for(let i = 0, max = options.length; i < max; i+=1){
-          if(typeof mapQuesToAnswer[question._id.toString()] !== 'undefined' && mapQuesToAnswer[question._id.toString()].includes(options[i]._id.toString())){
+          if(checkNotNull(mapQuesToAnswer[question._id.toString()]) && mapQuesToAnswer[question._id.toString()].includes(options[i]._id.toString())){
             value += (options[i].name + ', ');
             
             // getting html of conditional questions for that option 
@@ -697,9 +711,10 @@
         }
         // remove extra 2 characters ", " from the tail of value 
         if(value.length>2) value = value.slice(0, -2); 
+        if(!value.length) value = '-'
       }
-      else value = (typeof mapQuesToAnswer[question._id.toString()] !== 'undefined') ? mapQuesToAnswer[question._id.toString()]: '-'
-      
+      else value = (checkNotNull(mapQuesToAnswer[question._id.toString()])) ? mapQuesToAnswer[question._id.toString()]: '-'
+
       let questionStr = '<div class="table-row">' +
                           '<div class="label">' +
                             `<p>${question.qLabel}</p>` +                          
@@ -722,7 +737,7 @@
 
       if (question.inputType === "multiChoiceMultiAns" ||  question.inputType === "multiChoiceSingleAns"){
         for(let i = 0, max = options.length; i < max; i+=1){
-          if(typeof mapQuesToAnswer[qID] !== 'undefined' && mapQuesToAnswer[qID].includes(options[i]._id.toString())){
+          if(checkNotNull(mapQuesToAnswer[qID]) && mapQuesToAnswer[qID].includes(options[i]._id.toString())){
             value += (options[i].name + ', ');
             
             // getting html of conditional questions for that option 
@@ -735,8 +750,9 @@
         }
         // remove extra 2 characters ", " from the tail of value 
         if(value.length>2) value = value.slice(0, -2); 
+        if(!value.length) value = '-'
       }
-      else value = (typeof mapQuesToAnswer[qID] !== 'undefined') ? mapQuesToAnswer[qID]: '-'
+      else value = (checkNotNull(mapQuesToAnswer[qID])) ? mapQuesToAnswer[qID]: '-'
       
       let questionStr = '<div class="table-row">' +
                           '<div class="label">' +

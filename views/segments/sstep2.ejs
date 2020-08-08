@@ -163,7 +163,7 @@
         for (let i = 0; i < subSection.questions.length; i++) {
           // make collapse id unique while creating ans 
           if (i == 2) qStr += '<div class="collapse" id="collapse' + data.id + '">'
-          qStr += getQuestionStr3(sectionID, subSection._id, data.id, subSection.questions[i]); // Identical questions for same subsection are distinguished by additional ID
+          qStr += getQuestionStr3(sectionID, subSection._id, data.id, subSection.questions[i], (!i) ? 'required' : ''); // Identical questions for same subsection are distinguished by additional ID
         }
 
         if (subSection.questions.length > 2) qStr += '</div>';
@@ -204,7 +204,7 @@
       for (let i = 0; i < subSection.questions.length; i++) {
         // make collapse id unique while creating ans 
         if (i == 2) qStr += '<div class="collapse" id="collapse' + memberID + '">'
-        qStr += getQuestionStr3(sectionID, subSection._id, memberID, subSection.questions[i]); // Identical questions for same subsection are distinguished by additionalID(memberID)
+        qStr += getQuestionStr3(sectionID, subSection._id, memberID, subSection.questions[i], (!i) ? 'required' : ''); // Identical questions for same subsection are distinguished by additionalID(memberID)
       }
 
       if (subSection.questions.length > 2) qStr += '</div>';
