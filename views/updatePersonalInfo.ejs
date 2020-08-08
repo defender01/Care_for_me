@@ -2,281 +2,167 @@
 <html lang="en">
   <head>
     <!-- Required meta tags -->
-    <meta charset="utf-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1, shrink-to-fit=no"
-    />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <link
-      href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-      rel="stylesheet"
-      id="bootstrap-css"
-    />
-    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 
-    <link
-      href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css"
-      rel="stylesheet"
-      id="bootstrap-css"
-    />
-    <script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
-    <script src="//code.jquery.com/jquery-2.1.3.min.js"></script>
+    <!-- fontawesome cdn -->
+    <link rel="stylesheet" href="//use.fontawesome.com/releases/v5.0.7/css/all.css">
 
-    <script src='/assets/jsFiles/registration.js'></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+    crossorigin="anonymous"></script>
 
     <!-- stylesheet for navbar -->
-    <link rel="stylesheet" href="/assets/cssFiles/navbar.css" />
+    <link rel="stylesheet" href="/assets/cssFiles/navbar.css">
+    <link rel="stylesheet" href="/assets/cssFiles/doctorRegistration.css" />
+    
+    <!-- for loader -->
+    <script src="/assets/jsFiles/loader.js"></script>    
+    <link rel="stylesheet" href="/assets/cssFiles/loader.css" />
+    <!-- for date range picker -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 
-    <link rel="stylesheet" href="/assets/cssFiles/registration.css" />
+    <!-- for address cdn -->    
+    <script src="//geodata.solutions/includes/countrystatecity.js"></script>
 
     <title>Registration-Care for me</title>
   </head>
 
   <body>
+    <!-- display loading icon -->
+    <div class="se-pre-con"></div>
+    <!-- ends -->
+
     <!-- navigation bar -->
     <% include ./segments/navbar %>
-
+    
     <main>
-      <div class="container box-container">
-        <% include ./segments/messages %>
-        <form
-          id="registerForm"  
-          class="form-horizontal"
-          role="form"
-          method="POST"
-          action="/profile/update-personalInfo"
-        >
-          <div class="form-title">
-            <h3>Please fill up the form to register</h3>
+      <div class="wrapper">
+        <div class="notify-bar">
+          <div class="title">
+            Registration form
           </div>
-          <div class="form-group ">
-            <label for="firstName" class="col-sm-3 control-label"
-              >First Name*</label
-            >
-            <div class="col-sm-7">
-              <input
-                type="text"
-                id="firstName"
-                placeholder="First Name"
-                class="form-control"
-                name="firstName"
-                value="<%= typeof userDetails.name.firstName != 'undefined' ? userDetails.name.firstName : '' %>"
-                autofocus
-              />
+        </div>
+        <form method="POST"action="/profile/update-personalInfo">
+          <div class="ques-container">
+            <% include ./segments/messages %>          
+            <div class="single-ques">
+              <div class="label">
+                *First name:
+              </div>
+              <div class="input-field">
+                <input type="text" name="firstName" class="form-control" value="<%= typeof userDetails.name.firstName !== 'undefined' ? userDetails.name.firstName : '' %>" required>
+              </div>
             </div>
-          </div>
-          <div class="form-group">
-            <label for="lastName" class="col-sm-3 control-label">Last Name*</label>
-            <div class="col-sm-7">
-              <input
-                type="text"
-                id="lastName"
-                placeholder="Last Name"
-                class="form-control"
-                name="lastName"
-                value="<%= typeof userDetails.name.lastName!= 'undefined' ? userDetails.name.lastName : '' %>"
-                autofocus
-              />
+            <div class="single-ques">
+              <div class="label">
+                *Last name:
+              </div>
+              <div class="input-field">
+                <input type="text" name="lastName" class="form-control" value="<%= typeof userDetails.name.lastName !== 'undefined' ? userDetails.name.lastName : '' %>" required>
+              </div>
             </div>
-          </div>
-          <div class="form-group">
-            <label for="displayName" class="col-sm-3 control-label"
-              >User Name*</label
-            >
-            <div class="col-sm-7">
-              <input
-                type="text"
-                id="displayName"
-                placeholder="User Name"
-                class="form-control"
-                name="displayName"
-                value="<%= typeof userDetails.name.displayName != 'undefined' ? userDetails.name.displayName : '' %>"
-                aria-describedby="displayNameHelpBlock"
-              />
-              <small id="displayNameHelpBlock" class="form-text text-muted">
-                This will be the name visible to other members on the forum.
-                Please keep this name short and unique.
-              </small>
+            <div class="single-ques">
+              <div class="label">
+                *Display name:
+              </div>
+              <div class="input-field">
+                <input type="text" name="displayName" class="form-control" value="<%= typeof userDetails.name.displayName !== 'undefined' ? userDetails.name.displayName : '' %>" required>
+              </div>
             </div>
-          </div>
-          <div class="form-group">
-            <label class="control-label col-sm-3">Gender*</label>
-
-            <%  let checkedForFemale = '', checkedForMale = '', checkedForNotInterested = '', checkedForOther = '';
-                if(typeof userDetails.gender !== 'undefined') {
-                    checkedForMale = (userDetails.gender.toString() =='male') ? 'checked' : ''
-                    checkedForFemale = (userDetails.gender.toString() =='female') ? 'checked' : ''
-                    checkedForOther = (userDetails.gender.toString() =='other') ? 'checked' : ''
-                    checkedForNotInterested = (userDetails.gender.toString() =='notInterested') ? 'checked' : '' 
-                }
-            %>
-
-            <div class="col-sm-7">
-              <div class="row">
-                <div class="col-sm-4">
-                  <label class="radio-inline">
-                    <input
-                      type="radio"
-                      id="femaleRadio"
-                      value="female"
-                      name="gender"
-                      <%= checkedForFemale %>
-                    />Female
-                  </label>
+            <div class="single-ques">
+              <div class="label">
+               *Gender:
+              </div>
+              <div class="gender-cont">               
+                <div class="gender-each">
+                  <% if(typeof userDetails.gender !== 'undefined' && userDetails.gender.toString() =='male'){ %>
+                    <input class="form-check-input" type="radio" name="gender" value="male" checked required>Male
+                  <% } else { %>
+                    <input class="form-check-input" type="radio" name="gender" value="male" required>Male
+                  <% } %>
                 </div>
-                <div class="col-sm-4">
-                  <label class="radio-inline">
-                    <input
-                      type="radio"
-                      id="maleRadio"
-                      value="male"
-                      name="gender"
-                      <%= checkedForMale %>
-                    />
-                    Male
-                  </label>
+                <div class="gender-each">
+                  <% if(typeof userDetails.gender !== 'undefined' && userDetails.gender.toString() =='female'){ %>
+                      <input class="form-check-input" type="radio" name="gender" value="female" checked>Female
+                    <% } else { %>
+                      <input class="form-check-input" type="radio" name="gender" value="female" >Female
+                    <% } %>                  
+                </div>                
+                <div class="gender-each">
+                  <% if(typeof userDetails.gender !== 'undefined' && userDetails.gender.toString() =='other'){ %>
+                      <input class="form-check-input" type="radio" name="gender" value="other" checked>Other
+                    <% } else { %>
+                      <input class="form-check-input" type="radio" name="gender" value="other" >Other
+                    <% } %>                  
                 </div>
-                <div class="col-sm-4">
-                  <label class="radio-inline">
-                    <input
-                      type="radio"
-                      id="otherRadio"
-                      value="other"
-                      name="gender"
-                      <%= checkedForOther %>
-                    />Other
-                  </label>
-                </div>
-                <div class="col-sm-4">
-                  <label class="radio-inline">
-                    <input
-                      type="radio"
-                      id="notInterestedRadio"
-                      value="notInterested"
-                      name="gender"
-                      <%= checkedForNotInterested %>
-                    />Not Interested
-                  </label>
+                <div class="gender-each">
+                  <% if(typeof userDetails.gender !== 'undefined' && userDetails.gender.toString() =='notInterested'){ %>
+                      <input class="form-check-input" type="radio" name="gender" value="notInterested" checked>Not Interested
+                    <% } else { %>
+                      <input class="form-check-input" type="radio" name="gender" value="notInterested" >Not Interested
+                    <% } %>                  
                 </div>
               </div>
             </div>
-          </div>
-          <div class="form-group">
-            <label for="birthDate" class="col-sm-3 control-label"
-              >Date of Birth*</label
-            >
-            <div class="col-sm-7">
-              <input
-                type="date"
-                id="birthDate"
-                class="form-control"
-                name="birthDate"
-                value="<%= typeof userDetails.birthDate != 'undefined' ? userDetails.birthDate.toLocaleDateString() : '' %>"
-              />
+            <div class="single-ques">
+              <div class="label">
+                *Birth date:
+              </div>
+              <div class="input-field">
+                <input type="date" name="birthDate" class="form-control" value="<%= typeof userDetails.birthDate !== 'undefined' ? userDetails.birthDate : '' %>" required>
+              </div>
             </div>
-          </div>
-          <br>
-          <div class="form-group">
-            <label for="birthDate" class="col-sm-3 control-label"
-              >Occupation</label
-            >
-            <div class="col-sm-7">
-              <input
-                type="text"
-                id="occupation"
-                class="form-control"
-                name="occupation"
-                value="<%= typeof userDetails.occupation != 'undefined' ? userDetails.occupation : '' %>"
-              />
+            <div class="single-ques">
+              <div class="label">
+                Occupation:
+              </div>
+              <div class="input-field">
+                <input type="text" name="occupation" class="form-control" value="<%= typeof userDetails.occupation !== 'undefined' ? userDetails.occupation : '' %>" >
+              </div>
             </div>
-          </div>
-          <div class="form-group">
-            <label for="birthDate" class="col-sm-3 control-label"
-              >Organization</label
-            >
-            <div class="col-sm-7">
-              <input
-                type="text"
-                id="organization"
-                class="form-control"
-                name="organization"
-                value="<%= typeof userDetails.organization != 'undefined' ? userDetails.organization : '' %>"
-              />
+            <div class="single-ques">
+              <div class="label">
+                Organization:
+              </div>
+              <div class="input-field">
+                <input type="text" name="organization" class="form-control" value="<%= typeof userDetails.organization !== 'undefined' ? userDetails.organization : '' %>">
+              </div>
+            </div> 
+            <div class="address-cont">
+              <div class="sec-title">Address:</div>
+              <div class="item-holder">
+                <select name="country" class="countries" id="countryId">
+                  <option value="<%= typeof userDetails.location.country !== 'undefined' ? userDetails.location.country : '' %>" selected>Select Country</option>
+                </select>
+                <select name="state" class="states" id="stateId">
+                  <option value="<%= typeof userDetails.location.state !== 'undefined' ? userDetails.location.state : '' %>" selected>Select State</option>
+                </select>
+                <select name="city" class="cities" id="cityId">
+                  <option value="<%= typeof userDetails.location.city !== 'undefined' ? userDetails.location.city : '' %>" selected>Select City</option>
+                </select>
+              </div>              
             </div>
-          </div>
-          
-          <br>
-  
-          <div class="form-group">
-            <label for="country" class="col-sm-3 control-label ">Address</label>
-            <div class="col-sm-3">
-              <select name="country" class="countries  selector " id="countryId">
-                <option
-                  value="<%= typeof userDetails.location.country != 'undefined' ? userDetails.location.country : '' %>"
-                  >Select Country</option
-                >
-              </select>
+            <div class="single-ques">
+              <div class="label">
+                Additional address:
+              </div>
+              <div class="input-field">
+                <input type="text" name="additionalAddress" class="form-control" value="<%= typeof userDetails.location.additionalAddress != 'undefined' ? userDetails.location.additionalAddress : '' %>" >
+              </div>
+            </div> 
+            <div class="single-ques">
+              <div class="label">
+                *Phone no:
+              </div>
+              <div class="input-field">
+                <input type="text" name="phoneNumber" class="form-control" value="<%= typeof userDetails.phoneNumber != 'undefined' ? userDetails.phoneNumber : '' %>" required>
+              </div>
             </div>
-            <div class="col-sm-2 ">
-              <select name="state" class="states selector " id="stateId">
-                <option value="<%= typeof userDetails.location.state != 'undefined' ? userDetails.location.state : '' %>"
-                  >Select State</option
-                >
-              </select>
-            </div>
-            <div class="col-sm-2">
-              <select name="city" class="cities selector" id="cityId">
-                <option value="<%= typeof userDetails.location.city != 'undefined' ? userDetails.location.city : '' %>"
-                  >Select City</option
-                >
-              </select>
-            </div>
-          </div>
-  
-          <div class="form-group">
-            <label for="additionalAddress" class="col-sm-3 control-label"></label>
-            <div class="col-sm-7">
-              <input
-                type="text"
-                id="additionalAddress"
-                placeholder="Additional address information"
-                class="form-control"
-                name="additionalAddress"
-                value="<%= typeof userDetails.location.additionalAddress !== 'undefined' ? userDetails.location.additionalAddress : '' %>"
-                autofocus
-              />
-            </div>
-          </div>
-          
-          <br>
-  
-          <div class="form-group">
-            <label for="phoneNumber" class="col-sm-3 control-label"
-              >Phone number*
-            </label>
-            <div class="col-sm-7">
-              <input
-                type="text"
-                id="phoneNumber"
-                placeholder="Phone number"
-                class="form-control"
-                name="phoneNumber"
-                value="<%= typeof userDetails.phoneNumber != 'undefined' ? userDetails.phoneNumber : '' %>"
-              />
-              <span class="help-block"
-                >Your phone number won't be disclosed anywhere
-              </span>
-            </div>
-          </div>
-          <div class="form-group">
-            <!-- <label for="idNumber" class="col-sm-3 control-label"
-              >NID/ Birth certificate/ Passport*
-            </label> -->
-  
-            <div class="col-sm-1"> </div>
-            
+
             <%  let nidSelected = '', birthCertificateSelected = '', passportSelected = '';
                 if (typeof userDetails.idChoice !== 'undefined'){
                     nidSelected = (userDetails.idChoice.toString() == 'nidNumber') ? 'selected' : ''
@@ -284,119 +170,79 @@
                     passportSelected = (userDetails.idChoice.toString() == 'passportNumber') ? 'selected' : ''
                 }
             %>
-            
-            <select class="form-control form-control-lg col-sm-2" name="idChoice">
-              <option value="birthCertificateNumber" <%= birthCertificateSelected %> >Birth certificate*</option>
-              <option value="nidNumber" <%= nidSelected %> >NID*</option>
-              <option value="passportNumber" <%= passportSelected %> >Passport*</option>
-            </select>
-            <div class="col-sm-7">
-              <input
-                type="text"
-                id="idNumber"
-                placeholder="Please write your NID/ Birth certificate/ Passport number"
-                class="form-control"
-                name="idNumber"
-                value="<%= typeof userDetails.idNumber != 'undefined' ? userDetails.idNumber : '' %>"
-              />
-            </div>
-          </div>
-          <div class="form-group">
-            <label for="email" class="col-sm-3 control-label">Email* </label>
-            <div class="col-sm-7">
-              <input
-                type="email"
-                id="email"
-                placeholder="Email"
-                class="form-control"
-                name="email"
-                value="<%= typeof userDetails.email != 'undefined' ? userDetails.email : '' %>"
-              />
-            </div>
-          </div>
-          <div class="form-group">
-            <label for="password" class="col-sm-3 control-label">Password*</label>
-            <div class="col-sm-7">
-              <input
-                type="password"
-                id="password"
-                placeholder="Password"
-                class="form-control"
-                name="password"
-              />
-            </div>
-          </div>
-  
-          <div class="form-group">
-            <label for="password2" class="col-sm-3 control-label"
-              >Confirm Password*</label
-            >
-            <div class="col-sm-7">
-              <input
-                type="password"
-                id="password2"
-                placeholder="Password"
-                class="form-control"
-                name="password2"
-              />
-            </div>
-          </div>
+            <div class="single-ques">
+              <div class="label">
+                <select class="form-control" name="idChoice">
+                  <option value="nidNumber" <%= nidSelected %> >*NID</option>
+                  <option value="birthCertificateNumber" <%= birthCertificateSelected %> >*Birth certificate</option>
+                  <option value="passportNumber" <%= passportSelected %> >*Passport</option>
+                </select>                
+              </div>
+              <div class="input-field">
+                <input type="text" id="idNumber" name="idNumber" class="form-control" value="<%= typeof userDetails.idNumber != 'undefined' ? userDetails.idNumber : '' %>" required>
+              </div>
+            </div>        
           
-          <br>
-          <div class="form-group">
-            <label for="agreement" class="col-sm-3 control-label"
-              ></label
-            >
-            <div class="col-sm-7">
-              <div class="form-check">
-                <input class="form-check-input " name="termAgree" type="checkbox" value="Yes" id="defaultCheck1">
-                <p class="agreement">I agree to the  <a href="/termsAndConditions">Terms & Conditions</a></p>
+            <div class="single-ques">
+              <div class="label">
+                *Email:
+              </div>
+              <div class="input-field">
+                <input type="email" name="email" class="form-control" value="<%= typeof userDetails.email != 'undefined' ? userDetails.email : '' %>" required>
               </div>
             </div>
-          </div>
-  
-          <!-- /.form-group -->
-          <div class="form-group">
-            <div class="col-sm-7 col-sm-offset-3">
-              <span class="help-block">*Required fields</span>
+            <div class="showPassChange" onclick="showPassSec()">
+                <i class="fas fa-key"></i>
+                <p>Change password</p>                
             </div>
-          </div>
-          <button id="submitButton" class="btn btn-primary btn-block">
-            Update
-          </button>
+            <div class="addPlacePassword"></div>
+                         
+                                              
+            <div class="help-block">
+              *Required fields
+            </div>
+            <div class="submit-btn">
+              <button type="submit">Submit</button>
+            </div>
+          </div> 
+            
         </form>
-        <!-- /form -->
+        
       </div>
+     
+      
     </main>
-    <!-- ./container -->
-
+    
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script
-      src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-      integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-      crossorigin="anonymous"
-    ></script>
-    <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-      integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-      crossorigin="anonymous"
-    ></script>
-    <script
-      src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-      integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-      crossorigin="anonymous"
-    ></script>
-    <!-- for country,state,city -->
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-    <script src="//geodata.solutions/includes/countrystatecity.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
 
     <script>
-        $('#submitButton').click((e) => {
-            e.preventDefault();
-            $('#registerForm').submit();
-        })
+        function showPassSec(){
+            $('.showPassChange').css("display", "none");
+            $('.passwordChange').css("display", "block");
+            $('.addPlacePassword').html(
+            `<div class="passwordChange">`+
+             `   <div class="single-ques">`+
+              `      <div class="label">`+
+               `       *New password:`+
+                `    </div>`+
+                 `   <div class="input-field">`+
+                  `    <input type="password" name="password" class="form-control" required>`+
+                   ` </div>`+
+                  `</div>`+
+                  `<div class="single-ques">`+
+                   ` <div class="label">`+
+                    `  *Confirm new password:`+
+                    `</div>`+
+                    `<div class="input-field">`+
+                     ` <input type="password" name="password2"  class="form-control" required>`+
+                    `</div>`+
+                  `</div>   `+
+            `</div>`
+            )          
+        }
     </script>
-
   </body>
 </html>

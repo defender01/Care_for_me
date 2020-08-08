@@ -54,6 +54,30 @@ main{
             margin-top: 220px;
             background-color: white;
             padding: 10px;
+
+            .showPassChange{
+                margin-top: 20px;
+                padding: 10px;
+                display: flex;
+                i{
+                    padding: 10px;
+                    font-size: 20px;
+                }
+                p{
+                    flex: 1;
+                    margin: auto;
+                    font-size: 20px;
+                    &:hover{
+                        cursor: pointer;  
+                        color: $hover-color;                      
+                    }
+                }
+            }
+            .passwordChange{
+                margin: 10px;
+                border-radius: 3px;
+                box-shadow: 0 0 2px rgba(98, 97, 99, 0.76);
+            }
           
             .single-ques{            
                 padding: 10px;
@@ -74,7 +98,7 @@ main{
                 }
                 .gender-cont{
                     flex: 3;
-                    @media (min-width:600px){ 
+                    @media (min-width:1000px){ 
                         display:flex;
                     }                                   
                     margin-left: 30px;

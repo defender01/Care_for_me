@@ -10,7 +10,8 @@ var displayName = ''
 require("dotenv").config()
 
 // Passport Config
-require('./controllers/passport')(passport)
+require('./controllers/passport').patientStrategy(passport)
+require('./controllers/passport').doctorStrategy(passport)
 
 var app = express()
 
@@ -66,6 +67,7 @@ app.use(function(req, res, next) {
 
 
 app.get("/home", async (req, res) => {
+  let displayName = ''
   if(req.user)
     displayName = req.user.name.displayName
   else displayName = ''

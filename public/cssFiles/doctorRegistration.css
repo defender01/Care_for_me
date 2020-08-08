@@ -50,6 +50,34 @@ main .wrapper .ques-container {
   }
 }
 
+main .wrapper .ques-container .showPassChange {
+  margin-top: 20px;
+  padding: 10px;
+  display: flex;
+}
+
+main .wrapper .ques-container .showPassChange i {
+  padding: 10px;
+  font-size: 20px;
+}
+
+main .wrapper .ques-container .showPassChange p {
+  flex: 1;
+  margin: auto;
+  font-size: 20px;
+}
+
+main .wrapper .ques-container .showPassChange p:hover {
+  cursor: pointer;
+  color: #96bbc2;
+}
+
+main .wrapper .ques-container .passwordChange {
+  margin: 10px;
+  border-radius: 3px;
+  box-shadow: 0 0 2px rgba(98, 97, 99, 0.76);
+}
+
 main .wrapper .ques-container .single-ques {
   padding: 10px;
 }
@@ -80,7 +108,7 @@ main .wrapper .ques-container .single-ques .gender-cont {
   margin-left: 30px;
 }
 
-@media (min-width: 600px) {
+@media (min-width: 1000px) {
   main .wrapper .ques-container .single-ques .gender-cont {
     display: flex;
   }
