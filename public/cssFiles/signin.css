@@ -1,55 +1,109 @@
-.wrapper {
+@import url("https://fonts.googleapis.com/css2?family=Lato&family=Nanum+Gothic&family=Poppins&family=Source+Sans+Pro&display=swap");
+body {
+  background-color: #f5f5f5;
+  width: 100vw;
+  height: 100vh;
+  font-style: Poppins;
+}
+
+main {
   margin-top: 80px;
-  margin-bottom: 5px;
-}
-
-.wrapper2 {
-  margin-top: 5px;
-  margin-bottom: 40px;
-}
-
-.form-signin {
-  max-width: 420px;
-  padding: 30px 40px 20px;
-  margin: 0 auto;
-  background-color: #d4d5e0;
-  border: 3px dotted rgba(0, 0, 0, 0.1);
-}
-
-.form-signin-heading {
-  text-align: center;
-  margin-bottom: 30px;
-}
-
-.form-control {
-  position: relative;
-  font-size: 16px;
-  height: auto;
+  min-height: 100%;
+  min-width: 100%;
   padding: 10px;
-}
-
-input[type="text"] {
-  margin-bottom: 10px;
-  border-bottom-left-radius: 0;
-  border-bottom-right-radius: 0;
-}
-
-input[type="password"] {
-  margin-bottom: 20px;
-  border-top-left-radius: 0;
-  border-top-right-radius: 0;
-}
-
-#regesterBtn {
-  background-color: #fa9960;
-}
-
-.role-container {
-  width: 100%;
+  padding-top: 20px;
   display: flex;
-  margin: 10px 20px 10px 20px;
+  justify-content: center;
+  justify-items: center;
 }
 
-.role-container .role-each {
+main .box-container {
+  box-shadow: 0 0 3px #ccc;
+  background-color: white;
+  margin: auto;
+  margin-top: 50px;
+  padding: 20px;
+  border-radius: 4px;
+  width: 500px;
+}
+
+main .box-container .title {
+  width: 100%;
+  text-align: center;
+  font-size: 22px;
+}
+
+main .box-container .role-container {
+  margin: 10px;
+  margin-top: 30px;
+}
+
+main .box-container .role-container h1 {
+  width: 100%;
+  font-size: 16px;
+}
+
+main .box-container .role-container .roles {
+  margin: 10px;
+  margin-left: 20px;
+  display: flex;
+}
+
+main .box-container .role-container .roles .role-each {
   flex: 1;
+}
+
+main .box-container .input-container {
+  margin: 0 10px 0 10px;
+}
+
+main .box-container .input-container input {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+main .box-container .btn-container {
+  margin: 10px;
+}
+
+main .box-container .btn-container .login-btn {
+  width: 100%;
+  margin-top: 10px;
+  height: 40px;
+  border: 0px;
+  border-radius: 4px;
+  background-color: #007bff;
+  color: #ffffff;
+}
+
+main .box-container .btn-container .login-btn:hover {
+  background-color: #0568d3;
+}
+
+main .box-container .btn-container .general-reg-btn {
+  width: 100%;
+  margin-top: 10px;
+  height: 40px;
+  border: 0px;
+  border-radius: 4px;
+  background-color: #e74c3c;
+  color: #ffffff;
+}
+
+main .box-container .btn-container .general-reg-btn:hover {
+  background-color: #d33e2d;
+}
+
+main .box-container .btn-container .doctor-reg-btn {
+  width: 100%;
+  margin-top: 10px;
+  height: 40px;
+  border: 0px;
+  border-radius: 4px;
+  background-color: #304458;
+  color: #ffffff;
+}
+
+main .box-container .btn-container .doctor-reg-btn:hover {
+  background-color: #273646;
 }

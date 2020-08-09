@@ -7,7 +7,7 @@ const User = require("../models/userInfo");
 const { checkNotAuthenticated } = require("../controllers/auth_helper");
 
 // Login Page
-router.get("/login", checkNotAuthenticated, (req, res) => res.render("login"));
+router.get("/login", checkNotAuthenticated, (req, res) => res.render("login2"));
 
 // Register Page
 router.get("/register/:role", checkNotAuthenticated, (req, res) =>{
@@ -17,7 +17,7 @@ router.get("/register/:role", checkNotAuthenticated, (req, res) =>{
     res.render('doctorRegistration')
   }
   else{
-    res.render("registration2")
+    res.render("registration")
   }
 });
 
@@ -76,7 +76,7 @@ router.post("/register", (req, res) => {
   }
 
   if (errors.length > 0) {
-    res.render("registration2", {
+    res.render("registration", {
       errors,
       firstName,
       lastName,
@@ -108,7 +108,7 @@ router.post("/register", (req, res) => {
           if(user.idNumber==idNumber)
             errors.push({ msg: "ID number(NID/ Passport/ Birth Certificate no) already exists" });
         })
-        res.render("registration2", {
+        res.render("registration", {
           errors,
           firstName,
           lastName,

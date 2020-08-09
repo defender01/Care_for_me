@@ -197,6 +197,12 @@ main .wrapper .ques-container .terms {
   margin-top: 40px;
 }
 
+@media (min-width: 800px) {
+  main .wrapper .ques-container .terms {
+    margin-left: 34%;
+  }
+}
+
 main .wrapper .ques-container .address-cont {
   margin: 20px 25px 30px 25px;
 }
@@ -208,8 +214,9 @@ main .wrapper .ques-container .address-cont .sec-title {
 
 main .wrapper .ques-container .submit-btn {
   width: 100%;
-  height: 200px;
+  height: 100px;
   display: flex;
+  margin-top: 50px;
 }
 
 main .wrapper .ques-container .submit-btn button {
@@ -233,4 +240,10 @@ main .wrapper .ques-container .help-block {
   font-size: 16px;
   color: #9e9e9e;
   text-align: left;
+}
+
+@media (min-width: 800px) {
+  main .wrapper .ques-container .help-block {
+    margin-left: 34%;
+  }
 }
