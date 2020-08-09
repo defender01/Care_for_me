@@ -179,9 +179,6 @@ main{
             
             .terms{
                 margin-left: 50px;
-                @media(min-width: 800px){
-                    margin-left: 34%;
-                }
                 margin-top: 40px;
             }
 
@@ -216,9 +213,6 @@ main{
             .help-block{
                 width: 100%;
                 margin: 10px 10px 10px 40px;
-                @media(min-width: 800px){
-                    margin-left: 34%;
-                }
                 font-size: 16px;
                 color: rgb(158, 158, 158);
                 text-align: left;
