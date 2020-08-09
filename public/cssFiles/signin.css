@@ -13,8 +13,6 @@ main {
   padding: 10px;
   padding-top: 20px;
   display: flex;
-  justify-content: center;
-  justify-items: center;
 }
 
 main .box-container {
