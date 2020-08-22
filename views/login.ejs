@@ -4,19 +4,11 @@
 	  <meta charset="utf-8">
 	  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	  
+	  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 	<!-- stylesheet for navbar -->
 	<link rel="stylesheet" href="/assets/cssFiles/navbar.css">
 
 	<link rel="stylesheet" href="/assets/cssFiles/signin.css">
-
-    <link
-      rel="stylesheet"
-      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
-      crossorigin="anonymous"
-    />
-
-    <link rel="stylesheet" href="/assets/cssFiles/registration.css" />
 
     <title>Registration-Care for me</title>
   </head>
@@ -26,18 +18,33 @@
 	<% include ./segments/navbar %>
 
 	<main>
-		<div class = "container">
-			<div class="wrapper">
-				<% include ./segments/messages %>
-				<form action="/auth/login" method="post" name="Login_Form" class="form-signin">       
-					<h3 class="form-signin-heading">Welcome! Please Sign In</h3>
-
-					<h5>Choose a role,</h5>
-					<div class="role-container">						
+		<div class="box-container">
+			<% include ./segments/messages %>
+			<div class="response-msg" style="display: none;">
+				<div class="alert alert-warning alert-dismissible fade show" role="alert" id="errorMsg" style="display: none;">
+					<p id="receivedErrMsg"></p>
+					<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+					  <span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="alert alert-success alert-dismissible fade show" role="alert" id="successMsg" style="display: none;">
+					<p id="receivedSuccessMsg"></p>
+					<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+					  <span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+			</div>
+			<form action="/auth/login" method="post" id="Login_Form">
+				<div class="title">
+					Welcome! Please Sign In
+				</div>
+				<div class="role-container">
+					<h1>Choose a role</h1>
+					<div class="roles">
 						<div class="role-each">
 							<input class="form-check-input" type="radio" name="role" id="role1" value="generalUser" checked required>
 							<label class="form-check-label" for="role1">
-								Geneeral User
+								General User
 							</label>
 						</div>	
 						<div class="role-each">
@@ -45,30 +52,70 @@
 							<label class="form-check-label" for="role2">
 								Doctor
 							</label>
-						</div>						
-					</div>
+						</div>
+					</div>				
 					
-					<input type="text" class="form-control" name="emailOrPhone" placeholder="email or phone no" required="" autofocus="" />
-					<input type="password" class="form-control" name="password" placeholder="password" required=""/>   
-										
-					<button class="btn btn-lg btn-primary btn-block"  name="Submit" value="Login" type="Submit">Login</button>  		
-					<br>
-				</form>			
-			</div>
-			<div class="wrapper2">
-				<form  name="Login_Form" class="form-signin">
-					<p>Don't have an account? Register first</p>       
-					<button class="btn btn-lg btn-primary btn-block" id="regesterBtn" onclick="document.location='/auth/register/general'"  name="Register" value="Register" type="button">General User</button>  			
-					<button class="btn btn-lg btn-primary btn-block" id="regesterBtn2" onclick="document.location='/auth/register/doctor'" name="Register" value="Register" type="button">Doctor</button>  			
-				</form>			
-			</div>
+				</div>
+				<div class="input-container">
+					<input type="text" class="form-control" id="emailOrPhone" name="emailOrPhone" placeholder="email or phone no" required="" autofocus="" />
+					<input type="password" class="form-control" name="password" placeholder="password" required=""/>  
+					<a href="" id="forgotPass">Forgot password?</a>
+				</div>
+				
+				<div class="btn-container">
+					<button class="login-btn"  name="Submit" value="Login" type="Submit">Login</button>  	
+					<hr>
+					<button  class="general-reg-btn" onclick="document.location='/auth/register/general'"  name="Register" value="Register" type="button">General User Signup</button>  			
+					<button class="doctor-reg-btn" onclick="document.location='/auth/register/doctor'" name="Register" value="Register" type="button">Doctor Signup</button>  		
+				</div>	
+			</form>	
+
 		</div>
-	
 	</main>
 	<!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+	<script>
+		$('#forgotPass').on('click', (e)=>{
+			e.preventDefault();
+			let role = $('#role1').is(':checked')? 'generalUser': 'doctor'
+			let emailOrPhone = $('#emailOrPhone').val()
+			if(emailOrPhone==''){
+				alert('Please provide your email address')
+			}
+			else{
+				
+				$.ajax({
+					type: "POST",
+					url: '/auth/forgotpass',
+					data: {
+						role: role,
+						emailOrPhone: emailOrPhone
+					},
+					success: (data)=>{		
+						if(data.error!=''){
+							$('.response-msg').css("display", "block")
+							$('#errorMsg').css("display", "block")
+							$('#receivedErrMsg').html(data.error)
+							$('html, body').animate({
+								scrollTop: $(".response-msg").offset().top+ 100
+							}, 2000);
+						}
+						else if(data.successMsg!=''){
+							$('.response-msg').css("display", "block")
+							$('#successMsg').css("display", "block")
+							$('#receivedSuccessMsg').html(data.successMsg)
+							$('html, body').animate({
+								scrollTop: $(".response-msg").offset().top+ 100
+							}, 2000);
+						}
+						
+					}
+				});
+			}		
+		})
+	</script>
   </body>
 </html>

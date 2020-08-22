@@ -4,10 +4,8 @@ const bcrypt = require("bcryptjs");
 const passport = require("passport");
 // Load User model
 const User = require("../models/userInfo");
-const { checkNotAuthenticated } = require("../controllers/auth_helper");
+const { forgotpassHandler, postResetPass, checkNotAuthenticated } = require("../controllers/auth_helper");
 
-// Login Page
-router.get("/login", checkNotAuthenticated, (req, res) => res.render("login2"));
 
 // Register Page
 router.get("/register/:role", checkNotAuthenticated, (req, res) =>{
@@ -174,13 +172,33 @@ router.post("/register", (req, res) => {
 });
 
 // Login
+router.get("/login", checkNotAuthenticated, (req, res) => res.render("login"));
+
 router.post("/login", async (req, res, next) => {
-  console.log(req.body);
+  const{role, emailOrPhone}=req.body
+  console.log(req.body)
+  let successRedirectUrl
+  if (role == 'generalUser') {
+    let user = await User.findOne({$or: [ { email: emailOrPhone }, { phoneNumber: emailOrPhone } ] })
+  // if user is signing in using otp we should reset the otp to null
+  if(user){
+    if(user.otp==''){
+      successRedirectUrl = "/data/collection"
+    }
+    else{
+      user.otp =''
+      await user.save()
+      successRedirectUrl = "/auth/resetpassword"
+    }
+  }
+
   passport.authenticate("patientStrategy", {
-    successRedirect: "/data/collection",
+    successRedirect: successRedirectUrl,
     failureRedirect: "/auth/login",
     failureFlash: true,
   })(req, res, next);
+  }
+  
 });
 
 // Logout
@@ -193,6 +211,16 @@ router.get("/logout", (req, res) => {
   }
   res.redirect("/auth/login");
 });
+
+// forgot pass handling
+router.post("/forgotpass", forgotpassHandler)
+
+// resetpassword
+router.get("/resetpassword", (req, res)=>{
+  let displayName = req.user.name.displayName;
+  res.render('resetPass', {displayName})
+})
+router.post("/resetpassword", postResetPass)
 
 
 module.exports = router;

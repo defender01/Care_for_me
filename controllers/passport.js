@@ -20,7 +20,14 @@ module.exports = {
         }
 
         // Match password
-        bcrypt.compare(password, user.password, (err, isMatch) => {
+        let userPassword
+        if(user.otp==''){
+          userPassword= user.password
+        }
+        else{
+          userPassword= user.otp          
+        }
+        bcrypt.compare(password, userPassword, (err, isMatch) => {
           if (err) throw err;
           if (isMatch) {
             return done(null, user);
@@ -57,7 +64,14 @@ doctorStrategy: function(passport) {
         }
 
         // Match password
-        bcrypt.compare(password, user.password, (err, isMatch) => {
+        let userPassword
+        if(user.otp==''){
+          userPassword= user.password
+        }
+        else{
+          userPassword= user.otp
+        }
+        bcrypt.compare(password, userPassword, (err, isMatch) => {
           if (err) throw err;
           if (isMatch) {
             return done(null, user);
