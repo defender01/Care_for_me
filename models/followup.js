@@ -30,6 +30,6 @@ const recordSchema = new Schema({
 });
 
 module.exports = {
-  parameterModel: mongoose.model("parameter", parameterSchema),
+  parameterModel: mongoose.model("parameterModel", parameterSchema),
   recordModel: mongoose.model("record", recordSchema),
 };

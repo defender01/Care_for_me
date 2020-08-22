@@ -57,7 +57,7 @@ function createTraining(){
                     `*Name:`+
                   `</div>`+
                   `<div class="input-field">`+
-                    `<input type="text" name="traintingName" class="form-control"  required>`+
+                    `<input type="text" name="trainingName" class="form-control"  required>`+
                   `</div>`+
                 `</div>   `+
                 `<div class="single-ques">`+

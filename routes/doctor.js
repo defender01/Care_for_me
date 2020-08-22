@@ -11,8 +11,9 @@ const { parameterModel } = require("../models/followup");
 
 router.get('/followupQues',checkAuthenticated, async (req, res) => {
   let parameters = await parameterModel.find({})
-  let displayName = req.user.name.displayName;
-    res.render('followupQues', {displayName, parameters})
+  console.log(parameters)
+  let navDisplayName = req.user.name.displayName;
+    res.render('followupQues', {navDisplayName, parameters})
 })
 
 // this provides new id

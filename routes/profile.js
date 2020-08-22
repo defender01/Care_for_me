@@ -58,7 +58,7 @@ let getQuestionsFromAllSections = async () => {
 };
 
 router.get("/", checkAuthenticated, async (req, res) => {
-  let displayName = req.user.name.displayName;
+  let navDisplayName = req.user.name.displayName;
   let userDetails,
     wholeSectionCollection,
     medicalHistoryData,
@@ -70,6 +70,7 @@ router.get("/", checkAuthenticated, async (req, res) => {
     vaccineData = await vaccineModel.find({});
     substanceData = await substanceModel.find({});
     medicalHistoryData = await answerModel.find({ userID: req.user._id });
+    // console.log(medicalHistoryData.length)
     const {
       mapQuesToAnswer,
       mapSubSecToAdditionalIDs,
@@ -77,7 +78,7 @@ router.get("/", checkAuthenticated, async (req, res) => {
 
     res.render("profile", {
       userDetails,
-      displayName,
+      navDisplayName,
       vaccineData,
       substanceData,
       wholeSectionCollection,
@@ -148,7 +149,7 @@ let processAnswerModelData = (medicalHistoryData) => {
 };
 
 router.get("/edit", checkAuthenticated, async (req, res) => {
-  let displayName = req.user.name.displayName;
+  let navDisplayName = req.user.name.displayName;
   let substanceData, vaccineData, medicalHistoryData;
 
   try {
@@ -173,7 +174,7 @@ router.get("/edit", checkAuthenticated, async (req, res) => {
     : { mapQuesToAnswer: {}, mapSubSecToAdditionalIDs: {} };
   //console.log(mapQuesToAnswer, mapSubSecToAdditionalIDs)
   res.render("medHistory", {
-    displayName,
+    navDisplayName,
     substanceData,
     vaccineData,
     mapQuesToAnswer,
@@ -327,7 +328,7 @@ router.post("/edit", checkAuthenticated, async (req, res) => {
 
 router.get("/update/:sectionID", checkAuthenticated, async (req, res) => {
   let sectionID = req.params.sectionID;
-  let displayName = req.user.name.displayName;
+  let navDisplayName = req.user.name.displayName;
 
   if (sectionID === "personalInfo") {
     let userDetails;
@@ -340,7 +341,7 @@ router.get("/update/:sectionID", checkAuthenticated, async (req, res) => {
       return;
     }
 
-    res.render("updatePersonalInfo", { displayName, userDetails });
+    res.render("updatePersonalInfo", { navDisplayName, userDetails });
     return;
   }
 
@@ -375,7 +376,7 @@ router.get("/update/:sectionID", checkAuthenticated, async (req, res) => {
       ? processAnswerModelData(medicalHistoryData)
       : { mapQuesToAnswer: {}, mapSubSecToAdditionalIDs: {} };
     res.render("updateStep1", {
-      displayName,
+      navDisplayName,
       sectionID,
       vaccineData,
       mapQuesToAnswer,
@@ -403,7 +404,7 @@ router.get("/update/:sectionID", checkAuthenticated, async (req, res) => {
       ? processAnswerModelData(medicalHistoryData)
       : { mapQuesToAnswer: {}, mapSubSecToAdditionalIDs: {} };
     res.render("updateStep2", {
-      displayName,
+      navDisplayName,
       sectionID,
       mapQuesToAnswer,
       mapSubSecToAdditionalIDs,
@@ -431,7 +432,7 @@ router.get("/update/:sectionID", checkAuthenticated, async (req, res) => {
       ? processAnswerModelData(medicalHistoryData)
       : { mapQuesToAnswer: {}, mapSubSecToAdditionalIDs: {} };
     res.render("updateStep3", {
-      displayName,
+      navDisplayName,
       sectionID,
       substanceData,
       mapQuesToAnswer,
@@ -459,7 +460,7 @@ router.get("/update/:sectionID", checkAuthenticated, async (req, res) => {
       ? processAnswerModelData(medicalHistoryData)
       : { mapQuesToAnswer: {}, mapSubSecToAdditionalIDs: {} };
     res.render("updateStep4", {
-      displayName,
+      navDisplayName,
       sectionID,
       mapQuesToAnswer,
       mapSubSecToAdditionalIDs,
@@ -486,7 +487,7 @@ router.get("/update/:sectionID", checkAuthenticated, async (req, res) => {
       ? processAnswerModelData(medicalHistoryData)
       : { mapQuesToAnswer: {}, mapSubSecToAdditionalIDs: {} };
     res.render("updateStep5", {
-      displayName,
+      navDisplayName,
       sectionID,
       mapQuesToAnswer,
       mapSubSecToAdditionalIDs,
@@ -542,6 +543,7 @@ router.post("/update-personalInfo", checkAuthenticated, async (req, res) => {
       additionalAddress:additionalAddress,
     },
   };
+
   let errors = [];
 
   if (

@@ -21,7 +21,7 @@ module.exports = {
 
         // Match password
         let userPassword
-        if(user.otp==''){
+        if(user.otp==undefined || user.otp==''){
           userPassword= user.password
         }
         else{
