@@ -1,6 +1,6 @@
-var express = require('express');
-var router = express.Router();
-var dataModel = require('../models/dailyInfo');
+let express = require('express');
+let router = express.Router();
+let dataModel = require('../models/dailyInfo');
 
 const {
   checkAuthenticated,
@@ -8,13 +8,13 @@ const {
 } = require('../controllers/auth_helper');
 
 router.get('/input', checkAuthenticated, async (req, res) => {
-  var displayName = req.user.name.displayName;
-  res.render('storyForm', { displayName });
+  let navDisplayName = req.user.name.displayName;
+  res.render('storyForm', { navDisplayName });
 });
 
 router.post('/input', async (req, res) => {
   console.log(req.body);
-  var userData = new dataModel({
+  let userData = new dataModel({
     _someId: req.body.ObjectId,
     symptoms: {
       chest_pain: req.body.chest_pain,
@@ -45,10 +45,10 @@ router.post('/input', async (req, res) => {
 });
 
 router.get('/collection', checkAuthenticated, async (req, res) => {
-  var displayName = req.user.name.displayName;
+  let navDisplayName = req.user.name.displayName;
   await dataModel.find({}, (err, data) => {
     if (err) console.error(err);
-    else res.render('info_display', { data, displayName });
+    else res.render('info_display', { data, navDisplayName });
   });
 });
 

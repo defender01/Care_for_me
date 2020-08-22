@@ -19,6 +19,7 @@
 
 	<main>
 		<div class="box-container">
+			<% include ./segments/messages %>
 			<form action="/auth/login" method="post" name="Login_Form">
 				<div class="title">
 					Welcome! Please Sign In
@@ -29,7 +30,7 @@
 						<div class="role-each">
 							<input class="form-check-input" type="radio" name="role" id="role1" value="generalUser" checked required>
 							<label class="form-check-label" for="role1">
-								Geneeral User
+								General User
 							</label>
 						</div>	
 						<div class="role-each">

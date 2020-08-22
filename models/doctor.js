@@ -24,17 +24,18 @@ const doctorSchema = new mongoose.Schema({
     required: true
   },
   birthDate : {
-    type: Date,
-    required: true
+    type: String
   },
   phoneNumber : {
     type: String,
     required: true
   },  
-  licenseOrReg: String,
-  gender: {
+  licenseOrReg: {
     type: String,
     required: true
+  },
+  gender: {
+    type: String
   },
   location:{
     country: String,
@@ -54,19 +55,19 @@ const doctorSchema = new mongoose.Schema({
     subject: String
   }],
   training:[{
-    trainingName: String,
-    trainingYear: String,
-    trainingDetails: String,
+    name: String,
+    year: String,
+    details: String,
   }],
-  workAndExperiance: [{
+  workAndExperience: [{
     workPlace: String,
     workFromYear: Number,
     workToYear: Number,
   }],
   awardAndHonour:[{
-    awardName: String,
-    awardYear: Number,
-    awardDetails: String
+    name: String,
+    year: Number,
+    details: String
   }],
   termAgree: {
     type: String,

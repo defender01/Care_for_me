@@ -5,8 +5,6 @@ var flash = require('connect-flash')
 var session = require("express-session")
 var passport = require("passport")
 
-var displayName = ''
-
 require("dotenv").config()
 
 // Passport Config
@@ -67,18 +65,19 @@ app.use(function(req, res, next) {
 
 
 app.get("/home", async (req, res) => {
-  let displayName = ''
+  let navDisplayName = ''
   if(req.user)
-    displayName = req.user.name.displayName
-  else displayName = ''
-   res.render("home", {displayName})
+    navDisplayName = req.user.name.displayName
+  else navDisplayName = ''
+   res.render("home", {navDisplayName})
 })
 
 app.get("/", async (req, res) => {
+  let navDisplayName = ''
   if(req.user)
-    displayName = req.user.name.displayName
-  else displayName = ''
-   res.render("home", {displayName})
+    navDisplayName = req.user.name.displayName
+  else navDisplayName = ''
+   res.render("home", {navDisplayName})
 })
 
 
