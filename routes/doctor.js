@@ -4,14 +4,14 @@ const mongoose = require("mongoose");
 const {
   checkAuthenticated,
   checkNotAuthenticated,
+  checkAuthenticatedDoctor
 } = require("../controllers/auth_helper");
 
 
 const { parameterModel } = require("../models/followup");
 
-router.get('/followupQues',checkAuthenticated, async (req, res) => {
+router.get('/followupQues',checkAuthenticatedDoctor, async (req, res) => {
   let parameters = await parameterModel.find({})
-  console.log(parameters)
   let navDisplayName = req.user.name.displayName;
     res.render('followupQues', {navDisplayName, parameters})
 })

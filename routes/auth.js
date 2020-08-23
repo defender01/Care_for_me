@@ -7,6 +7,7 @@ const passport = require("passport");
 const { forgotpassHandler, postResetPass, checkNotAuthenticated } = require("../controllers/auth_helper");
 // Load User model
 const User = require("../models/userInfo");
+const { session } = require("passport");
 const Doctor = require("../models/doctor").doctorModel;
 
 let checkNotNull = (val) => {
@@ -433,6 +434,11 @@ router.post("/register/patient", async (req, res) => {
 router.get("/login", checkNotAuthenticated, (req, res) => res.render("login"));
 
 router.post("/login", async (req, res, next) => {
+  // stored URL in the session
+  let sessionURL = req.session.returnTo;
+  console.log("sessionURL : " + sessionURL)
+  delete req.session.returnTo;
+  
   const{role, emailOrPhone}=req.body
   console.log(req.body)
   let successRedirectUrl
@@ -443,7 +449,7 @@ router.post("/login", async (req, res, next) => {
     // if user is signing in using otp we should reset the otp to null
     if(user){
       if(user.otp==undefined || user.otp==''){
-        successRedirectUrl = "/data/collection"
+        successRedirectUrl = sessionURL || "/home"
       }
       else{
         user.otp =''
@@ -459,8 +465,9 @@ router.post("/login", async (req, res, next) => {
     })(req, res, next);
   }
   else{
+    console.log('checking doctor')
     passport.authenticate("doctorStrategy", {
-      successRedirect: "/doctor/followupQues",
+      successRedirect: sessionURL || "/doctor/followupQues",
       failureRedirect: "/auth/login",
       failureFlash: true,
     })(req, res, next);
@@ -471,6 +478,7 @@ router.post("/login", async (req, res, next) => {
 router.get("/logout", (req, res) => {
   if (req.user) {
     req.logout();
+    delete req.session.currentLoggedIn;
     req.flash("success_msg", "You are logged out");
   } else {
     req.flash("error_msg", "You are not logged in");
@@ -483,8 +491,8 @@ router.post("/forgotpass", forgotpassHandler)
 
 // resetpassword
 router.get("/resetpassword", (req, res)=>{
-  let displayName = req.user.name.displayName;
-  res.render('resetPass', {displayName})
+  let navDisplayName = req.user.name.displayName;
+  res.render('resetPass', {navDisplayName})
 })
 router.post("/resetpassword", postResetPass)
 

@@ -8,7 +8,7 @@ module.exports = {
   patientStrategy: function(passport) {
   passport.use( 
     'patientStrategy',   
-    new LocalStrategy({ usernameField: 'emailOrPhone' }, (emailOrPhone, password, done) => {
+    new LocalStrategy({ usernameField: 'emailOrPhone',passReqToCallback: true }, (req,emailOrPhone, password, done) => {
       // Match user
       User.findOne({
         // email: email
@@ -21,15 +21,16 @@ module.exports = {
 
         // Match password
         let userPassword
-        if(user.otp==undefined || user.otp==''){
-          userPassword= user.password
+        if(typeof user.otp=='undefined' || user.otp==''){
+          userPassword = user.password
         }
         else{
-          userPassword= user.otp          
+          userPassword = user.otp          
         }
         bcrypt.compare(password, userPassword, (err, isMatch) => {
           if (err) throw err;
           if (isMatch) {
+            req.session.currentLoggedIn = 'patient';
             return done(null, user);
           } else {
             return done(null, false, { message: 'Password incorrect' });
@@ -52,7 +53,7 @@ module.exports = {
 doctorStrategy: function(passport) {
   passport.use(    
     'doctorStrategy',
-    new LocalStrategy({ usernameField: 'emailOrPhone' }, (emailOrPhone, password, done) => {
+    new LocalStrategy({ usernameField: 'emailOrPhone', passReqToCallback: true }, (req, emailOrPhone, password, done) => {
       // Match user
       User.findOne({
         // email: email
@@ -65,7 +66,7 @@ doctorStrategy: function(passport) {
 
         // Match password
         let userPassword
-        if(user.otp==''){
+        if(typeof user.otp == 'undefined' || user.otp==''){
           userPassword= user.password
         }
         else{
@@ -74,6 +75,8 @@ doctorStrategy: function(passport) {
         bcrypt.compare(password, userPassword, (err, isMatch) => {
           if (err) throw err;
           if (isMatch) {
+            req.session.currentLoggedIn = 'doctor';
+            console.log("Success")
             return done(null, user);
           } else {
             return done(null, false, { message: 'Password incorrect' });

@@ -69,6 +69,7 @@ const doctorSchema = new mongoose.Schema({
     year: Number,
     details: String
   }],
+  otp: String,
   termAgree: {
     type: String,
     default: 'No'

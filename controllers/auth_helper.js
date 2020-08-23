@@ -48,14 +48,36 @@ async function forgotpassHandler (req, res){
   }
 }
 
-function checkAuthenticated(req, res, next) {
-  if (req.isAuthenticated()) {
+function checkAuthenticated(req, res, next){
+  if(req.isAuthenticated()) {
+    if(typeof req.session.currentLoggedIn != 'undefined' && req.session.currentLoggedIn == 'doctor'){
+      req.flash('error_msg', 'Please log in as General User to view that resource')
+      res.redirect('back');
+      return
+    } 
     return next();
   }
+  req.session.returnTo = req.originalUrl; 
   req.flash('error_msg', 'Please log in to view that resource')
   res.redirect('/auth/login');
 }
-function checkNotAuthenticated(req, res, next) {
+
+
+function checkAuthenticatedDoctor(req, res, next){
+  if(req.isAuthenticated()) {
+    if(typeof req.session.currentLoggedIn != 'undefined' && req.session.currentLoggedIn == 'patient'){
+      req.flash('error_msg', 'Please log in as Doctor to view that resource')
+      res.redirect('back');
+      return
+    } 
+    return next();
+  }
+  req.session.returnTo = req.originalUrl; 
+  req.flash('error_msg', 'Please log in to view that resource')
+  res.redirect('/auth/login');
+}
+
+function checkNotAuthenticated(req, res, next){
   if (!req.isAuthenticated()) {
     return next();
   }
@@ -65,13 +87,12 @@ function checkNotAuthenticated(req, res, next) {
 
 
 async function postResetPass (req, res){
-  let displayName = req.user.name.displayName;
+  let navDisplayName = req.user.name.displayName;
 
   const{
     password,
     password2
   }=req.body
-
 
   let errors = [];
 
@@ -92,7 +113,7 @@ async function postResetPass (req, res){
 
 
   if (errors.length > 0) {
-    res.render("resetPass", {displayName, errors});
+    res.render("resetPass", {navDisplayName, errors});
   } else {
     let user = User.findOne({email:req.user.name.email})
     console.log({user})
@@ -104,7 +125,7 @@ async function postResetPass (req, res){
 
         try{          
           await user.save()
-          res.render("home",{displayName});
+          res.render("home",{navDisplayName});
         }catch(err){res.render('404',{error: err.message})}
 
       });
@@ -117,5 +138,6 @@ module.exports= {
   forgotpassHandler,
   postResetPass,
   checkAuthenticated,
-  checkNotAuthenticated
+  checkNotAuthenticated,
+  checkAuthenticatedDoctor
 }
