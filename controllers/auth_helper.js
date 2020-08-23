@@ -1,6 +1,7 @@
 const mongoose = require('mongoose')
 const bcrypt = require('bcryptjs');
-const User = require("../models/userInfo");
+const randomstring = require('randomstring')
+const User = require("../models/userInfo")
 
 const {sendMail}= require('./mailController')
 
@@ -10,41 +11,47 @@ async function forgotpassHandler (req, res){
   console.log(req.body)
   try{
     if(role==='generalUser'){
-      let otp = new mongoose.Types.ObjectId()
-      let hashedOtp
+      let otp = randomstring.generate(6).toLowerCase()
+      let hashedOtp = ''
   
       // hashing the otp before saving to database
-      bcrypt.genSalt(10, (err, salt) => {
-        bcrypt.hash(otp, salt, (err, hash) => {
-          if(err)res.send({ error: err.message })
-          hashedOtp=hash
-        });
-      });
-      
-      let user= await User.findOneAndUpdate(
-          {
-            $or: [ { email: emailOrPhone }, { phoneNumber: emailOrPhone } ]
-          },
-          {
-            otp: hashedOtp
-          },
-          {
-            new: true
+      bcrypt.genSalt(10, async (err, salt) => {
+         bcrypt.hash(otp, salt, async (err, hash) => {
+          if(err){
+            res.send({ error: err.message })
+            // throw err
           }
-        )
-        
-        let mailData ={
-          mailTo: user.email,
-          subject: 'Account passowrd forgotten',
-          msg: `Dear user, We are providing you an one time password.Please use this one time password to login.`+
-          `After login please change the password. Your one time password is:\n ${otp}\n `,
-        }
-        sendMail(mailData)
-    }
-    res.send({ successMsg:"We have sent you an email with temporary password"});
+          hashedOtp=hash
+          let user =  await User.findOneAndUpdate(
+            {
+              $or: [ { email: emailOrPhone }, { phoneNumber: emailOrPhone } ]
+            },
+            {
+              otp: hashedOtp
+            },
+            {
+              new: true
+            }
+          )
 
+          // sending mail
+          let mailData ={
+            mailTo: user.email,
+            subject: 'Account passowrod forgotten',
+            msg: `Dear user, We are providing you an one time password.Please use this one time password to login.`+
+            `After login please change the password. Your one time password is:\n ${otp}\n `,
+          }
+          sendMail(mailData)
+
+        });
+      });      
+        
+    }
+    res.send({ success:"We have sent you an email with temporary password"});
+    
   }catch(err){
     res.send({error: err.message})
+    // throw err
   }
 }
 
@@ -65,7 +72,7 @@ function checkNotAuthenticated(req, res, next) {
 
 
 async function postResetPass (req, res){
-  let displayName = req.user.name.displayName;
+  let navDisplayName = req.user.name.displayName;
 
   const{
     password,
@@ -92,21 +99,17 @@ async function postResetPass (req, res){
 
 
   if (errors.length > 0) {
-    res.render("resetPass", {displayName, errors});
+    res.render("resetPass", {navDisplayName, errors});
   } else {
-    let user = User.findOne({email:req.user.name.email})
-    console.log({user})
+    let user = await User.findOne({email:req.user.email})
+    user.password = password
 
     bcrypt.genSalt(10, (err, salt) => {
-      bcrypt.hash(password, salt, async (err, hash) => {
+      bcrypt.hash(user.password, salt, async (err, hash) => {
         if (err) res.render('404',{error: err.message});
         user.password = hash;
-
-        try{          
-          await user.save()
-          res.render("home",{displayName});
-        }catch(err){res.render('404',{error: err.message})}
-
+        await user.save()
+        res.redirect('/');
       });
     });
 

@@ -4,7 +4,7 @@ const bcrypt = require("bcryptjs");
 const passport = require("passport");
 
 
-const { forgotpassHandler, postResetPass, checkNotAuthenticated } = require("../controllers/auth_helper");
+const { forgotpassHandler, postResetPass, checkNotAuthenticated, checkAuthenticated } = require("../controllers/auth_helper");
 // Load User model
 const User = require("../models/userInfo");
 const Doctor = require("../models/doctor").doctorModel;
@@ -332,7 +332,7 @@ router.post("/register/patient", async (req, res) => {
       errors,
       firstName,
       lastName,
-      displayName,
+      navDisplayName,
       email,
       birthDate,
       phoneNumber,
@@ -366,7 +366,7 @@ router.post("/register/patient", async (req, res) => {
           errors,
           firstName,
           lastName,
-          displayName,
+          navDisplayName,
           email,
           birthDate,
           phoneNumber,
@@ -442,12 +442,10 @@ router.post("/login", async (req, res, next) => {
     console.log(user)
     // if user is signing in using otp we should reset the otp to null
     if(user){
-      if(user.otp==undefined || user.otp==''){
+      if(typeof user.otp== 'undefined' || user.otp==''){
         successRedirectUrl = "/data/collection"
       }
       else{
-        user.otp =''
-        await user.save()
         successRedirectUrl = "/auth/resetpassword"
       }
     }
@@ -482,11 +480,11 @@ router.get("/logout", (req, res) => {
 router.post("/forgotpass", forgotpassHandler)
 
 // resetpassword
-router.get("/resetpassword", (req, res)=>{
-  let displayName = req.user.name.displayName;
-  res.render('resetPass', {displayName})
+router.get("/resetpassword", checkAuthenticated, (req, res)=>{
+  let navDisplayName = req.user.name.displayName;
+  res.render('resetPass', {navDisplayName})
 })
-router.post("/resetpassword", postResetPass)
+router.post("/resetpassword",checkAuthenticated, postResetPass)
 
 
 module.exports = router;

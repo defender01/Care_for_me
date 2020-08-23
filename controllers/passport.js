@@ -14,18 +14,23 @@ module.exports = {
         // email: email
         // email: emailOrPhone
         $or: [ { email: emailOrPhone }, { phoneNumber: emailOrPhone } ] 
-      }).then(user => {
+      }).then(async (user) => {
         if (!user) {
           return done(null, false, { message: 'That email or phone no is not registered' });
         }
-
+        console.log('in passport strategy')
+        console.log(user)
         // Match password
         let userPassword
-        if(user.otp==undefined || user.otp==''){
+        if(typeof user.otp== 'undefined' || user.otp==''){
           userPassword= user.password
         }
         else{
-          userPassword= user.otp          
+          console.log('checking otp')          
+          userPassword= user.otp
+          // resetting otp
+          user.otp =''
+          await user.save()          
         }
         bcrypt.compare(password, userPassword, (err, isMatch) => {
           if (err) throw err;
@@ -65,7 +70,7 @@ doctorStrategy: function(passport) {
 
         // Match password
         let userPassword
-        if(user.otp==''){
+        if(typeof user.otp== 'undefined' || user.otp==''){
           userPassword= user.password
         }
         else{
