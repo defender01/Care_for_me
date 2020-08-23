@@ -4,7 +4,7 @@ const bcrypt = require("bcryptjs");
 const passport = require("passport");
 
 
-const { forgotpassHandler, postResetPass, checkNotAuthenticated } = require("../controllers/auth_helper");
+const { forgotpassHandler, postResetPass, checkNotAuthenticated, checkAuthenticated } = require("../controllers/auth_helper");
 // Load User model
 const User = require("../models/userInfo");
 const { session } = require("passport");
@@ -333,7 +333,7 @@ router.post("/register/patient", async (req, res) => {
       errors,
       firstName,
       lastName,
-      displayName,
+      navDisplayName,
       email,
       birthDate,
       phoneNumber,
@@ -367,7 +367,7 @@ router.post("/register/patient", async (req, res) => {
           errors,
           firstName,
           lastName,
-          displayName,
+          navDisplayName,
           email,
           birthDate,
           phoneNumber,
@@ -436,7 +436,7 @@ router.get("/login", checkNotAuthenticated, (req, res) => res.render("login"));
 router.post("/login", async (req, res, next) => {
   // stored URL in the session
   let sessionURL = req.session.returnTo;
-  console.log("sessionURL : " + sessionURL)
+  // console.log("sessionURL : " + sessionURL)
   delete req.session.returnTo;
   
   const{role, emailOrPhone}=req.body
@@ -448,12 +448,10 @@ router.post("/login", async (req, res, next) => {
     console.log(user)
     // if user is signing in using otp we should reset the otp to null
     if(user){
-      if(user.otp==undefined || user.otp==''){
+      if(typeof user.otp == 'undefined' || user.otp==''){
         successRedirectUrl = sessionURL || "/home"
       }
       else{
-        user.otp =''
-        await user.save()
         successRedirectUrl = "/auth/resetpassword"
       }
     }
@@ -490,11 +488,11 @@ router.get("/logout", (req, res) => {
 router.post("/forgotpass", forgotpassHandler)
 
 // resetpassword
-router.get("/resetpassword", (req, res)=>{
+router.get("/resetpassword", checkAuthenticated, (req, res)=>{
   let navDisplayName = req.user.name.displayName;
   res.render('resetPass', {navDisplayName})
 })
-router.post("/resetpassword", postResetPass)
+router.post("/resetpassword",checkAuthenticated, postResetPass)
 
 
 module.exports = router;

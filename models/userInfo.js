@@ -48,7 +48,9 @@ const UserSchema = new mongoose.Schema({
     city: String,
     additionalAddress: String,
   },
-  otp: String,
+  otp: {
+    type:String
+  },
   termAgree: {
     type: String,
     default: 'No'
