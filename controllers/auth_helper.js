@@ -47,7 +47,7 @@ function checkNotAuthenticated(req, res, next) {
 }
 
 
-let checkEmailNotVerified = async (req, res) => {
+let checkEmailNotVerified = async (req, res, next) => {
   if(!req.user.emailVerified) {
     return next()
   }
