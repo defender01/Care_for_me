@@ -15,6 +15,10 @@ const UserSchema = new mongoose.Schema({
       required: true
     }
   },
+  role: {
+    type: String,
+    default: 'patient'
+  },
   email: {
     type: String,
     required: true
@@ -50,6 +54,10 @@ const UserSchema = new mongoose.Schema({
   },
   otp: {
     type:String
+  },
+  emailVerified: {
+    type: Boolean,
+    default: false
   },
   termAgree: {
     type: String,

@@ -3,6 +3,7 @@ const bcrypt = require('bcryptjs');
 
 // Load User model
 const User = require('../models/userInfo');
+const Doctor = require("../models/doctor").doctorModel;
 
 module.exports = {
   patientStrategy: function(passport) {
@@ -46,22 +47,22 @@ module.exports = {
     })
   );
 
-  passport.serializeUser(function(user, done) {
-    done(null, user.id);
-  });
+  // passport.serializeUser(function(user, done) {
+  //   done(null, user.id);
+  // });
 
-  passport.deserializeUser(function(id, done) {
-    User.findById(id, function(err, user) {
-      done(err, user);
-    });
-  });
+  // passport.deserializeUser(function(id, done) {
+  //   User.findById(id, function(err, user) {
+  //     done(err, user);
+  //   });
+  // });
 },
 doctorStrategy: function(passport) {
   passport.use(    
     'doctorStrategy',
     new LocalStrategy({ usernameField: 'emailOrPhone', passReqToCallback: true }, (req, emailOrPhone, password, done) => {
       // Match user
-      User.findOne({
+      Doctor.findOne({
         // email: email
         // email: emailOrPhone
         $or: [ { email: emailOrPhone }, { phoneNumber: emailOrPhone } ] 
@@ -92,14 +93,14 @@ doctorStrategy: function(passport) {
     })
   );
 
-  passport.serializeUser(function(user, done) {
-    done(null, user.id);
-  });
+  // passport.serializeUser(function(user, done) {
+  //   done(null, user.id);
+  // });
 
-  passport.deserializeUser(function(id, done) {
-    User.findById(id, function(err, user) {
-      done(err, user);
-    });
-  });
+  // passport.deserializeUser(function(id, done) {
+  //   Doctor.findById(id, function(err, user) {
+  //     done(err, user);
+  //   });
+  // });
 }
 }

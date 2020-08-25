@@ -4,7 +4,7 @@ const bcrypt = require("bcryptjs");
 const passport = require("passport");
 
 
-const { forgotpassHandler, postResetPass, checkNotAuthenticated, checkAuthenticated } = require("../controllers/auth_helper");
+const { forgotpassHandler, postResetPass, emailVerificationLinkGenerator, checkEmailNotVerified, emailVerificationHandler, checkNotAuthenticated, checkAuthenticated, checkAuthenticatedDoctor } = require("../controllers/auth_helper");
 // Load User model
 const User = require("../models/userInfo");
 const { session } = require("passport");
@@ -186,7 +186,6 @@ router.post("/register/doctor", async (req, res) => {
     !email ||
     !password ||
     !password2 ||
-    !birthDate ||
     !phoneNumber ||
     !licenseOrReg  ||
     !designation ||
@@ -449,12 +448,13 @@ router.post("/login", async (req, res, next) => {
     // if user is signing in using otp we should reset the otp to null
     if(user){
       if(typeof user.otp == 'undefined' || user.otp==''){
-        successRedirectUrl = sessionURL || "/home"
+        successRedirectUrl = (user.emailVerified) ? (sessionURL || "/home") : '/auth/accountVerification/patient'
       }
       else{
         successRedirectUrl = "/auth/resetpassword"
       }
     }
+    else successRedirectUrl = "/home"
 
     passport.authenticate("patientStrategy", {
       successRedirect: successRedirectUrl,
@@ -475,8 +475,8 @@ router.post("/login", async (req, res, next) => {
 // Logout
 router.get("/logout", (req, res) => {
   if (req.user) {
-    req.logout();
     delete req.session.currentLoggedIn;
+    req.logout();
     req.flash("success_msg", "You are logged out");
   } else {
     req.flash("error_msg", "You are not logged in");
@@ -494,5 +494,25 @@ router.get("/resetpassword", checkAuthenticated, (req, res)=>{
 })
 router.post("/resetpassword",checkAuthenticated, postResetPass)
 
+router.get("/accountVerification/patient", checkAuthenticated, checkEmailNotVerified, async (req, res) => {
+  let navDisplayName = req.user.name.displayName;
+  let fullName = req.user.name.firstName + " " + req.user.name.lastName
+  let userEmail = req.user.email
+  let role = "patient"
+  res.render("accountVerification", {navDisplayName, fullName, userEmail, role})
+})
+
+router.get("/accountVerification/doctor", checkAuthenticatedDoctor, checkEmailNotVerified, async (req, res) => {
+  let navDisplayName = req.user.name.displayName;
+  let fullName = req.user.name.firstName + " " + req.user.name.lastName
+  let userEmail = req.user.email
+  let role = "doctor"
+  res.render("accountVerification", {navDisplayName, fullName, userEmail, role})
+})
+
+router.post("/accountVerification/patient", checkAuthenticated, emailVerificationLinkGenerator)
+router.post("/accountVerification/doctor", checkAuthenticatedDoctor, emailVerificationLinkGenerator)
+
+router.get("/verify_email/:hash", emailVerificationHandler)
 
 module.exports = router;

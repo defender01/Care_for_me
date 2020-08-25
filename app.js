@@ -4,12 +4,29 @@ var bodyParser = require("body-parser")
 var flash = require('connect-flash')
 var session = require("express-session")
 var passport = require("passport")
+const User = require('./models/userInfo');
+const Doctor = require("./models/doctor").doctorModel;
 
 require("dotenv").config()
 
 // Passport Config
 require('./controllers/passport').patientStrategy(passport)
 require('./controllers/passport').doctorStrategy(passport)
+
+passport.serializeUser(function (user, done) {
+  var key = {
+    id: user._id,
+    type: user.role
+  }
+  done(null, key);
+});
+
+passport.deserializeUser(function (key, done) {
+  var Model = (key.type == 'patient') ? User : Doctor;
+  Model.findOne({ _id: key.id }, function (err, user) {
+    done(err, user);
+  })
+});
 
 var app = express()
 
@@ -55,8 +72,8 @@ mongoose
   .then(() => console.log("connected to database!!"))
   .catch(err => console.log(err))
 
-  // Global variables
-app.use(function(req, res, next) {
+// Global variables
+app.use(function (req, res, next) {
   res.locals.success_msg = req.flash('success_msg')
   res.locals.error_msg = req.flash('error_msg')
   res.locals.error = req.flash('error')
@@ -66,33 +83,31 @@ app.use(function(req, res, next) {
 
 app.get("/home", async (req, res) => {
   let navDisplayName = ''
-  if(req.user)
+  if (req.user)
     navDisplayName = req.user.name.displayName
   else navDisplayName = ''
-   res.render("home", {navDisplayName})
+  res.render("home", { navDisplayName })
 })
 
 app.get("/", async (req, res) => {
   let navDisplayName = ''
-  if(req.user)
+  if (req.user)
     navDisplayName = req.user.name.displayName
   else navDisplayName = ''
-   res.render("home", {navDisplayName})
+  res.render("home", { navDisplayName })
 })
-
 
 app.get("/test", async (req, res) => {
   res.render("test")
 })
-        
 
 app.post("/test", async (req, res) => {
   console.log(req.body)
 })
-        
+
 
 app.get("/termsAndConditions", (req, res) => {
-    res.render("termsAndConditions")
+  res.render("termsAndConditions")
 })
 
 

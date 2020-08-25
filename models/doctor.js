@@ -15,6 +15,10 @@ const doctorSchema = new mongoose.Schema({
       required: true
     }
   },
+  role: {
+    type: String,
+    default: 'doctor'
+  },
   email: {
     type: String,
     required: true
@@ -70,6 +74,10 @@ const doctorSchema = new mongoose.Schema({
     details: String
   }],
   otp: String,
+  emailVerified: {
+    type: Boolean,
+    default: false
+  },
   termAgree: {
     type: String,
     default: 'No'

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+    integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+
+  <!-- fontawesome cdn -->
+  <link rel="stylesheet" href="//use.fontawesome.com/releases/v5.0.7/css/all.css">
+
+  <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+    crossorigin="anonymous"></script>
+
+  <!-- stylesheet for navbar -->
+  <link rel="stylesheet" href="/assets/cssFiles/navbar.css">
+  <link rel="stylesheet" href="/assets/cssFiles/accountVerification.css" />
+
+  <!-- for loader -->
+  <script src="/assets/jsFiles/loader.js"></script>
+  <link rel="stylesheet" href="/assets/cssFiles/loader.css" />
+
+  <title>Account Verification - Care for me</title>
+</head>
+
+<body>
+
+  <!-- navigation bar -->
+  <% include ./segments/navbar %>
+
+  <main>
+    <div class="wrapper">
+      <div class="notify-bar">
+        <div class="title">
+          Account Verification
+        </div>
+      </div>
+
+      <div class="box-container">
+        <div class="msg-container">
+          <% include ./segments/messages %>
+        </div>
+
+        <div class="title">
+          <% if(typeof fullName != "undefined"){ %>
+            Hello <%= fullName %>, welcome to Care for me!
+          <% } else{ %>
+            Hello user, welcome to Care for me!
+          <% } %>
+        </div>
+        <div class="text-container">
+          <p>To get started using this website, verify your email address by clicking below:</p>
+        </div>
+        <form method="POST" action="/auth/accountVerification/<%= typeof role != 'undefined' ? role : '404' %>">
+          <div class="btn-container">
+            <input name="email" type="hidden" value="<%= typeof userEmail != 'undefined' ? userEmail : 'email not found' %>">
+            <input name="role" type="hidden" value="<%= typeof role != 'undefined' ? role : 'role not found' %>"> 
+            <button type="submit" class="verify-btn" id="verifyBtn">
+              Verify Email
+            </button>
+          </div>
+        </form>
+      </div>
+
+    </div>
+
+  </main>
+
+  <!-- Optional JavaScript -->
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+    integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+    integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+    crossorigin="anonymous"></script>
+
+</body>
+
+</html>

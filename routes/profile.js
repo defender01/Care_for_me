@@ -18,6 +18,7 @@ const camelCase = require("../controllers/functionCollection").camelCase;
 const {
   checkAuthenticated,
   checkNotAuthenticated,
+  checkEmailVerified,
 } = require("../controllers/auth_helper");
 const { exists } = require("../models/userInfo");
 
@@ -57,7 +58,7 @@ let getQuestionsFromAllSections = async () => {
   return data;
 };
 
-router.get("/", checkAuthenticated, async (req, res) => {
+router.get("/", checkAuthenticated, checkEmailVerified, async (req, res) => {
   let navDisplayName = req.user.name.displayName;
   let userDetails,
     wholeSectionCollection,
@@ -148,7 +149,7 @@ let processAnswerModelData = (medicalHistoryData) => {
   return { mapQuesToAnswer, mapSubSecToAdditionalIDs };
 };
 
-router.get("/edit", checkAuthenticated, async (req, res) => {
+router.get("/edit", checkAuthenticated, checkEmailVerified, async (req, res) => {
   let navDisplayName = req.user.name.displayName;
   let substanceData, vaccineData, medicalHistoryData;
 
@@ -182,7 +183,7 @@ router.get("/edit", checkAuthenticated, async (req, res) => {
   });
 });
 
-router.post("/edit", checkAuthenticated, async (req, res) => {
+router.post("/edit", checkAuthenticated, checkEmailVerified, async (req, res) => {
   let data = req.body;
   let secID,
     subSecID,
@@ -326,7 +327,7 @@ router.post("/edit", checkAuthenticated, async (req, res) => {
   res.redirect("/profile");
 });
 
-router.get("/update/:sectionID", checkAuthenticated, async (req, res) => {
+router.get("/update/:sectionID", checkAuthenticated, checkEmailVerified, async (req, res) => {
   let sectionID = req.params.sectionID;
   let navDisplayName = req.user.name.displayName;
 
@@ -498,7 +499,7 @@ router.get("/update/:sectionID", checkAuthenticated, async (req, res) => {
   res.render("404", { error: "404 Page Not Found" });
 });
 
-router.post("/update-personalInfo", checkAuthenticated, async (req, res) => {
+router.post("/update-personalInfo", checkAuthenticated, checkEmailVerified, async (req, res) => {
   let data = req.user;
   console.log({ data });
   console.log(req.body)
@@ -658,7 +659,7 @@ router.post("/update-personalInfo", checkAuthenticated, async (req, res) => {
   }
 });
 
-router.post("/update/:sectionID", checkAuthenticated, async (req, res) => {
+router.post("/update/:sectionID", checkAuthenticated, checkEmailVerified, async (req, res) => {
   let paramSectoinID = req.params.sectionID;
 
   let data = req.body;

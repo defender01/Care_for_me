@@ -4,15 +4,16 @@ let dataModel = require('../models/dailyInfo');
 
 const {
   checkAuthenticated,
-  checkNotAuthenticated
+  checkNotAuthenticated,
+  checkEmailVerified
 } = require('../controllers/auth_helper');
 
-router.get('/input', checkAuthenticated, async (req, res) => {
+router.get('/input', checkAuthenticated, checkEmailVerified, async (req, res) => {
   let navDisplayName = req.user.name.displayName;
   res.render('storyForm', { navDisplayName });
 });
 
-router.post('/input', async (req, res) => {
+router.post('/input', checkAuthenticated, checkEmailVerified, async (req, res) => {
   console.log(req.body);
   let userData = new dataModel({
     _someId: req.body.ObjectId,
@@ -44,7 +45,7 @@ router.post('/input', async (req, res) => {
   res.redirect('/data/collection');
 });
 
-router.get('/collection', checkAuthenticated, async (req, res) => {
+router.get('/collection', checkAuthenticated, checkEmailVerified, async (req, res) => {
   let navDisplayName = req.user.name.displayName;
   await dataModel.find({}, (err, data) => {
     if (err) console.error(err);

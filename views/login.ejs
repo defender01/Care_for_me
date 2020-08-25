@@ -75,7 +75,7 @@
 		$('#forgotPass').on('click', (e)=>{
 			e.preventDefault();
 			let role = $('#role1').is(':checked')? 'generalUser': 'doctor'
-			let emailOrPhone = $('#emailOrPhone').val()
+			let emailOrPhone = $('#emailOrPhone').val().trim()
 			if(emailOrPhone==''){
 				alert('Please provide your email address')
 			}
