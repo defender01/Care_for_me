@@ -73,7 +73,9 @@ const doctorSchema = new mongoose.Schema({
     year: Number,
     details: String
   }],
-  otp: String,
+  otp: {
+    type:String
+  },
   emailVerified: {
     type: Boolean,
     default: false

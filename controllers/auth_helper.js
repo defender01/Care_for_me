@@ -47,7 +47,7 @@ function checkNotAuthenticated(req, res, next) {
 }
 
 
-let checkEmailNotVerified = async (req, res) => {
+let checkEmailNotVerified = async (req, res, next) => {
   if(!req.user.emailVerified) {
     return next()
   }
@@ -125,47 +125,96 @@ async function postResetPass(req, res) {
   }
 }
 
+async function postResetPassDoctor(req, res) {
+  console.log(req.body)
+
+  let navDisplayName = req.user.name.displayName;
+
+  const {
+    password,
+    password2
+  } = req.body
+
+  let errors = [];
+
+  if (
+    !password ||
+    !password2
+  ) {
+    errors.push({ msg: "Please enter all required fields" });
+  }
+
+  if (password != password2) {
+    errors.push({ msg: "Passwords do not match" });
+  }
+
+  if (password.length < 6) {
+    errors.push({ msg: "Password must be at least 6 characters" });
+  }
+
+
+  if (errors.length > 0) {
+    res.render("resetPass", { navDisplayName, errors });
+  } else {
+    let user = await Doctor.findOne({ email: req.user.email })
+    user.password = password
+
+    bcrypt.genSalt(10, (err, salt) => {
+      bcrypt.hash(user.password, salt, async (err, hash) => {
+        if (err) res.render('404', { error: err.message });
+        user.password = hash;
+        await user.save()
+        res.redirect('/');
+      });
+    });
+
+  }
+}
+
 async function forgotpassHandler(req, res) {
   const { role, emailOrPhone } = req.body
   console.log('came in forgotpass')
   console.log(req.body)
   try {
-    if (role === 'generalUser') {
-      let otp = cryptoRandomString({ length: 6 });
-      let hashedOtp = ''
+    // selecting User or Doctor model according to role field value
+    model = (role=='patient')? User : Doctor
+    let otp = cryptoRandomString({ length: 6 });
+    let hashedOtp = ''
 
-      // hashing the otp before saving to database
-      bcrypt.genSalt(10, async (err, salt) => {
-        bcrypt.hash(otp, salt, async (err, hash) => {
-          if (err) {
-            res.send({ error: err.message })
-            // throw err
+    // hashing the otp before saving to database
+    bcrypt.genSalt(10, async (err, salt) => {
+      bcrypt.hash(otp, salt, async (err, hash) => {
+        if (err) {
+          console.error(err);
+          res.send({ error: err.message })
+        }
+        hashedOtp = hash
+        let user = await model.findOneAndUpdate(
+          {
+            $or: [{ email: emailOrPhone }, { phoneNumber: emailOrPhone }]
+          },
+          {
+            otp: hashedOtp
+          },
+          {
+            new: true
           }
-          hashedOtp = hash
-          let user = await User.findOneAndUpdate(
-            {
-              $or: [{ email: emailOrPhone }, { phoneNumber: emailOrPhone }]
-            },
-            {
-              otp: hashedOtp
-            },
-            {
-              new: true
-            }
-          )
-          // sending mail
-          let mailData = {
-            mailTo: user.email,
-            subject: 'Account passowrod forgotten',
-            msg: `Dear user, We are providing you an one time password.Please use this one time password to login.` +
-              `After login please change the password. Your one time password is:\n ${otp}\n `,
-          }
-          sendMail(mailData)
+        )
+        if(typeof user==='undefined'){
+          console.log('user wasnot found with this credential')
+          res.send({ error: "User is not registered" })
+        }
+        // sending mail
+        let mailData = {
+          mailTo: user.email,
+          subject: 'Account passowrod forgotten',
+          msg: `Dear user, We are providing you an one time password.Please use this one time password to login.` +
+            `After login please change the password. Your one time password is:\n ${otp}\n `,
+        }
+        sendMail(mailData)
 
-        });
       });
-
-    }
+    });
     res.send({ success: "We have sent you an email with temporary password" });
 
   } catch (err) {
@@ -403,6 +452,7 @@ let emailVerificationHandler = async (req, res) => {
 module.exports = {
   forgotpassHandler,
   postResetPass,
+  postResetPassDoctor,
   checkAuthenticated,
   checkNotAuthenticated,
   checkAuthenticatedDoctor,

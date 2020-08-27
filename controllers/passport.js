@@ -60,13 +60,13 @@ module.exports = {
 doctorStrategy: function(passport) {
   passport.use(    
     'doctorStrategy',
-    new LocalStrategy({ usernameField: 'emailOrPhone', passReqToCallback: true }, (req, emailOrPhone, password, done) => {
+    new LocalStrategy({ usernameField: 'emailOrPhone', passReqToCallback: true },  (req, emailOrPhone, password, done) => {
       // Match user
       Doctor.findOne({
         // email: email
         // email: emailOrPhone
         $or: [ { email: emailOrPhone }, { phoneNumber: emailOrPhone } ] 
-      }).then(user => {
+      }).then(async (user) => {
         if (!user) {
           return done(null, false, { message: 'That email or phone no is not registered' });
         }
@@ -78,6 +78,9 @@ doctorStrategy: function(passport) {
         }
         else{
           userPassword= user.otp
+          // resetting otp
+          user.otp =''
+          await user.save()  
         }
         bcrypt.compare(password, userPassword, (err, isMatch) => {
           if (err) throw err;

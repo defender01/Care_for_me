@@ -36,7 +36,7 @@
 					<h1>Choose a role</h1>
 					<div class="roles">
 						<div class="role-each">
-							<input class="form-check-input" type="radio" name="role" id="role1" value="generalUser" checked required>
+							<input class="form-check-input" type="radio" name="role" id="role1" value="patient" checked required>
 							<label class="form-check-label" for="role1">
 								General User
 							</label>
@@ -74,7 +74,7 @@
 	<script>
 		$('#forgotPass').on('click', (e)=>{
 			e.preventDefault();
-			let role = $('#role1').is(':checked')? 'generalUser': 'doctor'
+			let role = $('#role1').is(':checked')? 'patient': 'doctor'
 			let emailOrPhone = $('#emailOrPhone').val().trim()
 			if(emailOrPhone==''){
 				alert('Please provide your email address')

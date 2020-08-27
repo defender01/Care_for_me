@@ -4,7 +4,7 @@ const bcrypt = require("bcryptjs");
 const passport = require("passport");
 
 
-const { forgotpassHandler, postResetPass, emailVerificationLinkGenerator, checkEmailNotVerified, emailVerificationHandler, checkNotAuthenticated, checkAuthenticated, checkAuthenticatedDoctor } = require("../controllers/auth_helper");
+const { forgotpassHandler, postResetPass, postResetPassDoctor, emailVerificationLinkGenerator, checkEmailNotVerified, emailVerificationHandler, checkNotAuthenticated, checkAuthenticated, checkAuthenticatedDoctor } = require("../controllers/auth_helper");
 // Load User model
 const User = require("../models/userInfo");
 const { session } = require("passport");
@@ -441,7 +441,7 @@ router.post("/login", async (req, res, next) => {
   const{role, emailOrPhone}=req.body
   console.log(req.body)
   let successRedirectUrl
-  if (role == 'generalUser') {
+  if (role == 'patient') {
     let user = await User.findOne({$or: [ { email: emailOrPhone }, { phoneNumber: emailOrPhone } ] })
     console.log('checking user')
     console.log(user)
@@ -451,7 +451,7 @@ router.post("/login", async (req, res, next) => {
         successRedirectUrl = (user.emailVerified) ? (sessionURL || "/home") : '/auth/accountVerification/patient'
       }
       else{
-        successRedirectUrl = "/auth/resetpassword"
+        successRedirectUrl = "/auth/resetpassword/patient"
       }
     }
     else successRedirectUrl = "/home"
@@ -463,9 +463,22 @@ router.post("/login", async (req, res, next) => {
     })(req, res, next);
   }
   else{
-    console.log('checking doctor')
+    
+    let user = await Doctor.findOne({$or: [ { email: emailOrPhone }, { phoneNumber: emailOrPhone } ] })
+    console.log('checking user')
+    // if user is signing in using otp we should reset the otp to null
+    if(user){
+      if(typeof user.otp == 'undefined' || user.otp==''){
+        successRedirectUrl = (user.emailVerified) ? (sessionURL || "/home") : '/auth/accountVerification/doctor'
+      }
+      else{
+        successRedirectUrl = "/auth/resetpassword/doctor"
+      }
+    }
+    else successRedirectUrl = "/home"
+
     passport.authenticate("doctorStrategy", {
-      successRedirect: sessionURL || "/doctor/followupQues",
+      successRedirect: successRedirectUrl,
       failureRedirect: "/auth/login",
       failureFlash: true,
     })(req, res, next);
@@ -488,11 +501,17 @@ router.get("/logout", (req, res) => {
 router.post("/forgotpass", forgotpassHandler)
 
 // resetpassword
-router.get("/resetpassword", checkAuthenticated, (req, res)=>{
+router.get("/resetpassword/patient", checkAuthenticated, (req, res)=>{
   let navDisplayName = req.user.name.displayName;
-  res.render('resetPass', {navDisplayName})
+  res.render('resetPass', {navDisplayName, role:'doctor'})
 })
-router.post("/resetpassword",checkAuthenticated, postResetPass)
+router.post("/resetpassword/patient",checkAuthenticated, postResetPass)
+
+router.get("/resetpassword/doctor", checkAuthenticatedDoctor, (req, res)=>{
+  let navDisplayName = req.user.name.displayName;
+  res.render('resetPass', {navDisplayName, role:'doctor'})
+})
+router.post("/resetpassword/doctor",checkAuthenticatedDoctor, postResetPassDoctor)
 
 router.get("/accountVerification/patient", checkAuthenticated, checkEmailNotVerified, async (req, res) => {
   let navDisplayName = req.user.name.displayName;
