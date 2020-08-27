@@ -503,7 +503,7 @@ router.post("/forgotpass", forgotpassHandler)
 // resetpassword
 router.get("/resetpassword/patient", checkAuthenticated, (req, res)=>{
   let navDisplayName = req.user.name.displayName;
-  res.render('resetPass', {navDisplayName, role:'doctor'})
+  res.render('resetPass', {navDisplayName, role:'patient'})
 })
 router.post("/resetpassword/patient",checkAuthenticated, postResetPass)
 

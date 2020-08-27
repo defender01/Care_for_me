@@ -178,6 +178,7 @@ async function forgotpassHandler(req, res) {
   try {
     // selecting User or Doctor model according to role field value
     model = (role=='patient')? User : Doctor
+    subject = (role=='patient')? 'General account passowrod forgotten' : 'Doctor account passowrod forgotten'
     let otp = cryptoRandomString({ length: 6 });
     let hashedOtp = ''
 
@@ -207,7 +208,7 @@ async function forgotpassHandler(req, res) {
         // sending mail
         let mailData = {
           mailTo: user.email,
-          subject: 'Account passowrod forgotten',
+          subject: subject,
           msg: `Dear user, We are providing you an one time password.Please use this one time password to login.` +
             `After login please change the password. Your one time password is:\n ${otp}\n `,
         }
