@@ -22,27 +22,34 @@ module.exports = {
         console.log('in passport strategy')
         console.log(user)
         // Match password
-        let userPassword
-        if(typeof user.otp== 'undefined' || user.otp==''){
-          userPassword= user.password
-        }
-        else{
+        let  userOtp
+        if(typeof user.otp!= 'undefined' && user.otp!=''){
           console.log('checking otp')          
-          userPassword = user.otp
+          userOtp = user.otp
           // resetting otp
           user.otp =''
           await user.save()          
         }
 
-        bcrypt.compare(password, userPassword, (err, isMatch) => {
-          if (err) throw err;
-          if (isMatch) {
+        try{
+          console.log(password, user.password, userOtp)
+          console.log(typeof(password), typeof(user.password), typeof(userOtp))
+          console.log(String(password), String(user.password), String(userOtp))
+
+          let passwordMatch = await bcrypt.compare(String(password), String(user.password));
+          let passwordOrOtpMatch = await bcrypt.compare(String(password), String(userOtp));
+          console.log(passwordMatch, "  ",passwordOrOtpMatch)
+          if(passwordMatch|| passwordOrOtpMatch){
             req.session.currentLoggedIn = 'patient';
             return done(null, user);
-          } else {
+          } 
+          else {
             return done(null, false, { message: 'Password incorrect' });
           }
-        });
+        }catch(err){
+          console.error(err)
+        }
+
       });
     })
   );
@@ -72,26 +79,34 @@ doctorStrategy: function(passport) {
         }
 
         // Match password
-        let userPassword
-        if(typeof user.otp== 'undefined' || user.otp==''){
-          userPassword= user.password
-        }
-        else{
-          userPassword= user.otp
+        let  userOtp
+        if(typeof user.otp!= 'undefined' && user.otp!=''){
+          console.log('checking otp')          
+          userOtp = user.otp
           // resetting otp
           user.otp =''
-          await user.save()  
+          await user.save()          
         }
-        bcrypt.compare(password, userPassword, (err, isMatch) => {
-          if (err) throw err;
-          if (isMatch) {
+
+        try{
+          console.log(password, user.password, userOtp)
+          console.log(typeof(password), typeof(user.password), typeof(userOtp))
+          console.log(String(password), String(user.password), String(userOtp))
+
+          let passwordMatch = await bcrypt.compare(String(password), String(user.password));
+          let passwordOrOtpMatch = await bcrypt.compare(String(password), String(userOtp));
+          console.log(passwordMatch, "  ",passwordOrOtpMatch)
+          if(passwordMatch|| passwordOrOtpMatch){
             req.session.currentLoggedIn = 'doctor';
-            console.log("Success")
             return done(null, user);
-          } else {
+          } 
+          else {
             return done(null, false, { message: 'Password incorrect' });
           }
-        });
+        }catch(err){
+          console.error(err)
+        }
+
       });
     })
   );
