@@ -256,6 +256,7 @@ let emailVerificationLinkGenerator = async (req, res) => {
     return
   }
   try {
+    console.log('came in verification')
     if (role == "patient") {
       let patient = await User.findOne({ email: email })
       if (patient) {
