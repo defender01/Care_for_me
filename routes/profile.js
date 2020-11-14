@@ -649,7 +649,7 @@ router.post("/update-personalInfo", checkAuthenticated, checkEmailVerified, asyn
         } else {
           console.log({user})
           await user.save()
-          res.redirect("/home");
+          res.redirect("/");
         }
       }
     } catch (err) {

@@ -81,7 +81,7 @@ app.use(function (req, res, next) {
 })
 
 
-app.get("/home", async (req, res) => {
+app.get("/", async (req, res) => {
   let navDisplayName = ''
   if (req.user)
     navDisplayName = req.user.name.displayName
@@ -95,6 +95,14 @@ app.get("/", async (req, res) => {
     navDisplayName = req.user.name.displayName
   else navDisplayName = ''
   res.render("home", { navDisplayName })
+})
+
+app.get("/app", async (req, res) => {
+  let navDisplayName = ''
+  if (req.user)
+    navDisplayName = req.user.name.displayName
+  else navDisplayName = ''
+  res.send({ 'redirectTo':'home' ,navDisplayName })
 })
 
 app.get("/test", async (req, res) => {

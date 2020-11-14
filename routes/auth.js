@@ -3,8 +3,22 @@ const router = express.Router();
 const bcrypt = require("bcryptjs");
 const passport = require("passport");
 
+const {
+  forgotpassHandler,
+  postResetPass,
+  postResetPassDoctor,
+  emailVerificationLinkGenerator,
+  checkEmailNotVerified,
+  emailVerificationHandler,
+  checkNotAuthenticated,
+  checkAuthenticated,
+  checkAuthenticatedDoctor,
 
-const { forgotpassHandler, postResetPass, postResetPassDoctor, emailVerificationLinkGenerator, checkEmailNotVerified, emailVerificationHandler, checkNotAuthenticated, checkAuthenticated, checkAuthenticatedDoctor } = require("../controllers/auth_helper");
+  checkNotAuthenticatedApp,
+  checkAuthenticatedApp,
+  checkEmailNotVerifiedApp,
+  checkAuthenticatedDoctorApp,
+} = require("../controllers/auth_helper");
 // Load User model
 const User = require("../models/userInfo");
 const { session } = require("passport");
@@ -14,16 +28,14 @@ let checkNotNull = (val) => {
   return typeof val !== "undefined" && val !== "" && val !== null;
 };
 
-
 // Register Page
-router.get("/register/:role", checkNotAuthenticated, (req, res) =>{
-  let role = req.params.role
-  console.log('came in reg')
-  if(role === 'doctor'){
-    res.render('doctorRegistration')
-  }
-  else{
-    res.render("registration")
+router.get("/register/:role", checkNotAuthenticated, (req, res) => {
+  let role = req.params.role;
+  console.log("came in reg");
+  if (role === "doctor") {
+    res.render("doctorRegistration");
+  } else {
+    res.render("registration");
   }
 });
 
@@ -31,42 +43,44 @@ router.get("/register/:role", checkNotAuthenticated, (req, res) =>{
 router.post("/register/doctor", async (req, res) => {
   // console.log(req.body)
   let reqBody = req.body;
-  let requiresCastingToArray = ['degree',
-    'institute',
-    'passingYear',
-    'subject',
-    'trainingName',
-    'trainingYear',
-    'trainingDetails',
-    'workPlace',
-    'workFromYear',
-    'workToYear',
-    'awardName',
-    'awardYear',
-    'awardDetails'
-  ]
+  let requiresCastingToArray = [
+    "degree",
+    "institute",
+    "passingYear",
+    "subject",
+    "trainingName",
+    "trainingYear",
+    "trainingDetails",
+    "workPlace",
+    "workFromYear",
+    "workToYear",
+    "awardName",
+    "awardYear",
+    "awardDetails",
+  ];
 
   requiresCastingToArray.forEach((value) => {
     //console.log(value + " " + Object.prototype.hasOwnProperty.call(reqBody, value))
-    if(Object.prototype.hasOwnProperty.call(reqBody, value)){
-      reqBody[value] = Array.isArray(reqBody[value]) ? reqBody[value] : [reqBody[value]]
-    }
-    else reqBody[value] = []
-  })
+    if (Object.prototype.hasOwnProperty.call(reqBody, value)) {
+      reqBody[value] = Array.isArray(reqBody[value])
+        ? reqBody[value]
+        : [reqBody[value]];
+    } else reqBody[value] = [];
+  });
 
   // trimming each value in req.body
-  for(let key of Object.keys(reqBody)) {
-    if(Array.isArray(reqBody[key])){
-      for(let i = 0, max = reqBody[key].length; i < max; i++){
-        if(checkNotNull(reqBody[key][i])) reqBody[key][i] = reqBody[key][i].trim()
+  for (let key of Object.keys(reqBody)) {
+    if (Array.isArray(reqBody[key])) {
+      for (let i = 0, max = reqBody[key].length; i < max; i++) {
+        if (checkNotNull(reqBody[key][i]))
+          reqBody[key][i] = reqBody[key][i].trim();
       }
-    }
-    else{
-      if(checkNotNull(reqBody[key])) reqBody[key] = reqBody[key].trim()
+    } else {
+      if (checkNotNull(reqBody[key])) reqBody[key] = reqBody[key].trim();
     }
   }
 
-  console.log(reqBody)
+  console.log(reqBody);
 
   const {
     firstName,
@@ -101,42 +115,45 @@ router.post("/register/doctor", async (req, res) => {
     awardName,
     awardYear,
     awardDetails,
-    termAgree
+    termAgree,
   } = reqBody;
 
-  let education = [], training = [], workAndExperience = [], awardAndHonour = [];
-  for(let i = 0, max = degree.length; i<max; i++){
+  let education = [],
+    training = [],
+    workAndExperience = [],
+    awardAndHonour = [];
+  for (let i = 0, max = degree.length; i < max; i++) {
     let instance = {
       degree: degree[i],
-      institute: institute[i],    
+      institute: institute[i],
       passingYear: passingYear[i],
-      subject: subject[i]
-    }
-    education.push(instance)
+      subject: subject[i],
+    };
+    education.push(instance);
   }
-  for(let i = 0, max = trainingName.length; i<max; i++){
+  for (let i = 0, max = trainingName.length; i < max; i++) {
     let instance = {
       name: trainingName[i],
       year: trainingYear[i],
       details: trainingDetails[i],
-    }
-    training.push(instance)
+    };
+    training.push(instance);
   }
-  for(let i = 0, max = workPlace.length; i<max; i++){
+  for (let i = 0, max = workPlace.length; i < max; i++) {
     let instance = {
       workPlace: workPlace[i],
       workFromYear: workFromYear[i],
       workToYear: workToYear[i],
-    }
-    workAndExperience.push(instance)
+    };
+    workAndExperience.push(instance);
   }
-  for(let i = 0, max = awardName.length; i<max; i++){
+  for (let i = 0, max = awardName.length; i < max; i++) {
     let instance = {
       name: awardName[i],
       year: awardYear[i],
-      details: awardDetails[i]
-    }
-    awardAndHonour.push(instance)
+      details: awardDetails[i],
+    };
+    awardAndHonour.push(instance);
   }
   // console.log(degree)
   // console.log(degree.length)
@@ -147,20 +164,20 @@ router.post("/register/doctor", async (req, res) => {
 
   let doctorInfo = {
     name: {
-      firstName:firstName,
-      lastName:lastName,
-      displayName:displayName,
+      firstName: firstName,
+      lastName: lastName,
+      displayName: displayName,
     },
-    email:email,
+    email: email,
     password: password,
-    birthDate:birthDate,
-    phoneNumber:phoneNumber,
+    birthDate: birthDate,
+    phoneNumber: phoneNumber,
     licenseOrReg: licenseOrReg,
     gender: gender,
     location: {
-      country:country,
-      state:state,
-      city:city,
+      country: country,
+      state: state,
+      city: city,
       additionalAddress: additionalAddress,
     },
     about: about,
@@ -173,9 +190,9 @@ router.post("/register/doctor", async (req, res) => {
     workAndExperience: workAndExperience,
     awardAndHonour: awardAndHonour,
     termAgree: termAgree,
-  }
+  };
 
-  console.log(doctorInfo)
+  console.log(doctorInfo);
 
   let errors = [];
 
@@ -187,14 +204,17 @@ router.post("/register/doctor", async (req, res) => {
     !password ||
     !password2 ||
     !phoneNumber ||
-    !licenseOrReg  ||
+    !licenseOrReg ||
     !designation ||
-    (degree.length && (degree.includes('') || degree.includes(undefined))) ||
-    (trainingName.length && (trainingName.includes('') || trainingName.includes(undefined))) ||
-    (workPlace.length && (workPlace.includes('') || workPlace.includes(undefined))) ||
-    (awardName.length && (awardName.includes('') || awardName.includes(undefined))) ||
+    (degree.length && (degree.includes("") || degree.includes(undefined))) ||
+    (trainingName.length &&
+      (trainingName.includes("") || trainingName.includes(undefined))) ||
+    (workPlace.length &&
+      (workPlace.includes("") || workPlace.includes(undefined))) ||
+    (awardName.length &&
+      (awardName.includes("") || awardName.includes(undefined))) ||
     !termAgree
-  ){
+  ) {
     errors.push({ msg: "Please enter all required fields" });
   }
 
@@ -213,46 +233,50 @@ router.post("/register/doctor", async (req, res) => {
   if (errors.length > 0) {
     res.render("doctorRegistration", {
       errors,
-      doctorInfo
+      doctorInfo,
     });
-  }
-  else {
-    try{
-      let doctors = await Doctor.find({ $or: [ { email: email }, { phoneNumber: phoneNumber }, {licenseOrReg: licenseOrReg}  ]})
+  } else {
+    try {
+      let doctors = await Doctor.find({
+        $or: [
+          { email: email },
+          { phoneNumber: phoneNumber },
+          { licenseOrReg: licenseOrReg },
+        ],
+      });
       if (doctors.length) {
-        console.log(doctors)
-        doctors.forEach(doctor => {  
-          console.log(doctor)
-          if(doctor.email==email)
+        console.log(doctors);
+        doctors.forEach((doctor) => {
+          console.log(doctor);
+          if (doctor.email == email)
             errors.push({ msg: "Email already exists" });
-          if(doctor.phoneNumber==phoneNumber)
+          if (doctor.phoneNumber == phoneNumber)
             errors.push({ msg: "Phone no already exists" });
-          if(doctor.licenseOrReg==licenseOrReg)
-            errors.push({ msg: "License or registration number already exists" });
-        })
+          if (doctor.licenseOrReg == licenseOrReg)
+            errors.push({
+              msg: "License or registration number already exists",
+            });
+        });
         res.render("doctorRegistration", {
           errors,
-          doctorInfo
+          doctorInfo,
         });
       } else {
         const newDoctor = new Doctor(doctorInfo);
-        console.log({newDoctor})
-        
+        console.log({ newDoctor });
+
         bcrypt.genSalt(10, (err, salt) => {
           bcrypt.hash(newDoctor.password, salt, async (err, hash) => {
             if (err) res.render("404", { error: err.message });
             newDoctor.password = hash;
-            console.log({newDoctor})
-            await newDoctor.save()
-            req.flash(
-              "success_msg",
-              "You are now registered and can log in"
-            );
+            console.log({ newDoctor });
+            await newDoctor.save();
+            req.flash("success_msg", "You are now registered and can log in");
             res.redirect("/auth/login");
           });
         });
       }
-    }catch(err){
+    } catch (err) {
       console.error(err);
       res.render("404", { error: err.message });
       return;
@@ -262,17 +286,17 @@ router.post("/register/doctor", async (req, res) => {
 
 // Register
 router.post("/register/patient", async (req, res) => {
-  console.log(req.body)
+  console.log(req.body);
 
   // trimming each value in req.body
-  for(let key of Object.keys(req.body)) {
-    if(Array.isArray(req.body[key])){
-      for(let i = 0, max = req.body[key].length; i < max; i++){
-        if(checkNotNull(req.body[key][i])) req.body[key][i] = req.body[key][i].trim()
+  for (let key of Object.keys(req.body)) {
+    if (Array.isArray(req.body[key])) {
+      for (let i = 0, max = req.body[key].length; i < max; i++) {
+        if (checkNotNull(req.body[key][i]))
+          req.body[key][i] = req.body[key][i].trim();
       }
-    }
-    else{
-      if(checkNotNull(req.body[key])) req.body[key] = req.body[key].trim()
+    } else {
+      if (checkNotNull(req.body[key])) req.body[key] = req.body[key].trim();
     }
   }
 
@@ -294,7 +318,7 @@ router.post("/register/patient", async (req, res) => {
     state,
     city,
     additionalAddress,
-    termAgree
+    termAgree,
   } = req.body;
   let errors = [];
 
@@ -307,9 +331,9 @@ router.post("/register/patient", async (req, res) => {
     !password2 ||
     !birthDate ||
     !phoneNumber ||
-    !idNumber  ||
-    !gender||
-    !idChoice||
+    !idNumber ||
+    !gender ||
+    !idChoice ||
     !termAgree
   ) {
     errors.push({ msg: "Please enter all required fields" });
@@ -345,23 +369,30 @@ router.post("/register/patient", async (req, res) => {
       state,
       city,
       additionalAddress,
-      termAgree
+      termAgree,
     });
-  }
-  else {
-    try{
-      let users = await User.find({ $or: [ { email: email }, { phoneNumber: phoneNumber }, {idNumber: idNumber}  ]})
+  } else {
+    try {
+      let users = await User.find({
+        $or: [
+          { email: email },
+          { phoneNumber: phoneNumber },
+          { idNumber: idNumber },
+        ],
+      });
       if (users.length) {
-        console.log(users)
-        users.forEach(user => {  
-          console.log(user)
-          if(user.email==email)
-            errors.push({ msg: "Email already exists" });
-          if(user.phoneNumber==phoneNumber)
+        console.log(users);
+        users.forEach((user) => {
+          console.log(user);
+          if (user.email == email) errors.push({ msg: "Email already exists" });
+          if (user.phoneNumber == phoneNumber)
             errors.push({ msg: "Phone no already exists" });
-          if(user.idNumber==idNumber)
-            errors.push({ msg: "ID number(NID/ Passport/ Birth Certificate no) already exists" });
-        })
+          if (user.idNumber == idNumber)
+            errors.push({
+              msg:
+                "ID number(NID/ Passport/ Birth Certificate no) already exists",
+            });
+        });
         res.render("registration", {
           errors,
           firstName,
@@ -380,7 +411,7 @@ router.post("/register/patient", async (req, res) => {
           city,
           additionalAddress,
         });
-      }else {
+      } else {
         const newUser = new User({
           name: {
             firstName: firstName,
@@ -396,32 +427,29 @@ router.post("/register/patient", async (req, res) => {
           idChoice: idChoice,
           occupation: occupation,
           organization: organization,
-          location:{
+          location: {
             country: country,
             state: state,
             city: city,
             additionalAddress: additionalAddress,
-          },          
-          termAgree: termAgree
+          },
+          termAgree: termAgree,
         });
-        
-        console.log({newUser})
-        
+
+        console.log({ newUser });
+
         bcrypt.genSalt(10, (err, salt) => {
           bcrypt.hash(newUser.password, salt, async (err, hash) => {
             if (err) res.render("404", { error: err.message });
             newUser.password = hash;
-            console.log({newUser})
-            await newUser.save()
-            req.flash(
-              "success_msg",
-              "You are now registered and can log in"
-            );
+            console.log({ newUser });
+            await newUser.save();
+            req.flash("success_msg", "You are now registered and can log in");
             res.redirect("/auth/login");
           });
         });
       }
-    }catch(err){
+    } catch (err) {
       console.error(err);
       res.render("404", { error: err.message });
       return;
@@ -431,55 +459,115 @@ router.post("/register/patient", async (req, res) => {
 
 // Login
 router.get("/login", checkNotAuthenticated, (req, res) => res.render("login"));
+router.get("/login/app", checkNotAuthenticatedApp, (req, res) =>
+  res.send({'redirectTo':'login'})
+);
 
 router.post("/login", async (req, res, next) => {
   // stored URL in the session
   let sessionURL = req.session.returnTo;
   // console.log("sessionURL : " + sessionURL)
   delete req.session.returnTo;
-  
-  const{role, emailOrPhone}=req.body
-  console.log(req.body)
-  let successRedirectUrl
-  if (role == 'patient') {
-    let user = await User.findOne({$or: [ { email: emailOrPhone }, { phoneNumber: emailOrPhone } ] })
-    console.log('checking user')
-    console.log(user)
+
+  const { role, emailOrPhone } = req.body;
+  console.log(req.body);
+  let successRedirectUrl;
+  if (role == "patient") {
+    let user = await User.findOne({
+      $or: [{ email: emailOrPhone }, { phoneNumber: emailOrPhone }],
+    });
+    console.log("checking user");
+    console.log(user);
     // if user is signing in using otp we should reset the otp to null
-    if(user){
-      if(typeof user.otp == 'undefined' || user.otp==''){
-        successRedirectUrl = (user.emailVerified) ? (sessionURL || "/home") : '/auth/accountVerification/patient'
+    if (user) {
+      if (typeof user.otp == "undefined" || user.otp == "") {
+        successRedirectUrl = user.emailVerified
+          ? sessionURL || "/"
+          : "/auth/accountVerification/patient";
+      } else {
+        successRedirectUrl = "/auth/resetpassword/patient";
       }
-      else{
-        successRedirectUrl = "/auth/resetpassword/patient"
-      }
-    }
-    else successRedirectUrl = "/home"
+    } else successRedirectUrl = "/";
 
     passport.authenticate("patientStrategy", {
       successRedirect: successRedirectUrl,
       failureRedirect: "/auth/login",
       failureFlash: true,
     })(req, res, next);
-  }
-  else{
-    
-    let user = await Doctor.findOne({$or: [ { email: emailOrPhone }, { phoneNumber: emailOrPhone } ] })
-    console.log('checking user')
+  } else {
+    let user = await Doctor.findOne({
+      $or: [{ email: emailOrPhone }, { phoneNumber: emailOrPhone }],
+    });
+    console.log("checking user");
     // if user is signing in using otp we should reset the otp to null
-    if(user){
-      if(typeof user.otp == 'undefined' || user.otp==''){
-        successRedirectUrl = (user.emailVerified) ? (sessionURL || "/home") : '/auth/accountVerification/doctor'
+    if (user) {
+      if (typeof user.otp == "undefined" || user.otp == "") {
+        successRedirectUrl = user.emailVerified
+          ? sessionURL || "/"
+          : "/auth/accountVerification/doctor";
+      } else {
+        successRedirectUrl = "/auth/resetpassword/doctor";
       }
-      else{
-        successRedirectUrl = "/auth/resetpassword/doctor"
-      }
-    }
-    else successRedirectUrl = "/home"
+    } else successRedirectUrl = "/";
 
     passport.authenticate("doctorStrategy", {
       successRedirect: successRedirectUrl,
       failureRedirect: "/auth/login",
+      failureFlash: true,
+    })(req, res, next);
+  }
+});
+
+router.post("/login/app", async (req, res, next) => {
+  // stored URL in the session
+  // let sessionURL = req.session.returnTo;
+  // console.log("sessionURL : " + sessionURL)
+  delete req.session.returnTo;
+
+  const { role, emailOrPhone } = req.body;
+  console.log(req.body);
+  let successRedirectUrl;
+  if (role == "patient") {
+    let user = await User.findOne({
+      $or: [{ email: emailOrPhone }, { phoneNumber: emailOrPhone }],
+    });
+    console.log("checking user");
+    console.log(user);
+    // if user is signing in using otp we should reset the otp to null
+    if (user) {
+      if (typeof user.otp == "undefined" || user.otp == "") {
+        successRedirectUrl = user.emailVerified
+          ? sessionURL || "/app"
+          : "/auth/accountVerification/patient/app";
+      } else {
+        successRedirectUrl = "/auth/resetpassword/patient/app";
+      }
+    } else successRedirectUrl = "";
+
+    passport.authenticate("patientStrategy", {
+      successRedirect: successRedirectUrl,
+      failureRedirect: "/auth/login/app",
+      failureFlash: true,
+    })(req, res, next);
+  } else {
+    let user = await Doctor.findOne({
+      $or: [{ email: emailOrPhone }, { phoneNumber: emailOrPhone }],
+    });
+    console.log("checking user");
+    // if user is signing in using otp we should reset the otp to null
+    if (user) {
+      if (typeof user.otp == "undefined" || user.otp == "") {
+        successRedirectUrl = user.emailVerified
+          ? sessionURL || "/app"
+          : "/auth/accountVerification/doctor/app";
+      } else {
+        successRedirectUrl = "/auth/resetpassword/doctor/app";
+      }
+    } else successRedirectUrl = "/";
+
+    passport.authenticate("doctorStrategy", {
+      successRedirect: successRedirectUrl,
+      failureRedirect: "/auth/login/app",
       failureFlash: true,
     })(req, res, next);
   }
@@ -497,41 +585,129 @@ router.get("/logout", (req, res) => {
   res.redirect("/auth/login");
 });
 
+router.get("/logout/app", (req, res) => {
+  if (req.user) {
+    delete req.session.currentLoggedIn;
+    req.logout();
+    req.send({"success_msg": "You are logged out",'redirectTo':'login'});
+  } else {
+    req.send({"error_msg": "You are not logged in",'redirectTo':'login'});
+  }
+});
+
 // forgot pass handling
-router.post("/forgotpass", forgotpassHandler)
+router.post("/forgotpass", forgotpassHandler);
 
 // resetpassword
-router.get("/resetpassword/patient", checkAuthenticated, (req, res)=>{
+router.get("/resetpassword/patient", checkAuthenticated, (req, res) => {
   let navDisplayName = req.user.name.displayName;
-  res.render('resetPass', {navDisplayName, role:'patient'})
-})
-router.post("/resetpassword/patient",checkAuthenticated, postResetPass)
-
-router.get("/resetpassword/doctor", checkAuthenticatedDoctor, (req, res)=>{
+  res.render("resetPass", { navDisplayName, role: "patient" });
+});
+router.get("/resetpassword/patient/app", checkAuthenticatedApp, (req, res) => {
   let navDisplayName = req.user.name.displayName;
-  res.render('resetPass', {navDisplayName, role:'doctor'})
-})
-router.post("/resetpassword/doctor",checkAuthenticatedDoctor, postResetPassDoctor)
+  res.send( {'redirectTo':'resetPass', navDisplayName, role: "patient" });
+});
+router.post("/resetpassword/patient", checkAuthenticated, postResetPass);
 
-router.get("/accountVerification/patient", checkAuthenticated, checkEmailNotVerified, async (req, res) => {
+router.get("/resetpassword/doctor", checkAuthenticatedDoctor, (req, res) => {
   let navDisplayName = req.user.name.displayName;
-  let fullName = req.user.name.firstName + " " + req.user.name.lastName
-  let userEmail = req.user.email
-  let role = "patient"
-  res.render("accountVerification", {navDisplayName, fullName, userEmail, role})
-})
-
-router.get("/accountVerification/doctor", checkAuthenticatedDoctor, checkEmailNotVerified, async (req, res) => {
+  res.render("resetPass", { navDisplayName, role: "doctor" });
+});
+router.get("/resetpassword/doctor/app", checkAuthenticatedDoctorApp, (req, res) => {
   let navDisplayName = req.user.name.displayName;
-  let fullName = req.user.name.firstName + " " + req.user.name.lastName
-  let userEmail = req.user.email
-  let role = "doctor"
-  res.render("accountVerification", {navDisplayName, fullName, userEmail, role})
-})
+  res.send({'redirectTo':'resetPass', navDisplayName, role: "doctor" });
+});
+router.post(
+  "/resetpassword/doctor",
+  checkAuthenticatedDoctor,
+  postResetPassDoctor
+);
 
-router.post("/accountVerification/patient", checkAuthenticated, emailVerificationLinkGenerator)
-router.post("/accountVerification/doctor", checkAuthenticatedDoctor, emailVerificationLinkGenerator)
+router.get(
+  "/accountVerification/patient",
+  checkAuthenticated,
+  checkEmailNotVerified,
+  async (req, res) => {
+    let navDisplayName = req.user.name.displayName;
+    let fullName = req.user.name.firstName + " " + req.user.name.lastName;
+    let userEmail = req.user.email;
+    let role = "patient";
+    res.render("accountVerification", {
+      navDisplayName,
+      fullName,
+      userEmail,
+      role,
+    });
+  }
+);
 
-router.get("/verify_email/:hash", emailVerificationHandler)
+router.get(
+  "/accountVerification/patient/app",
+  checkAuthenticatedApp,
+  checkEmailNotVerifiedApp,
+  async (req, res) => {
+    let navDisplayName = req.user.name.displayName;
+    let fullName = req.user.name.firstName + " " + req.user.name.lastName;
+    let userEmail = req.user.email;
+    let role = "patient";
+    res.send( {
+      'redirectTo':'accountVerification',
+      navDisplayName,
+      fullName,
+      userEmail,
+      role,
+    });
+  }
+);
+
+router.get(
+  "/accountVerification/doctor",
+  checkAuthenticatedDoctor,
+  checkEmailNotVerified,
+  async (req, res) => {
+    let navDisplayName = req.user.name.displayName;
+    let fullName = req.user.name.firstName + " " + req.user.name.lastName;
+    let userEmail = req.user.email;
+    let role = "doctor";
+    res.render("accountVerification", {
+      navDisplayName,
+      fullName,
+      userEmail,
+      role,
+    });
+  }
+);
+
+router.get(
+  "/accountVerification/doctor/app",
+  checkAuthenticatedDoctorApp,
+  checkEmailNotVerifiedApp,
+  async (req, res) => {
+    let navDisplayName = req.user.name.displayName;
+    let fullName = req.user.name.firstName + " " + req.user.name.lastName;
+    let userEmail = req.user.email;
+    let role = "doctor";
+    res.send( {
+      'redirectTo': 'accountVerification',
+      navDisplayName,
+      fullName,
+      userEmail,
+      role,
+    });
+  }
+);
+
+router.post(
+  "/accountVerification/patient",
+  checkAuthenticated,
+  emailVerificationLinkGenerator
+);
+router.post(
+  "/accountVerification/doctor",
+  checkAuthenticatedDoctor,
+  emailVerificationLinkGenerator
+);
+
+router.get("/verify_email/:hash", emailVerificationHandler);
 
 module.exports = router;
