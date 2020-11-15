@@ -14,7 +14,7 @@ function checkAuthenticated(req, res, next) {
       res.redirect('back');
       return
     }
-    console.log('here1')
+  
     return next();
   }
   req.session.returnTo = req.originalUrl;
@@ -28,7 +28,7 @@ function checkAuthenticatedApp(req, res, next) {
       req.send({'error_msg': 'Please log in as General User to view that resource', 'redirectTo':'login'})
       return
     }
-    console.log('here1')
+   
     return next();
   }
   req.session.returnTo = req.originalUrl;
@@ -43,7 +43,7 @@ function checkAuthenticatedDoctor(req, res, next) {
       res.redirect('back');
       return
     }
-    console.log('here2')
+    
     return next();
   }
   req.session.returnTo = req.originalUrl;
@@ -85,7 +85,7 @@ let checkEmailNotVerified = async (req, res, next) => {
   if(!req.user.emailVerified) {
     return next()
   }
-  console.log('here3')
+ 
   req.flash('success_msg', 'You email is already verified')
   res.redirect('back');
 }
@@ -170,7 +170,7 @@ async function postResetPass(req, res) {
 
 
 async function postResetPassDoctor(req, res) {
-  console.log(req.body)
+  // console.log(req.body)
 
   let navDisplayName = req.user.name.displayName;
 
@@ -218,7 +218,7 @@ async function postResetPassDoctor(req, res) {
 async function forgotpassHandler(req, res) {
   const { role, emailOrPhone } = req.body
   console.log('came in forgotpass')
-  console.log(req.body)
+  // console.log(req.body)
   try {
     // selecting User or Doctor model according to role field value
     model = (role=='patient')? User : Doctor
@@ -271,7 +271,7 @@ async function forgotpassHandler(req, res) {
 
 
 let emailVerificationLinkGenerator = async (req, res) => {
-  console.log(req.body)
+  // console.log(req.body)
   const { role, email } = req.body
   console.log('came in accountVerification')
 
@@ -419,6 +419,7 @@ let emailVerificationLinkGenerator = async (req, res) => {
 
 let emailVerificationHandler = async (req, res) => {
   let hash = req.params.hash;
+  console.log('came in email verification after clicking link')
   try {
     let existingRandomString = await UrlRandomString.findOne({ randomString: hash })
     if (existingRandomString) {
@@ -432,7 +433,7 @@ let emailVerificationHandler = async (req, res) => {
           patient.emailVerified = true;
           await patient.save()
 
-          let redirectUrl = req.session.returnTo || "/home"
+          let redirectUrl = req.session.returnTo || "/"
           req.flash('success_msg', 'Email verification is successfully completed.')
           res.redirect(redirectUrl)
         }
@@ -456,7 +457,7 @@ let emailVerificationHandler = async (req, res) => {
           doctor.emailVerified = true;
           await doctor.save()
 
-          let redirectUrl = req.session.returnTo || "/home"
+          let redirectUrl = req.session.returnTo || "/"
           req.flash('success_msg', 'Email verification is successfully completed.')
           res.redirect(redirectUrl)
         }

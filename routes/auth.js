@@ -80,7 +80,7 @@ router.post("/register/doctor", async (req, res) => {
     }
   }
 
-  console.log(reqBody);
+  // console.log(reqBody);
 
   const {
     firstName,
@@ -155,12 +155,6 @@ router.post("/register/doctor", async (req, res) => {
     };
     awardAndHonour.push(instance);
   }
-  // console.log(degree)
-  // console.log(degree.length)
-  // console.log(trainingName)
-  // console.log(trainingName.length)
-  // console.log(awardName)
-  // console.log(awardName.length)
 
   let doctorInfo = {
     name: {
@@ -245,9 +239,9 @@ router.post("/register/doctor", async (req, res) => {
         ],
       });
       if (doctors.length) {
-        console.log(doctors);
+        // console.log(doctors);
         doctors.forEach((doctor) => {
-          console.log(doctor);
+          // console.log(doctor);
           if (doctor.email == email)
             errors.push({ msg: "Email already exists" });
           if (doctor.phoneNumber == phoneNumber)
@@ -263,13 +257,13 @@ router.post("/register/doctor", async (req, res) => {
         });
       } else {
         const newDoctor = new Doctor(doctorInfo);
-        console.log({ newDoctor });
+        // console.log({ newDoctor });
 
         bcrypt.genSalt(10, (err, salt) => {
           bcrypt.hash(newDoctor.password, salt, async (err, hash) => {
             if (err) res.render("404", { error: err.message });
             newDoctor.password = hash;
-            console.log({ newDoctor });
+            // console.log({ newDoctor });
             await newDoctor.save();
             req.flash("success_msg", "You are now registered and can log in");
             res.redirect("/auth/login");
@@ -381,9 +375,9 @@ router.post("/register/patient", async (req, res) => {
         ],
       });
       if (users.length) {
-        console.log(users);
+        // console.log(users);
         users.forEach((user) => {
-          console.log(user);
+          // console.log(user);
           if (user.email == email) errors.push({ msg: "Email already exists" });
           if (user.phoneNumber == phoneNumber)
             errors.push({ msg: "Phone no already exists" });
