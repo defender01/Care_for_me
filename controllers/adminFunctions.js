@@ -188,10 +188,12 @@ async function saveQues(data, idAdder = "") {
 
 async function sendSectionSubSec(req, res) {
   let { sectionNames, subSectionNames } = await getSectionSubSection();
+  let navDisplayName = req.user.name.displayName;
 
   res.render("adminAddProfileQues", {
     sectionNames,
     subSectionNames,
+    navDisplayName
   });
 }
 
@@ -274,6 +276,7 @@ async function deleteSecSubSecQuesOp(req, res) {
 
 async function getSectionData(req, res) {
   let section = req.params.section;
+  let navDisplayName = req.user.name.displayName;
   let data = await sectionModel
     .findOne({
       name: section,
@@ -307,6 +310,7 @@ async function getSectionData(req, res) {
 
 async function editProfileQues (req, res){
   let qId= req.params.qId
+  let navDisplayName = req.user.name.displayName;
   let question = await questionModel
     .findOne({
       _id: qId,
@@ -328,7 +332,7 @@ async function editProfileQues (req, res){
     })
     .exec();
   console.log(util.inspect({ question }, false, null, true /* enable colors */));
-  res.render('adminEditProfileQues', {question})
+  res.render('adminEditProfileQues', {question, navDisplayName})
 }
 
 async function saveProfileQues (req, res) {
@@ -405,8 +409,8 @@ async function saveProfileQues (req, res) {
 }
 
 async function getAddQuesDoctor(req, res) {
-
-  res.render("adminAddDoctorQues");
+  let navDisplayName = req.user.name.displayName;
+  res.render("adminAddDoctorQues",{navDisplayName});
 }
 
 async function saveDoctorQues(req, res){

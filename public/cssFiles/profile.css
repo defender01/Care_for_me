@@ -173,7 +173,12 @@ main .wrapper .sec-holder .subsec-holder {
   height: 100%;
   padding: 20px;
   width: calc(100%-200px);
-  margin-right: 250px;
+}
+
+@media (min-width: 1000px) {
+  main .wrapper .sec-holder .subsec-holder {
+    margin-right: 250px;
+  }
 }
 
 main .wrapper .sec-holder .subsec-holder .subsec {
@@ -192,8 +197,15 @@ main .wrapper .sec-holder .subsec-holder .subsec .mytable .table-title {
   margin-bottom: 10px;
 }
 
+@media (max-width: 1000px) {
+  main .wrapper .sec-holder .subsec-holder .subsec .mytable .table-title {
+    font-size: 22px;
+    padding-left: 10px;
+  }
+}
+
 main .wrapper .sec-holder .subsec-holder .subsec .mytable .table-row {
-  margin: 0 60px 0 60px;
+  margin: 0 10px 0 10px;
   border-bottom: 0.5px solid rgba(175, 172, 172, 0.24);
   min-height: 50px;
   font-weight: 200;
@@ -210,7 +222,6 @@ main .wrapper .sec-holder .subsec-holder .subsec .mytable .table-row .label {
   margin: auto;
   flex: 1;
   padding: 5px;
-  padding-left: 10px;
   font-size: 17px;
   color: #90949c;
 }
@@ -220,9 +231,14 @@ main .wrapper .sec-holder .subsec-holder .subsec .mytable .table-row .detail {
   flex: 4;
   text-align: left;
   padding: 5px;
-  padding-left: 60px;
   font-size: 17px;
   color: #000000;
+}
+
+@media (min-width: 1000px) {
+  main .wrapper .sec-holder .subsec-holder .subsec .mytable .table-row .detail {
+    padding-left: 60px;
+  }
 }
 
 main .wrapper .sec-holder .sub-sec-scrollspy {

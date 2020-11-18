@@ -24,7 +24,8 @@ const { questionModel, optionModel } = require("../models/inputCollection");
 const { parameterModel } = require("../models/followup");
 
 router.get('/', (req, res)=> {
-  res.render('admin')
+  let navDisplayName = req.user.name.displayName;
+  res.render('admin',{navDisplayName})
 })
 
 router.get("/addQues/profile", sendSectionSubSec);
@@ -34,7 +35,8 @@ router.get("/addQues/doctor", getAddQuesDoctor);
 router.post("/addQues/doctor", saveDoctorQues);
 
 router.get("/profile/edit", (req, res) =>{
-  res.render('adminProfileQuesCollection')
+  let navDisplayName = req.user.name.displayName;
+  res.render('adminProfileQuesCollection', {navDisplayName})
 })
 // get profile ques for edit
 router.get("/profile/edit/:qId", editProfileQues)
