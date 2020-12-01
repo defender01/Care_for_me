@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+
+    <!-- fontawesome cdn -->
+    <link rel="stylesheet" href="//use.fontawesome.com/releases/v5.0.7/css/all.css">
+
+    <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+    crossorigin="anonymous"></script>
+
+    <!-- stylesheet for navbar -->
+    <link rel="stylesheet" href="/assets/cssFiles/navbar.css">
+    <link rel="stylesheet" href="/assets/cssFiles/followupQues.css" />
+    <!-- for loader -->
+    <script src="/assets/jsFiles/loader.js"></script>    
+    <link rel="stylesheet" href="/assets/cssFiles/loader.css" />
+
+
+    <title>Registration-Care for me</title>
+  </head>
+
+  <body onload="displayParam(0)">
+    <!-- display loading icon -->
+    <div class="se-pre-con"></div>
+    <!-- ends -->
+
+    <!-- navigation bar -->
+    <% include ./segments/adminNavbar %>
+    
+    <main>
+      <div class="side-bar">
+        <div class="topic-container">
+          <div class="topic">
+            <h3>Parameters</h3>
+          </div>
+          <div class="angle">
+            <i class="fas fa-angle-right"  id="rightAngle" style="display: none;" onclick="displaySidebar()"></i>
+            <i class="fas fa-angle-left" id="leftAngle"  onclick="hideSidebar()"></i>
+          </div>
+        </div>
+        <!-- here are all sidebar items -->
+        <div class="nav-sec-cont">
+          <div class="addParam">
+            <button onclick="addNewParam()">Add Parameter</button>
+          </div>
+          <% for(let i=0; i<parameters.length; i++) {%>
+          <div class="sec-cont">
+            <div class="sec-name-and-cnt" onclick="displayParam(<%=i%>)">
+              <div class="sec-name">
+                <a ><%= parameters[i].name%></a>
+              </div>
+              <div class="sec-items-cnt">
+                <%=parameters[i].questions.length%>
+              </div>
+            </div>
+          </div>
+          <% } %>          
+        </div>
+      </div>
+      <div class="wrapper" id="paramDetails">  
+      
+      </div>
+    </main>
+    
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+
+    <script>
+      var stDate = new Date();
+      var enDate = new Date(stDate.getFullYear(), stDate.getMonth(), stDate.getDate()+10)
+      var stDateStr = stDate.getDate()+'/'+stDate.getMonth()+'/'+stDate.getFullYear()
+      var enDateStr = enDate.getDate()+'/'+enDate.getMonth()+'/'+enDate.getFullYear()
+
+      let parameters = <%- JSON.stringify(parameters) %> 
+
+      function displaySidebar(){
+        $('#rightAngle').css('display','none')
+        $('#leftAngle').css('display','block')
+        $('.side-bar').css('left', '0')
+      }
+      function hideSidebar(){
+        $('#leftAngle').css('display','none')
+        $('#rightAngle').css('display','block')
+        $('.side-bar').css('left', '-250px')
+      }
+      
+      window.onresize = function() {
+          if (window.innerWidth >= 1000) {
+            $('.side-bar').css('left', '0')
+          }
+      }   
+
+
+      function addQues(){
+        $.get('/admin/getNewId', (data)=>{
+          let newId = data.id
+          $("#addQuesHere").replaceWith(`
+          <tr id="quesHolder${newId}">           
+            <th scope="row"> <button class="dlt-btn" type="button" onclick="deleteQues('quesHolder${newId}')">Delete</button> </th>
+            <td> <input type="text" name="qId" value="${newId}" style="display: none;"> <input type="text" name="question${newId}" class="form-control" placeholder="Question" required></td>              
+            <td> 
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="quesType${newId}" id="quesType${newId}" value="numberType" checked>
+                <label class="form-check-label" for="quesType${newId}">
+                  Default radio
+                </label>
+              </div>  
+            </td>
+            <td> 
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="quesType${newId}" id="quesType${newId}" value="textType">
+                <label class="form-check-label" for="quesType2">
+                  Second default radio
+                </label>
+              </div>  
+            </td>
+          </tr>
+          <tr id="addQuesHere" style="display: none;"><td></td></tr>
+          `);
+          
+        })
+        
+      }
+
+      function deleteQues(id){
+        $("#"+id).replaceWith('')
+      }
+      function addNewParam(){
+        $.get('/admin/newFollowupParam', (data) => {
+          if(typeof data.error !== 'undefined')
+            alert('Error occured: '+data.error)
+          console.log({data})
+          let parameter = data.parameter 
+          $('#paramDetails').replaceWith(`
+          <div class="wrapper" id="paramDetails">
+            
+            <!-- Modal -->
+            <div class="modal fade" id="deleteParamModal" tabindex="-1" aria-labelledby="deleteParamModalLabel" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="deleteParamModalLabel">Are you sure you want to delete "${parameter.name}"?</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                    If you click "Yes" parameter "${parameter.name}" will be parmanently deleted.
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-success" onclick="deleteParam('${parameter._id}')">Yes</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <form method="POST" action="/admin/followupQues/edit" id="paramQuesForm">
+              <input type="text" name="parameterId" value="${parameter._id}"  style="display: none;">
+              <div class="notify-bar">
+                <div class="selected-current">
+                  <input type="text" name="parameterName" class="form-control" placeholder="Parameter name" required>
+                </div>
+                <div class="btn-container">
+                  <div class="continue">
+                    <button type="submit">
+                      Save
+                    </button>
+                  </div>
+                  <div class="dlt-param-btn">
+                    <button type="button" data-toggle="modal" data-target="#deleteParamModal" >
+                      Delete
+                    </button>
+                  </div>
+                </div>
+                
+              </div>
+              <div class="ques-holder">
+                <table class="table table-striped table-bordered">
+                  <thead >
+                    <tr>
+                      <th scope="col">Option</th>
+                      <th scope="col">Question</th>
+                      <th scope="col">Max value</th>
+                      <th scope="col">Min value</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                  <tr id="addQuesHere" style="display: none;"><td></td></tr>
+                  </tbody>
+                </table>  
+                <div class="addNewQues">
+                  <button type="button" onclick="addQues()">Add Question</button>
+                </div>        
+              </div>
+            </form>
+            
+            
+          </div>
+          `)
+          
+        })
+      }
+
+      function displayParam(ind){
+        console.log({ind})
+        let parameter = parameters[ind]
+        let allQues=''
+        for(let i=0; i<parameter.questions.length; i++) {
+                    allQues+=`<tr id="quesHolder${parameter.questions[i]._id}">
+                      <th scope="row"> <button class="dlt-btn" type="button" onclick="deleteQues('quesHolder${parameter.questions[i]._id}')">Delete</button> </th>
+                      <td> <input type="text" name="qId" value="${parameter.questions[i]._id}" style="display: none;"> <input type="text" name="question${parameter.questions[i]._id}" class="form-control" placeholder="Question" value="${parameter.questions[i].name}" required></td>              
+                      <td> 
+                        <div class="form-check">
+                          <input class="form-check-input" type="radio" name="quesType${parameter.questions[i]._id}" id="quesType${parameter.questions[i]._id}" value="numberType" ${parameter.questions[i].inputType=="numberType" ? 'checked': ''} >
+                          <label class="form-check-label" for="quesType${parameter.questions[i]._id}">
+                            Default radio
+                          </label>
+                        </div>  
+                      </td>
+                      <td> 
+                        <div class="form-check">
+                          <input class="form-check-input" type="radio" name="quesType${parameter.questions[i]._id}" id="quesType${parameter.questions[i]._id}" value="textType" ${parameter.questions[i].inputType=="textType" ? 'checked': ''} >
+                          <label class="form-check-label" for="quesType2">
+                            Second default radio
+                          </label>
+                        </div>  
+                      </td>
+                    </tr>    ` 
+                   } 
+
+        $('#paramDetails').replaceWith(`
+          <div class="wrapper" id="paramDetails"> 
+
+            <!-- Modal -->
+            <div class="modal fade" id="deleteParamModal" tabindex="-1" aria-labelledby="deleteParamModalLabel" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="deleteParamModalLabel">Are you sure you want to delete "${parameter.name}"?</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                    If you click "Yes" parameter "${parameter.name}" will be parmanently deleted.
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-success" onclick="deleteParam('${parameter._id}')">Yes</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+           
+            <form method="POST" action="/admin/followupQues/edit" id="paramQuesForm">
+              <input type="text" name="parameterId" value="${parameter._id}" style="display: none;">
+              <div class="notify-bar">
+                <div class="selected-current">
+                  <input type="text" name="parameterName" class="form-control" placeholder="Parameter name" value="${parameter.name}" required>
+                </div>
+              
+                <div class="btn-container">
+                  <div class="continue">
+                    <button type="submit">
+                      Save
+                    </button>
+                  </div>
+                  <div class="dlt-param-btn">
+                    <button type="button" data-toggle="modal" data-target="#deleteParamModal" >
+                      Delete
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <div class="ques-holder">
+                <table class="table table-striped table-bordered">
+                  <thead >
+                    <tr>
+                      <th scope="col">Option</th>
+                      <th scope="col">Question</th>
+                      <th scope="col">Max value</th>
+                      <th scope="col">Min value</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+
+                  ${allQues}
+
+                  <tr id="addQuesHere" style="display: none;"><td></td></tr>
+                  </tbody>
+                </table>  
+                <div class="addNewQues">
+                  <button type="button" onclick="addQues()">Add Question</button>
+                </div>        
+              </div>
+            </form>
+            
+            
+          </div>
+          `)
+      }
+      function deleteParam(id){
+        console.log({id})
+        $.get('/admin/deleteParameter/'+id, (data) =>{
+          console.log({data})
+          if(typeof data.error !== 'undefined')
+            alert('Error occured: '+data.error)
+          else if(typeof data.success !== 'undefined'){
+            location.href = '/admin/followupQues/edit'
+          }
+          
+        })
+      }
+    </script>
+  </body>
+</html>

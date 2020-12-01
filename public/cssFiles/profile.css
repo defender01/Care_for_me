@@ -318,6 +318,7 @@ main .wrapper .sec-holder .sub-sec-scrollspy .sub-sec-each a:hover {
   }
   main .wrapper .notify-bar {
     margin-left: 50px;
+    padding-right: 50px;
     width: 100%;
   }
   main .wrapper .notify-bar .selected-current {

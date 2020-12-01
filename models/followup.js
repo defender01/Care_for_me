@@ -5,6 +5,7 @@ const parameterSchema = new Schema({
   name: String,
   questions: [
     { 
+      _id: Schema.Types.ObjectId,
       name: String,
       inputType: String 
     }

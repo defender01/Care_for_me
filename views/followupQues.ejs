@@ -28,7 +28,7 @@
     <title>Registration-Care for me</title>
   </head>
 
-  <body>
+  <body onload="displayParam(0)">
     <!-- display loading icon -->
     <div class="se-pre-con"></div>
     <!-- ends -->
@@ -51,71 +51,21 @@
         <div class="nav-sec-cont">
           <% for(let i=0; i<parameters.length; i++) {%>
           <div class="sec-cont">
-            <div class="sec-name-and-cnt" onclick="displayQues('paramQues<%=i%>')">
+            <div class="sec-name-and-cnt" onclick="displayParam(<%=i%>)">
               <div class="sec-name">
                 <a ><%= parameters[i].name%></a>
               </div>
               <div class="sec-items-cnt">
-                20
+                <%=parameters[i].questions.length%>
               </div>
             </div>
           </div>
-          <% } %>
+          <% } %>   
 
         </div>
       </div>
-      <div class="wrapper">
-        <div class="notify-bar">
-          <div class="selected-current">
-            Selected from current: 5
-          </div>
-          <div class="total-selected">
-            Total Selected: 15
-          </div>
-          <div class="continue">
-            <button onclick="save()">
-              Continue and Save
-            </button>
-          </div>
-        </div>
-        
-        <div class="ques-holder">
-          <table class="table table-striped table-bordered">
-            <thead >
-              <tr>
-                <th scope="col">Select</th>
-                <th scope="col">Question</th>
-                <th scope="col">Duration</th>
-                <th scope="col">Frequency</th>
-                <th scope="col">Max value</th>
-                <th scope="col">Min value</th>
-              </tr>
-            </thead>
-            <tbody>
-            <% for(let i=0; i<20; i++) { %>
-              <tr>
-                <th scope="row"> <input type="checkbox" name="checkbox<%=i%>"> </th>
-                <td> What is your temperature?</td>                
-                <td> <input class="form-control" type="text" name="dateRange" > </td>
-                <td> 
-                  <select class="form-control" name="frequency" id="sectionId" >
-                    <option selected value='1d'> 1 day </option>
-                    <% for(let j = 1 ; j < 24; j++) {%>
-                      <option value="<%=j%>h"><%= j %> hour</option>                    
-                    <% } %>
-                    <% for(let j = 1 ; j < 10; j++) {%>
-                      <option value="<%=j%>d"><%= j %> day</option>                    
-                    <% } %>                    
-                  </select>
-                </td>
-                <td> <input class="form-control" type="number" > </td>
-                <td> <input class="form-control" type="number" > </td>
-              </tr>            
-            <% } %>
-            </tbody>
-          </table>          
-        </div>
-      </div>
+      <div id='addParamHere'></div>
+     
     </main>
     
     <!-- Optional JavaScript -->
@@ -129,13 +79,21 @@
       var stDateStr = stDate.getDate()+'/'+stDate.getMonth()+'/'+stDate.getFullYear()
       var enDateStr = enDate.getDate()+'/'+enDate.getMonth()+'/'+enDate.getFullYear()
 
-      $(function() {
+      let parameters = <%- JSON.stringify(parameters) %> 
+      let isCreated = [];
+      let currentCnt=0, totalCnt =0;
+
+      parameters.forEach(element => {
+        isCreated.push(false)
+      });
+
+      function displayDateRange(){
         $('input[name="dateRange"]').daterangepicker({
           opens: 'left'
         }, function(start, end, label) {
           console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
         });
-      });
+      }
 
       function displaySidebar(){
         $('#rightAngle').css('display','none')
@@ -165,8 +123,83 @@
         console.log(ques)
       }
 
-      function displayQues(id){
-        console.log(id)
+      function displayParam(ind){
+        let parameter = parameters[ind]
+        for(let i=0;i<parameters.length;i++){
+          if(i!=ind && isCreated[i]) $('#paramDetails'+parameters[i]._id).css('display','none')
+        }
+        if(!isCreated[ind]){
+          isCreated[ind] = true
+          let allQues = ''
+          for(let i=0; i<parameter.questions.length; i++) {
+            allQues+=`<tr>
+                        <th scope="row"> <input type="checkbox" name="selectQues" value="${parameter.questions[i]._id}"> </th>
+                        <td> What is your temperature?</td>                
+                        <td> <input class="form-control" type="text" name="dateRange" id="duration${parameter.questions[i]._id}"> </td>
+                        <td> 
+                          <select class="form-control" name="frequency" id="frequency${parameter.questions[i]._id}" >
+                            <option selected value='1d'> 1 day </option>
+                            <% for(let j = 1 ; j < 24; j++) {%>
+                              <option value="<%=j%>h"><%= j %> hour</option>                    
+                            <% } %>
+                            <% for(let j = 1 ; j < 10; j++) {%>
+                              <option value="<%=j%>d"><%= j %> day</option>                    
+                            <% } %>                    
+                          </select>
+                        </td>
+                        ${parameter.questions[i].inputType=='numberType'?
+                          `<td> <input class="form-control" type="number" id="maxVal${parameter.questions[i]._id}"> </td>`+
+                          `<td> <input class="form-control" type="number" id="minVal${parameter.questions[i]._id}"> </td>`
+                          :
+                          `<td> </td>`+
+                          `<td> </td>`
+                        }                        
+                      </tr>            `
+          } 
+          $('#addParamHere').replaceWith(`
+            <div id='addParamHere'></div>
+            <div class="wrapper" id="paramDetails${parameter._id}">
+              <div class="notify-bar">
+                <div class="selected-current" id="current${parameter._id}">
+                  Selected from current: ${currentCnt}
+                </div>
+                <div class="total-selected" id="total${parameter._id}">
+                  Total Selected Questions: ${totalCnt}
+                </div>
+                <div class="continue">
+                  <button onclick="save()">
+                    Continue
+                  </button>
+                </div>
+              </div>
+              
+              <div class="ques-holder" id="quesHolder${parameter._id}">
+                <table class="table table-striped table-bordered">
+                  <thead >
+                    <tr>
+                      <th scope="col">Select</th>
+                      <th scope="col">Question</th>
+                      <th scope="col">Duration</th>
+                      <th scope="col">Frequency</th>
+                      <th scope="col">Max value</th>
+                      <th scope="col">Min value</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                  
+                  ${allQues}
+
+                  </tbody>
+                </table>          
+              </div>
+            </div>
+          `)
+          // call dis function to show date range to the newly created parameterdetails
+          displayDateRange();
+        }
+        else{
+          $('#paramDetails'+parameters[ind]._id).css('display','block')
+        }
       }
     </script>
   </body>

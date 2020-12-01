@@ -301,7 +301,9 @@ main{
         
         .wrapper{
             margin-left: 50px;
+            
             .notify-bar{
+                
                 .selected-current{
                     display: none;
                 }             
@@ -309,6 +311,7 @@ main{
                     display: none;
                 }
                 margin-left: 50px;
+                padding-right: 50px;
                 width: 100%;
                 
             }
