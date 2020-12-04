@@ -104,7 +104,10 @@
           $("#addQuesHere").replaceWith(`
           <tr id="quesHolder${newId}">           
             <th scope="row"> <button class="dlt-btn" type="button" onclick="deleteQues('quesHolder${newId}')">Delete</button> </th>
-            <td> <input type="text" name="qId" value="${newId}" style="display: none;"> <input type="text" name="question${newId}" class="form-control" placeholder="Question" required></td>              
+            <td> 
+              <input type="text" name="qId" value="${newId}" style="display: none;"> 
+              <input type="text" name="question${newId}" class="form-control" placeholder="Question" required>
+            </td>              
             <td> 
               <div class="form-check">
                 <input class="form-check-input" type="radio" name="quesType${newId}" id="quesType${newId}" value="numberType" checked>
@@ -216,7 +219,10 @@
         for(let i=0; i<parameter.questions.length; i++) {
                     allQues+=`<tr id="quesHolder${parameter.questions[i]._id}">
                       <th scope="row"> <button class="dlt-btn" type="button" onclick="deleteQues('quesHolder${parameter.questions[i]._id}')">Delete</button> </th>
-                      <td> <input type="text" name="qId" value="${parameter.questions[i]._id}" style="display: none;"> <input type="text" name="question${parameter.questions[i]._id}" class="form-control" placeholder="Question" value="${parameter.questions[i].name}" required></td>              
+                      <td>
+                        <input type="text" name="qId" value="${parameter.questions[i]._id}" style="display: none;">
+                        <input type="text" name="question${parameter.questions[i]._id}" class="form-control" placeholder="Question" value="${parameter.questions[i].name}" required>
+                      </td>              
                       <td> 
                         <div class="form-check">
                           <input class="form-check-input" type="radio" name="quesType${parameter.questions[i]._id}" id="quesType${parameter.questions[i]._id}" value="numberType" ${parameter.questions[i].inputType=="numberType" ? 'checked': ''} >

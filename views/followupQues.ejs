@@ -19,10 +19,6 @@
     <!-- for loader -->
     <script src="/assets/jsFiles/loader.js"></script>    
     <link rel="stylesheet" href="/assets/cssFiles/loader.css" />
-    <!-- for date range picker -->
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 
 
     <title>Registration-Care for me</title>
@@ -75,9 +71,12 @@
 
     <script>
       var stDate = new Date();
-      var enDate = new Date(stDate.getFullYear(), stDate.getMonth(), stDate.getDate()+10)
-      var stDateStr = stDate.getDate()+'/'+stDate.getMonth()+'/'+stDate.getFullYear()
-      var enDateStr = enDate.getDate()+'/'+enDate.getMonth()+'/'+enDate.getFullYear()
+      var enDate = new Date(stDate.getFullYear()+5, stDate.getMonth(), stDate.getDate())
+      // adding 1 to getMonth() because in this function month is 0 indexed Jan=0th month
+      // but while taking input month is 1 indexed, Jan = 1th month 
+      var stDateStr = stDate.getFullYear()+'-'+ ( stDate.getMonth()<10? '0'+stDate.getMonth()+1 : stDate.getMonth()+1 )+'-'+ ( stDate.getDate()<10? '0'+stDate.getDate() : stDate.getDate() )
+      var enDateStr = enDate.getFullYear()+'-'+ ( enDate.getMonth()<10? '0'+enDate.getMonth()+1 : enDate.getMonth()+1 )+'-'+ ( enDate.getDate()<10? '0'+enDate.getDate() : enDate.getDate() )
+
 
       let parameters = <%- JSON.stringify(parameters) %> 
       let isCreated = [];
@@ -87,13 +86,7 @@
         isCreated.push(false)
       });
 
-      function displayDateRange(){
-        $('input[name="dateRange"]').daterangepicker({
-          opens: 'left'
-        }, function(start, end, label) {
-          console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
-        });
-      }
+   
 
       function displaySidebar(){
         $('#rightAngle').css('display','none')
@@ -134,8 +127,16 @@
           for(let i=0; i<parameter.questions.length; i++) {
             allQues+=`<tr>
                         <th scope="row"> <input type="checkbox" name="selectQues" value="${parameter.questions[i]._id}"> </th>
-                        <td> What is your temperature?</td>                
-                        <td> <input class="form-control" type="text" name="dateRange" id="duration${parameter.questions[i]._id}"> </td>
+                        <td>
+                          ${parameter.questions[i].name}
+                          <input type="text" id="question${parameter.questions[i]._id}" value="${parameter.questions[i].name}"  style="display: none;">
+                        </td>                
+                        <td> 
+                          <input class="form-control" type="date" id="startDate${parameter.questions[i]._id}" min="${stDateStr}" max="${enDateStr}" value="${stDateStr}" onchange="setEndDate('${parameter.questions[i]._id}')">
+                        </td> 
+                        <td>
+                          <input class="form-control" type="date" id="endDate${parameter.questions[i]._id}" min="${stDateStr}" max="${enDateStr}" value="${stDateStr}">                          
+                        </td>
                         <td> 
                           <select class="form-control" name="frequency" id="frequency${parameter.questions[i]._id}" >
                             <option selected value='1d'> 1 day </option>
@@ -167,7 +168,7 @@
                   Total Selected Questions: ${totalCnt}
                 </div>
                 <div class="continue">
-                  <button onclick="save()">
+                  <button onclick="continueAndSave()">
                     Continue
                   </button>
                 </div>
@@ -179,7 +180,8 @@
                     <tr>
                       <th scope="col">Select</th>
                       <th scope="col">Question</th>
-                      <th scope="col">Duration</th>
+                      <th scope="col">Start Date</th>
+                      <th scope="col">End Date</th>
                       <th scope="col">Frequency</th>
                       <th scope="col">Max value</th>
                       <th scope="col">Min value</th>
@@ -194,12 +196,38 @@
               </div>
             </div>
           `)
-          // call dis function to show date range to the newly created parameterdetails
-          displayDateRange();
         }
         else{
           $('#paramDetails'+parameters[ind]._id).css('display','block')
         }
+      }
+
+      function continueAndSave(){
+        let selectedQId =[], selectedQDetails = [], selectedQDuration = [], selectedQFreq = [], selectedQMxVal = [], selectedQMnVal = []
+        let questions = []
+        $('input[name="selectQues"]:checked').each(function() {
+          let qId = this.value
+          
+          questions.push({
+            'id' : qId,
+            'name' : $('#question'+qId).val(),
+            'startDate' : $('#startDate'+qId).val(),
+            'endDate' : $('#endDate'+qId).val(),
+            'frequency' : $('#frequency'+qId).val(),
+            'maxVal' : $('#maxVal'+qId).val(),
+            'minVal' : $('#minVal'+qId).val(),
+          })
+        })
+
+        console.log({questions})
+      }
+
+      function setEndDate(qId){
+        // this function sets the endDate min according to the selected startDate
+        // because any date in endDate before startDate is invalid
+        let startDate = $('#startDate'+qId).val()
+        $('#endDate'+qId).attr('min', startDate)
+        $('#endDate'+qId).attr('value', startDate)
       }
     </script>
   </body>
