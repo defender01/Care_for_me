@@ -61,6 +61,9 @@
         </div>
       </div>
       <div id='addParamHere'></div>
+
+      <form method="POST" action="/doctor/followupQues/continue" id="quesForm">
+      </form>
      
     </main>
     
@@ -77,7 +80,7 @@
       var stDateStr = stDate.getFullYear()+'-'+ ( stDate.getMonth()<10? '0'+stDate.getMonth()+1 : stDate.getMonth()+1 )+'-'+ ( stDate.getDate()<10? '0'+stDate.getDate() : stDate.getDate() )
       var enDateStr = enDate.getFullYear()+'-'+ ( enDate.getMonth()<10? '0'+enDate.getMonth()+1 : enDate.getMonth()+1 )+'-'+ ( enDate.getDate()<10? '0'+enDate.getDate() : enDate.getDate() )
 
-
+      '2020-1-10'
       let parameters = <%- JSON.stringify(parameters) %> 
       let isCreated = [];
       let currentCnt=0, totalCnt =0;
@@ -132,7 +135,7 @@
                           <input type="text" id="question${parameter.questions[i]._id}" value="${parameter.questions[i].name}"  style="display: none;">
                         </td>                
                         <td> 
-                          <input class="form-control" type="date" id="startDate${parameter.questions[i]._id}" min="${stDateStr}" max="${enDateStr}" value="${stDateStr}" onchange="setEndDate('${parameter.questions[i]._id}')">
+                          <input class="form-control" type="date" id="startDate${parameter.questions[i]._id}" min="${stDateStr}" max="${enDateStr}" value="${stDateStr}" onchange="setEndDate('${parameter.questions[i]._id}')" >
                         </td> 
                         <td>
                           <input class="form-control" type="date" id="endDate${parameter.questions[i]._id}" min="${stDateStr}" max="${enDateStr}" value="${stDateStr}">                          
@@ -205,21 +208,40 @@
       function continueAndSave(){
         let selectedQId =[], selectedQDetails = [], selectedQDuration = [], selectedQFreq = [], selectedQMxVal = [], selectedQMnVal = []
         let questions = []
+        let allQues = ''
         $('input[name="selectQues"]:checked').each(function() {
           let qId = this.value
-          
-          questions.push({
-            'id' : qId,
-            'name' : $('#question'+qId).val(),
-            'startDate' : $('#startDate'+qId).val(),
-            'endDate' : $('#endDate'+qId).val(),
-            'frequency' : $('#frequency'+qId).val(),
-            'maxVal' : $('#maxVal'+qId).val(),
-            'minVal' : $('#minVal'+qId).val(),
-          })
+          let question= {
+            id : qId,
+            name : $('#question'+qId).val(),
+            startDate : $('#startDate'+qId).val(),
+            endDate : $('#endDate'+qId).val(),
+            frequency : $('#frequency'+qId).val(),
+            maxVal : $('#maxVal'+qId).val(),
+            minVal : $('#minVal'+qId).val(),
+          }
+          console.log(question)
+
+          allQues+=`    <input type="text" name="questionId" value="${question.id}"  style="display: none;">
+                        <input type="text" name="name${question.id}" value="${question.name}"  style="display: none;">
+                        <input type="date" name="startDate${question.id}" value="${question.startDate}" style="display: none;">
+                        <input type="date" name="endDate${question.id}" value="${question.endDate}" style="display: none;">                          
+                        <input type="text" name="frequency${question.id}" value="${question.frequency}" style="display: none;">
+                        <input type="number" name="maxVal${question.id}" value="${question.maxVal}" style="display: none;">
+                        <input type="number" name="minVal${question.id}" value="${question.minVal}" style="display: none;">
+                        `  
         })
 
-        console.log({questions})
+        $('#quesForm').replaceWith(
+          `
+          <form method="POST" action="/doctor/followupQues/continue" id="quesForm">
+            ${allQues}
+          </form>
+          `
+        )
+
+        $('#quesForm').submit()
+        
       }
 
       function setEndDate(qId){
