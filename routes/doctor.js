@@ -53,7 +53,13 @@ router.post('/followupQues/continue', checkAuthenticatedDoctor, checkEmailVerifi
     questions.push(question)
   }
   console.log(util.inspect({questions}, false, null, true /* enable colors */))
-  res.send(questions)
+  res.render('followUpQuesContinue', {questions, navDisplayName})
+})
+
+router.post('/followupQues/save', checkAuthenticatedDoctor, checkEmailVerified, async (req, res) => {
+  let navDisplayName = req.user.name.displayName;
+  let data = req.body
+  res.send({data})
 })
 
 // this provides new id

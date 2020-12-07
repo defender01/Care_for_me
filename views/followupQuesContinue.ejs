@@ -24,7 +24,7 @@
     <title>Registration-Care for me</title>
   </head>
 
-  <body onload="displayParam(0)">
+  <body onload="displayQues()">
     <!-- display loading icon -->
     <div class="se-pre-con"></div>
     <!-- ends -->
@@ -45,24 +45,21 @@
         </div>
         <!-- here are all sidebar items -->
         <div class="nav-sec-cont">
-          <% for(let i=0; i<parameters.length; i++) {%>
           <div class="sec-cont">
-            <div class="sec-name-and-cnt" onclick="displayParam(<%=i%>)">
+            <div class="sec-name-and-cnt" >
               <div class="sec-name">
-                <a ><%= parameters[i].name%></a>
+                <a >Selected Questions</a>
               </div>
               <div class="sec-items-cnt">
-                <%=parameters[i].questions.length%>
+                <%=questions.length%>
               </div>
             </div>
           </div>
-          <% } %>   
-
         </div>
       </div>
       <div id='addParamHere'></div>
 
-      <form method="POST" action="/doctor/followupQues/continue" id="quesForm">
+      <form method="POST" action="/doctor/followupQues/save" id="quesForm">
       </form>
      
     </main>
@@ -81,14 +78,8 @@
       var enDateStr = enDate.getFullYear()+'-'+ ( enDate.getMonth()<10? '0'+enDate.getMonth()+1 : enDate.getMonth()+1 )+'-'+ ( enDate.getDate()<10? '0'+enDate.getDate() : enDate.getDate() )
 
       '2020-1-10'
-      let parameters = <%- JSON.stringify(parameters) %> 
-      let isCreated = [];
-      let currentCnt=[], totalCnt =0;
-
-      parameters.forEach(element => {
-        isCreated.push(false)
-        currentCnt.push(0)
-      });
+      let questions = <%- JSON.stringify(questions) %> 
+      let totalCnt =0;
 
    
 
@@ -120,29 +111,23 @@
         console.log(ques)
       }
 
-      function displayParam(ind){
-        let parameter = parameters[ind]
-        for(let i=0;i<parameters.length;i++){
-          if(i!=ind && isCreated[i]) $('#paramDetails'+parameters[i]._id).css('display','none')
-        }
-        if(!isCreated[ind]){
-          isCreated[ind] = true
-          let allQues = ''
-          for(let i=0; i<parameter.questions.length; i++) {
+      function displayQues(){
+        let allQues = ''
+          for(let i=0; i<questions.length; i++) {
             allQues+=`<tr>
-                        <th scope="row"> <input type="checkbox" name="selectQues" id="selectQues${parameter.questions[i]._id}" value="${parameter.questions[i]._id}" onchange="checkCount('${parameter.questions[i]._id}', ${ind})"> </th>
+                        <th scope="row"> <input type="checkbox" name="selectQues" id="selectQues${questions[i]._id}" value="${questions[i]._id}" onchange="checkCount('${questions[i]._id}')"> </th>
                         <td>
-                          ${parameter.questions[i].name}
-                          <input type="text" id="question${parameter.questions[i]._id}" value="${parameter.questions[i].name}"  style="display: none;">
+                          ${questions[i].name}
+                          <input type="text" id="question${questions[i]._id}" value="${questions[i].name}"  style="display: none;">
                         </td>                
                         <td> 
-                          <input class="form-control" type="date" id="startDate${parameter.questions[i]._id}" min="${stDateStr}" max="${enDateStr}" value="${stDateStr}" onchange="setEndDate('${parameter.questions[i]._id}')" >
+                          <input class="form-control" type="date" id="startDate${questions[i]._id}" min="${stDateStr}" max="${enDateStr}" value="${stDateStr}" onchange="setEndDate('${questions[i]._id}')" >
                         </td> 
                         <td>
-                          <input class="form-control" type="date" id="endDate${parameter.questions[i]._id}" min="${stDateStr}" max="${enDateStr}" value="${stDateStr}">                          
+                          <input class="form-control" type="date" id="endDate${questions[i]._id}" min="${stDateStr}" max="${enDateStr}" value="${stDateStr}">                          
                         </td>
                         <td> 
-                          <select class="form-control" name="frequency" id="frequency${parameter.questions[i]._id}" >
+                          <select class="form-control" name="frequency" id="frequency${questions[i]._id}" >
                             <option selected value='1d'> 1 day </option>
                             <% for(let j = 1 ; j < 24; j++) {%>
                               <option value="<%=j%>h"><%= j %> hour</option>                    
@@ -152,9 +137,9 @@
                             <% } %>                    
                           </select>
                         </td>
-                        ${parameter.questions[i].inputType=='numberType'?
-                          `<td> <input class="form-control" type="number" id="maxVal${parameter.questions[i]._id}"> </td>`+
-                          `<td> <input class="form-control" type="number" id="minVal${parameter.questions[i]._id}"> </td>`
+                        ${questions[i].inputType=='numberType'?
+                          `<td> <input class="form-control" type="number" id="maxVal${questions[i]._id}"> </td>`+
+                          `<td> <input class="form-control" type="number" id="minVal${questions[i]._id}"> </td>`
                           :
                           `<td> </td>`+
                           `<td> </td>`
@@ -163,12 +148,9 @@
           } 
           $('#addParamHere').replaceWith(`
             <div id='addParamHere'></div>
-            <div class="wrapper" id="paramDetails${parameter._id}">
+            <div class="wrapper" id="paramDetails">
               <div class="notify-bar">
-                <div class="selected-current" id="current${parameter._id}">
-                  Selected from current: ${currentCnt[ind]}
-                </div>
-                <div class="total-selected" id="total${parameter._id}">
+                <div class="total-selected" id="total">
                   Total Selected Questions: ${totalCnt}
                 </div>
                 <div class="continue">
@@ -178,7 +160,7 @@
                 </div>
               </div>
               
-              <div class="ques-holder" id="quesHolder${parameter._id}">
+              <div class="ques-holder" id="quesHolder">
                 <table class="table table-striped table-bordered">
                   <thead >
                     <tr>
@@ -200,10 +182,6 @@
               </div>
             </div>
           `)
-        }
-        else{
-          $('#paramDetails'+parameters[ind]._id).css('display','block')
-        }
       }
 
       function continueAndSave(){
@@ -253,31 +231,18 @@
         $('#endDate'+qId).attr('value', startDate)
       }
 
-      function checkCount(qId, parameterInd){
-        console.log('in checkCount() id found= '+qId+', '+parameterInd)
+      function checkCount(qId){
+        console.log('in checkCount() id found= '+qId)
         if($('#selectQues'+qId).is(":checked")){
-          currentCnt[parameterInd]++
           totalCnt++
         }
-        else{
-          currentCnt[parameterInd]--
-          totalCnt--
+        else{totalCnt--
         }
-        $("#current"+parameters[parameterInd]._id).replaceWith(`
-          <div class="selected-current" id="current${parameters[parameterInd]._id}">
-            Selected from current: ${currentCnt[parameterInd]}
+        $("#total").replaceWith(`
+          <div class="total-selected" id="total">
+            Total Selected Questions: ${totalCnt}
           </div>
         `)
-        for(let i=0; i<parameters.length; i++){
-          if(isCreated[i]){
-            $("#total"+parameters[i]._id).replaceWith(`
-              <div class="total-selected" id="total${parameters[i]._id}">
-                Total Selected Questions: ${totalCnt}
-              </div>
-            `)
-          }
-        }
-        
       }
     </script>
   </body>
