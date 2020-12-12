@@ -134,6 +134,7 @@
                         <td>
                           ${parameter.questions[i].name}
                           <input type="text" id="question${parameter.questions[i]._id}" value="${parameter.questions[i].name}"  style="display: none;">
+                          <input type="text" id="inputType${parameter.questions[i]._id}" value="${parameter.questions[i].inputType}"  style="display: none;">
                         </td>                
                         <td> 
                           <input class="form-control" type="date" id="startDate${parameter.questions[i]._id}" min="${stDateStr}" max="${enDateStr}" value="${stDateStr}" onchange="setEndDate('${parameter.questions[i]._id}')" >
@@ -143,22 +144,22 @@
                         </td>
                         <td> 
                           <select class="form-control" name="frequency" id="frequency${parameter.questions[i]._id}" >
-                            <option selected value='1d'> 1 day </option>
+                            <option selected value='24'> 1 day </option>
                             <% for(let j = 1 ; j < 24; j++) {%>
-                              <option value="<%=j%>h"><%= j %> hour</option>                    
+                              <option value="<%=j%>"><%= j %> hour</option>                    
                             <% } %>
                             <% for(let j = 1 ; j < 10; j++) {%>
-                              <option value="<%=j%>d"><%= j %> day</option>                    
+                              <option value="<%=j*24%>"><%= j %> day</option>                    
                             <% } %>                    
                           </select>
                         </td>
                         ${parameter.questions[i].inputType=='numberType'?
-                          `<td> <input class="form-control" type="number" id="maxVal${parameter.questions[i]._id}"> </td>`+
-                          `<td> <input class="form-control" type="number" id="minVal${parameter.questions[i]._id}"> </td>`
-                          :
-                          `<td> </td>`+
-                          `<td> </td>`
-                        }                        
+                            `<td> <input class="form-control" type="number" id="maxVal${parameter.questions[i]._id}"> </td>`+
+                            `<td> <input class="form-control" type="number" id="minVal${parameter.questions[i]._id}"> </td>`
+                            :
+                            `<td> </td>`+
+                            `<td> </td>`
+                          }                        
                       </tr>            `
           } 
           $('#addParamHere').replaceWith(`
@@ -179,24 +180,26 @@
               </div>
               
               <div class="ques-holder" id="quesHolder${parameter._id}">
-                <table class="table table-striped table-bordered">
-                  <thead >
-                    <tr>
-                      <th scope="col">Select</th>
-                      <th scope="col">Question</th>
-                      <th scope="col">Start Date</th>
-                      <th scope="col">End Date</th>
-                      <th scope="col">Frequency</th>
-                      <th scope="col">Max value</th>
-                      <th scope="col">Min value</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                  
-                  ${allQues}
+                <div class="table-responsive">
+                  <table class="table table-striped table-bordered">
+                    <thead >
+                      <tr>
+                        <th scope="col">Select</th>
+                        <th scope="col">Question</th>
+                        <th scope="col">Start Date</th>
+                        <th scope="col">End Date</th>
+                        <th scope="col">Frequency</th>
+                        <th scope="col">Max value</th>
+                        <th scope="col">Min value</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                    
+                    ${allQues}
 
-                  </tbody>
-                </table>          
+                    </tbody>
+                  </table>  
+                </div>                        
               </div>
             </div>
           `)
@@ -214,6 +217,7 @@
           let qId = this.value
           let question= {
             id : qId,
+            inputType : $('#inputType'+qId).val(),
             name : $('#question'+qId).val(),
             startDate : $('#startDate'+qId).val(),
             endDate : $('#endDate'+qId).val(),
@@ -224,6 +228,7 @@
           console.log(question)
 
           allQues+=`    <input type="text" name="questionId" value="${question.id}"  style="display: none;">
+                        <input type="text" name="inputType${question.id}" value="${question.inputType}"  style="display: none;">
                         <input type="text" name="name${question.id}" value="${question.name}"  style="display: none;">
                         <input type="date" name="startDate${question.id}" value="${question.startDate}" style="display: none;">
                         <input type="date" name="endDate${question.id}" value="${question.endDate}" style="display: none;">                          
