@@ -36,10 +36,9 @@
       <div class="side-bar">
         <div class="topic-container">
           <div class="topic">
-            <h3>Sections</h3>
+            <h3>Parameters</h3>
           </div>
           <div class="angle">
-            <i class="fas fa-angle-right"  id="rightAngle" style="display: none;" onclick="displaySidebar()"></i>
             <i class="fas fa-angle-left" id="leftAngle"  onclick="hideSidebar()"></i>
           </div>
         </div>
@@ -80,7 +79,6 @@
       var stDateStr = stDate.getFullYear()+'-'+ ( stDate.getMonth()<10? '0'+stDate.getMonth()+1 : stDate.getMonth()+1 )+'-'+ ( stDate.getDate()<10? '0'+stDate.getDate() : stDate.getDate() )
       var enDateStr = enDate.getFullYear()+'-'+ ( enDate.getMonth()<10? '0'+enDate.getMonth()+1 : enDate.getMonth()+1 )+'-'+ ( enDate.getDate()<10? '0'+enDate.getDate() : enDate.getDate() )
 
-      '2020-1-10'
       let parameters = <%- JSON.stringify(parameters) %> 
       let isCreated = [];
       let currentCnt=[], totalCnt =0;
@@ -93,14 +91,14 @@
    
 
       function displaySidebar(){
-        $('#rightAngle').css('display','none')
+        // $('#rightAngle').css('display','none')
         $('#leftAngle').css('display','block')
         $('.side-bar').css('left', '0')
       }
       function hideSidebar(){
         $('#leftAngle').css('display','none')
-        $('#rightAngle').css('display','block')
-        $('.side-bar').css('left', '-250px')
+        // $('#rightAngle').css('display','block')
+        $('.side-bar').css('left', '-300px')
       }
       
       window.onresize = function() {
@@ -166,6 +164,9 @@
             <div id='addParamHere'></div>
             <div class="wrapper" id="paramDetails${parameter._id}">
               <div class="notify-bar">
+                <div class="angle">
+                  <i class="fas fa-angle-right" onclick="displaySidebar()"></i>
+                </div>
                 <div class="selected-current" id="current${parameter._id}">
                   Selected from current: ${currentCnt[ind]}
                 </div>
@@ -210,7 +211,6 @@
       }
 
       function continueAndSave(){
-        let selectedQId =[], selectedQDetails = [], selectedQDuration = [], selectedQFreq = [], selectedQMxVal = [], selectedQMnVal = []
         let questions = []
         let allQues = ''
         $('input[name="selectQues"]:checked').each(function() {

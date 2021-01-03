@@ -66,59 +66,55 @@ main {
       padding: 10px 10px 10px 20px;
       overflow-y: scroll;
       height: 100%;
+      .card{
+        margin-top: 10px;
+        padding: 10px;
 
-      .sec-cont {
-        color: $label-color;
-        .sec-name-and-cnt {
-          display: flex;
+        border-radius: 5px;
+        box-shadow: 0 0 1px rgba(153, 152, 153, 0.76);                
+        .card-title{
+          margin: 5px 5px 10px 5px;
+          padding: 0 0 10px 0;
           font-size: 18px;
-          .sec-name {
-            flex: 2;
-            margin: 10px;
+          // font-weight: bold;
+          border-bottom: solid;
+          border-width: 1px;
+          border-color: rgba(207, 207, 209, 0.726);
+        }
+        .search-input{
+          padding: 5px;
+        }
+        .filter-container{
+          margin-top: 10px;
+          padding: 5px;
+          .filter-title{
+            font-size: 17px;
+            margin: 10px 5px 10px 5px
           }
-          .sec-items-cnt {
-            width: 50px;
-            margin: 10px;
-          }
-          &:hover {
-            // background-color: $hover-color;
-            color: rgb(86, 124, 228);
-            text-shadow: blue;
-            cursor: pointer;
+          .filter{
+            font-size: 16px;
+            margin: 10px 5px 10px 5px;
+            padding-left: 10px;
+            color: $label-color;
           }
         }
-        .sub-sec-cont {
-          display: flex;
-          font-size: 16px;
-          padding-left: 20px;
-          .sub-sec-name {
-            flex: 2;
-          }
-          &:hover {
-            color: rgb(86, 124, 228);
-            text-shadow: blue;
-            cursor: pointer;
-          }
-        }
-      }
-      .addParam {
-        margin: 30px 0 20px 0;
-        width: 100%;
-        height: 50px;
-        display: flex;
-        button {
-          margin: auto;
-          height: 40px;
-          background-color: $btn-color;
-          border-width: 0px;
-          border-radius: 4px;
-          color: white;
-          font-size: $normal-font-size;
-          &:hover {
-            background-color: $btn-color-hover;
+        .btn-container{
+          width: 100%;
+          .search-btn{
+            width: 100%;
+            margin: 20px 0 10px 0;
+            height: 40px;
+            border: 0px;
+            border-radius: 4px;
+            background-color: $btn-color;
+            color: #ffffff;
+            &:hover {
+              background-color: $btn-color-hover;
+            }
           }
         }
-      }
+      }     
+     
     }
   }
   .wrapper {
@@ -172,52 +168,7 @@ main {
         margin: auto;
         text-align: center;
       }
-      .continue {
-        flex: 1;
-        margin: auto;
-        text-align: center;
-        display: flex;
-        button {
-          margin: auto;
-          margin-right: 20px;
-          text-align: center;
-          color: #ffffff;
-          font-size: $normal-font-size;
-          background-color: coral;
-          border-width: 3px;
-          border-style: solid;
-          border-radius: 800px;
-          padding: 5px 20px 5px 20px;
-          border-color: rgb(182, 58, 13);
-          &:hover {
-            background-color: rgb(255, 255, 255);
-            color: rgb(109, 51, 12);
-            animation-name: banner-btn-bg;
-            animation-duration: 0.3s;
-          }
-        }
-      }
-      .dlt-param-btn {
-        flex: 1;
-        margin: auto;
-        text-align: center;
-        display: flex;
-        button {
-          margin: auto;
-          text-align: center;
-          color: #ffffff;
-          font-size: $normal-font-size;
-          background-color: red;
-          border-width: 3px;
-          border-style: solid;
-          border-radius: 800px;
-          padding: 5px 20px 5px 20px;
-          border-color: rgb(182, 58, 13);
-          &:hover {
-            background-color: rgb(167, 11, 11);
-          }
-        }
-      }
+      
       .btn-container {
         flex: 1;
         max-width: 300px;
@@ -243,51 +194,49 @@ main {
           background-color: rgb(199, 60, 60);
         }
       }
-      .addNewQues {
-        margin: 30px 0 20px 0;
-        width: 100%;
-        height: 50px;
-        display: flex;
-        button {
-          margin: auto;
-          height: 40px;
-          background-color: $btn-color;
-          border-width: 0px;
-          border-radius: 4px;
-          color: white;
-          font-size: $normal-font-size;
-          &:hover {
-            background-color: $btn-color-hover;
-          }
-        }
-        .multi-btn {
-          margin: auto;
-          button {
-            margin: 20px 10px 20px 10px;
-            width: 250px;
+      table{
+        tbody{
+          .patient-info{
+            .patient-icon{
+              max-width: 100%;
+              text-align: center;
+              font-size: 20px;
+              
+            }
+            .info{
+              font-size: 16;
+              font-family: Nanum Gothic;
+              font-weight: lighter;
+              
+            }
+            &:hover{
+              color: #0097e6;
+            }
+
+            .remove-btn-cont{
+              button{
+                padding: 5px 10px;
+                border: 0px;
+                border-radius: 4px;
+                background-color: rgb(247, 0, 0);
+                color: #ffffff;
+                &:hover {
+                  background-color:rgb(158, 35, 35);
+                }
+              }
+            }
           }
         }
       }
+      .pagination-holder{
+        display: flex;
+        margin: 20px 0 50px 0;
+        height: 150px;
+        nav{
+          margin: auto;
+        }
+      }
     }
-  }
-}
-
-@keyframes banner-btn-bg {
-  0% {
-    background-color: coral;
-    color: rgba(109, 51, 12, 0.541);
-  }
-  25% {
-    background-color: rgb(236, 145, 112);
-    color: rgba(109, 51, 12, 0.712);
-  }
-  50% {
-    background-color: rgb(240, 180, 158);
-    color: rgba(109, 51, 12, 0.89);
-  }
-  100% {
-    background-color: rgb(255, 255, 255);
-    color: rgb(109, 51, 12);
   }
 }
 
@@ -321,14 +270,7 @@ main {
         .angle{
             display: flex;
         }
-        .selected-current {
-          font-size: $normal-font-size;
-          // display: none;
-        }
-        .total-selected {
-          font-size: $normal-font-size;
-          // display: none;
-        }
+       
         margin-left: 0px;
         padding-right: 50px;
         width: 100%;

@@ -48,7 +48,7 @@ nav {
 }
 
 nav.navbar.navbar-expand-lg.navbar-light.bg-light.nav-container {
-
+ 
   padding: 0 60px 0 30px;
   .navbar-brand{
 	  font-size: 30px;
@@ -62,10 +62,11 @@ nav.navbar.navbar-expand-lg.navbar-light.bg-light.nav-container {
     .nav-link {		
     margin-left: 10px;
     margin-right: 10px;
-	  font-family: 'Poppins';
+    font-family: 'Poppins';
+    padding-left: 10px;
 	  color: rgb(105, 60, 18);
 	  font-size: 18px;
-	  &:hover{
+	  &:hover{      
       border-radius: 60px;
       color: rgb(255, 255, 255);
       background-color: rgb(201, 113, 31);

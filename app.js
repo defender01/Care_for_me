@@ -6,6 +6,7 @@ var session = require("express-session")
 var passport = require("passport")
 const User = require('./models/userInfo');
 const Doctor = require("./models/doctor").doctorModel;
+const router = require("./routes/auth")
 
 require("dotenv").config()
 
@@ -89,22 +90,6 @@ app.get("/", async (req, res) => {
   res.render("home", { navDisplayName })
 })
 
-app.get("/", async (req, res) => {
-  let navDisplayName = ''
-  if (req.user)
-    navDisplayName = req.user.name.displayName
-  else navDisplayName = ''
-  res.render("home", { navDisplayName })
-})
-
-app.get("/app", async (req, res) => {
-  let navDisplayName = ''
-  if (req.user)
-    navDisplayName = req.user.name.displayName
-  else navDisplayName = ''
-  res.send({ 'redirectTo':'home' ,navDisplayName })
-})
-
 app.get("/test", async (req, res) => {
   res.render("test")
 })
@@ -153,3 +138,4 @@ var PORT = process.env.PORT || 5000
 app.listen(PORT, () => {
   console.log('Express server listening on port', PORT)
 })
+

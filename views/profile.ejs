@@ -41,7 +41,6 @@
           <h3>Sections</h3>
         </div>
         <div class="angle">
-          <i class="fas fa-angle-right" id="rightAngle" style="display: none;" onclick="displaySidebar()"></i>
           <i class="fas fa-angle-left" id="leftAngle" onclick="hideSidebar()"></i>
         </div>
       </div>
@@ -146,6 +145,9 @@
 
     <div class="wrapper">
       <div class="notify-bar">
+        <div class="angle">
+          <i class="fas fa-angle-right" onclick="displaySidebar()"></i>
+        </div>
         <div class="sec-title" id="notifyBarTitle">
           Personal Information
         </div>
@@ -355,14 +357,12 @@
     });
 
     function displaySidebar() {
-      $('#rightAngle').css('display', 'none')
       $('#leftAngle').css('display', 'block')
       $('.side-bar').css('left', '0')
     }
     function hideSidebar() {
       $('#leftAngle').css('display', 'none')
-      $('#rightAngle').css('display', 'block')
-      $('.side-bar').css('left', '-250px')
+      $('.side-bar').css('left', '-300px')
     }
 
     window.onresize = function () {

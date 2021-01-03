@@ -67,6 +67,12 @@ router.post('/followupQues/save', checkAuthenticatedDoctor, checkEmailVerified, 
   res.send({data})
 })
 
+// patient list page
+router.get('/patients', (req, res) => {
+  let navDisplayName = req.user.name.displayName;
+  res.render('patients', {navDisplayName})
+})
+
 // this provides new id
 router.get('/getNewId', (req, res) => {
   res.send({ id: new mongoose.Types.ObjectId() })

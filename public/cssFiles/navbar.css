@@ -56,6 +56,7 @@ nav.navbar.navbar-expand-lg.navbar-light.bg-light.nav-container .navbar-brand {
   margin-left: 10px;
   margin-right: 10px;
   font-family: 'Poppins';
+  padding-left: 10px;
   color: #693c12;
   font-size: 18px;
 }

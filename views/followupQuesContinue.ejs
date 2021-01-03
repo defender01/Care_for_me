@@ -39,7 +39,6 @@
             <h3>Sections</h3>
           </div>
           <div class="angle">
-            <i class="fas fa-angle-right"  id="rightAngle" style="display: none;" onclick="displaySidebar()"></i>
             <i class="fas fa-angle-left" id="leftAngle"  onclick="hideSidebar()"></i>
           </div>
         </div>
@@ -58,7 +57,7 @@
         </div>
       </div>
       <div id='addParamHere'></div>
-
+      
       <form method="POST" action="/doctor/followupQues/save" id="quesForm">
       </form>
      
@@ -78,20 +77,18 @@
       var enDateStr = enDate.getFullYear()+'-'+ ( enDate.getMonth()<10? '0'+enDate.getMonth()+1 : enDate.getMonth()+1 )+'-'+ ( enDate.getDate()<10? '0'+enDate.getDate() : enDate.getDate() )
 
       '2020-1-10'
-      let questions = <%- JSON.stringify(questions) %> 
-      let totalCnt =0;
+      let questions = <%- JSON.stringify(questions) %>;
+      let totalCnt = questions.length;
 
    
 
       function displaySidebar(){
-        $('#rightAngle').css('display','none')
         $('#leftAngle').css('display','block')
         $('.side-bar').css('left', '0')
       }
       function hideSidebar(){
         $('#leftAngle').css('display','none')
-        $('#rightAngle').css('display','block')
-        $('.side-bar').css('left', '-250px')
+        $('.side-bar').css('left', '-300px')
       }
       
       window.onresize = function() {
@@ -115,19 +112,20 @@
         let allQues = ''
         for(let i=0; i<questions.length; i++) {
           allQues+=`<tr>
-                      <th scope="row"> <input type="checkbox" name="selectQues" id="selectQues${questions[i]._id}" value="${questions[i]._id}" onchange="checkCount('${questions[i]._id}')" checked> </th>
+                      <th scope="row"> <input type="checkbox" name="selectQues" id="selectQues${questions[i].id}" value="${questions[i].id}" onchange="checkCount('${questions[i].id}')" checked> </th>
                       <td>
                         ${questions[i].name}
-                        <input type="text" id="question${questions[i]._id}" value="${questions[i].name}"  style="display: none;">
+                        <input type="text" id="question${questions[i].id}" value="${questions[i].name}"  style="display: none;">
+                        <input type="text" id="inputType${questions[i].id}" value="${questions[i].inputType}"  style="display: none;">
                       </td>                
                       <td> 
-                        <input class="form-control" type="date" id="startDate${questions[i]._id}" min="${stDateStr}"  value="${questions[i].startDate}" onchange="setEndDate('${questions[i]._id}')" >
+                        <input class="form-control" type="date" id="startDate${questions[i].id}" min="${stDateStr}"  value="${questions[i].startDate}" onchange="setEndDate('${questions[i].id}')" >
                       </td> 
                       <td>
-                        <input class="form-control" type="date" id="endDate${questions[i]._id}" min="${stDateStr}" value="${questions[i].endDate}">                          
+                        <input class="form-control" type="date" id="endDate${questions[i].id}" min="${stDateStr}" value="${questions[i].endDate}">                          
                       </td>
                       <td> 
-                        <select class="form-control" name="frequency" id="frequency${questions[i]._id}" >
+                        <select class="form-control" name="frequency" id="frequency${questions[i].id}" >
                           <option selected value='${questions[i].frequency}'> ${questions[i].frequency<24? questions[i].frequency+' hour': questions[i].frequency/24+' day'}</option>
                           <% for(let j = 1 ; j < 24; j++) {%>
                             <option value="<%=j%>"><%= j %> hour</option>                    
@@ -138,8 +136,8 @@
                         </select>
                       </td>
                       ${questions[i].inputType=='numberType'?
-                        `<td> <input class="form-control" type="number" id="maxVal${questions[i]._id}" value="${questions[i].maxVal}"> </td>`+
-                        `<td> <input class="form-control" type="number" id="minVal${questions[i]._id}" value="${questions[i].minVal}"> </td>`
+                        `<td> <input class="form-control" type="number" id="maxVal${questions[i].id}" value="${questions[i].maxVal}"> </td>`+
+                        `<td> <input class="form-control" type="number" id="minVal${questions[i].id}" value="${questions[i].minVal}"> </td>`
                         :
                         `<td> </td>`+
                         `<td> </td>`
@@ -150,8 +148,11 @@
           <div id='addParamHere'></div>
           <div class="wrapper" id="paramDetails">
             <div class="notify-bar">
+              <div class="angle">
+                <i class="fas fa-angle-right" onclick="displaySidebar()"></i>
+              </div>
               <div class="total-selected" id="total">
-                Total Selected Questions: ${totalCnt}
+                Total Selected Questions: ${questions.length}
               </div>
               <div class="continue">
                 <button onclick="continueAndSave()">
@@ -176,22 +177,28 @@
                 <tbody>
                 
                 ${allQues}
-
+                <tr id="addQuesHere" style="display: none;"><td></td></tr>
                 </tbody>
-              </table>          
+              </table> 
+              <div class="addNewQues">
+                <div class="multi-btn">
+                  <button type="button" onclick="addQues('numberType')">Add Numeric Question</button>
+                  <button type="button" onclick="addQues('textType')">Add Text Question</button>
+                </div>
+              </div>  
             </div>
           </div>
         `)
       }
 
       function continueAndSave(){
-        let selectedQId =[], selectedQDetails = [], selectedQDuration = [], selectedQFreq = [], selectedQMxVal = [], selectedQMnVal = []
         let questions = []
         let allQues = ''
         $('input[name="selectQues"]:checked').each(function() {
           let qId = this.value
           let question= {
             id : qId,
+            inputType : $('#inputType'+qId).val(),
             name : $('#question'+qId).val(),
             startDate : $('#startDate'+qId).val(),
             endDate : $('#endDate'+qId).val(),
@@ -202,6 +209,7 @@
           console.log(question)
 
           allQues+=`    <input type="text" name="questionId" value="${question.id}"  style="display: none;">
+                        <input type="text" name="inputType${question.id}" value="${question.inputType}"  style="display: none;">
                         <input type="text" name="name${question.id}" value="${question.name}"  style="display: none;">
                         <input type="date" name="startDate${question.id}" value="${question.startDate}" style="display: none;">
                         <input type="date" name="endDate${question.id}" value="${question.endDate}" style="display: none;">                          
@@ -243,6 +251,53 @@
             Total Selected Questions: ${totalCnt}
           </div>
         `)
+      }
+
+      function addQues(inputType){
+        $.get('/admin/getNewId', (data)=>{
+          let newId = data.id
+          questions.push({
+            id: newId
+          })
+          $("#addQuesHere").replaceWith(`
+            <tr>
+              <th scope="row"> <input type="checkbox" name="selectQues" id="selectQues${newId}" value="${newId}" onchange="checkCount('${newId}')" checked> </th>
+              <td>
+                <input class="form-control" type="text" id="question${newId}">
+                <input type="text" id="inputType${newId}" value="${inputType}"  style="display: none;">
+              </td>                
+              <td> 
+                <input class="form-control" type="date" id="startDate${newId}" min="${stDateStr}" max="${enDateStr}" value="${stDateStr}" onchange="setEndDate('${newId}')" >
+              </td> 
+              <td>
+                <input class="form-control" type="date" id="endDate${newId}" min="${stDateStr}" max="${enDateStr}" value="${stDateStr}">                          
+              </td>
+              <td> 
+                <select class="form-control" name="frequency" id="frequency${newId}" >
+                  <option selected value='24'> 1 day </option>
+                  <% for(let j = 1 ; j < 24; j++) {%>
+                    <option value="<%=j%>"><%= j %> hour</option>                    
+                  <% } %>
+                  <% for(let j = 1 ; j < 10; j++) {%>
+                    <option value="<%=j*24%>"><%= j %> day</option>                    
+                  <% } %>                     
+                </select>
+              </td>
+              ${inputType=='numberType'?
+                `<td> <input class="form-control" type="number" id="maxVal${newId}"> </td>`+
+                `<td> <input class="form-control" type="number" id="minVal${newId}"> </td>`
+                :
+                `<td> </td>`+
+                `<td> </td>`
+              }                        
+            </tr>     
+            <tr id="addQuesHere" style="display: none;"><td></td></tr>       
+          `);
+
+          checkCount(newId)
+          
+        })
+        
       }
     </script>
   </body>

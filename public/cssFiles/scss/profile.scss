@@ -115,8 +115,26 @@ main{
             color: white;
             display: flex;
             min-height: 70px;
+            max-height: 70px;
             padding: 10px;
             font-size: 20px;
+            .angle {
+                position: relative;
+                top: 0;
+                left: -10px;
+                top: -10px;
+                width: 50px;
+                background-color: $base-color;
+                min-height: 70px;
+                max-height: 70px;
+                display: flex;
+                i {
+                  margin: auto;
+                  font-size: 40px;
+                  color: #fdfdfd;
+                }
+                display: none;
+              }
             .sec-title{
                 flex: 4;
 				margin: auto;
@@ -300,17 +318,19 @@ main{
         }
         
         .wrapper{
-            margin-left: 50px;
+            margin-left: 0px;
             
             .notify-bar{
-                
+                .angle{
+                    display: flex;
+                }
                 .selected-current{
                     display: none;
                 }             
                 .total-selected{
                     display: none;
                 }
-                margin-left: 50px;
+                margin-left: 0px;
                 padding-right: 50px;
                 width: 100%;
                 

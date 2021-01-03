@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+
+    <!-- fontawesome cdn -->
+    <link rel="stylesheet" href="//use.fontawesome.com/releases/v5.0.7/css/all.css">
+
+    <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+    crossorigin="anonymous"></script>
+
+    <!-- stylesheet for navbar -->
+    <link rel="stylesheet" href="/assets/cssFiles/navbar.css">
+    <link rel="stylesheet" href="/assets/cssFiles/patients.css" />
+    <!-- for loader -->
+    <script src="/assets/jsFiles/loader.js"></script>    
+    <link rel="stylesheet" href="/assets/cssFiles/loader.css" />
+
+
+    <title>Registration-Care for me</title>
+  </head>
+
+  <body onload="">
+    <!-- display loading icon -->
+    <div class="se-pre-con"></div>
+    <!-- ends -->
+
+    <!-- navigation bar -->
+    <% include ./segments/navbar %>
+    
+    <main>
+      <div class="side-bar">
+        <div class="topic-container">
+          <div class="topic">
+            <h3>Search Menu</h3>
+          </div>
+          <div class="angle">
+            <i class="fas fa-angle-left" id="leftAngle"  onclick="hideSidebar()"></i>
+          </div>
+        </div>
+        <!-- here are all sidebar items -->
+        <div class="nav-sec-cont">
+          <div class="card">
+            <div class="card-title">
+              Search patient
+            </div>
+            <div class="search-input">
+              <input type="text" class="form-control" placeholder="Enter patient mail id">
+            </div>
+            <div class="filter-container">
+              <div class="filter-title">
+                Search Filters
+              </div>
+              <div class="filter">
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" value="" id="malePatient">
+                  <label class="form-check-label" for="malePatient">
+                    Male patient
+                  </label>
+                </div>
+              </div>
+              <div class="filter">
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" value="" id="femalePatient">
+                  <label class="form-check-label" for="femalePatient">
+                    Female patient
+                  </label>
+                </div>
+              </div>
+              <div class="filter">
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" value="" id="runningPatient">
+                  <label class="form-check-label" for="runningPatient">
+                    Running followup
+                  </label>
+                </div>
+              </div>
+            </div>
+            <div class="btn-container">
+              <button type="submit" class="search-btn">
+                Search
+              </button>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+      
+      <div class="wrapper" id="">
+        <div class="notify-bar">
+          <div class="angle">
+            <i class="fas fa-angle-right" onclick="displaySidebar()"></i>
+          </div>
+          <div class="selected-current" id="">
+            Patient Desk 
+          </div>
+          
+        </div>
+        
+        <div class="ques-holder" id="">
+          <div class="table-responsive">
+            <table class="table table-bordered">
+              <thead >
+                <tr>
+                  <th scope="col"></th>
+                  <th scope="col">Name</th>
+                  <th scope="col">Followup Status</th>
+                  <th scope="col">Records</th>
+                  <th scope="col">Option</th>
+                </tr>
+              </thead>
+                         
+              <tbody>
+                <%for(let i=0; i<10; i++){%>
+                  <tr class="patient-info">
+                    <td  class="patient-icon">
+                      <i class="fas fa-user"></i>
+                    </td>
+                    <td class="info">Abdur Rahman</td>
+                    <td class="info">Running</td>
+                    <td class="info">12</td>
+                    <td class="remove-btn-cont">
+                      <button type="button">Remove</button>
+                    </td>
+                  </tr>
+                <%}%>  
+              </tbody>
+            </table>  
+          </div> 
+          
+          <div class="pagination-holder">
+            <nav aria-label="Page navigation example">
+              <ul class="pagination">
+                <li class="page-item">
+                  <a class="page-link" href="#" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                  </a>
+                </li>
+                <li class="page-item"><a class="page-link" href="#">1</a></li>
+                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                <li class="page-item">
+                  <a class="page-link" href="#" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                  </a>
+                </li>
+              </ul>
+            </nav>
+          </div>         
+        </div>
+      </div>
+
+     
+    </main>
+    
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+
+    <script>
+      var stDate = new Date();
+      var enDate = new Date(stDate.getFullYear()+5, stDate.getMonth(), stDate.getDate())
+      // adding 1 to getMonth() because in this function month is 0 indexed Jan=0th month
+      // but while taking input month is 1 indexed, Jan = 1th month 
+      var stDateStr = stDate.getFullYear()+'-'+ ( stDate.getMonth()<10? '0'+stDate.getMonth()+1 : stDate.getMonth()+1 )+'-'+ ( stDate.getDate()<10? '0'+stDate.getDate() : stDate.getDate() )
+      var enDateStr = enDate.getFullYear()+'-'+ ( enDate.getMonth()<10? '0'+enDate.getMonth()+1 : enDate.getMonth()+1 )+'-'+ ( enDate.getDate()<10? '0'+enDate.getDate() : enDate.getDate() )
+
+      function displaySidebar(){
+        // $('#rightAngle').css('display','none')
+        $('#leftAngle').css('display','block')
+        $('.side-bar').css('left', '0')
+      }
+      function hideSidebar(){
+        $('#leftAngle').css('display','none')
+        // $('#rightAngle').css('display','block')
+        $('.side-bar').css('left', '-300px')
+      }
+      
+      window.onresize = function() {
+          if (window.innerWidth >= 1000) {
+            $('.side-bar').css('left', '0')
+          }
+      }
+
+    
+    </script>
+  </body>
+</html>

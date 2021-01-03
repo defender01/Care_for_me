@@ -48,11 +48,13 @@
               Organize your medical information with us
             </h1>
           </div>
+          <% if(typeof navDisplayName === 'undefined' ) {%>
           <div class="banner-btn" onclick="location.href='/auth/register/patient'">
             <button >
               Register for free
             </button>
           </div>
+          <% } %>
         </div>
         <div class="about-us">
           <div class="text-container">

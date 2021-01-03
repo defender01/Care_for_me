@@ -118,8 +118,28 @@ main .wrapper .notify-bar {
   color: white;
   display: flex;
   min-height: 70px;
+  max-height: 70px;
   padding: 10px;
   font-size: 20px;
+}
+
+main .wrapper .notify-bar .angle {
+  position: relative;
+  top: 0;
+  left: -10px;
+  top: -10px;
+  width: 50px;
+  background-color: rgba(245, 147, 19, 0.89);
+  min-height: 70px;
+  max-height: 70px;
+  display: flex;
+  display: none;
+}
+
+main .wrapper .notify-bar .angle i {
+  margin: auto;
+  font-size: 40px;
+  color: #fdfdfd;
 }
 
 main .wrapper .notify-bar .sec-title {
@@ -314,12 +334,15 @@ main .wrapper .sec-holder .sub-sec-scrollspy .sub-sec-each a:hover {
     color: #0097e6;
   }
   main .wrapper {
-    margin-left: 50px;
+    margin-left: 0px;
   }
   main .wrapper .notify-bar {
-    margin-left: 50px;
+    margin-left: 0px;
     padding-right: 50px;
     width: 100%;
+  }
+  main .wrapper .notify-bar .angle {
+    display: flex;
   }
   main .wrapper .notify-bar .selected-current {
     display: none;

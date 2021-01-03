@@ -13,11 +13,6 @@ const {
   checkNotAuthenticated,
   checkAuthenticated,
   checkAuthenticatedDoctor,
-
-  checkNotAuthenticatedApp,
-  checkAuthenticatedApp,
-  checkEmailNotVerifiedApp,
-  checkAuthenticatedDoctorApp,
 } = require("../controllers/auth_helper");
 // Load User model
 const User = require("../models/userInfo");
@@ -453,9 +448,6 @@ router.post("/register/patient", async (req, res) => {
 
 // Login
 router.get("/login", checkNotAuthenticated, (req, res) => res.render("login"));
-router.get("/login/app", checkNotAuthenticatedApp, (req, res) =>
-  res.send({'redirectTo':'login'})
-);
 
 router.post("/login", async (req, res, next) => {
   // stored URL in the session
@@ -512,61 +504,6 @@ router.post("/login", async (req, res, next) => {
   }
 });
 
-router.post("/login/app", async (req, res, next) => {
-  // stored URL in the session
-  // let sessionURL = req.session.returnTo;
-  // console.log("sessionURL : " + sessionURL)
-  delete req.session.returnTo;
-
-  const { role, emailOrPhone } = req.body;
-  console.log(req.body);
-  let successRedirectUrl;
-  if (role == "patient") {
-    let user = await User.findOne({
-      $or: [{ email: emailOrPhone }, { phoneNumber: emailOrPhone }],
-    });
-    console.log("checking user");
-    console.log(user);
-    // if user is signing in using otp we should reset the otp to null
-    if (user) {
-      if (typeof user.otp == "undefined" || user.otp == "") {
-        successRedirectUrl = user.emailVerified
-          ? sessionURL || "/app"
-          : "/auth/accountVerification/patient/app";
-      } else {
-        successRedirectUrl = "/auth/resetpassword/patient/app";
-      }
-    } else successRedirectUrl = "";
-
-    passport.authenticate("patientStrategy", {
-      successRedirect: successRedirectUrl,
-      failureRedirect: "/auth/login/app",
-      failureFlash: true,
-    })(req, res, next);
-  } else {
-    let user = await Doctor.findOne({
-      $or: [{ email: emailOrPhone }, { phoneNumber: emailOrPhone }],
-    });
-    console.log("checking user");
-    // if user is signing in using otp we should reset the otp to null
-    if (user) {
-      if (typeof user.otp == "undefined" || user.otp == "") {
-        successRedirectUrl = user.emailVerified
-          ? sessionURL || "/app"
-          : "/auth/accountVerification/doctor/app";
-      } else {
-        successRedirectUrl = "/auth/resetpassword/doctor/app";
-      }
-    } else successRedirectUrl = "/";
-
-    passport.authenticate("doctorStrategy", {
-      successRedirect: successRedirectUrl,
-      failureRedirect: "/auth/login/app",
-      failureFlash: true,
-    })(req, res, next);
-  }
-});
-
 // Logout
 router.get("/logout", (req, res) => {
   if (req.user) {
@@ -579,16 +516,6 @@ router.get("/logout", (req, res) => {
   res.redirect("/auth/login");
 });
 
-router.get("/logout/app", (req, res) => {
-  if (req.user) {
-    delete req.session.currentLoggedIn;
-    req.logout();
-    req.send({"success_msg": "You are logged out",'redirectTo':'login'});
-  } else {
-    req.send({"error_msg": "You are not logged in",'redirectTo':'login'});
-  }
-});
-
 // forgot pass handling
 router.post("/forgotpass", forgotpassHandler);
 
@@ -597,19 +524,11 @@ router.get("/resetpassword/patient", checkAuthenticated, (req, res) => {
   let navDisplayName = req.user.name.displayName;
   res.render("resetPass", { navDisplayName, role: "patient" });
 });
-router.get("/resetpassword/patient/app", checkAuthenticatedApp, (req, res) => {
-  let navDisplayName = req.user.name.displayName;
-  res.send( {'redirectTo':'resetPass', navDisplayName, role: "patient" });
-});
 router.post("/resetpassword/patient", checkAuthenticated, postResetPass);
 
 router.get("/resetpassword/doctor", checkAuthenticatedDoctor, (req, res) => {
   let navDisplayName = req.user.name.displayName;
   res.render("resetPass", { navDisplayName, role: "doctor" });
-});
-router.get("/resetpassword/doctor/app", checkAuthenticatedDoctorApp, (req, res) => {
-  let navDisplayName = req.user.name.displayName;
-  res.send({'redirectTo':'resetPass', navDisplayName, role: "doctor" });
 });
 router.post(
   "/resetpassword/doctor",
@@ -636,25 +555,6 @@ router.get(
 );
 
 router.get(
-  "/accountVerification/patient/app",
-  checkAuthenticatedApp,
-  checkEmailNotVerifiedApp,
-  async (req, res) => {
-    let navDisplayName = req.user.name.displayName;
-    let fullName = req.user.name.firstName + " " + req.user.name.lastName;
-    let userEmail = req.user.email;
-    let role = "patient";
-    res.send( {
-      'redirectTo':'accountVerification',
-      navDisplayName,
-      fullName,
-      userEmail,
-      role,
-    });
-  }
-);
-
-router.get(
   "/accountVerification/doctor",
   checkAuthenticatedDoctor,
   checkEmailNotVerified,
@@ -664,25 +564,6 @@ router.get(
     let userEmail = req.user.email;
     let role = "doctor";
     res.render("accountVerification", {
-      navDisplayName,
-      fullName,
-      userEmail,
-      role,
-    });
-  }
-);
-
-router.get(
-  "/accountVerification/doctor/app",
-  checkAuthenticatedDoctorApp,
-  checkEmailNotVerifiedApp,
-  async (req, res) => {
-    let navDisplayName = req.user.name.displayName;
-    let fullName = req.user.name.firstName + " " + req.user.name.lastName;
-    let userEmail = req.user.email;
-    let role = "doctor";
-    res.send( {
-      'redirectTo': 'accountVerification',
       navDisplayName,
       fullName,
       userEmail,

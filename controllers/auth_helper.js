@@ -22,19 +22,6 @@ function checkAuthenticated(req, res, next) {
   res.redirect('/auth/login');
 }
 
-function checkAuthenticatedApp(req, res, next) {
-  if (req.isAuthenticated()) {
-    if (typeof req.session.currentLoggedIn != 'undefined' && req.session.currentLoggedIn == 'doctor') {
-      req.send({'error_msg': 'Please log in as General User to view that resource', 'redirectTo':'login'})
-      return
-    }
-   
-    return next();
-  }
-  req.session.returnTo = req.originalUrl;
-  req.send({'error_msg': 'Please log in to view that resource','redirectTo':'login'})
-}
-
 
 function checkAuthenticatedDoctor(req, res, next) {
   if (req.isAuthenticated()) {
@@ -51,20 +38,6 @@ function checkAuthenticatedDoctor(req, res, next) {
   res.redirect('/auth/login');
 }
 
-function checkAuthenticatedDoctorApp(req, res, next) {
-  if (req.isAuthenticated()) {
-    if (typeof req.session.currentLoggedIn != 'undefined' && req.session.currentLoggedIn == 'patient') {
-      req.send({'error_msg': 'Please log in as Doctor to view that resource','redirectTo':'login'})
-      return
-    }
-    console.log('came in checkAuthenticatedDoctorApp')
-    return next();
-  }
-  // req.session.returnTo = req.originalUrl;
-  req.send({'error_msg': 'Please log in to view that resource','redirectTo':'login'})
-  return
-}
-
 function checkNotAuthenticated(req, res, next) {
   if (!req.isAuthenticated()) {
     return next();
@@ -73,12 +46,6 @@ function checkNotAuthenticated(req, res, next) {
   res.redirect('back');
 }
 
-function checkNotAuthenticatedApp(req, res, next) {
-  if (!req.isAuthenticated()) {
-    return next();
-  }
-  req.send({'success_msg':'You are already logged in'})
-}
 
 
 let checkEmailNotVerified = async (req, res, next) => {
@@ -90,13 +57,6 @@ let checkEmailNotVerified = async (req, res, next) => {
   res.redirect('back');
 }
 
-let checkEmailNotVerifiedApp = async (req, res, next) => {
-  if(!req.user.emailVerified) {
-    return next()
-  }
-  console.log('came in checkEmailNotVerifiedApp')
-  req.send({'success_msg':'You email is already verified'})
-}
 
 let checkEmailVerified = (req, res, next) => {
   let currentLoggedIn = req.session.currentLoggedIn;
@@ -508,8 +468,4 @@ module.exports = {
   checkEmailVerified,
   checkEmailNotVerified,
 
-  checkNotAuthenticatedApp,
-  checkAuthenticatedApp,
-  checkEmailNotVerifiedApp,
-  checkAuthenticatedDoctorApp
 }
