@@ -24,7 +24,7 @@ let checkNotNull = (val) => {
 };
 
 // Register Page
-router.get("/register/:role", checkNotAuthenticated, (req, res) => {
+router.get("/:role/register", checkNotAuthenticated, (req, res) => {
   let role = req.params.role;
   console.log("came in reg");
   if (role === "doctor") {
@@ -34,8 +34,181 @@ router.get("/register/:role", checkNotAuthenticated, (req, res) => {
   }
 });
 
+// Register
+router.post("/patient/register", async (req, res) => {
+  console.log(req.body);
+
+  // trimming each value in req.body
+  for (let key of Object.keys(req.body)) {
+    if (Array.isArray(req.body[key])) {
+      for (let i = 0, max = req.body[key].length; i < max; i++) {
+        if (checkNotNull(req.body[key][i]))
+          req.body[key][i] = req.body[key][i].trim();
+      }
+    } else {
+      if (checkNotNull(req.body[key])) req.body[key] = req.body[key].trim();
+    }
+  }
+
+  const {
+    firstName,
+    lastName,
+    displayName,
+    email,
+    password,
+    password2,
+    birthDate,
+    phoneNumber,
+    idNumber,
+    gender,
+    idChoice,
+    occupation,
+    organization,
+    country,
+    state,
+    city,
+    additionalAddress,
+    termAgree,
+  } = req.body;
+  let errors = [];
+
+  if (
+    !firstName ||
+    !lastName ||
+    !displayName ||
+    !email ||
+    !password ||
+    !password2 ||
+    !birthDate ||
+    !phoneNumber ||
+    !idNumber ||
+    !gender ||
+    !idChoice ||
+    !termAgree
+  ) {
+    errors.push({ msg: "Please enter all required fields" });
+  }
+
+  if (password != password2) {
+    errors.push({ msg: "Passwords do not match" });
+  }
+
+  if (phoneNumber.length < 11) {
+    errors.push({ msg: "Phone number must be atleast 11 digits" });
+  }
+
+  if (password.length < 6) {
+    errors.push({ msg: "Password must be at least 6 characters" });
+  }
+
+  if (errors.length > 0) {
+    res.render("registration", {
+      errors,
+      firstName,
+      lastName,
+      displayName,
+      email,
+      birthDate,
+      phoneNumber,
+      idNumber,
+      gender,
+      idChoice,
+      occupation,
+      organization,
+      country,
+      state,
+      city,
+      additionalAddress,
+      termAgree,
+    });
+  } else {
+    try {
+      let users = await User.find({
+        $or: [
+          { email: email },
+          { phoneNumber: phoneNumber },
+          { idNumber: idNumber },
+        ],
+      });
+      if (users.length) {
+        // console.log(users);
+        users.forEach((user) => {
+          // console.log(user);
+          if (user.email == email) errors.push({ msg: "Email already exists" });
+          if (user.phoneNumber == phoneNumber)
+            errors.push({ msg: "Phone no already exists" });
+          if (user.idNumber == idNumber)
+            errors.push({
+              msg:
+                "ID number(NID/ Passport/ Birth Certificate no) already exists",
+            });
+        });
+        res.render("registration", {
+          errors,
+          firstName,
+          lastName,
+          displayName,
+          email,
+          birthDate,
+          phoneNumber,
+          idNumber,
+          gender,
+          idChoice,
+          occupation,
+          organization,
+          country,
+          state,
+          city,
+          additionalAddress,
+        });
+      } else {
+        const newUser = new User({
+          name: {
+            firstName: firstName,
+            lastName: lastName,
+            displayName: displayName,
+          },
+          email: email,
+          password: password,
+          birthDate: birthDate,
+          phoneNumber: phoneNumber,
+          idNumber: idNumber,
+          gender: gender,
+          idChoice: idChoice,
+          occupation: occupation,
+          organization: organization,
+          location: {
+            country: country,
+            state: state,
+            city: city,
+            additionalAddress: additionalAddress,
+          },
+          termAgree: termAgree,
+        });
+
+        console.log({ newUser });
+
+        bcrypt.genSalt(10, (err, salt) => {
+          bcrypt.hash(newUser.password, salt, async (err, hash) => {
+            if (err) res.render("404", { error: err.message });
+            newUser.password = hash;
+            console.log({ newUser });
+            await newUser.save();
+            req.flash("success_msg", "You are now registered and can log in");
+            res.redirect("/auth/login");
+          });
+        });
+      }
+    } catch (err) {
+      console.error(err);
+      res.render("404", { error: err.message });
+      return;
+    }
+  }
+});
+
 // Doctor Register
-router.post("/register/doctor", async (req, res) => {
+router.post("/doctor/register", async (req, res) => {
   // console.log(req.body)
   let reqBody = req.body;
   let requiresCastingToArray = [
@@ -273,179 +446,6 @@ router.post("/register/doctor", async (req, res) => {
   }
 });
 
-// Register
-router.post("/register/patient", async (req, res) => {
-  console.log(req.body);
-
-  // trimming each value in req.body
-  for (let key of Object.keys(req.body)) {
-    if (Array.isArray(req.body[key])) {
-      for (let i = 0, max = req.body[key].length; i < max; i++) {
-        if (checkNotNull(req.body[key][i]))
-          req.body[key][i] = req.body[key][i].trim();
-      }
-    } else {
-      if (checkNotNull(req.body[key])) req.body[key] = req.body[key].trim();
-    }
-  }
-
-  const {
-    firstName,
-    lastName,
-    displayName,
-    email,
-    password,
-    password2,
-    birthDate,
-    phoneNumber,
-    idNumber,
-    gender,
-    idChoice,
-    occupation,
-    organization,
-    country,
-    state,
-    city,
-    additionalAddress,
-    termAgree,
-  } = req.body;
-  let errors = [];
-
-  if (
-    !firstName ||
-    !lastName ||
-    !displayName ||
-    !email ||
-    !password ||
-    !password2 ||
-    !birthDate ||
-    !phoneNumber ||
-    !idNumber ||
-    !gender ||
-    !idChoice ||
-    !termAgree
-  ) {
-    errors.push({ msg: "Please enter all required fields" });
-  }
-
-  if (password != password2) {
-    errors.push({ msg: "Passwords do not match" });
-  }
-
-  if (phoneNumber.length < 11) {
-    errors.push({ msg: "Phone number must be atleast 11 digits" });
-  }
-
-  if (password.length < 6) {
-    errors.push({ msg: "Password must be at least 6 characters" });
-  }
-
-  if (errors.length > 0) {
-    res.render("registration", {
-      errors,
-      firstName,
-      lastName,
-      displayName,
-      email,
-      birthDate,
-      phoneNumber,
-      idNumber,
-      gender,
-      idChoice,
-      occupation,
-      organization,
-      country,
-      state,
-      city,
-      additionalAddress,
-      termAgree,
-    });
-  } else {
-    try {
-      let users = await User.find({
-        $or: [
-          { email: email },
-          { phoneNumber: phoneNumber },
-          { idNumber: idNumber },
-        ],
-      });
-      if (users.length) {
-        // console.log(users);
-        users.forEach((user) => {
-          // console.log(user);
-          if (user.email == email) errors.push({ msg: "Email already exists" });
-          if (user.phoneNumber == phoneNumber)
-            errors.push({ msg: "Phone no already exists" });
-          if (user.idNumber == idNumber)
-            errors.push({
-              msg:
-                "ID number(NID/ Passport/ Birth Certificate no) already exists",
-            });
-        });
-        res.render("registration", {
-          errors,
-          firstName,
-          lastName,
-          displayName,
-          email,
-          birthDate,
-          phoneNumber,
-          idNumber,
-          gender,
-          idChoice,
-          occupation,
-          organization,
-          country,
-          state,
-          city,
-          additionalAddress,
-        });
-      } else {
-        const newUser = new User({
-          name: {
-            firstName: firstName,
-            lastName: lastName,
-            displayName: displayName,
-          },
-          email: email,
-          password: password,
-          birthDate: birthDate,
-          phoneNumber: phoneNumber,
-          idNumber: idNumber,
-          gender: gender,
-          idChoice: idChoice,
-          occupation: occupation,
-          organization: organization,
-          location: {
-            country: country,
-            state: state,
-            city: city,
-            additionalAddress: additionalAddress,
-          },
-          termAgree: termAgree,
-        });
-
-        console.log({ newUser });
-
-        bcrypt.genSalt(10, (err, salt) => {
-          bcrypt.hash(newUser.password, salt, async (err, hash) => {
-            if (err) res.render("404", { error: err.message });
-            newUser.password = hash;
-            console.log({ newUser });
-            await newUser.save();
-            req.flash("success_msg", "You are now registered and can log in");
-            res.redirect("/auth/login");
-          });
-        });
-      }
-    } catch (err) {
-      console.error(err);
-      res.render("404", { error: err.message });
-      return;
-    }
-  }
-});
-
 // Login
 router.get("/login", checkNotAuthenticated, (req, res) => res.render("login"));
 
@@ -518,70 +518,6 @@ router.get("/logout", (req, res) => {
 
 // forgot pass handling
 router.post("/forgotpass", forgotpassHandler);
-
-// resetpassword
-router.get("/resetpassword/patient", checkAuthenticated, (req, res) => {
-  let navDisplayName = req.user.name.displayName;
-  res.render("resetPass", { navDisplayName, role: "patient" });
-});
-router.post("/resetpassword/patient", checkAuthenticated, postResetPass);
-
-router.get("/resetpassword/doctor", checkAuthenticatedDoctor, (req, res) => {
-  let navDisplayName = req.user.name.displayName;
-  res.render("resetPass", { navDisplayName, role: "doctor" });
-});
-router.post(
-  "/resetpassword/doctor",
-  checkAuthenticatedDoctor,
-  postResetPassDoctor
-);
-
-router.get(
-  "/accountVerification/patient",
-  checkAuthenticated,
-  checkEmailNotVerified,
-  async (req, res) => {
-    let navDisplayName = req.user.name.displayName;
-    let fullName = req.user.name.firstName + " " + req.user.name.lastName;
-    let userEmail = req.user.email;
-    let role = "patient";
-    res.render("accountVerification", {
-      navDisplayName,
-      fullName,
-      userEmail,
-      role,
-    });
-  }
-);
-
-router.get(
-  "/accountVerification/doctor",
-  checkAuthenticatedDoctor,
-  checkEmailNotVerified,
-  async (req, res) => {
-    let navDisplayName = req.user.name.displayName;
-    let fullName = req.user.name.firstName + " " + req.user.name.lastName;
-    let userEmail = req.user.email;
-    let role = "doctor";
-    res.render("accountVerification", {
-      navDisplayName,
-      fullName,
-      userEmail,
-      role,
-    });
-  }
-);
-
-router.post(
-  "/accountVerification/patient",
-  checkAuthenticated,
-  emailVerificationLinkGenerator
-);
-router.post(
-  "/accountVerification/doctor",
-  checkAuthenticatedDoctor,
-  emailVerificationLinkGenerator
-);
 
 router.get("/verify_email/:hash", emailVerificationHandler);
 

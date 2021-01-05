@@ -7,19 +7,18 @@ const {
   checkNotAuthenticated,
   checkAuthenticatedDoctor,
   checkEmailVerified
-} = require("../controllers/auth_helper");
+} = require("../../controllers/auth_helper");
 
 
-const { parameterModel } = require("../models/followup");
-const { route } = require("./auth");
+const { parameterModel } = require("../../models/followup");
 
-router.get('/followupQues',checkAuthenticatedDoctor, checkEmailVerified, async (req, res) => {
+router.get('/',checkAuthenticatedDoctor, checkEmailVerified, async (req, res) => {
   let parameters = await parameterModel.find({})
   let navDisplayName = req.user.name.displayName;
     res.render('followupQues', {navDisplayName, parameters})
 })
 
-router.post('/followupQues/continue', checkAuthenticatedDoctor, checkEmailVerified, async (req, res) => {
+router.post('/continue', checkAuthenticatedDoctor, checkEmailVerified, async (req, res) => {
   let navDisplayName = req.user.name.displayName;
   let data = req.body
   let qIds = data.questionId
@@ -61,22 +60,10 @@ router.post('/followupQues/continue', checkAuthenticatedDoctor, checkEmailVerifi
   res.render('followUpQuesContinue', {questions, navDisplayName})
 })
 
-router.post('/followupQues/save', checkAuthenticatedDoctor, checkEmailVerified, async (req, res) => {
+router.post('/save', checkAuthenticatedDoctor, checkEmailVerified, async (req, res) => {
   let navDisplayName = req.user.name.displayName;
   let data = req.body
   res.send({data})
 })
-
-// patient list page
-router.get('/patients', (req, res) => {
-  let navDisplayName = req.user.name.displayName;
-  res.render('patients', {navDisplayName})
-})
-
-// this provides new id
-router.get('/getNewId', (req, res) => {
-  res.send({ id: new mongoose.Types.ObjectId() })
-})
-
 
 module.exports = router;

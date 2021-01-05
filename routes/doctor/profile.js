@@ -3,24 +3,24 @@ const router = express.Router();
 const bcrypt = require("bcryptjs");
 const passport = require("passport");
 const mongoose = require("mongoose");
-const User = require("../models/userInfo");
+const User = require("../../models/userInfo");
 const {
   sectionModel,
   vaccineModel,
   substanceModel,
   answerModel,
-} = require("../models/inputCollection");
-const { getSectionData } = require("../controllers/adminFunctions");
+} = require("../../models/inputCollection");
+const { getSectionData } = require("../../controllers/adminFunctions");
 
 //import camelCase function
-const camelCase = require("../controllers/functionCollection").camelCase;
+const camelCase = require("../../controllers/functionCollection").camelCase;
 
 const {
   checkAuthenticated,
   checkNotAuthenticated,
   checkEmailVerified,
-} = require("../controllers/auth_helper");
-const { exists } = require("../models/userInfo");
+} = require("../../controllers/auth_helper");
+const { exists } = require("../../models/userInfo");
 
 let getQuestionsFromAllSections = async () => {
   let data;

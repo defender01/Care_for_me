@@ -22,7 +22,7 @@
     let substanceData = <%- JSON.stringify(substanceData)%>
     // console.log(substanceData)
   
-    $.get("/profile/getSectionData/Lifestyle", (data) => {
+    $.get("/patient/profile/getSectionData/Lifestyle", (data) => {
       let elmStr = "";
       for (let i = 0; i < data.subSections.length; i++) {
         if(data.subSections[i].name == "Substance Use History")elmStr += getSubSectionStr3(data._id, data.subSections[i]);

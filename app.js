@@ -6,7 +6,6 @@ var session = require("express-session")
 var passport = require("passport")
 const User = require('./models/userInfo');
 const Doctor = require("./models/doctor").doctorModel;
-const router = require("./routes/auth")
 
 require("dotenv").config()
 
@@ -106,10 +105,10 @@ app.get("/termsAndConditions", (req, res) => {
 
 //routes
 app.use("/data", require("./routes/data.js"))
-app.use("/auth", require("./routes/auth.js"))
-app.use("/profile", require("./routes/profile.js"))
 app.use("/admin", require("./routes/adminFacility.js"))
-app.use("/doctor", require("./routes/doctor.js"))
+app.use("/auth", require("./routes/auth.js"))
+app.use("/patient", require("./routes/patient/patient.js"))
+app.use("/doctor", require("./routes/doctor/doctor.js"))
 
 
 // 404

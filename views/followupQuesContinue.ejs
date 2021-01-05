@@ -254,7 +254,7 @@
       }
 
       function addQues(inputType){
-        $.get('/admin/getNewId', (data)=>{
+        $.get('/doctor/getNewId', (data)=>{
           let newId = data.id
           questions.push({
             id: newId

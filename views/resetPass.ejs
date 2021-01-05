@@ -20,7 +20,7 @@
 	<main>
 		<div class="box-container">
 			<% include ./segments/messages %> 
-			<form action="/auth/resetpassword/<%=role%>" method="post" id="Login_Form">
+			<form action="/<%=role%>/resetpassword" method="post" id="Login_Form">
 				<div class="title">
 					Please change your password before you continue!
 				</div>

@@ -48,7 +48,7 @@
           <div class="col-11 col-sm-9 col-md-7 col-lg-6 col-xl-9 text-center p-0 mt-3 mb-2">
             <div class="primary-card">
               <h2 id="heading">Please edit the information you want.</h2>
-              <form id="msform" method="POST" action="/profile/update/<%= sectionID %>">
+              <form id="msform" method="POST" action="/patient/profile/update/<%= sectionID %>">
                 <!-- progressbar -->
 
                 <div class="progress">
@@ -114,7 +114,7 @@
         $('#msform').submit();
       })
 
-      $.get("/profile/getSectionData/Previous Diseases and Disorders", (data) => {
+      $.get("/patient/profile/getSectionData/Previous Diseases and Disorders", (data) => {
         let elmStr = "";
         for (let i = 0; i < data.subSections.length; i++) {
           elmStr += getSubSectionStr5(data._id, data.subSections[i]);

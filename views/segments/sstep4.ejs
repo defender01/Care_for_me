@@ -21,7 +21,7 @@
   <script>
     let step4SubSections;
 
-    $.get("/profile/getSectionData/Education and Occupation Details", (data) => {
+    $.get("/patient/profile/getSectionData/Education and Occupation Details", (data) => {
 
       step4SubSections = data.subSections;
 
@@ -68,7 +68,7 @@
       sSIndex = parseInt(sSIndex);
       let subSection = step4SubSections[sSIndex];
 
-      $.get('/profile/edit/getNewId', data => {
+      $.get('/patient/getNewId', data => {
 
         console.log('ID for new generated ' + sSNickname + ' ' + data.id)
 

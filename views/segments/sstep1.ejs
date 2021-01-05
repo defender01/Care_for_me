@@ -22,7 +22,7 @@
     let mapQuesToAnswer = <%- JSON.stringify(mapQuesToAnswer) %> ;
     let mapSubSecToAdditionalIDs = <%- JSON.stringify(mapSubSecToAdditionalIDs) %>
     
-    $.get("/profile/getSectionData/Birth and Developmental History", (data) => {
+    $.get("/patient/profile/getSectionData/Birth and Developmental History", (data) => {
       let elmStr = "";
       for (let i = 0; i < data.subSections.length; i++) {
         if (data.subSections[i].name == "Immunization History") elmStr += getSubSectionStrForImmunization(data._id, data.subSections[i]);

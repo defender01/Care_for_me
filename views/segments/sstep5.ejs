@@ -28,7 +28,7 @@
         $(".se-pre-con").fadeIn();
       }
 
-      $.get("/profile/getSectionData/Previous Diseases and Disorders", (data) => {
+      $.get("/patient/profile/getSectionData/Previous Diseases and Disorders", (data) => {
         let elmStr = "";
         for (let i = 0; i < data.subSections.length; i++) {
           elmStr += getSubSectionStr5(data._id, data.subSections[i]);

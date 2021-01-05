@@ -66,7 +66,7 @@ let checkEmailVerified = (req, res, next) => {
   }
   if (typeof currentLoggedIn != 'undefined') {
     req.flash('error_msg', 'Please verify your email first.')
-    res.redirect(`/auth/accountVerification/${currentLoggedIn}`);
+    res.redirect(`/${currentLoggedIn}/accountVerification`);
     return;
   }
 
@@ -293,7 +293,7 @@ let emailVerificationLinkGenerator = async (req, res) => {
         }
         sendMail(mailData)
         req.flash("success_msg", "We have sent you an email with a link for verification");
-        res.redirect("/auth/accountVerification/patient")
+        res.redirect("/patient/accountVerification")
       }
       else {
         // no patient is found with that email
@@ -341,7 +341,7 @@ let emailVerificationLinkGenerator = async (req, res) => {
         }
         sendMail(mailData)
         req.flash("success_msg", "We have sent you an email with a link for verification");
-        res.redirect("/auth/accountVerification/doctor")
+        res.redirect("/doctor/accountVerification")
       }
       else {
         // no doctor is found with that email
