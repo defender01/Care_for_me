@@ -62,7 +62,12 @@ router.post(
 router.get('/patients', (req, res) => {
     let navDisplayName = req.user.name.displayName;
     res.render('patients', {navDisplayName})
-})
+  })
+  
+  router.get('/patients/records', (req, res) => {
+    let navDisplayName = req.user.name.displayName;
+    res.render('patientRecords', {navDisplayName})
+  })
 
 // this provides new id
 router.get('/getNewId', (req, res) => {

@@ -66,4 +66,5 @@ router.post('/save', checkAuthenticatedDoctor, checkEmailVerified, async (req, r
   res.send({data})
 })
 
+
 module.exports = router;

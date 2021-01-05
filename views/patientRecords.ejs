@@ -36,7 +36,7 @@
       <div class="side-bar">
         <div class="topic-container">
           <div class="topic">
-            <h3>Search Menu</h3>
+            <h3>Activities</h3>
           </div>
           <div class="angle">
             <i class="fas fa-angle-left" id="leftAngle"  onclick="hideSidebar()"></i>
@@ -46,43 +46,11 @@
         <div class="nav-sec-cont">
           <div class="card">
             <div class="card-title">
-              Search patient
-            </div>
-            <div class="search-input">
-              <input type="text" class="form-control" placeholder="Enter patient mail id">
-            </div>
-            <div class="filter-container">
-              <div class="filter-title">
-                Search Filters
-              </div>
-              <div class="filter">
-                <div class="form-check">
-                  <input class="form-check-input" type="checkbox" value="" id="malePatient">
-                  <label class="form-check-label" for="malePatient">
-                    Male patient
-                  </label>
-                </div>
-              </div>
-              <div class="filter">
-                <div class="form-check">
-                  <input class="form-check-input" type="checkbox" value="" id="femalePatient">
-                  <label class="form-check-label" for="femalePatient">
-                    Female patient
-                  </label>
-                </div>
-              </div>
-              <div class="filter">
-                <div class="form-check">
-                  <input class="form-check-input" type="checkbox" value="" id="runningPatient">
-                  <label class="form-check-label" for="runningPatient">
-                    Running followup
-                  </label>
-                </div>
-              </div>
+              Assign Activity
             </div>
             <div class="btn-container">
-              <button type="submit" class="search-btn">
-                Search
+              <button type="submit" class="search-btn"  onclick="location.href='/doctor/followupQues'" >
+                Create Followup
               </button>
             </div>
 
@@ -97,21 +65,20 @@
             <i class="fas fa-angle-right" onclick="displaySidebar()"></i>
           </div>
           <div class="selected-current" id="">
-            Patient Desk 
+            Abdur Rahman's Records
           </div>
           
         </div>
         
         <div class="ques-holder" id="">
           <div class="table-responsive">
-            <table class="table table-bordered table-hover">
+            <table class="table table-striped table-bordered">
               <thead >
                 <tr>
                   <th scope="col"></th>
-                  <th scope="col">Name</th>
+                  <th scope="col">Date</th>
                   <th scope="col">Followup Status</th>
-                  <th scope="col">Records</th>
-                  <th scope="col">Option</th>
+                  <th scope="col">Total Ques</th>
                 </tr>
               </thead>
                          
@@ -119,16 +86,11 @@
                 <%for(let i=0; i<10; i++){%>
                   <tr class="patient-info">
                     <td  class="patient-icon">
-                      <i class="fas fa-user"></i>
+                      <i class="far fa-clipboard" style="font-size: 24px;"></i>
                     </td>
-                    <td class="info">Abdur Rahman</td>
+                    <td class="info">12/10/21</td>
                     <td class="info">Running</td>
-                    <td class="info">
-                      <i class="far fa-clipboard" style="font-size: 24px;" onclick="location.href='/doctor/patients/records'"></i>
-                    </td>
-                    <td class="info">
-                      <button type="button" >Remove</button>
-                    </td>
+                    <td class="info">12</td>
                   </tr>
                 <%}%>  
               </tbody>

@@ -210,17 +210,25 @@ main .wrapper .ques-holder table tbody .patient-info .patient-icon {
   font-size: 20px;
 }
 
+main .wrapper .ques-holder table tbody .patient-info .patient-icon:hover {
+  color: #0097e6;
+}
+
 main .wrapper .ques-holder table tbody .patient-info .info {
   font-size: 16;
   font-family: Nanum Gothic;
   font-weight: lighter;
 }
 
-main .wrapper .ques-holder table tbody .patient-info:hover {
+main .wrapper .ques-holder table tbody .patient-info .info i {
+  text-align: center;
+}
+
+main .wrapper .ques-holder table tbody .patient-info .info i:hover {
   color: #0097e6;
 }
 
-main .wrapper .ques-holder table tbody .patient-info .remove-btn-cont button {
+main .wrapper .ques-holder table tbody .patient-info .info button {
   padding: 5px 10px;
   border: 0px;
   border-radius: 4px;
@@ -228,7 +236,7 @@ main .wrapper .ques-holder table tbody .patient-info .remove-btn-cont button {
   color: #ffffff;
 }
 
-main .wrapper .ques-holder table tbody .patient-info .remove-btn-cont button:hover {
+main .wrapper .ques-holder table tbody .patient-info .info button:hover {
   background-color: #9e2323;
 }
 
