@@ -48,7 +48,7 @@
               Organize your medical information with us
             </h1>
           </div>
-          <% if(typeof navDisplayName === 'undefined' ) {%>
+          <% if(typeof navDisplayName === 'undefined' || navDisplayName == '' ) {%>
           <div class="banner-btn" onclick="location.href='/auth/patient/register'">
             <button >
               Register for free

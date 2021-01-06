@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Lato&family=Nanum+Gothic&family=Poppins&family=Source+Sans+Pro&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Lato&family=Nanum+Gothic&family=Poppins&family=Source+Sans+Pro&display=swap");
 .nav-container {
   width: 100%;
   position: fixed;
@@ -19,13 +19,13 @@ nav {
     background-color: rgba(245, 147, 19, 0.89);
     border-radius: 60px;
     padding: 4px 10px 0 10px;
-    font-family: 'Poppins';
-	  color: rgb(105, 60, 18);
-	  font-size: 18px;
-	  &:hover{
+    font-family: "Poppins";
+    color: rgb(105, 60, 18);
+    font-size: 18px;
+    &:hover {
       color: white;
-	  	background-color: rgba(245, 147, 19, 0.89);
-	  }
+      background-color: rgba(245, 147, 19, 0.89);
+    }
   }
   ul {
     li {
@@ -48,39 +48,49 @@ nav {
 }
 
 nav.navbar.navbar-expand-lg.navbar-light.bg-light.nav-container {
- 
   padding: 0 60px 0 30px;
-  .navbar-brand{
-	  font-size: 30px;
-    font-family: 'Poppins';
+  .navbar-brand {
+    font-size: 30px;
+    font-family: "Poppins";
     color: rgb(105, 60, 18);
   }
 }
 
 .navbar-light {
   .navbar-nav {
-    .nav-link {		
-    margin-left: 10px;
-    margin-right: 10px;
-    font-family: 'Poppins';
-    padding-left: 10px;
-	  color: rgb(105, 60, 18);
-	  font-size: 18px;
-	  &:hover{      
-      border-radius: 60px;
-      color: rgb(255, 255, 255);
-      background-color: rgb(201, 113, 31);
-      animation-duration: .3s;
-	  }
+    .nav-link {
+      margin-left: 10px;
+      margin-right: 10px;
+      font-family: "Poppins";
+      padding-left: 10px;
+      color: rgb(105, 60, 18);
+      font-size: 18px;
+      position: relative;
+
+      .badge{
+        position: absolute;
+        top: -10px;
+        right: -10px;
+        padding: 5px 10px;
+        border-radius: 50%;
+        background: red;
+        color: white;
+      }
+
+
+      &:hover {
+        border-radius: 60px;
+        color: rgb(255, 255, 255);
+        background-color: rgb(201, 113, 31);
+        animation-duration: 0.3s;
+      }
     }
   }
 }
-.navbar-collapse.collapse.show{
+.navbar-collapse.collapse.show {
   background-color: white;
 }
 
-
 .bg-light {
-  background-color: #ffffff!important;
+  background-color: #ffffff !important;
 }
-
