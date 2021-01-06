@@ -20,9 +20,12 @@ const {
   checkNotAuthenticated,
   checkEmailVerified,
 } = require("../../controllers/auth_helper");
-const { exists } = require("../../models/userInfo");
 
-let getQuestionsFromAllSections = async () => {
+
+let getQuestionsFromAllSections = async (user) => {
+  let navDisplayName = user.name.displayName;
+  let userRole = user.role
+
   let data;
   try {
     data = await sectionModel
@@ -51,7 +54,7 @@ let getQuestionsFromAllSections = async () => {
       .exec();
   } catch (err) {
     console.error(err);
-    res.render("404", { error: err.message });
+    res.render("404", {navDisplayName, userRole, error: err.message });
     return;
   }
   // console.log(util.inspect({ data }, false, null, true /* enable colors */));
@@ -60,6 +63,7 @@ let getQuestionsFromAllSections = async () => {
 
 router.get("/", checkAuthenticated, checkEmailVerified, async (req, res) => {
   let navDisplayName = req.user.name.displayName;
+  let userRole = req.user.role
   let userDetails,
     wholeSectionCollection,
     medicalHistoryData,
@@ -67,7 +71,7 @@ router.get("/", checkAuthenticated, checkEmailVerified, async (req, res) => {
     substanceData;
   try {
     userDetails = await User.findOne({ _id: req.user._id });
-    wholeSectionCollection = await getQuestionsFromAllSections();
+    wholeSectionCollection = await getQuestionsFromAllSections(req.user);
     vaccineData = await vaccineModel.find({});
     substanceData = await substanceModel.find({});
     medicalHistoryData = await answerModel.find({ userID: req.user._id });
@@ -77,9 +81,9 @@ router.get("/", checkAuthenticated, checkEmailVerified, async (req, res) => {
       mapSubSecToAdditionalIDs,
     } = processAnswerModelData(medicalHistoryData);
 
-    res.render("profile", {
+    res.render("patientProfile", {
       userDetails,
-      navDisplayName,
+      navDisplayName, userRole,
       vaccineData,
       substanceData,
       wholeSectionCollection,
@@ -151,6 +155,7 @@ let processAnswerModelData = (medicalHistoryData) => {
 
 router.get("/medHistory", checkAuthenticated, checkEmailVerified, async (req, res) => {
   let navDisplayName = req.user.name.displayName;
+  let userRole = req.user.role
   let substanceData, vaccineData, medicalHistoryData;
 
   try {
@@ -159,7 +164,7 @@ router.get("/medHistory", checkAuthenticated, checkEmailVerified, async (req, re
     medicalHistoryData = await answerModel.find({ userID: req.user._id });
   } catch (err) {
     console.error(err);
-    res.render("404", { error: err.message });
+    res.render("404", { navDisplayName, userRole,error: err.message });
     return;
   }
 
@@ -175,7 +180,7 @@ router.get("/medHistory", checkAuthenticated, checkEmailVerified, async (req, re
     : { mapQuesToAnswer: {}, mapSubSecToAdditionalIDs: {} };
   //console.log(mapQuesToAnswer, mapSubSecToAdditionalIDs)
   res.render("medHistory", {
-    navDisplayName,
+    navDisplayName, userRole,
     substanceData,
     vaccineData,
     mapQuesToAnswer,
@@ -185,6 +190,8 @@ router.get("/medHistory", checkAuthenticated, checkEmailVerified, async (req, re
 
 router.post("/medHistory", checkAuthenticated, checkEmailVerified, async (req, res) => {
   let data = req.body;
+  let navDisplayName = req.user.name.displayName;
+  let userRole = req.user.role
   let secID,
     subSecID,
     qID,
@@ -199,7 +206,7 @@ router.post("/medHistory", checkAuthenticated, checkEmailVerified, async (req, r
     //console.log(sections)
   } catch (err) {
     console.error(err);
-    res.render("404", { error: err.message });
+    res.render("404", {navDisplayName, userRole, error: err.message });
     return;
   }
 
@@ -330,7 +337,9 @@ router.post("/medHistory", checkAuthenticated, checkEmailVerified, async (req, r
 router.get("/update/:sectionID", checkAuthenticated, checkEmailVerified, async (req, res) => {
   let sectionID = req.params.sectionID;
   let navDisplayName = req.user.name.displayName;
+  let userRole = req.user.role
 
+  console.log(sectionID)
   if (sectionID === "personalInfo") {
     let userDetails;
 
@@ -338,11 +347,11 @@ router.get("/update/:sectionID", checkAuthenticated, checkEmailVerified, async (
       userDetails = await User.findOne({ _id: req.user._id });
     } catch (err) {
       console.error(err);
-      res.render("404", { error: err.message });
+      res.render("404", {navDisplayName, userRole, error: err.message });
       return;
     }
 
-    res.render("updatePersonalInfo", { navDisplayName, userDetails });
+    res.render("updatePatientPersonalInfo", { navDisplayName, userRole, userDetails });
     return;
   }
 
@@ -351,7 +360,7 @@ router.get("/update/:sectionID", checkAuthenticated, checkEmailVerified, async (
     section = await sectionModel.findById(sectionID);
   } catch (err) {
     console.error(err);
-    res.render("404", { error: err.message });
+    res.render("404", {navDisplayName, userRole, error: err.message });
     return;
   }
 
@@ -366,7 +375,7 @@ router.get("/update/:sectionID", checkAuthenticated, checkEmailVerified, async (
       });
     } catch (err) {
       console.error(err);
-      res.render("404", { error: err.message });
+      res.render("404", {navDisplayName, userRole, error: err.message });
       return;
     }
 
@@ -376,8 +385,8 @@ router.get("/update/:sectionID", checkAuthenticated, checkEmailVerified, async (
     } = medicalHistoryData.length
       ? processAnswerModelData(medicalHistoryData)
       : { mapQuesToAnswer: {}, mapSubSecToAdditionalIDs: {} };
-    res.render("updateStep1", {
-      navDisplayName,
+    res.render("updateMedHistoryStep1", {
+      navDisplayName, userRole,
       sectionID,
       vaccineData,
       mapQuesToAnswer,
@@ -394,7 +403,7 @@ router.get("/update/:sectionID", checkAuthenticated, checkEmailVerified, async (
       });
     } catch (err) {
       console.error(err);
-      res.render("404", { error: err.message });
+      res.render("404", {navDisplayName, userRole, error: err.message });
       return;
     }
 
@@ -404,8 +413,8 @@ router.get("/update/:sectionID", checkAuthenticated, checkEmailVerified, async (
     } = medicalHistoryData.length
       ? processAnswerModelData(medicalHistoryData)
       : { mapQuesToAnswer: {}, mapSubSecToAdditionalIDs: {} };
-    res.render("updateStep2", {
-      navDisplayName,
+    res.render("updateMedHistoryStep2", {
+      navDisplayName, userRole,
       sectionID,
       mapQuesToAnswer,
       mapSubSecToAdditionalIDs,
@@ -422,7 +431,7 @@ router.get("/update/:sectionID", checkAuthenticated, checkEmailVerified, async (
       });
     } catch (err) {
       console.error(err);
-      res.render("404", { error: err.message });
+      res.render("404", {navDisplayName, userRole, error: err.message });
       return;
     }
 
@@ -432,8 +441,8 @@ router.get("/update/:sectionID", checkAuthenticated, checkEmailVerified, async (
     } = medicalHistoryData.length
       ? processAnswerModelData(medicalHistoryData)
       : { mapQuesToAnswer: {}, mapSubSecToAdditionalIDs: {} };
-    res.render("updateStep3", {
-      navDisplayName,
+    res.render("updateMedHistoryStep3", {
+      navDisplayName, userRole,
       sectionID,
       substanceData,
       mapQuesToAnswer,
@@ -450,7 +459,7 @@ router.get("/update/:sectionID", checkAuthenticated, checkEmailVerified, async (
       });
     } catch (err) {
       console.error(err);
-      res.render("404", { error: err.message });
+      res.render("404", {navDisplayName, userRole, error: err.message });
       return;
     }
 
@@ -460,8 +469,8 @@ router.get("/update/:sectionID", checkAuthenticated, checkEmailVerified, async (
     } = medicalHistoryData.length
       ? processAnswerModelData(medicalHistoryData)
       : { mapQuesToAnswer: {}, mapSubSecToAdditionalIDs: {} };
-    res.render("updateStep4", {
-      navDisplayName,
+    res.render("updateMedHistoryStep4", {
+      navDisplayName, userRole,
       sectionID,
       mapQuesToAnswer,
       mapSubSecToAdditionalIDs,
@@ -477,7 +486,7 @@ router.get("/update/:sectionID", checkAuthenticated, checkEmailVerified, async (
       });
     } catch (err) {
       console.error(err);
-      res.render("404", { error: err.message });
+      res.render("404", {navDisplayName, userRole, error: err.message });
       return;
     }
 
@@ -487,8 +496,8 @@ router.get("/update/:sectionID", checkAuthenticated, checkEmailVerified, async (
     } = medicalHistoryData.length
       ? processAnswerModelData(medicalHistoryData)
       : { mapQuesToAnswer: {}, mapSubSecToAdditionalIDs: {} };
-    res.render("updateStep5", {
-      navDisplayName,
+    res.render("updateMedHistoryStep5", {
+      navDisplayName, userRole,
       sectionID,
       mapQuesToAnswer,
       mapSubSecToAdditionalIDs,
@@ -496,11 +505,13 @@ router.get("/update/:sectionID", checkAuthenticated, checkEmailVerified, async (
     return;
   }
 
-  res.render("404", { error: "404 Page Not Found" });
+  res.render("404", {navDisplayName, userRole, error: "404 Page Not Found" });
 });
 
 router.post("/update-personalInfo", checkAuthenticated, checkEmailVerified, async (req, res) => {
   let data = req.user;
+  let navDisplayName = req.user.name.displayName;
+  let userRole = req.user.role
   console.log({ data });
   console.log(req.body)
   const {
@@ -577,7 +588,8 @@ router.post("/update-personalInfo", checkAuthenticated, checkEmailVerified, asyn
 
   if (errors.length > 0) {
     console.log({errors})
-    res.render("updatePersonalInfo", {
+    res.render("updatePatientPersonalInfo", {
+      navDisplayName, userRole,
       errors,
       userDetails
     });
@@ -608,7 +620,8 @@ router.post("/update-personalInfo", checkAuthenticated, checkEmailVerified, asyn
                 "ID number(NID/ Passport/ Birth Certificate no) already exists",
             });
         });
-        res.render("updatePersonalInfo", {
+        res.render("updatePatientPersonalInfo", {
+          navDisplayName, userRole,
           errors,
           userDetails
         });
@@ -635,7 +648,7 @@ router.post("/update-personalInfo", checkAuthenticated, checkEmailVerified, asyn
         if (typeof password !== "undefined") {
           bcrypt.genSalt(10, (err, salt) => {
             bcrypt.hash(user.password, salt, async (err, hash) => {
-              if (err) res.render("404", { error: err.message });
+              if (err) res.render("404", {navDisplayName, userRole, error: err.message });
               user.password = hash;              
               console.log('password change')
               console.log({user})
@@ -654,13 +667,15 @@ router.post("/update-personalInfo", checkAuthenticated, checkEmailVerified, asyn
       }
     } catch (err) {
       console.error(err);
-      res.render("404", { error: err.message });
+      res.render("404", { navDisplayName, userRole, error: err.message });
     }
   }
 });
 
 router.post("/update/:sectionID", checkAuthenticated, checkEmailVerified, async (req, res) => {
   let paramSectoinID = req.params.sectionID;
+  let navDisplayName = req.user.name.displayName;
+  let userRole = req.user.role
 
   let data = req.body;
   let secID,
@@ -677,7 +692,7 @@ router.post("/update/:sectionID", checkAuthenticated, checkEmailVerified, async 
     // console.log(paramSection)
   } catch (err) {
     console.error(err);
-    res.render("404", { error: err.message });
+    res.render("404", {navDisplayName, userRole, error: err.message });
     return;
   }
 
@@ -787,11 +802,11 @@ router.post("/update/:sectionID", checkAuthenticated, checkEmailVerified, async 
     }
   } catch (err) {
     console.error(err);
-    res.render("404", { error: err.message });
+    res.render("404", {navDisplayName, userRole, error: err.message });
     return;
   }
 
-  res.redirect("/profile");
+  res.redirect("/patient/profile");
 });
 
 router.get("/getSectionData/:section", getSectionData);

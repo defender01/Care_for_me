@@ -469,9 +469,9 @@ router.post("/login", async (req, res, next) => {
       if (typeof user.otp == "undefined" || user.otp == "") {
         successRedirectUrl = user.emailVerified
           ? sessionURL || "/"
-          : "/auth/accountVerification/patient";
+          : "/patient/accountVerification";
       } else {
-        successRedirectUrl = "/auth/resetpassword/patient";
+        successRedirectUrl = "/patient/resetpassword";
       }
     } else successRedirectUrl = "/";
 
@@ -490,9 +490,9 @@ router.post("/login", async (req, res, next) => {
       if (typeof user.otp == "undefined" || user.otp == "") {
         successRedirectUrl = user.emailVerified
           ? sessionURL || "/"
-          : "/auth/accountVerification/doctor";
+          : "/doctor/accountVerification";
       } else {
-        successRedirectUrl = "/auth/resetpassword/doctor";
+        successRedirectUrl = "/doctor/resetpassword";
       }
     } else successRedirectUrl = "/";
 
