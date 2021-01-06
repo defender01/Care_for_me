@@ -25,7 +25,9 @@ let checkNotNull = (val) => {
 
 router.get("/resetpassword", checkAuthenticatedDoctor, (req, res) => {
     let navDisplayName = req.user.name.displayName;
-    res.render("resetPass", { navDisplayName, role: "doctor" });
+    let userRole = req.user.role
+    let role = req.user.role
+    res.render("resetPass", { navDisplayName, userRole, role });
 });
 
 router.post(
@@ -42,12 +44,14 @@ router.get(
         let navDisplayName = req.user.name.displayName;
         let fullName = req.user.name.firstName + " " + req.user.name.lastName;
         let userEmail = req.user.email;
-        let role = "doctor";
+        let userRole = req.user.role
+        let role = req.user.role;
         res.render("accountVerification", {
             navDisplayName,
             fullName,
             userEmail,
-            role,
+            userRole,
+            role
         });
     }
 );
@@ -62,12 +66,14 @@ router.post(
 // patient list page
 router.get('/patients', (req, res) => {
     let navDisplayName = req.user.name.displayName;
-    res.render('patients', {navDisplayName})
+    let userRole = req.user.role
+    res.render('patients', {navDisplayName, userRole})
   })
   
   router.get('/patients/records', (req, res) => {
     let navDisplayName = req.user.name.displayName;
-    res.render('patientRecords', {navDisplayName})
+    let userRole = req.user.role
+    res.render('patientRecords', {navDisplayName, userRole})
   })
 
   router.get(

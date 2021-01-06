@@ -10,7 +10,8 @@ const {
 
 router.get('/input', checkAuthenticated, checkEmailVerified, async (req, res) => {
   let navDisplayName = req.user.name.displayName;
-  res.render('storyForm', { navDisplayName });
+  let userRole = req.user.role
+  res.render('storyForm', { navDisplayName, userRole });
 });
 
 router.post('/input', checkAuthenticated, checkEmailVerified, async (req, res) => {
@@ -47,9 +48,10 @@ router.post('/input', checkAuthenticated, checkEmailVerified, async (req, res) =
 
 router.get('/collection', checkAuthenticated, checkEmailVerified, async (req, res) => {
   let navDisplayName = req.user.name.displayName;
+  let userRole = req.user.role
   await dataModel.find({}, (err, data) => {
     if (err) console.error(err);
-    else res.render('info_display', { data, navDisplayName });
+    else res.render('info_display', { data, userRole, navDisplayName });
   });
 });
 

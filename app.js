@@ -83,14 +83,22 @@ app.use(function (req, res, next) {
 
 app.get("/", async (req, res) => {
   let navDisplayName = ''
-  if (req.user)
+  let userRole = ''
+  if (req.user){
     navDisplayName = req.user.name.displayName
-  else navDisplayName = ''
-  res.render("home", { navDisplayName })
+    userRole = req.user.role
+  }
+  res.render("home", { navDisplayName, userRole })
 })
 
 app.get("/test", async (req, res) => {
-  res.render("test")
+  let navDisplayName = ''
+  let userRole = ''
+  if (req.user){
+    navDisplayName = req.user.name.displayName
+    userRole = req.user.role
+  }
+  res.render("test", { navDisplayName, userRole })
 })
 
 app.post("/test", async (req, res) => {
@@ -99,7 +107,13 @@ app.post("/test", async (req, res) => {
 
 
 app.get("/termsAndConditions", (req, res) => {
-  res.render("termsAndConditions")
+  let navDisplayName = ''
+  let userRole = ''
+  if (req.user){
+    navDisplayName = req.user.name.displayName
+    userRole = req.user.role
+  }
+  res.render("termsAndConditions", { navDisplayName, userRole })
 })
 
 
@@ -113,11 +127,18 @@ app.use("/doctor", require("./routes/doctor/doctor.js"))
 
 // 404
 app.use((req, res, next) => {
+  let navDisplayName = ''
+  let userRole = ''
+  if (req.user){
+    navDisplayName = req.user.name.displayName
+    userRole = req.user.role
+  }
+
   res.status(404);
 
   // respond with html page
   if (req.accepts('html')) {
-    res.render('404', { error: '404 Page Not Found' });
+    res.render('404', {navDisplayName, userRole, error: '404 Page Not Found' });
     return;
   }
 

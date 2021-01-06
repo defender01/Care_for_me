@@ -24,28 +24,32 @@ let checkNotNull = (val) => {
 
 // resetpassword
 router.get("/resetpassword", checkAuthenticated, (req, res) => {
-  let navDisplayName = req.user.name.displayName;
-  res.render("resetPass", { navDisplayName, role: "patient" });
+    let navDisplayName = req.user.name.displayName;
+    let userRole = req.user.role
+    let role = req.user.role
+    res.render("resetPass", {userRole, navDisplayName, role});
 });
 
 router.post("/resetpassword", checkAuthenticated, postResetPass);
 
 router.get(
-  "/accountVerification",
-  checkAuthenticated,
-  checkEmailNotVerified,
-  async (req, res) => {
-    let navDisplayName = req.user.name.displayName;
-    let fullName = req.user.name.firstName + " " + req.user.name.lastName;
-    let userEmail = req.user.email;
-    let role = "patient";
-    res.render("accountVerification", {
-      navDisplayName,
-      fullName,
-      userEmail,
-      role,
-    });
-  }
+    "/accountVerification",
+    checkAuthenticated,
+    checkEmailNotVerified,
+    async (req, res) => {
+        let navDisplayName = req.user.name.displayName;
+        let userRole = req.user.role
+        let fullName = req.user.name.firstName + " " + req.user.name.lastName;
+        let userEmail = req.user.email;
+        let role = req.user.role;
+        res.render("accountVerification", {
+            navDisplayName,
+            userRole,
+            fullName,
+            userEmail,
+            role,
+        });
+    }
 );
 
 router.post(

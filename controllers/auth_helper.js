@@ -86,6 +86,7 @@ let checkEmailVerified = (req, res, next) => {
 
 async function postResetPass(req, res) {
   let navDisplayName = req.user.name.displayName;
+  let userRole = req.user.role
 
   const {
     password,
@@ -111,14 +112,14 @@ async function postResetPass(req, res) {
 
 
   if (errors.length > 0) {
-    res.render("resetPass", { navDisplayName, errors });
+    res.render("resetPass", { navDisplayName, userRole, errors });
   } else {
     let user = await User.findOne({ email: req.user.email })
     user.password = password
 
     bcrypt.genSalt(10, (err, salt) => {
       bcrypt.hash(user.password, salt, async (err, hash) => {
-        if (err) res.render('404', { error: err.message });
+        if (err) res.render('404', {navDisplayName, userRole, error: err.message });
         user.password = hash;
         await user.save()
         res.redirect('/');
@@ -133,6 +134,7 @@ async function postResetPassDoctor(req, res) {
   // console.log(req.body)
 
   let navDisplayName = req.user.name.displayName;
+  let userRole = req.user.role
 
   const {
     password,
@@ -158,14 +160,14 @@ async function postResetPassDoctor(req, res) {
 
 
   if (errors.length > 0) {
-    res.render("resetPass", { navDisplayName, errors });
+    res.render("resetPass", { navDisplayName,userRole,  errors });
   } else {
     let user = await Doctor.findOne({ email: req.user.email })
     user.password = password
 
     bcrypt.genSalt(10, (err, salt) => {
       bcrypt.hash(user.password, salt, async (err, hash) => {
-        if (err) res.render('404', { error: err.message });
+        if (err) res.render('404', {navDisplayName, userRole ,error: err.message });
         user.password = hash;
         await user.save()
         res.redirect('/');
@@ -232,6 +234,8 @@ async function forgotpassHandler(req, res) {
 
 let emailVerificationLinkGenerator = async (req, res) => {
   // console.log(req.body)
+  let navDisplayName = req.user.name.displayName;
+  let userRole = req.user.role
   const { role, email } = req.body
   console.log('came in accountVerification')
 
@@ -372,7 +376,7 @@ let emailVerificationLinkGenerator = async (req, res) => {
     }
   } catch (err) {
     console.error(err);
-    res.render("404", { error: err.message });
+    res.render("404", {navDisplayName, userRole, error: err.message });
     return
   }
 }

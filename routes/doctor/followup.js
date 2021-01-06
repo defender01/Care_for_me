@@ -15,11 +15,13 @@ const { parameterModel } = require("../../models/followup");
 router.get('/',checkAuthenticatedDoctor, checkEmailVerified, async (req, res) => {
   let parameters = await parameterModel.find({})
   let navDisplayName = req.user.name.displayName;
-    res.render('followupQues', {navDisplayName, parameters})
+  let userRole = req.user.role
+  res.render('followupQues', {navDisplayName,userRole, parameters})
 })
 
 router.post('/continue', checkAuthenticatedDoctor, checkEmailVerified, async (req, res) => {
   let navDisplayName = req.user.name.displayName;
+  let userRole = req.user.role
   let data = req.body
   let qIds = data.questionId
   let questions = []
@@ -57,11 +59,12 @@ router.post('/continue', checkAuthenticatedDoctor, checkEmailVerified, async (re
   }
   
   console.log(util.inspect({questions}, false, null, true /* enable colors */))
-  res.render('followUpQuesContinue', {questions, navDisplayName})
+  res.render('followUpQuesContinue', {questions, navDisplayName, userRole})
 })
 
 router.post('/save', checkAuthenticatedDoctor, checkEmailVerified, async (req, res) => {
   let navDisplayName = req.user.name.displayName;
+  let userRole = req.user.role
   let data = req.body
   res.send({data})
 })
