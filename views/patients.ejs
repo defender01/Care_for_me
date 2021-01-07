@@ -92,6 +92,26 @@
       </div>
       
       <div class="wrapper" id="">
+        <!-- Modal -->
+        <div class="modal fade" id="deletePatientModal" tabindex="-1" aria-labelledby="deletePatientModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="deletePatientModalLabel">Are you sure you want to remove "Abdur Rahman" from patient list?</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                If you click "Yes" patient "Abdur Rahman" will be parmanently deleted.
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-success" onclick="">Yes</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
+              </div>
+            </div>
+          </div>
+        </div>
         <div class="notify-bar">
           <div class="angle">
             <i class="fas fa-angle-right" onclick="displaySidebar()"></i>
@@ -103,6 +123,49 @@
         </div>
         
         <div class="ques-holder" id="">
+          <div class="card">
+            <div class="card-title">
+              Search patient
+            </div>
+            <div class="search-input">
+              <input type="text" class="form-control" placeholder="Enter patient mail id">
+            </div>
+            <div class="filter-container">
+              <div class="filter-title">
+                Search Filters
+              </div>
+              <div class="filter">
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" value="" id="malePatient">
+                  <label class="form-check-label" for="malePatient">
+                    Male patient
+                  </label>
+                </div>
+              </div>
+              <div class="filter">
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" value="" id="femalePatient">
+                  <label class="form-check-label" for="femalePatient">
+                    Female patient
+                  </label>
+                </div>
+              </div>
+              <div class="filter">
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" value="" id="runningPatient">
+                  <label class="form-check-label" for="runningPatient">
+                    Running followup
+                  </label>
+                </div>
+              </div>
+            </div>
+            <div class="btn-container">
+              <button type="submit" class="search-btn">
+                Search
+              </button>
+            </div>
+
+          </div>
           <div class="table-responsive">
             <table class="table table-bordered table-hover">
               <thead >
@@ -119,15 +182,24 @@
                 <%for(let i=0; i<10; i++){%>
                   <tr class="patient-info">
                     <td  class="patient-icon">
-                      <i class="fas fa-user"></i>
+                      <a href=""><i class="fas fa-user"></i></a>
                     </td>
-                    <td class="info">Abdur Rahman</td>
+                    <td class="info">
+                      <div class="patientSummary">
+                        <div class="segment">
+                          Name: <a href="">Abdur Rahman</a>
+                        </div>
+                        <div class="segment">
+                          Email: <a href="">abdur@outlook.com</a> 
+                        </div>
+                      </div>                      
+                    </td>
                     <td class="info">Running</td>
                     <td class="info">
-                      <i class="far fa-clipboard" style="font-size: 24px;" onclick="location.href='/doctor/patients/records'"></i>
+                      <a href="/doctor/patients/records">10 Records</a>
                     </td>
-                    <td class="info">
-                      <button type="button" >Remove</button>
+                    <td class="info-btn-cont">
+                      <button type="button" data-toggle="modal" data-target="#deletePatientModal">Remove</button>
                     </td>
                   </tr>
                 <%}%>  

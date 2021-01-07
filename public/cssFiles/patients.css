@@ -64,10 +64,17 @@ main .side-bar .nav-sec-cont {
 }
 
 main .side-bar .nav-sec-cont .card {
+  display: block;
   margin-top: 10px;
   padding: 10px;
   border-radius: 5px;
   box-shadow: 0 0 1px rgba(153, 152, 153, 0.76);
+}
+
+@media (max-width: 1000px) {
+  main .side-bar .nav-sec-cont .card {
+    display: none;
+  }
 }
 
 main .side-bar .nav-sec-cont .card .card-title {
@@ -228,7 +235,12 @@ main .wrapper .ques-holder table tbody .patient-info .info i:hover {
   color: #0097e6;
 }
 
-main .wrapper .ques-holder table tbody .patient-info .info button {
+main .wrapper .ques-holder table tbody .patient-info .info .patientSummary {
+  display: flex;
+  flex-direction: column;
+}
+
+main .wrapper .ques-holder table tbody .patient-info .info-btn-cont button {
   padding: 5px 10px;
   border: 0px;
   border-radius: 4px;
@@ -236,7 +248,7 @@ main .wrapper .ques-holder table tbody .patient-info .info button {
   color: #ffffff;
 }
 
-main .wrapper .ques-holder table tbody .patient-info .info button:hover {
+main .wrapper .ques-holder table tbody .patient-info .info-btn-cont button:hover {
   background-color: #9e2323;
 }
 
@@ -248,6 +260,69 @@ main .wrapper .ques-holder .pagination-holder {
 
 main .wrapper .ques-holder .pagination-holder nav {
   margin: auto;
+}
+
+main .wrapper .ques-holder .card {
+  display: none;
+  margin-top: 10px;
+  padding: 10px;
+  margin: 80px 10px 10px 10px;
+  border-radius: 5px;
+  box-shadow: 0 0 1px rgba(153, 152, 153, 0.76);
+}
+
+@media (max-width: 1000px) {
+  main .wrapper .ques-holder .card {
+    display: block;
+  }
+}
+
+main .wrapper .ques-holder .card .card-title {
+  margin: 5px 5px 10px 5px;
+  padding: 0 0 10px 0;
+  font-size: 18px;
+  border-bottom: solid;
+  border-width: 1px;
+  border-color: rgba(207, 207, 209, 0.726);
+}
+
+main .wrapper .ques-holder .card .search-input {
+  padding: 5px;
+}
+
+main .wrapper .ques-holder .card .filter-container {
+  margin-top: 10px;
+  padding: 5px;
+}
+
+main .wrapper .ques-holder .card .filter-container .filter-title {
+  font-size: 17px;
+  margin: 10px 5px 10px 5px;
+}
+
+main .wrapper .ques-holder .card .filter-container .filter {
+  font-size: 16px;
+  margin: 10px 5px 10px 5px;
+  padding-left: 10px;
+  color: #90949c;
+}
+
+main .wrapper .ques-holder .card .btn-container {
+  width: 100%;
+}
+
+main .wrapper .ques-holder .card .btn-container .search-btn {
+  width: 100%;
+  margin: 20px 0 10px 0;
+  height: 40px;
+  border: 0px;
+  border-radius: 4px;
+  background-color: coral;
+  color: #ffffff;
+}
+
+main .wrapper .ques-holder .card .btn-container .search-btn:hover {
+  background-color: #e46334;
 }
 
 @media (max-width: 1000px) {
