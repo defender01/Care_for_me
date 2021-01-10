@@ -87,7 +87,7 @@
               <thead >
                 <tr>
                   <th scope="col"></th>
-                  <th scope="col">Date</th>
+                  <th scope="col">Start Date -  End Date</th>
                   <th scope="col">Followup Status</th>
                   <th scope="col">Total Ques</th>
                 </tr>
@@ -99,7 +99,7 @@
                     <td  class="patient-icon">
                       <a href=""><i class="far fa-clipboard" style="font-size: 24px;"></i></a>
                     </td>
-                    <td class="info">12/10/21</td>
+                    <td class="info">12/9/21 - 20/10/21</td>
                     <td class="info">Running</td>
                     <td class="info">12</td>
                   </tr>
@@ -157,11 +157,18 @@
         $('.side-bar').css('left', '-300px')
       }
       
-      window.onresize = function() {
+      function screenDisplayCheck () {
           if (window.innerWidth >= 1000) {
             $('.side-bar').css('left', '0')
           }
+          else {
+            console.log('came in resize less 1000psx')
+            $('.angle').css('display','none')
+            $('.side-bar').css('left', '-300px')
+          }
       }
+      window.onresize = screenDisplayCheck
+      window.onload = screenDisplayCheck
 
     
     </script>

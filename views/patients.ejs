@@ -256,12 +256,18 @@
         $('.side-bar').css('left', '-300px')
       }
       
-      window.onresize = function() {
+      function screenDisplayCheck () {
           if (window.innerWidth >= 1000) {
             $('.side-bar').css('left', '0')
           }
+          else {
+            console.log('came in resize less 1000psx')
+            $('.angle').css('display','none')
+            $('.side-bar').css('left', '-300px')
+          }
       }
-
+      window.onresize = screenDisplayCheck
+      window.onload = screenDisplayCheck
     
     </script>
   </body>
