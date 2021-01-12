@@ -15,6 +15,9 @@ body {
   background-color: #f8f9fa;
 
   font-family: poppins;
+  button{
+    font-family: poppins;
+  }
 }
 
 main {
@@ -61,7 +64,8 @@ main {
         display: none;
       }
     }
-    .nav-sec-cont {
+    .nav-sec-cont {      
+      font-family: Nanum Gothic;
       font-size: $normal-font-size;
       padding: 10px 10px 10px 20px;
       overflow-y: auto;
@@ -84,7 +88,7 @@ main {
           margin: 5px 5px 10px 5px;
           padding: 0 0 10px 0;
           font-size: 18px;
-          // font-weight: bold;
+          font-weight: bold;
           border-bottom: solid;
           border-width: 1px;
           border-color: rgba(207, 207, 209, 0.726);
@@ -96,6 +100,7 @@ main {
           margin-top: 10px;
           padding: 5px;
           .filter-title{
+            font-weight: bold;
             font-size: 17px;
             margin: 10px 5px 10px 5px
           }
@@ -189,7 +194,8 @@ main {
         }
       }
     }
-    .ques-holder {
+    .page-holder {
+      font-family: Nanum Gothic;
       margin-top: 70px;
       .dlt-btn {
         min-width: 50px;
@@ -208,14 +214,13 @@ main {
             .patient-icon{
               max-width: 100%;
               text-align: center;
-              font-size: 20px;
+              font-size: 20px;              
               &:hover{
                 color: #0097e6;
               }
             }
             .info{
-              font-size: 16;
-              font-family: Nanum Gothic;
+              font-size: 16;              
               font-weight: lighter;
               // text-align: center;
               i{
@@ -234,6 +239,25 @@ main {
               
             }
             .info-btn-cont{
+              text-align: left;
+              button{
+                padding: 5px 10px;
+                border: 0px;
+                border-radius: 4px;
+                background-color: rgb(27, 202, 4);
+                color: #ffffff;
+                i{
+                  // display: none;
+                  margin: 0 4px 0 0;
+                  font-size: 20px;
+                }
+                &:hover {
+                  background-color:rgb(22, 133, 7);
+                }
+              }
+            }
+            .dlt-btn-cont{
+              text-align: left;
               button{
                 padding: 5px 10px;
                 border: 0px;
@@ -271,7 +295,7 @@ main {
           margin: 5px 5px 10px 5px;
           padding: 0 0 10px 0;
           font-size: 18px;
-          // font-weight: bold;
+          font-weight: bold;
           border-bottom: solid;
           border-width: 1px;
           border-color: rgba(207, 207, 209, 0.726);
@@ -283,6 +307,7 @@ main {
           margin-top: 10px;
           padding: 5px;
           .filter-title{
+            font-weight: bold;
             font-size: 17px;
             margin: 10px 5px 10px 5px
           }

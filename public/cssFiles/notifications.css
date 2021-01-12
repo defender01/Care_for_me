@@ -6,6 +6,10 @@ body {
   font-family: poppins;
 }
 
+body button {
+  font-family: poppins;
+}
+
 main {
   margin-top: 80px;
   display: flex;
@@ -57,6 +61,7 @@ main .side-bar .topic-container .angle i {
 }
 
 main .side-bar .nav-sec-cont {
+  font-family: Nanum Gothic;
   font-size: 20px;
   padding: 10px 10px 10px 20px;
   overflow-y: auto;
@@ -84,6 +89,7 @@ main .side-bar .nav-sec-cont .card .card-title {
   margin: 5px 5px 10px 5px;
   padding: 0 0 10px 0;
   font-size: 18px;
+  font-weight: bold;
   border-bottom: solid;
   border-width: 1px;
   border-color: rgba(207, 207, 209, 0.726);
@@ -197,11 +203,12 @@ main .wrapper .notify-bar .btn-container .dlt-param-btn {
   flex: 1;
 }
 
-main .wrapper .ques-holder {
+main .wrapper .page-holder {
+  font-family: Nanum Gothic;
   margin-top: 70px;
 }
 
-main .wrapper .ques-holder .dlt-btn {
+main .wrapper .page-holder .dlt-btn {
   min-width: 50px;
   min-height: 30px;
   background-color: red;
@@ -210,33 +217,33 @@ main .wrapper .ques-holder .dlt-btn {
   color: white;
 }
 
-main .wrapper .ques-holder .dlt-btn:hover {
+main .wrapper .page-holder .dlt-btn:hover {
   background-color: #c73c3c;
 }
 
-main .wrapper .ques-holder table {
+main .wrapper .page-holder table {
   width: 100%;
 }
 
-main .wrapper .ques-holder table tbody tr td {
+main .wrapper .page-holder table tbody tr td {
   border-top: 1px solid #dee2e6;
   border-bottom: 1px solid #dee2e6;
 }
 
-main .wrapper .ques-holder table tbody .new {
+main .wrapper .page-holder table tbody .new {
   background-color: rgba(218, 218, 221, 0.726);
 }
 
-main .wrapper .ques-holder table tbody .request-notify .icon-cont {
+main .wrapper .page-holder table tbody .request-notify .icon-cont {
   text-align: center;
   font-size: 30px;
 }
 
-main .wrapper .ques-holder table tbody .request-notify .icon-cont i {
+main .wrapper .page-holder table tbody .request-notify .icon-cont i {
   color: green;
 }
 
-main .wrapper .ques-holder table tbody .request-notify .btn-cont button {
+main .wrapper .page-holder table tbody .request-notify .btn-cont button {
   min-width: 80px;
   padding: 5px 10px;
   border: 0px;
@@ -245,20 +252,20 @@ main .wrapper .ques-holder table tbody .request-notify .btn-cont button {
   color: #ffffff;
 }
 
-main .wrapper .ques-holder table tbody .request-notify .btn-cont button:hover {
+main .wrapper .page-holder table tbody .request-notify .btn-cont button:hover {
   background-color: #129406;
 }
 
-main .wrapper .ques-holder table tbody .warning-notify .icon-cont {
+main .wrapper .page-holder table tbody .warning-notify .icon-cont {
   text-align: center;
   font-size: 30px;
 }
 
-main .wrapper .ques-holder table tbody .warning-notify .icon-cont i {
+main .wrapper .page-holder table tbody .warning-notify .icon-cont i {
   color: red;
 }
 
-main .wrapper .ques-holder table tbody .warning-notify .btn-cont button {
+main .wrapper .page-holder table tbody .warning-notify .btn-cont button {
   min-width: 80px;
   padding: 5px 10px;
   border: 0px;
@@ -267,20 +274,20 @@ main .wrapper .ques-holder table tbody .warning-notify .btn-cont button {
   color: #ffffff;
 }
 
-main .wrapper .ques-holder table tbody .warning-notify .btn-cont button:hover {
+main .wrapper .page-holder table tbody .warning-notify .btn-cont button:hover {
   background-color: #b30707;
 }
 
-main .wrapper .ques-holder table tbody .reminder-notify .icon-cont {
+main .wrapper .page-holder table tbody .reminder-notify .icon-cont {
   text-align: center;
   font-size: 30px;
 }
 
-main .wrapper .ques-holder table tbody .reminder-notify .icon-cont i {
+main .wrapper .page-holder table tbody .reminder-notify .icon-cont i {
   color: #f1c40f;
 }
 
-main .wrapper .ques-holder table tbody .reminder-notify .btn-cont button {
+main .wrapper .page-holder table tbody .reminder-notify .btn-cont button {
   min-width: 80px;
   padding: 5px 10px;
   border: 0px;
@@ -289,21 +296,21 @@ main .wrapper .ques-holder table tbody .reminder-notify .btn-cont button {
   color: #ffffff;
 }
 
-main .wrapper .ques-holder table tbody .reminder-notify .btn-cont button:hover {
+main .wrapper .page-holder table tbody .reminder-notify .btn-cont button:hover {
   background-color: #a38407;
 }
 
-main .wrapper .ques-holder .pagination-holder {
+main .wrapper .page-holder .pagination-holder {
   display: flex;
   margin: 20px 0 50px 0;
   height: 150px;
 }
 
-main .wrapper .ques-holder .pagination-holder nav {
+main .wrapper .page-holder .pagination-holder nav {
   margin: auto;
 }
 
-main .wrapper .ques-holder .card {
+main .wrapper .page-holder .card {
   display: none;
   margin-top: 10px;
   padding: 10px;
@@ -313,46 +320,47 @@ main .wrapper .ques-holder .card {
 }
 
 @media (max-width: 1000px) {
-  main .wrapper .ques-holder .card {
+  main .wrapper .page-holder .card {
     display: block;
   }
 }
 
-main .wrapper .ques-holder .card .card-title {
+main .wrapper .page-holder .card .card-title {
   margin: 5px 5px 10px 5px;
   padding: 0 0 10px 0;
   font-size: 18px;
+  font-weight: bold;
   border-bottom: solid;
   border-width: 1px;
   border-color: rgba(207, 207, 209, 0.726);
 }
 
-main .wrapper .ques-holder .card .search-input {
+main .wrapper .page-holder .card .search-input {
   padding: 5px;
 }
 
-main .wrapper .ques-holder .card .filter-container {
+main .wrapper .page-holder .card .filter-container {
   margin-top: 10px;
   padding: 5px;
 }
 
-main .wrapper .ques-holder .card .filter-container .filter-title {
+main .wrapper .page-holder .card .filter-container .filter-title {
   font-size: 17px;
   margin: 10px 5px 10px 5px;
 }
 
-main .wrapper .ques-holder .card .filter-container .filter {
+main .wrapper .page-holder .card .filter-container .filter {
   font-size: 16px;
   margin: 10px 5px 10px 5px;
   padding-left: 10px;
   color: #90949c;
 }
 
-main .wrapper .ques-holder .card .btn-container {
+main .wrapper .page-holder .card .btn-container {
   width: 100%;
 }
 
-main .wrapper .ques-holder .card .btn-container .search-btn {
+main .wrapper .page-holder .card .btn-container .search-btn {
   width: 100%;
   margin: 20px 0 10px 0;
   height: 40px;
@@ -362,7 +370,7 @@ main .wrapper .ques-holder .card .btn-container .search-btn {
   color: #ffffff;
 }
 
-main .wrapper .ques-holder .card .btn-container .search-btn:hover {
+main .wrapper .page-holder .card .btn-container .search-btn:hover {
   background-color: #e46334;
 }
 

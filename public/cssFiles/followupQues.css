@@ -6,6 +6,10 @@ body {
   font-family: poppins;
 }
 
+body button {
+  font-family: poppins;
+}
+
 main {
   margin-top: 80px;
   display: flex;
@@ -57,6 +61,7 @@ main .side-bar .topic-container .angle i {
 }
 
 main .side-bar .nav-sec-cont {
+  font-family: Nanum Gothic;
   font-size: 20px;
   padding: 10px 10px 10px 20px;
   overflow-y: auto;
@@ -249,11 +254,12 @@ main .wrapper .notify-bar .btn-container .dlt-param-btn {
   flex: 1;
 }
 
-main .wrapper .ques-holder {
+main .wrapper .page-holder {
+  font-family: Nanum Gothic;
   margin-top: 70px;
 }
 
-main .wrapper .ques-holder .dlt-btn {
+main .wrapper .page-holder .dlt-btn {
   min-width: 50px;
   min-height: 30px;
   background-color: red;
@@ -262,18 +268,18 @@ main .wrapper .ques-holder .dlt-btn {
   color: white;
 }
 
-main .wrapper .ques-holder .dlt-btn:hover {
+main .wrapper .page-holder .dlt-btn:hover {
   background-color: #c73c3c;
 }
 
-main .wrapper .ques-holder .addNewQues {
+main .wrapper .page-holder .addNewQues {
   margin: 30px 0 20px 0;
   width: 100%;
   height: 50px;
   display: flex;
 }
 
-main .wrapper .ques-holder .addNewQues button {
+main .wrapper .page-holder .addNewQues button {
   margin: auto;
   height: 40px;
   background-color: coral;
@@ -283,15 +289,15 @@ main .wrapper .ques-holder .addNewQues button {
   font-size: 20px;
 }
 
-main .wrapper .ques-holder .addNewQues button:hover {
+main .wrapper .page-holder .addNewQues button:hover {
   background-color: #e46334;
 }
 
-main .wrapper .ques-holder .addNewQues .multi-btn {
+main .wrapper .page-holder .addNewQues .multi-btn {
   margin: auto;
 }
 
-main .wrapper .ques-holder .addNewQues .multi-btn button {
+main .wrapper .page-holder .addNewQues .multi-btn button {
   margin: 20px 10px 20px 10px;
   width: 250px;
 }

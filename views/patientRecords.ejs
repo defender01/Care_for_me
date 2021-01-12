@@ -36,7 +36,7 @@
       <div class="side-bar">
         <div class="topic-container">
           <div class="topic">
-            <h3>Activities</h3>
+            <h3>Options</h3>
           </div>
           <div class="angle">
             <i class="fas fa-angle-left" id="leftAngle"  onclick="hideSidebar()"></i>
@@ -46,6 +46,38 @@
         <div class="nav-sec-cont">
           <div class="card">
             <div class="card-title">
+              Filter records
+            </div>
+            <div class="filter-container">
+              <div class="filter-title">
+                Select filters
+              </div>
+              <div class="filter">
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" value="" id="runningRecords">
+                  <label class="form-check-label" for="runningRecords">
+                    Running
+                  </label>
+                </div>
+              </div>
+              <div class="filter">
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" value="" id="endedRecords">
+                  <label class="form-check-label" for="endedRecords">
+                    Ended
+                  </label>
+                </div>
+              </div>
+            </div>
+            <div class="btn-container">
+              <button type="submit" class="search-btn">
+                Apply
+              </button>
+            </div>
+
+          </div>
+          <div class="card">
+            <div class="card-title">
               Assign Activity
             </div>
             <div class="btn-container">
@@ -53,7 +85,6 @@
                 Create Followup
               </button>
             </div>
-
           </div>
 
         </div>
@@ -70,7 +101,39 @@
           
         </div>
         
-        <div class="ques-holder" id="">
+        <div class="page-holder" id="">
+          <div class="card">
+            <div class="card-title">
+              Filter records
+            </div>
+            <div class="filter-container">
+              <div class="filter-title">
+                Select filters
+              </div>
+              <div class="filter">
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" value="" id="runningRecords">
+                  <label class="form-check-label" for="runningRecords">
+                    Running
+                  </label>
+                </div>
+              </div>
+              <div class="filter">
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" value="" id="endedRecords">
+                  <label class="form-check-label" for="endedRecords">
+                    Ended
+                  </label>
+                </div>
+              </div>
+            </div>
+            <div class="btn-container">
+              <button type="submit" class="search-btn">
+                Apply
+              </button>
+            </div>
+
+          </div>
           <div class="card">
             <div class="card-title">
               Assign Activity
@@ -80,28 +143,27 @@
                 Create Followup
               </button>
             </div>
-
           </div>
           <div class="table-responsive">
             <table class="table table-striped table-bordered">
               <thead >
-                <tr>
-                  <th scope="col"></th>
+                <tr>                  
                   <th scope="col">Start Date -  End Date</th>
                   <th scope="col">Followup Status</th>
                   <th scope="col">Total Ques</th>
+                  <th scope="col">Record Details</th>
                 </tr>
               </thead>
                          
               <tbody>
                 <%for(let i=0; i<10; i++){%>
-                  <tr class="patient-info">
-                    <td  class="patient-icon">
-                      <a href=""><i class="far fa-clipboard" style="font-size: 24px;"></i></a>
-                    </td>
+                  <tr class="patient-info">                    
                     <td class="info">12/9/21 - 20/10/21</td>
                     <td class="info">Running</td>
                     <td class="info">12</td>
+                    <td  class="info-btn-cont">
+                      <button><i class="far fa-clipboard" ></i> Details</button>
+                    </td>
                   </tr>
                 <%}%>  
               </tbody>
