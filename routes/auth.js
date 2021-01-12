@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const bcrypt = require("bcryptjs");
 const passport = require("passport");
+const mongoose = require("mongoose");
 
 const {
   forgotpassHandler,
@@ -209,19 +210,23 @@ router.post("/patient/register", async (req, res) => {
 
 // Doctor Register
 router.post("/doctor/register", async (req, res) => {
-  // console.log(req.body)
+  console.log(req.body)
   let reqBody = req.body;
   let requiresCastingToArray = [
+    "educationId",
     "degree",
     "institute",
     "passingYear",
     "subject",
+    "trainingId",
     "trainingName",
     "trainingYear",
     "trainingDetails",
+    "workId",
     "workPlace",
     "workFromYear",
     "workToYear",
+    "awardId",
     "awardName",
     "awardYear",
     "awardDetails",
@@ -248,7 +253,7 @@ router.post("/doctor/register", async (req, res) => {
     }
   }
 
-  // console.log(reqBody);
+  console.log(reqBody);
 
   const {
     firstName,
@@ -270,16 +275,20 @@ router.post("/doctor/register", async (req, res) => {
     affiliation,
     researchArea,
     expertiseArea,
+    educationId,
     degree,
     institute,
     passingYear,
     subject,
+    trainingId,
     trainingName,
     trainingYear,
     trainingDetails,
+    workId,
     workPlace,
     workFromYear,
     workToYear,
+    awardId,
     awardName,
     awardYear,
     awardDetails,
@@ -292,6 +301,7 @@ router.post("/doctor/register", async (req, res) => {
     awardAndHonour = [];
   for (let i = 0, max = degree.length; i < max; i++) {
     let instance = {
+      _id: (typeof educationId[i] == 'undefined' || educationId[i] == '' || !educationId[i].match(/^[0-9a-fA-F]{24}$/)) ? new mongoose.Types.ObjectId(): mongoose.Types.ObjectId(educationId[i]),
       degree: degree[i],
       institute: institute[i],
       passingYear: passingYear[i],
@@ -301,6 +311,7 @@ router.post("/doctor/register", async (req, res) => {
   }
   for (let i = 0, max = trainingName.length; i < max; i++) {
     let instance = {
+      _id: (typeof trainingId[i] == 'undefined' || trainingId[i] == '' || !educationId[i].match(/^[0-9a-fA-F]{24}$/)) ? new mongoose.Types.ObjectId(): mongoose.Types.ObjectId(trainingId[i]),
       name: trainingName[i],
       year: trainingYear[i],
       details: trainingDetails[i],
@@ -309,6 +320,7 @@ router.post("/doctor/register", async (req, res) => {
   }
   for (let i = 0, max = workPlace.length; i < max; i++) {
     let instance = {
+      _id: (typeof workId[i] == 'undefined' || workId[i] == '' || !educationId[i].match(/^[0-9a-fA-F]{24}$/)) ? new mongoose.Types.ObjectId(): mongoose.Types.ObjectId(workId[i]),
       workPlace: workPlace[i],
       workFromYear: workFromYear[i],
       workToYear: workToYear[i],
@@ -317,6 +329,7 @@ router.post("/doctor/register", async (req, res) => {
   }
   for (let i = 0, max = awardName.length; i < max; i++) {
     let instance = {
+      _id: (typeof awardId[i] == 'undefined' || awardId[i] == '' || !educationId[i].match(/^[0-9a-fA-F]{24}$/)) ? new mongoose.Types.ObjectId(): mongoose.Types.ObjectId(awardId[i]),
       name: awardName[i],
       year: awardYear[i],
       details: awardDetails[i],

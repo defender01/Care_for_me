@@ -46,9 +46,10 @@
             Doctor registration form
           </div>
         </div>
-        <form method="POST" action="/auth/doctor/register">
+        <form method="POST" action="/doctor/profile/update">
           <div class="ques-container">
-            <% include ./segments/messages %>           
+            <% include ./segments/messages %>  
+            <div id="sectionID-personalInfo"></div>         
             <div class="single-ques">
               <div class="label">
                 *First name:
@@ -79,22 +80,6 @@
               </div>
               <div class="input-field">
                 <input type="email" name="email" class="form-control" value="<%= (typeof doctorInfo != 'undefined' && typeof doctorInfo.email != 'undefined') ? doctorInfo.email : '' %>" required>
-              </div>
-            </div>
-            <div class="single-ques">
-              <div class="label">
-                *Password:
-              </div>
-              <div class="input-field">
-                <input type="password" name="password" class="form-control" required>
-              </div>
-            </div>
-            <div class="single-ques">
-              <div class="label">
-                *Confirm password:
-              </div>
-              <div class="input-field">
-                <input type="password" name="password2"  class="form-control" required>
               </div>
             </div>
             <div class="single-ques">
@@ -225,13 +210,13 @@
               </div>
             </div>
   
-            <div class="multi-cont">
+            <div class="multi-cont" id="sectionID-education">
               <div class="sec-title">Education</div>
               <% if(typeof doctorInfo != 'undefined' && typeof doctorInfo.education != 'undefined'){ %>
                 <% for(let i=0, max = doctorInfo.education.length; i<max; i++){ %>
                   <div class="item-holder" id="education<%= i %>">
                     <div class="delete-btn">
-                      <button onclick="deleteItem('education<%= i %>')">Delete</button>
+                      <button type="button" onclick="deleteItem('education<%= i %>')">Delete</button>
                     </div> 
                     
                     <!-- Hidden inputs -->
@@ -274,7 +259,7 @@
               <% } else { %>
                 <div class="item-holder" id="education">
                   <div class="delete-btn">
-                    <button onclick="deleteItem('education')">Delete</button>
+                    <button type="button" onclick="deleteItem('education')">Delete</button>
                   </div> 
                   
                   <!-- Hidden inputs -->
@@ -320,13 +305,13 @@
               </div>                                
             </div>
   
-            <div class="multi-cont">
+            <div class="multi-cont" id="sectionID-training">
               <div class="sec-title">Traingings</div>
               <% if(typeof doctorInfo != 'undefined' && typeof doctorInfo.training != 'undefined'){ %>
                 <% for(let i=0, max = doctorInfo.training.length; i<max; i++){ %>
                   <div class="item-holder" id='training<%= i %>'>
                     <div class="delete-btn">
-                      <button onclick="deleteItem('training<%= i %>')">Delete</button>
+                      <button type="button" onclick="deleteItem('training<%= i %>')">Delete</button>
                     </div> 
 
                     <!-- Hidden inputs -->
@@ -361,7 +346,7 @@
               <% } else { %>
                   <div class="item-holder" id='training'>
                     <div class="delete-btn">
-                      <button onclick="deleteItem('training')">Delete</button>
+                      <button type="button" onclick="deleteItem('training')">Delete</button>
                     </div> 
 
                     <!-- Hidden inputs -->
@@ -399,13 +384,13 @@
               </div>
             </div>
             
-            <div class="multi-cont">
+            <div class="multi-cont" id="sectionID-workAndExperience">
               <div class="sec-title">Work and Experience</div>
               <% if(typeof doctorInfo != 'undefined' && typeof doctorInfo.workAndExperience != 'undefined' ){ %>
                 <% for(let i=0, max = doctorInfo.workAndExperience.length; i<max; i++){ %>
                   <div class="item-holder" id="work<%= i %>">
                     <div class="delete-btn">
-                      <button onclick="deleteItem('work<%= i %>')">Delete</button>
+                      <button type="button" onclick="deleteItem('work<%= i %>')">Delete</button>
                     </div> 
                     
                     <!-- Hidden inputs -->
@@ -440,7 +425,7 @@
               <% } else { %>
                 <div class="item-holder" id="work">
                   <div class="delete-btn">
-                    <button onclick="deleteItem('work')">Delete</button>
+                    <button type="button" onclick="deleteItem('work')">Delete</button>
                   </div> 
 
                   <!-- Hidden inputs -->
@@ -477,13 +462,13 @@
                 <button type="button" onclick="createWork()">Add New</button>
               </div>
             </div>
-            <div class="multi-cont">
+            <div class="multi-cont" id="sectionID-awardAndHonour">
               <div class="sec-title">Award and Honour</div>
               <% if(typeof doctorInfo != 'undefined' && typeof doctorInfo.awardAndHonour != 'undefined'){ %>
                 <% for(let i=0, max = doctorInfo.awardAndHonour.length; i<max; i++){ %>
                   <div class="item-holder" id="award<%= i %>">
                     <div class="delete-btn">
-                      <button onclick="deleteItem('award<%= i %>')">Delete</button>
+                      <button type="button" onclick="deleteItem('award<%= i %>')">Delete</button>
                     </div> 
 
                     <!-- Hidden inputs -->
@@ -518,7 +503,7 @@
               <% } else { %>
                 <div class="item-holder" id="award">
                   <div class="delete-btn">
-                    <button onclick="deleteItem('award')">Delete</button>
+                    <button type="button" onclick="deleteItem('award')">Delete</button>
                   </div> 
 
                   <!-- Hidden inputs -->
@@ -555,12 +540,13 @@
                 <button type="button" onclick="createAward()">Add New</button>
               </div>
             </div>
-            <div class="terms">
-              <input class="form-check-input" type="checkbox" name="termAgree" value="Yes" id="termAgree" required>
-              <label class="form-check-label" for="termAgree">
-                I agree to the  <a href="/termsAndConditions">Terms & Conditions</a>
-              </label>
+            
+            <div class="showPassChange" onclick="showPassSec()">
+              <i class="fas fa-key"></i>
+              <p>Change password</p>                
             </div>
+            <div class="addPlacePassword"></div>
+
             <div class="help-block">
               *Required fields
             </div>
@@ -580,6 +566,41 @@
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    <script>
+      let sectionID = '<%- sectionID %>' 
+      console.log(sectionID)
+      
+      $(document).ready(function () {
+        // Handler for .ready() called.
+        $('html, body').animate({
+            scrollTop: $(`#sectionID-${sectionID}`).offset().top - 200
+        }, 'slow');
+      });
 
+      function showPassSec(){
+          $('.showPassChange').css("display", "none");
+          $('.passwordChange').css("display", "block");
+          $('.addPlacePassword').replaceWith(
+          `<div class="passwordChange">`+
+           `   <div class="single-ques">`+
+            `      <div class="label">`+
+             `       *New password:`+
+              `    </div>`+
+               `   <div class="input-field">`+
+                `    <input type="password" name="password" class="form-control" required>`+
+                 ` </div>`+
+                `</div>`+
+                `<div class="single-ques">`+
+                 ` <div class="label">`+
+                  `  *Confirm new password:`+
+                  `</div>`+
+                  `<div class="input-field">`+
+                   ` <input type="password" name="password2"  class="form-control" required>`+
+                  `</div>`+
+                `</div>   `+
+          `</div>`
+          )          
+      }
+  </script>
   </body>
 </html>

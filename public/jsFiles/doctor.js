@@ -6,6 +6,7 @@ function createEducation(){
             ` <div class="delete-btn">`+
                 `<button onclick="deleteItem('education${newId}')">Delete</button>`+
             `</div>  `+
+            `<input type="text" name="educationId" value="${newId}" style="display: none;"/>` +
             `<div class="single-ques">`+
               `<div class="label">`+
                 `*Degree:`+
@@ -52,8 +53,9 @@ function createTraining(){
                 ` <div class="delete-btn">`+
                     `<button onclick="deleteItem('training${newId}')">Delete</button>`+
                 `</div>  `+
-                `<div class="single-ques">`+
-                  `<div class="label">`+
+                `<input type="text" name="trainingId" value="${newId}" style="display: none;"/>` +
+                `<div class="single-ques">` +
+                  `<div class="label">` +
                     `*Name:`+
                   `</div>`+
                   `<div class="input-field">`+
@@ -90,6 +92,7 @@ function createWork(){
                 ` <div class="delete-btn">`+
                     `<button onclick="deleteItem('work${newId}')">Delete</button>`+
                 `</div>  `+ 
+                `<input type="text" name="workId" value="${newId}" style="display: none;"/>` +
                 `<div class="single-ques">`+
                   `<div class="label">`+
                     `*Work Place:`+
@@ -128,6 +131,7 @@ function createAward(){
                 ` <div class="delete-btn">`+
                     `<button onclick="deleteItem('award${newId}')">Delete</button>`+
                 `</div>  `+ 
+                `<input type="text" name="awardId" value="${newId}" style="display: none;"/>` +
                 `<div class="single-ques">`+
                   `<div class="label">`+
                     `*Name:`+

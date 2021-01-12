@@ -2,15 +2,15 @@ const mongoose = require("mongoose");
 
 const doctorSchema = new mongoose.Schema({
   name: {
-    firstName : {
+    firstName: {
       type: String,
       required: true
     },
-    lastName : {
+    lastName: {
       type: String,
       required: true
     },
-    displayName : {
+    displayName: {
       type: String,
       required: true
     }
@@ -27,13 +27,13 @@ const doctorSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  birthDate : {
+  birthDate: {
     type: String
   },
-  phoneNumber : {
+  phoneNumber: {
     type: String,
     required: true
-  },  
+  },
   licenseOrReg: {
     type: String,
     required: true
@@ -41,7 +41,7 @@ const doctorSchema = new mongoose.Schema({
   gender: {
     type: String
   },
-  location:{
+  location: {
     country: String,
     state: String,
     city: String,
@@ -51,30 +51,34 @@ const doctorSchema = new mongoose.Schema({
   designation: String,
   affiliation: String,
   researchArea: String,
-  expertiseArea: String, 
-  education:[{
+  expertiseArea: String,
+  education: [{
+    _id: mongoose.Schema.Types.ObjectId,
     degree: String,
-    institute: String,    
+    institute: String,
     passingYear: Number,
     subject: String
   }],
-  training:[{
+  training: [{
+    _id: mongoose.Schema.Types.ObjectId,
     name: String,
     year: String,
     details: String,
   }],
   workAndExperience: [{
+    _id: mongoose.Schema.Types.ObjectId,
     workPlace: String,
     workFromYear: Number,
     workToYear: Number,
   }],
-  awardAndHonour:[{
+  awardAndHonour: [{
+    _id: mongoose.Schema.Types.ObjectId,
     name: String,
     year: Number,
     details: String
   }],
   otp: {
-    type:String
+    type: String
   },
   emailVerified: {
     type: Boolean,
@@ -84,8 +88,8 @@ const doctorSchema = new mongoose.Schema({
     type: String,
     default: 'No'
   },
-  created: { 
-    type: Date, 
+  created: {
+    type: Date,
     default: Date.now
   },
 
