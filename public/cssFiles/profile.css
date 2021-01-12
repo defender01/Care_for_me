@@ -59,8 +59,11 @@ main .side-bar .topic-container .angle i {
 main .side-bar .nav-sec-cont {
   font-size: 20px;
   padding: 10px 10px 10px 20px;
-  overflow-y: scroll;
+  overflow-y: auto;
   height: 100%;
+  border-right: rgba(209, 208, 208, 0.801);
+  border-width: 0 1px 0 0;
+  border-style: solid;
 }
 
 main .side-bar .nav-sec-cont .sec-cont {

@@ -214,45 +214,83 @@ main .wrapper .ques-holder .dlt-btn:hover {
   background-color: #c73c3c;
 }
 
-main .wrapper .ques-holder table tbody .patient-info .patient-icon {
-  max-width: 100%;
+main .wrapper .ques-holder table {
+  width: 100%;
+}
+
+main .wrapper .ques-holder table tbody tr td {
+  border-top: 1px solid #dee2e6;
+  border-bottom: 1px solid #dee2e6;
+}
+
+main .wrapper .ques-holder table tbody .new {
+  background-color: rgba(218, 218, 221, 0.726);
+}
+
+main .wrapper .ques-holder table tbody .request-notify .icon-cont {
   text-align: center;
-  font-size: 20px;
+  font-size: 30px;
 }
 
-main .wrapper .ques-holder table tbody .patient-info .patient-icon:hover {
-  color: #0097e6;
+main .wrapper .ques-holder table tbody .request-notify .icon-cont i {
+  color: green;
 }
 
-main .wrapper .ques-holder table tbody .patient-info .info {
-  font-size: 16;
-  font-family: Nanum Gothic;
-  font-weight: lighter;
-}
-
-main .wrapper .ques-holder table tbody .patient-info .info i {
-  text-align: center;
-}
-
-main .wrapper .ques-holder table tbody .patient-info .info i:hover {
-  color: #0097e6;
-}
-
-main .wrapper .ques-holder table tbody .patient-info .info .patientSummary {
-  display: flex;
-  flex-direction: column;
-}
-
-main .wrapper .ques-holder table tbody .patient-info .info-btn-cont button {
+main .wrapper .ques-holder table tbody .request-notify .btn-cont button {
+  min-width: 80px;
   padding: 5px 10px;
   border: 0px;
   border-radius: 4px;
-  background-color: #f70000;
+  background-color: #18e605;
   color: #ffffff;
 }
 
-main .wrapper .ques-holder table tbody .patient-info .info-btn-cont button:hover {
-  background-color: #9e2323;
+main .wrapper .ques-holder table tbody .request-notify .btn-cont button:hover {
+  background-color: #129406;
+}
+
+main .wrapper .ques-holder table tbody .warning-notify .icon-cont {
+  text-align: center;
+  font-size: 30px;
+}
+
+main .wrapper .ques-holder table tbody .warning-notify .icon-cont i {
+  color: red;
+}
+
+main .wrapper .ques-holder table tbody .warning-notify .btn-cont button {
+  min-width: 80px;
+  padding: 5px 10px;
+  border: 0px;
+  border-radius: 4px;
+  background-color: red;
+  color: #ffffff;
+}
+
+main .wrapper .ques-holder table tbody .warning-notify .btn-cont button:hover {
+  background-color: #b30707;
+}
+
+main .wrapper .ques-holder table tbody .reminder-notify .icon-cont {
+  text-align: center;
+  font-size: 30px;
+}
+
+main .wrapper .ques-holder table tbody .reminder-notify .icon-cont i {
+  color: #f1c40f;
+}
+
+main .wrapper .ques-holder table tbody .reminder-notify .btn-cont button {
+  min-width: 80px;
+  padding: 5px 10px;
+  border: 0px;
+  border-radius: 4px;
+  background-color: #f1c40f;
+  color: #ffffff;
+}
+
+main .wrapper .ques-holder table tbody .reminder-notify .btn-cont button:hover {
+  background-color: #a38407;
 }
 
 main .wrapper .ques-holder .pagination-holder {

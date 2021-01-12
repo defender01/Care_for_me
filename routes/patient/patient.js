@@ -3,22 +3,23 @@ const router = express.Router();
 const mongoose = require("mongoose");
 
 const {
-    forgotpassHandler,
-    postResetPass,
-    postResetPassDoctor,
-    emailVerificationLinkGenerator,
-    checkEmailNotVerified,
-    emailVerificationHandler,
-    checkNotAuthenticated,
-    checkAuthenticated,
-    checkAuthenticatedDoctor,
+  forgotpassHandler,
+  postResetPass,
+  postResetPassDoctor,
+  emailVerificationLinkGenerator,
+  checkEmailVerified,
+  checkEmailNotVerified,
+  emailVerificationHandler,
+  checkNotAuthenticated,
+  checkAuthenticated,
+  checkAuthenticatedDoctor,
 } = require("../../controllers/auth_helper");
 // Load User model
 const User = require("../../models/userInfo");
 const { session } = require("passport");
 
 let checkNotNull = (val) => {
-    return typeof val !== "undefined" && val !== "" && val !== null;
+  return typeof val !== "undefined" && val !== "" && val !== null;
 };
 
 // resetpassword
@@ -30,7 +31,6 @@ router.get("/resetpassword", checkAuthenticated, (req, res) => {
 });
 
 router.post("/resetpassword", checkAuthenticated, postResetPass);
-
 
 router.get(
     "/accountVerification",
@@ -53,16 +53,27 @@ router.get(
 );
 
 router.post(
-    "/accountVerification",
-    checkAuthenticated,
-    emailVerificationLinkGenerator
+  "/accountVerification",
+  checkAuthenticated,
+  emailVerificationLinkGenerator
+);
+
+router.get(
+  "/notifications",
+  checkAuthenticated,
+  checkEmailVerified,
+  (req, res) => {
+    let navDisplayName = req.user.name.displayName;
+    let userRole = req.user.role;
+    res.render('patientNotifications', {navDisplayName, userRole})
+  }
 );
 
 // this provides new id
-router.get('/getNewId', (req, res) => {
-    res.send({ id: new mongoose.Types.ObjectId() })
-})
+router.get("/getNewId", (req, res) => {
+  res.send({ id: new mongoose.Types.ObjectId() });
+});
 
-router.use("/profile", require("./profile.js"))
+router.use("/profile", require("./profile.js"));
 
-module.exports = router
+module.exports = router;

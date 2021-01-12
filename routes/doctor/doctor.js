@@ -7,6 +7,7 @@ const {
     postResetPass,
     postResetPassDoctor,
     emailVerificationLinkGenerator,
+    checkEmailVerified,
     checkEmailNotVerified,
     checkEmailVerified,
     emailVerificationHandler,
@@ -75,6 +76,17 @@ let navDisplayName = req.user.name.displayName;
 let userRole = req.user.role
 res.render('patientRecords', {navDisplayName, userRole})
 })
+
+  router.get(
+    "/notifications",
+    checkAuthenticatedDoctor,
+    checkEmailVerified,
+    (req, res) => {
+      let navDisplayName = req.user.name.displayName;
+      let userRole = req.user.role;
+      res.render('doctorNotifications', {navDisplayName, userRole})
+    }
+  );
 
 // this provides new id
 router.get('/getNewId', (req, res) => {
