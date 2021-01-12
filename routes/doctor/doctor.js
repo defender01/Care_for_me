@@ -9,7 +9,6 @@ const {
     emailVerificationLinkGenerator,
     checkEmailVerified,
     checkEmailNotVerified,
-    checkEmailVerified,
     emailVerificationHandler,
     checkNotAuthenticated,
     checkAuthenticated,

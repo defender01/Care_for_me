@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+const bcrypt = require("bcryptjs");
 const mongoose = require("mongoose");
 const doctorModel = require("../../models/doctor").doctorModel;
 const { getSectionData } = require("../../controllers/adminFunctions");
@@ -362,6 +363,7 @@ router.post("/update", checkAuthenticatedDoctor, checkEmailVerified, async (req,
               // console.log({ doctor });
               await doctor.save();
               req.flash("success_msg", "Your data has successfully updated. Please login again");
+              req.logout();
               res.redirect("/auth/login");
             });
           });

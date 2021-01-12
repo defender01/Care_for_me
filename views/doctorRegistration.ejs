@@ -54,7 +54,7 @@
                 *First name:
               </div>
               <div class="input-field">
-                <input type="text" name="firstName" class="form-control" value="<%= (typeof doctorInfo != 'undefined' && typeof doctorInfo.name != 'undefined' && typeof doctorInfo.name.firstName != 'undefined') ? doctorInfo.name.firstName : '' %>" required>
+                <input type="text" name="firstName" class="form-control" value="<%= typeof doctorInfo != 'undefined' ? doctorInfo.name.firstName : '' %>" required>
               </div>
             </div>
             <div class="single-ques">
@@ -62,7 +62,7 @@
                 *Last name:
               </div>
               <div class="input-field">
-                <input type="text" name="lastName" class="form-control" value="<%= (typeof doctorInfo != 'undefined' && typeof doctorInfo.name != 'undefined' && typeof doctorInfo.name.lastName != 'undefined') ? doctorInfo.name.lastName : '' %>" required>
+                <input type="text" name="lastName" class="form-control" value="<%= typeof doctorInfo != 'undefined' ? doctorInfo.name.lastName : '' %>" required>
               </div>
             </div>
             <div class="single-ques">
@@ -70,7 +70,7 @@
                 *Display name:
               </div>
               <div class="input-field">
-                <input type="text" name="displayName" class="form-control" value="<%= (typeof doctorInfo != 'undefined' && typeof doctorInfo.name != 'undefined' && typeof doctorInfo.name.displayName != 'undefined') ? doctorInfo.name.displayName : '' %>" required>
+                <input type="text" name="displayName" class="form-control" value="<%= typeof doctorInfo != 'undefined' ? doctorInfo.name.displayName : '' %>" required>
               </div>
             </div>
             <div class="single-ques">
@@ -78,7 +78,7 @@
                 *Email:
               </div>
               <div class="input-field">
-                <input type="email" name="email" class="form-control" value="<%= (typeof doctorInfo != 'undefined' && typeof doctorInfo.email != 'undefined') ? doctorInfo.email : '' %>" required>
+                <input type="email" name="email" class="form-control" value="<%= typeof doctorInfo != 'undefined' ? doctorInfo.email : '' %>" required>
               </div>
             </div>
             <div class="single-ques">
@@ -102,7 +102,7 @@
                 Birth date:
               </div>
               <div class="input-field">
-                <input type="date" name="birthDate" class="form-control" value="<%= (typeof doctorInfo != 'undefined' && typeof doctorInfo.birthDate != 'undefined') ? doctorInfo.birthDate : '' %>">
+                <input type="date" name="birthDate" class="form-control" value="<%= typeof doctorInfo != 'undefined' ? doctorInfo.birthDate : '' %>">
               </div>
             </div>
             <div class="single-ques">
@@ -110,7 +110,7 @@
                 *Phone no:
               </div>
               <div class="input-field">
-                <input type="text" name="phoneNumber" class="form-control" value="<%= (typeof doctorInfo != 'undefined' && typeof doctorInfo.phoneNumber != 'undefined') ? doctorInfo.phoneNumber : '' %>" required>
+                <input type="text" name="phoneNumber" class="form-control" value="<%= typeof doctorInfo != 'undefined' ? doctorInfo.phoneNumber : '' %>" required>
               </div>
             </div>
             <div class="single-ques">
@@ -118,7 +118,7 @@
                 *License or Registration no:
               </div>
               <div class="input-field">
-                <input type="text" name="licenseOrReg"  class="form-control" value="<%= (typeof doctorInfo != 'undefined' && typeof doctorInfo.licenseOrReg != 'undefined') ? doctorInfo.licenseOrReg : '' %>" required>
+                <input type="text" name="licenseOrReg"  class="form-control" value="<%= typeof doctorInfo != 'undefined' ? doctorInfo.licenseOrReg : '' %>" required>
               </div>
             </div>
             <div class="single-ques">
@@ -127,28 +127,28 @@
               </div>
               <div class="gender-cont">               
                 <div class="gender-each">
-                  <% if(typeof doctorInfo != 'undefined' && typeof doctorInfo.gender != 'undefined' && doctorInfo.gender.toString() =='male'){ %>
+                  <% if(typeof doctorInfo != 'undefined' && doctorInfo.gender.toString() =='male'){ %>
                     <input class="form-check-input" type="radio" name="gender" value="male" checked>Male
                   <% } else { %>
                     <input class="form-check-input" type="radio" name="gender" value="male">Male
                   <% } %>
                 </div>
                 <div class="gender-each">
-                  <% if(typeof doctorInfo != 'undefined' && typeof doctorInfo.gender != 'undefined' && doctorInfo.gender.toString() =='female'){ %>
+                  <% if(typeof doctorInfo != 'undefined' && doctorInfo.gender.toString() =='female'){ %>
                       <input class="form-check-input" type="radio" name="gender" value="female" checked>Female
                     <% } else { %>
                       <input class="form-check-input" type="radio" name="gender" value="female" >Female
                     <% } %>                  
                 </div>                
                 <div class="gender-each">
-                  <% if(typeof doctorInfo != 'undefined' && typeof doctorInfo.gender != 'undefined' && doctorInfo.gender.toString() =='other'){ %>
+                  <% if(typeof doctorInfo != 'undefined' && doctorInfo.gender.toString() =='other'){ %>
                       <input class="form-check-input" type="radio" name="gender" value="other" checked>Other
                     <% } else { %>
                       <input class="form-check-input" type="radio" name="gender" value="other" >Other
                     <% } %>                  
                 </div>
                 <div class="gender-each">
-                  <% if(typeof doctorInfo != 'undefined' && typeof doctorInfo.gender != 'undefined' && doctorInfo.gender.toString() =='notInterested'){ %>
+                  <% if(typeof doctorInfo != 'undefined' && doctorInfo.gender.toString() =='notInterested'){ %>
                       <input class="form-check-input" type="radio" name="gender" value="notInterested" checked>Not Interested
                     <% } else { %>
                       <input class="form-check-input" type="radio" name="gender" value="notInterested" >Not Interested
@@ -166,13 +166,13 @@
               <div class="sec-title">Address:</div>
               <div class="item-holder">
                 <select name="country" class="countries" id="countryId">
-                  <option value="<%= (typeof doctorInfo != 'undefined' && typeof doctorInfo.location != 'undefined' && typeof doctorInfo.location.country != 'undefined') ? doctorInfo.location.country : '' %>">Select Country</option>
+                  <option value="<%= typeof doctorInfo != 'undefined' ? doctorInfo.location.country : '' %>">Select Country</option>
                 </select>
                 <select name="state" class="states" id="stateId">
-                  <option value="<%= (typeof doctorInfo != 'undefined' && typeof doctorInfo.location != 'undefined' && typeof doctorInfo.location.state != 'undefined') ? doctorInfo.location.state : '' %>">Select State</option>
+                  <option value="<%= typeof doctorInfo != 'undefined' ? doctorInfo.location.state : '' %>">Select State</option>
                 </select>
                 <select name="city" class="cities" id="cityId">
-                  <option value="<%= (typeof doctorInfo != 'undefined' && typeof doctorInfo.location != 'undefined' && typeof doctorInfo.location.city != 'undefined') ? doctorInfo.location.city : '' %>">Select City</option>
+                  <option value="<%= typeof doctorInfo != 'undefined' ? doctorInfo.location.city : '' %>">Select City</option>
                 </select>
               </div>              
             </div>
@@ -181,7 +181,7 @@
                 Additional address:
               </div>
               <div class="input-field">
-                <input type="text" name="additionalAddress" class="form-control" value="<%= (typeof doctorInfo != 'undefined' && typeof doctorInfo.location != 'undefined' && typeof doctorInfo.location.additionalAddress != 'undefined') ? doctorInfo.location.additionalAddress : '' %>" >
+                <input type="text" name="additionalAddress" class="form-control" value="<%= typeof doctorInfo != 'undefined' ? doctorInfo.location.additionalAddress : '' %>" >
               </div>
             </div>
             <div class="single-ques">
@@ -189,7 +189,7 @@
                 About Yourself:
               </div>
               <div class="input-field">
-                <textarea class="form-control" name="about" rows="3"><%= (typeof doctorInfo != 'undefined' && typeof doctorInfo.about != 'undefined') ? doctorInfo.about : '' %></textarea>
+                <textarea class="form-control" name="about" rows="3"><%= typeof doctorInfo != 'undefined' ? doctorInfo.about : '' %></textarea>
               </div>
             </div>
             <div class="single-ques">
@@ -197,7 +197,7 @@
                 *Designation:
               </div>
               <div class="input-field">
-                <input type="text" name="designation" class="form-control" value="<%= (typeof doctorInfo != 'undefined' && typeof doctorInfo.designation != 'undefined') ? doctorInfo.designation : '' %>" required>
+                <input type="text" name="designation" class="form-control" value="<%= typeof doctorInfo != 'undefined' ? doctorInfo.designation : '' %>" required>
               </div>
             </div>
             <div class="single-ques">
@@ -205,7 +205,7 @@
                 Affiliation:
               </div>
               <div class="input-field">
-                <input type="text" name="affiliation" class="form-control" value="<%= (typeof doctorInfo != 'undefined' && typeof doctorInfo.affiliation != 'undefined') ? doctorInfo.affiliation : '' %>">
+                <input type="text" name="affiliation" class="form-control" value="<%= typeof doctorInfo != 'undefined' ? doctorInfo.affiliation : '' %>">
               </div>
             </div>
             <div class="single-ques">
@@ -213,7 +213,7 @@
                 Research Area:
               </div>
               <div class="input-field">
-                <input type="text" name="researchArea" class="form-control" value="<%= (typeof doctorInfo != 'undefined' && typeof doctorInfo.researchArea != 'undefined') ? doctorInfo.researchArea : '' %>">
+                <input type="text" name="researchArea" class="form-control" value="<%= typeof doctorInfo != 'undefined' ? doctorInfo.researchArea : '' %>">
               </div>
             </div>
             <div class="single-ques">
@@ -221,28 +221,24 @@
                 Expertise Area:
               </div>
               <div class="input-field">
-                <input type="text" name="expertiseArea" class="form-control" value="<%= (typeof doctorInfo != 'undefined' && typeof doctorInfo.expertiseArea != 'undefined') ? doctorInfo.expertiseArea : '' %>">
+                <input type="text" name="expertiseArea" class="form-control" value="<%= typeof doctorInfo != 'undefined' ? doctorInfo.expertiseArea : '' %>">
               </div>
             </div>
   
             <div class="multi-cont">
               <div class="sec-title">Education</div>
-              <% if(typeof doctorInfo != 'undefined' && typeof doctorInfo.education != 'undefined'){ %>
+              <% if(typeof doctorInfo != 'undefined'){ %>
                 <% for(let i=0, max = doctorInfo.education.length; i<max; i++){ %>
                   <div class="item-holder" id="education<%= i %>">
                     <div class="delete-btn">
                       <button onclick="deleteItem('education<%= i %>')">Delete</button>
                     </div> 
-                    
-                    <!-- Hidden inputs -->
-                    <input type="text" name="educationId" value="<%= typeof doctorInfo.education[i].id != 'undefined' ? doctorInfo.education[i].id : '' %>" style="display: none;"/>
-                    
                     <div class="single-ques">
                       <div class="label">
                         *Degree:
                       </div>
                       <div class="input-field">
-                        <input type="text" name="degree" class="form-control" value="<%= typeof doctorInfo.education[i].degree != 'undefined' ? doctorInfo.education[i].degree : '' %>" required>
+                        <input type="text" name="degree" class="form-control" value="<%= typeof doctorInfo != 'undefined' ? doctorInfo.education[i].degree : '' %>" required>
                       </div>
                     </div> 
                     <div class="single-ques">
@@ -250,7 +246,7 @@
                         Institute:
                       </div>
                       <div class="input-field">
-                        <input type="text" name="institute" class="form-control" value="<%= typeof doctorInfo.education[i].institute != 'undefined' ? doctorInfo.education[i].institute : '' %>">
+                        <input type="text" name="institute" class="form-control" value="<%= typeof doctorInfo != 'undefined' ? doctorInfo.education[i].institute : '' %>">
                       </div>
                     </div>      
                     <div class="single-ques">
@@ -258,7 +254,7 @@
                         Passing Year:
                       </div>
                       <div class="input-field">
-                        <input type="number" min="1900" max="2099" step="1" name="passingYear" class="form-control" value="<%= typeof doctorInfo.education[i].passingYear!= 'undefined' ? doctorInfo.education[i].passingYear : '' %>">
+                        <input type="number" min="1900" max="2099" step="1" name="passingYear" class="form-control" value="<%= typeof doctorInfo != 'undefined' ? doctorInfo.education[i].passingYear : '' %>">
                       </div>
                     </div>
                     <div class="single-ques">
@@ -266,7 +262,7 @@
                         Subject:
                       </div>
                       <div class="input-field">
-                        <input type="text" name="subject" class="form-control" value="<%= typeof doctorInfo.education[i].subject != 'undefined' ? doctorInfo.education[i].subject : '' %>">
+                        <input type="text" name="subject" class="form-control" value="<%= typeof doctorInfo != 'undefined' ? doctorInfo.education[i].subject : '' %>">
                       </div>
                     </div>                                            
                   </div>
@@ -276,10 +272,6 @@
                   <div class="delete-btn">
                     <button onclick="deleteItem('education')">Delete</button>
                   </div> 
-                  
-                  <!-- Hidden inputs -->
-                  <input type="text" name="educationId" value="" style="display: none;"/>
-                  
                   <div class="single-ques">
                     <div class="label">
                       *Degree:
@@ -322,22 +314,18 @@
   
             <div class="multi-cont">
               <div class="sec-title">Traingings</div>
-              <% if(typeof doctorInfo != 'undefined' && typeof doctorInfo.training != 'undefined'){ %>
+              <% if(typeof doctorInfo != 'undefined'){ %>
                 <% for(let i=0, max = doctorInfo.training.length; i<max; i++){ %>
                   <div class="item-holder" id='training<%= i %>'>
                     <div class="delete-btn">
                       <button onclick="deleteItem('training<%= i %>')">Delete</button>
                     </div> 
-
-                    <!-- Hidden inputs -->
-                    <input type="text" name="trainingId" value="<%= typeof doctorInfo.training[i].id != 'undefined' ? doctorInfo.training[i].id : '' %>" style="display: none;"/>
-                    
                     <div class="single-ques">
                       <div class="label">
                         *Name:
                       </div>
                       <div class="input-field">
-                        <input type="text" name="trainingName" class="form-control" value="<%= typeof doctorInfo.training[i].name != 'undefined' ? doctorInfo.training[i].name : '' %>" required>
+                        <input type="text" name="trainingName" class="form-control" value="<%= typeof doctorInfo != 'undefined' ? doctorInfo.training[i].name : '' %>" required>
                       </div>
                     </div>   
                     <div class="single-ques">
@@ -345,7 +333,7 @@
                         Year:
                       </div>
                       <div class="input-field">
-                        <input type="number" min="1900" max="2099" step="1" name="trainingYear" class="form-control" value="<%= typeof doctorInfo.training[i].year != 'undefined' ? doctorInfo.training[i].year : '' %>" >
+                        <input type="number" min="1900" max="2099" step="1" name="trainingYear" class="form-control" value="<%= typeof doctorInfo != 'undefined' ? doctorInfo.training[i].year : '' %>" >
                       </div>
                     </div>   
                     <div class="single-ques">
@@ -353,7 +341,7 @@
                         Details:
                       </div>
                       <div class="input-field">
-                        <textarea class="form-control" name="trainingDetails" rows="3"><%= typeof doctorInfo.training[i].details != 'undefined' ? doctorInfo.training[i].details : '' %></textarea>
+                        <textarea class="form-control" name="trainingDetails" rows="3"><%= typeof doctorInfo != 'undefined' ? doctorInfo.training[i].details : '' %></textarea>
                       </div>
                     </div>           
                   </div>
@@ -363,10 +351,6 @@
                     <div class="delete-btn">
                       <button onclick="deleteItem('training')">Delete</button>
                     </div> 
-
-                    <!-- Hidden inputs -->
-                    <input type="text" name="trainingId" value="" style="display: none;"/>
-
                     <div class="single-ques">
                       <div class="label">
                         *Name:
@@ -401,22 +385,18 @@
             
             <div class="multi-cont">
               <div class="sec-title">Work and Experience</div>
-              <% if(typeof doctorInfo != 'undefined' && typeof doctorInfo.workAndExperience != 'undefined' ){ %>
+              <% if(typeof doctorInfo != 'undefined'){ %>
                 <% for(let i=0, max = doctorInfo.workAndExperience.length; i<max; i++){ %>
                   <div class="item-holder" id="work<%= i %>">
                     <div class="delete-btn">
                       <button onclick="deleteItem('work<%= i %>')">Delete</button>
                     </div> 
-                    
-                    <!-- Hidden inputs -->
-                    <input type="text" name="workId" value="<%= typeof doctorInfo.workAndExperience[i].id != 'undefined' ? doctorInfo.workAndExperience[i].id : '' %>" style="display: none;"/>
-
                     <div class="single-ques">
                       <div class="label">
                         *Work Place:
                       </div>
                       <div class="input-field">
-                        <input type="text" name="workPlace" class="form-control" value="<%= typeof doctorInfo.workAndExperience[i].workPlace != 'undefined' ? doctorInfo.workAndExperience[i].workPlace : '' %>" required>
+                        <input type="text" name="workPlace" class="form-control" value="<%= typeof doctorInfo != 'undefined' ? doctorInfo.workAndExperience[i].workPlace : '' %>" required>
                       </div>
                     </div>   
                     <div class="single-ques">
@@ -424,7 +404,7 @@
                         Work From(year):
                       </div>
                       <div class="input-field">
-                        <input type="number" min="1900" max="2099" step="1" name="workFromYear" class="form-control" value="<%= typeof doctorInfo.workAndExperience[i].workFromYear != 'undefined' ? doctorInfo.workAndExperience[i].workFromYear : '' %>" >
+                        <input type="number" min="1900" max="2099" step="1" name="workFromYear" class="form-control" value="<%= typeof doctorInfo != 'undefined' ? doctorInfo.workAndExperience[i].workFromYear : '' %>" >
                       </div>
                     </div>   
                     <div class="single-ques">
@@ -432,7 +412,7 @@
                         Work To(year):
                       </div>
                       <div class="input-field">
-                        <input type="number" min="1900" max="2099" step="1" name="workToYear" class="form-control" value="<%= typeof doctorInfo.workAndExperience[i].workToYear != 'undefined' ? doctorInfo.workAndExperience[i].workToYear : '' %>" >
+                        <input type="number" min="1900" max="2099" step="1" name="workToYear" class="form-control" value="<%= typeof doctorInfo != 'undefined' ? doctorInfo.workAndExperience[i].workToYear : '' %>" >
                       </div>
                     </div>           
                   </div>
@@ -442,10 +422,6 @@
                   <div class="delete-btn">
                     <button onclick="deleteItem('work')">Delete</button>
                   </div> 
-
-                  <!-- Hidden inputs -->
-                  <input type="text" name="workId" value="" style="display: none;"/>
-
                   <div class="single-ques">
                     <div class="label">
                       *Work Place:
@@ -479,22 +455,18 @@
             </div>
             <div class="multi-cont">
               <div class="sec-title">Award and Honour</div>
-              <% if(typeof doctorInfo != 'undefined' && typeof doctorInfo.awardAndHonour != 'undefined'){ %>
+              <% if(typeof doctorInfo != 'undefined'){ %>
                 <% for(let i=0, max = doctorInfo.awardAndHonour.length; i<max; i++){ %>
                   <div class="item-holder" id="award<%= i %>">
                     <div class="delete-btn">
-                      <button onclick="deleteItem('award<%= i %>')">Delete</button>
+                      <button onclick="deleteItem('award<% i %>')">Delete</button>
                     </div> 
-
-                    <!-- Hidden inputs -->
-                    <input type="text" name="awardId" value="<%= typeof doctorInfo.awardAndHonour[i].id != 'undefined' ? doctorInfo.awardAndHonour[i].id : '' %>" style="display: none;"/>
-
                     <div class="single-ques">
                       <div class="label">
                         *Name:
                       </div>
                       <div class="input-field">
-                        <input type="text" name="awardName" class="form-control" value="<%= typeof doctorInfo.awardAndHonour[i].name != 'undefined' ? doctorInfo.awardAndHonour[i].name : '' %>"  required>
+                        <input type="text" name="awardName" class="form-control" value="<%= typeof doctorInfo != 'undefined' ? doctorInfo.awardAndHonour[i].name : '' %>"  required>
                       </div>
                     </div>   
                     <div class="single-ques">
@@ -502,7 +474,7 @@
                         Year:
                       </div>
                       <div class="input-field">
-                        <input type="number" min="1900" max="2099" step="1" name="awardYear" class="form-control" value="<%= typeof doctorInfo.awardAndHonour[i].year != 'undefined' ? doctorInfo.awardAndHonour[i].year : '' %>" >
+                        <input type="number" min="1900" max="2099" step="1" name="awardYear" class="form-control" value="<%= typeof doctorInfo != 'undefined' ? doctorInfo.awardAndHonour[i].year : '' %>" >
                       </div>
                     </div>   
                     <div class="single-ques">
@@ -510,7 +482,7 @@
                         Details:
                       </div>
                       <div class="input-field">
-                        <textarea class="form-control" name="awardDetails" rows="3"><%= typeof doctorInfo.awardAndHonour[i].details != 'undefined' ? doctorInfo.awardAndHonour[i].details : '' %></textarea>
+                        <textarea class="form-control" name="awardDetails" rows="3"><%= typeof doctorInfo != 'undefined' ? doctorInfo.awardAndHonour[i].details : '' %></textarea>
                       </div>
                     </div>           
                   </div>
@@ -520,10 +492,6 @@
                   <div class="delete-btn">
                     <button onclick="deleteItem('award')">Delete</button>
                   </div> 
-
-                  <!-- Hidden inputs -->
-                  <input type="text" name="awardId" value="" style="display: none;"/>
-
                   <div class="single-ques">
                     <div class="label">
                       *Name:
@@ -556,7 +524,7 @@
               </div>
             </div>
             <div class="terms">
-              <input class="form-check-input" type="checkbox" name="termAgree" value="Yes" id="termAgree" required>
+              <input class="form-check-input" type="checkbox" name="termAgree" value="Yes" id="termAgree">
               <label class="form-check-label" for="termAgree">
                 I agree to the  <a href="/termsAndConditions">Terms & Conditions</a>
               </label>
