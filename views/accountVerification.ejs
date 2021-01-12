@@ -54,7 +54,7 @@
         <div class="text-container">
           <p>To get started using this website, verify your email address by clicking below:</p>
         </div>
-        <form method="POST" action="/auth/accountVerification/<%= typeof role != 'undefined' ? role : '404' %>">
+        <form method="POST" action="/<%= role %>/accountVerification">
           <div class="btn-container">
             <input name="email" type="hidden" value="<%= typeof userEmail != 'undefined' ? userEmail : 'email not found' %>">
             <input name="role" type="hidden" value="<%= typeof role != 'undefined' ? role : 'role not found' %>"> 

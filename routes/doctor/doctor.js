@@ -8,6 +8,7 @@ const {
     postResetPassDoctor,
     emailVerificationLinkGenerator,
     checkEmailNotVerified,
+    checkEmailVerified,
     emailVerificationHandler,
     checkNotAuthenticated,
     checkAuthenticated,
@@ -63,17 +64,17 @@ router.post(
 );
 
 // patient list page
-router.get('/patients', (req, res) => {
+router.get('/patients', checkAuthenticatedDoctor, checkEmailVerified,async (req, res) => {
     let navDisplayName = req.user.name.displayName;
     let userRole = req.user.role
     res.render('patients', {navDisplayName, userRole})
-  })
+})
   
-  router.get('/patients/records', (req, res) => {
-    let navDisplayName = req.user.name.displayName;
-    let userRole = req.user.role
-    res.render('patientRecords', {navDisplayName, userRole})
-  })
+router.get('/patients/records', checkAuthenticatedDoctor, checkEmailVerified,async (req, res) => {
+let navDisplayName = req.user.name.displayName;
+let userRole = req.user.role
+res.render('patientRecords', {navDisplayName, userRole})
+})
 
 // this provides new id
 router.get('/getNewId', (req, res) => {

@@ -490,32 +490,17 @@
         }
         else{
           let allMemberIDs = mapSubSecToAdditionalIDs[subSection._id.toString()];
+          let memberType = ''
+          if(subSection.name === "Sibling's Details") memberType = 'Sibling'
+          else if(subSection.name === "Children's Details") memberType = 'Child'
+          else if(subSection.name === "Relative's Details") memberType = 'Relative'
+          else if(subSection.name === "Specialization") memberType = 'Specialization'
 
           for(let i=0, max = allMemberIDs.length; i<max; i++){
-            if(subSection.name === "Sibling's Details") {
-              let firstQuestionID = subSection.questions[0]._id.toString() + '#####' + allMemberIDs[i].toString()
-              let memberName = (checkNotNull(mapQuesToAnswer[firstQuestionID])) ? mapQuesToAnswer[firstQuestionID] : mapToOrdinal(i+1) + " Sibling" 
-              elmStr += getSubSectionMemberStr(subSection, allMemberIDs[i], memberName)
-              scrollspyStr += getScrollspyStr(memberName, allMemberIDs[i].toString())
-            }
-            else if(subSection.name === "Children's Details") {
-              let firstQuestionID = subSection.questions[0]._id.toString() + '#####' + allMemberIDs[i].toString()
-              let memberName = (checkNotNull(mapQuesToAnswer[firstQuestionID])) ? mapQuesToAnswer[firstQuestionID] : mapToOrdinal(i+1) + " Child" 
-              elmStr += getSubSectionMemberStr(subSection, allMemberIDs[i], memberName)
-              scrollspyStr += getScrollspyStr(memberName, allMemberIDs[i].toString())
-            }
-            else if(subSection.name === "Relative's Details") {
-              let firstQuestionID = subSection.questions[0]._id.toString() + '#####' + allMemberIDs[i].toString()
-              let memberName = (checkNotNull(mapQuesToAnswer[firstQuestionID])) ? mapQuesToAnswer[firstQuestionID] : mapToOrdinal(i+1) + " Relative" 
-              elmStr += getSubSectionMemberStr(subSection, allMemberIDs[i], memberName)
-              scrollspyStr += getScrollspyStr(memberName, allMemberIDs[i].toString())
-            }
-            else if(subSection.name === "Specialization") {
-              let firstQuestionID = subSection.questions[0]._id.toString() + '#####' + allMemberIDs[i].toString()
-              let memberName = (checkNotNull(mapQuesToAnswer[firstQuestionID])) ? mapQuesToAnswer[firstQuestionID] : mapToOrdinal(i+1) + " Specialization" 
-              elmStr += getSubSectionMemberStr(subSection, allMemberIDs[i], memberName)
-              scrollspyStr += getScrollspyStr(memberName, allMemberIDs[i].toString())
-            }
+            let firstQuestionID = subSection.questions[0]._id.toString() + '#####' + allMemberIDs[i].toString()
+            let memberName = (checkNotNull(mapQuesToAnswer[firstQuestionID])) ? mapQuesToAnswer[firstQuestionID] : mapToOrdinal(i+1) + ` ${memberType}` 
+            elmStr += getSubSectionMemberStr(subSection, allMemberIDs[i], memberName)
+            scrollspyStr += getScrollspyStr(memberName, allMemberIDs[i].toString())
           }
         }
       }
@@ -603,7 +588,6 @@
       $('#' + currentVisibleSectionID).css('display', 'none')
       $('#sectionID-' + secID).css('display', 'block')
       $('#currentVisibleSectionID').val('sectionID-' + secID)                             
-
     }
 
     function getSubSectionStr(subSection)

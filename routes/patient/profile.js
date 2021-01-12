@@ -509,11 +509,11 @@ router.get("/update/:sectionID", checkAuthenticated, checkEmailVerified, async (
 });
 
 router.post("/update-personalInfo", checkAuthenticated, checkEmailVerified, async (req, res) => {
-  let data = req.user;
+  // let data = req.user;
   let navDisplayName = req.user.name.displayName;
   let userRole = req.user.role
-  console.log({ data });
-  console.log(req.body)
+  // console.log({ data });
+  // console.log(req.body)
   const {
     firstName,
     lastName,
@@ -574,7 +574,7 @@ router.post("/update-personalInfo", checkAuthenticated, checkEmailVerified, asyn
     errors.push({ msg: "Please enter all required fields" });
   }
 
-  if (typeof password !== "undefined" && password != password2) {
+  if (typeof password != "undefined" && typeof password2 != "undefined" && password != password2) {
     errors.push({ msg: "Passwords do not match" });
   }
 
@@ -587,7 +587,7 @@ router.post("/update-personalInfo", checkAuthenticated, checkEmailVerified, asyn
   }
 
   if (errors.length > 0) {
-    console.log({errors})
+    // console.log({errors})
     res.render("updatePatientPersonalInfo", {
       navDisplayName, userRole,
       errors,
@@ -607,8 +607,8 @@ router.post("/update-personalInfo", checkAuthenticated, checkEmailVerified, asyn
           },
         ],
       });
-      console.log("came in users");
-      console.log(users);
+      // console.log("came in users");
+      // console.log(users);
       if (users.length) {
         users.forEach((user) => {
           if (user.email == email) errors.push({ msg: "Email already exists" });
@@ -651,16 +651,15 @@ router.post("/update-personalInfo", checkAuthenticated, checkEmailVerified, asyn
               if (err) res.render("404", {navDisplayName, userRole, error: err.message });
               user.password = hash;              
               console.log('password change')
-              console.log({user})
+              // console.log({user})
               await user.save();
               req.logout();
               req.flash("success_msg", "Your data has successfully updated. Please login again");
               res.redirect("/auth/login");
             });
           });         
-         
-        } else {
-          console.log({user})
+        }else {
+          // console.log({user})
           await user.save()
           res.redirect("/");
         }
@@ -668,6 +667,7 @@ router.post("/update-personalInfo", checkAuthenticated, checkEmailVerified, asyn
     } catch (err) {
       console.error(err);
       res.render("404", { navDisplayName, userRole, error: err.message });
+      return
     }
   }
 });

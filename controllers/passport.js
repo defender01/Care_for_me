@@ -38,7 +38,7 @@ module.exports = {
 
           let passwordMatch = await bcrypt.compare(String(password), String(user.password));
           let passwordOrOtpMatch = await bcrypt.compare(String(password), String(userOtp));
-          console.log(passwordMatch, "  ",passwordOrOtpMatch)
+          // console.log(passwordMatch, "  ",passwordOrOtpMatch)
           if(passwordMatch|| passwordOrOtpMatch){
             req.session.currentLoggedIn = 'patient';
             return done(null, user);
@@ -89,13 +89,13 @@ doctorStrategy: function(passport) {
         }
 
         try{
-          console.log(password, user.password, userOtp)
-          console.log(typeof(password), typeof(user.password), typeof(userOtp))
-          console.log(String(password), String(user.password), String(userOtp))
+          // console.log(password, user.password, userOtp)
+          // console.log(typeof(password), typeof(user.password), typeof(userOtp))
+          // console.log(String(password), String(user.password), String(userOtp))
 
           let passwordMatch = await bcrypt.compare(String(password), String(user.password));
           let passwordOrOtpMatch = await bcrypt.compare(String(password), String(userOtp));
-          console.log(passwordMatch, "  ",passwordOrOtpMatch)
+          // console.log(passwordMatch, "  ",passwordOrOtpMatch)
           if(passwordMatch|| passwordOrOtpMatch){
             req.session.currentLoggedIn = 'doctor';
             return done(null, user);
