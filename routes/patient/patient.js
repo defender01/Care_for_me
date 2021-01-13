@@ -69,6 +69,12 @@ router.get(
   }
 );
 
+router.get('/records', checkAuthenticated, checkEmailVerified, async (req, res) => {
+  let navDisplayName = req.user.name.displayName;
+  let userRole = req.user.role
+  res.render('patientRecords', {navDisplayName, userRole})
+})
+
 // this provides new id
 router.get("/getNewId", (req, res) => {
   res.send({ id: new mongoose.Types.ObjectId() });

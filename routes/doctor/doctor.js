@@ -67,25 +67,25 @@ router.post(
 router.get('/patients', checkAuthenticatedDoctor, checkEmailVerified,async (req, res) => {
     let navDisplayName = req.user.name.displayName;
     let userRole = req.user.role
-    res.render('patients', {navDisplayName, userRole})
+    res.render('doctorPatients', {navDisplayName, userRole})
 })
   
 router.get('/patients/records', checkAuthenticatedDoctor, checkEmailVerified,async (req, res) => {
 let navDisplayName = req.user.name.displayName;
 let userRole = req.user.role
-res.render('patientRecords', {navDisplayName, userRole})
+res.render('doctorPatientRecords', {navDisplayName, userRole})
 })
 
-  router.get(
+router.get(
     "/notifications",
     checkAuthenticatedDoctor,
     checkEmailVerified,
     (req, res) => {
-      let navDisplayName = req.user.name.displayName;
-      let userRole = req.user.role;
-      res.render('doctorNotifications', {navDisplayName, userRole})
-    }
-  );
+        let navDisplayName = req.user.name.displayName;
+        let userRole = req.user.role;
+        res.render('doctorNotifications', {navDisplayName, userRole})
+}
+);
 
 // this provides new id
 router.get('/getNewId', (req, res) => {

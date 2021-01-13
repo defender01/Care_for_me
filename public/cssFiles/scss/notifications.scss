@@ -234,7 +234,8 @@ main {
 
             }
             .btn-cont{
-              button{
+              .btn-safe{
+                margin: 10px;
                 min-width: 80px;
                 padding: 5px 10px;
                 border: 0px;
@@ -245,8 +246,20 @@ main {
                   background-color:rgb(18, 148, 6);
                 }
               }
+              .btn-danger{
+                margin: 10px;
+                min-width: 80px;
+                padding: 5px 10px;
+                border: 0px;
+                border-radius: 4px;
+                background-color: red;
+                color: #ffffff;
+                &:hover {
+                  background-color: rgb(179, 7, 7);
+                }
+              }
             }
-          }
+          }          
           .warning-notify{
             .icon-cont{
               text-align: center;
@@ -260,6 +273,7 @@ main {
             }
             .btn-cont{
               button{
+                margin: 10px;
                 min-width: 80px;
                 padding: 5px 10px;
                 border: 0px;
@@ -285,6 +299,7 @@ main {
             }
             .btn-cont{
               button{
+                margin: 10px;
                 min-width: 80px;
                 padding: 5px 10px;
                 border: 0px;
