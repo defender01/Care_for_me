@@ -61,7 +61,6 @@ main .side-bar .topic-container .angle i {
 }
 
 main .side-bar .nav-sec-cont {
-  font-family: Nanum Gothic;
   font-size: 20px;
   padding: 10px 10px 10px 20px;
   overflow-y: auto;
@@ -204,7 +203,6 @@ main .wrapper .notify-bar .btn-container .dlt-param-btn {
 }
 
 main .wrapper .page-holder {
-  font-family: Nanum Gothic;
   margin-top: 70px;
 }
 

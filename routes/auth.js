@@ -3,6 +3,7 @@ const router = express.Router();
 const bcrypt = require("bcryptjs");
 const passport = require("passport");
 const mongoose = require("mongoose");
+var sizeof = require('object-sizeof');
 
 const {
   forgotpassHandler,
@@ -476,7 +477,11 @@ router.post("/login", async (req, res, next) => {
       $or: [{ email: emailOrPhone }, { phoneNumber: emailOrPhone }],
     });
     console.log("checking user");
-    console.log(user);
+    // let userLean =  await User.findOne({
+    //   $or: [{ email: emailOrPhone }, { phoneNumber: emailOrPhone }],
+    // }).lean();
+    // console.log('size of user: '+ sizeof(user))
+    // console.log('size of user: '+ sizeof(userLean))
     // if user is signing in using otp we should reset the otp to null
     if (user) {
       if (typeof user.otp == "undefined" || user.otp == "") {
