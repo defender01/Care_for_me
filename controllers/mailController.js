@@ -1,16 +1,27 @@
 var nodemailer = require('nodemailer');
 
+// var transporter = nodemailer.createTransport({
+//   service: 'gmail',
+//   auth: {
+//     user: 'careformebd@gmail.com',
+//     pass: 'its an open and shut case'
+//   }
+// });
+
 var transporter = nodemailer.createTransport({
-  service: 'gmail',
+  host: 'smtp.hostinger.com',
+  port: 465,
+  secure: true,
   auth: {
-    user: 'careformebd@gmail.com',
-    pass: 'its an open and shut case'
+    user: 'amarshastho@monerdaktar.health',
+    pass: 'zxcVBN<>5421'
   }
 });
 
+
 function mailOptions(mailData){
   return {
-    from: 'careformebd@gmail.com',
+    from: 'amarshastho@monerdaktar.health',
     to: mailData.mailTo,
     subject: mailData.subject,
     text: mailData.msg
