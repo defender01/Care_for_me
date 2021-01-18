@@ -72,12 +72,16 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
 
     <script>
-      var stDate = new Date();
-      var enDate = new Date(stDate.getFullYear()+5, stDate.getMonth(), stDate.getDate())
+      let stDate = new Date();
+      let enDate = new Date(stDate.getFullYear()+5, stDate.getMonth(), stDate.getDate())
+      // for setting default 10 days followup
+      let defaultEnDate = new Date(stDate.getFullYear(), stDate.getMonth(), stDate.getDate()+10)
       // adding 1 to getMonth() because in this function month is 0 indexed Jan=0th month
       // but while taking input month is 1 indexed, Jan = 1th month 
-      var stDateStr = stDate.getFullYear()+'-'+ ( stDate.getMonth()<10? '0'+stDate.getMonth()+1 : stDate.getMonth()+1 )+'-'+ ( stDate.getDate()<10? '0'+stDate.getDate() : stDate.getDate() )
-      var enDateStr = enDate.getFullYear()+'-'+ ( enDate.getMonth()<10? '0'+enDate.getMonth()+1 : enDate.getMonth()+1 )+'-'+ ( enDate.getDate()<10? '0'+enDate.getDate() : enDate.getDate() )
+      let stDateStr = stDate.getFullYear()+'-'+ stDate.getMonth()+1 +'-'+ ( stDate.getDate()<10? '0'+stDate.getDate() : stDate.getDate() )
+      let enDateStr = enDate.getFullYear()+'-'+ enDate.getMonth()+1 +'-'+ ( enDate.getDate()<10? '0'+enDate.getDate() : enDate.getDate() )
+      let defaultStDateStr = stDateStr
+      let defaultEnDateStr = defaultEnDate.getFullYear()+'-'+ defaultEnDate.getMonth()+1 +'-'+ ( defaultEnDate.getDate()<10? '0'+defaultEnDate.getDate() : defaultEnDate.getDate() )
 
       let parameters = <%- JSON.stringify(parameters) %> 
       let isCreated = [];
@@ -135,10 +139,10 @@
                           <input type="text" id="inputType${parameter.questions[i]._id}" value="${parameter.questions[i].inputType}"  style="display: none;">
                         </td>                
                         <td> 
-                          <input class="form-control" type="date" id="startDate${parameter.questions[i]._id}" min="${stDateStr}" max="${enDateStr}" value="${stDateStr}" onchange="setEndDate('${parameter.questions[i]._id}')" >
+                          <input class="form-control" type="date" id="startDate${parameter.questions[i]._id}" min="${stDateStr}" max="${enDateStr}" value="${defaultStDateStr}" onchange="setEndDate('${parameter.questions[i]._id}')" >
                         </td> 
                         <td>
-                          <input class="form-control" type="date" id="endDate${parameter.questions[i]._id}" min="${stDateStr}" max="${enDateStr}" value="${stDateStr}">                          
+                          <input class="form-control" type="date" id="endDate${parameter.questions[i]._id}" min="${stDateStr}" max="${enDateStr}" value="${defaultEnDateStr}">                          
                         </td>
                         <td> 
                           <select class="form-control" name="frequency" id="frequency${parameter.questions[i]._id}" >
@@ -253,9 +257,13 @@
       function setEndDate(qId){
         // this function sets the endDate min according to the selected startDate
         // because any date in endDate before startDate is invalid
-        let startDate = $('#startDate'+qId).val()
-        $('#endDate'+qId).attr('min', startDate)
-        $('#endDate'+qId).attr('value', startDate)
+        let stDate = new Date($('#startDate'+qId).val())
+        let enDate = new Date(stDate.getFullYear(), stDate.getMonth(), stDate.getDate()+10)
+        let stDateStr = stDate.getFullYear()+'-'+ stDate.getMonth()+1 +'-'+ ( stDate.getDate()<10? '0'+stDate.getDate() : stDate.getDate() )
+        let enDateStr = enDate.getFullYear()+'-'+ enDate.getMonth()+1 +'-'+ ( enDate.getDate()<10? '0'+enDate.getDate() : enDate.getDate() )
+        
+        $('#endDate'+qId).attr('min', stDateStr)
+        $('#endDate'+qId).attr('value', enDateStr)
       }
 
       function checkCount(qId, parameterInd){

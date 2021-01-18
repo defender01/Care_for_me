@@ -190,17 +190,28 @@ main .wrapper .notify-bar .total-selected {
 }
 
 main .wrapper .notify-bar .btn-container {
-  flex: 1;
   max-width: 300px;
   display: flex;
 }
 
-main .wrapper .notify-bar .btn-container .continue {
-  flex: 1;
+main .wrapper .notify-bar .btn-container button {
+  margin: auto;
+  text-align: center;
+  color: #ffffff;
+  font-size: 20px;
+  background-color: coral;
+  border-width: 3px;
+  border-style: solid;
+  border-radius: 8px;
+  padding: 5px 20px 5px 20px;
+  border-color: #b63a0d;
 }
 
-main .wrapper .notify-bar .btn-container .dlt-param-btn {
-  flex: 1;
+main .wrapper .notify-bar .btn-container button:hover {
+  background-color: white;
+  color: #6d330c;
+  animation-name: banner-btn-bg;
+  animation-duration: .3s;
 }
 
 main .wrapper .page-holder {
@@ -385,7 +396,6 @@ main .wrapper .page-holder .card .btn-container .search-btn:hover {
   }
   main .wrapper .notify-bar {
     margin-left: 0px;
-    padding-right: 50px;
     width: 100%;
   }
   main .wrapper .notify-bar .angle {

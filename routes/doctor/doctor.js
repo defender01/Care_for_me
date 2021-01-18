@@ -69,12 +69,7 @@ router.get('/patients', checkAuthenticatedDoctor, checkEmailVerified,async (req,
     let userRole = req.user.role
     res.render('doctorPatients', {navDisplayName, userRole})
 })
-  
-router.get('/patients/records', checkAuthenticatedDoctor, checkEmailVerified,async (req, res) => {
-let navDisplayName = req.user.name.displayName;
-let userRole = req.user.role
-res.render('doctorPatientRecords', {navDisplayName, userRole})
-})
+
 
 router.get(
     "/notifications",
