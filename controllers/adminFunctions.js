@@ -207,27 +207,29 @@ async function saveQuesOp(req, res) {
       true /* enable colors */
     )
   );
+  try{
+    let sectionData = await getWholeSection(
+      req.body.section,
+      req.body.subSection
+    );
+    let subSectionData = sectionData[0].subSections[0];
+  
+    let question = await saveQues(req.body);
+  
+    subSectionData.questions.push(question);
+    let questionToAdd = subSectionData.questions;
+  
+    let subSection = await subSectionModel.findById(
+      { _id: subSectionData._id }
+    )
+    subSection.questions= questionToAdd
+    await subSection.save()
+      
+  }catch(err){
+    res.send(err)
+  }
 
-  let sectionData = await getWholeSection(
-    req.body.section,
-    req.body.subSection
-  );
-  let subSectionData = sectionData[0].subSections[0];
-
-  let question = await saveQues(req.body);
-
-  subSectionData.questions.push(question);
-  let questionToAdd = subSectionData.questions;
-
-  await subSectionModel.findByIdAndUpdate(
-    { _id: subSectionData._id },
-    { questions: questionToAdd },
-    (err, result) => {
-      if (err) {
-        res.send(err);
-      }
-    }
-  );
+  
 
   // let datas = await subSectionModel
   //   .find({

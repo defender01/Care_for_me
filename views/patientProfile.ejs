@@ -172,13 +172,13 @@
                 Personal Information
               </div>
 
-              <% if(typeof userDetails !== 'undefined') { %>
+              <% if(typeof patientDetails !== 'undefined') { %>
                 <div class="table-row">
                   <div class="label">
                     <p>First Name</p>
                   </div>
                   <div class="detail">
-                    <p><%= userDetails.name.firstName %></p>
+                    <p><%= patientDetails.name.firstName %></p>
                   </div>
                 </div>
   
@@ -188,7 +188,7 @@
                     <p>Last Name</p>
                   </div>
                   <div class="detail">
-                    <p><%= userDetails.name.lastName %></p>
+                    <p><%= patientDetails.name.lastName %></p>
                   </div>
                 </div>
   
@@ -197,7 +197,7 @@
                     <p>Display Name</p>
                   </div>
                   <div class="detail">
-                    <p><%= userDetails.name.displayName %></p>
+                    <p><%= patientDetails.name.displayName %></p>
                   </div>
                 </div>
   
@@ -206,7 +206,7 @@
                     <p>Date of Birth</p>
                   </div>
                   <div class="detail">
-                    <p><%= userDetails.birthDate %></p>
+                    <p><%= patientDetails.birthDate %></p>
                   </div>
                 </div>
 
@@ -215,7 +215,7 @@
                     <p>Gender</p>
                   </div>
                   <div class="detail">
-                    <p><%= userDetails.gender %></p>
+                    <p><%= patientDetails.gender %></p>
                   </div>
                 </div>
 
@@ -224,7 +224,7 @@
                     <p>Occupation</p>
                   </div>
                   <div class="detail">
-                    <p><%= userDetails.occupation %></p>
+                    <p><%= patientDetails.occupation %></p>
                   </div>
                 </div>
 
@@ -233,7 +233,7 @@
                     <p>Organization</p>
                   </div>
                   <div class="detail">
-                    <p><%= userDetails.organization %></p>
+                    <p><%= patientDetails.organization %></p>
                   </div>
                 </div>
   
@@ -242,7 +242,7 @@
                     <p>Email</p>
                   </div>
                   <div class="detail">
-                    <p><%= userDetails.email %></p>
+                    <p><%= patientDetails.email %></p>
                   </div>
                 </div>
 
@@ -251,18 +251,18 @@
                     <p>Phone Number</p>
                   </div>
                   <div class="detail">
-                    <p><%= userDetails.phoneNumber %></p>
+                    <p><%= patientDetails.phoneNumber %></p>
                   </div>
                 </div>
 
                 <div class="table-row">
                   <div class="label">
                     <p>
-                      <% if(userDetails.idChoice === "nidNumber") { %>
+                      <% if(patientDetails.idChoice === "nidNumber") { %>
                         NID Number
-                      <% } else if(userDetails.idChoice === "birthCertificateNumber") { %>
+                      <% } else if(patientDetails.idChoice === "birthCertificateNumber") { %>
                         Birth Certificate Number
-                      <% } else if(userDetails.idChoice === "passportNumber") { %>
+                      <% } else if(patientDetails.idChoice === "passportNumber") { %>
                         Passport Number
                       <% } else { %>
                         NID Number
@@ -270,7 +270,7 @@
                     </p>
                   </div>
                   <div class="detail">
-                    <p><%= userDetails.idNumber %></p>
+                    <p><%= patientDetails.idNumber %></p>
                   </div>
                 </div>
 
@@ -279,7 +279,7 @@
                     <p>Country</p>
                   </div>
                   <div class="detail">
-                    <p><%= userDetails.location.country %></p>
+                    <p><%= patientDetails.location.country %></p>
                   </div>
                 </div>
 
@@ -288,7 +288,7 @@
                     <p>State</p>
                   </div>
                   <div class="detail">
-                    <p><%= userDetails.location.state %></p>
+                    <p><%= patientDetails.location.state %></p>
                   </div>
                 </div>
 
@@ -297,7 +297,7 @@
                     <p>City</p>
                   </div>
                   <div class="detail">
-                    <p><%= userDetails.location.city %></p>
+                    <p><%= patientDetails.location.city %></p>
                   </div>
                 </div>
 
@@ -306,7 +306,7 @@
                     <p>Additional Address Information</p>
                   </div>
                   <div class="detail">
-                    <p><%= userDetails.location.additionalAddress %></p>
+                    <p><%= patientDetails.location.additionalAddress %></p>
                   </div>
                 </div>
   

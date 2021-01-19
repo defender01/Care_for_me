@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const UserSchema = new mongoose.Schema({
+const PatientSchema = new mongoose.Schema({
   name: {
     firstName : {
       type: String,
@@ -9,6 +9,12 @@ const UserSchema = new mongoose.Schema({
     lastName : {
       type: String,
       required: true
+    },
+    fullName : {
+      type: String,
+      default: function() {
+        return this.name.firstName + " " + this.name.lastName
+      }
     },
     displayName : {
       type: String,
@@ -69,6 +75,13 @@ const UserSchema = new mongoose.Schema({
   }
 });
 
-const User = mongoose.model("User", UserSchema);
+PatientSchema
+  .pre('save', function(next){
+   this.name.fullName = this.name.firstName + " " + this.name.lastName
+   this.updated = Date.now()
+   next();   
+});
 
-module.exports = User;
+const Patient = mongoose.model("Patient", PatientSchema);
+
+module.exports = Patient;

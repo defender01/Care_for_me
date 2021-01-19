@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const bcrypt = require("bcryptjs");
 const mongoose = require("mongoose");
-const doctorModel = require("../../models/doctor").doctorModel;
+const Doctor = require("../../models/doctor").doctorModel;
 const { getSectionData } = require("../../controllers/adminFunctions");
 
 //import camelCase function
@@ -39,7 +39,7 @@ router.get("/", checkAuthenticatedDoctor, checkEmailVerified, async (req, res) =
   ]
 
   try {
-    doctorInfo = await doctorModel.findOne({ _id: req.user._id });
+    doctorInfo = await Doctor.findOne({ _id: req.user._id });
 
     for (let i = 0, max = sectionNames.length; i < max; i++) {
       let sectionData = {}
@@ -90,7 +90,7 @@ router.get("/update/:sectionID", checkAuthenticatedDoctor, checkEmailVerified, a
   let doctorInfo;
 
   try {
-    doctorInfo = await doctorModel.findOne({ _id: req.user._id });
+    doctorInfo = await Doctor.findOne({ _id: req.user._id });
   } catch (err) {
     console.error(err);
     res.render("404", { navDisplayName, userRole, error: err.message });
@@ -304,7 +304,7 @@ router.post("/update", checkAuthenticatedDoctor, checkEmailVerified, async (req,
     })
   } else {
     try {
-      let doctors = await doctorModel.find({
+      let doctors = await Doctor.find({
         $and: [
           { _id: { $ne: req.user._id } },
           {
@@ -335,7 +335,7 @@ router.post("/update", checkAuthenticatedDoctor, checkEmailVerified, async (req,
           doctorInfo,
         })
       } else {
-        let doctor = await doctorModel.findOne({ _id: req.user._id });
+        let doctor = await Doctor.findOne({ _id: req.user._id });
         doctor.name = doctorInfo.name
         doctor.email = doctorInfo.email
         if (typeof password !== "undefined") doctor.password = password;

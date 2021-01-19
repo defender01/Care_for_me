@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 const bcrypt = require('bcryptjs');
 const cryptoRandomString = require('crypto-random-string');
-const User = require("../models/userInfo")
+const Patient = require("../models/patient")
 const Doctor = require("../models/doctor").doctorModel;
 const UrlRandomString = require("../models/randomStringForURL").randomStringModel;
 
@@ -10,7 +10,7 @@ const { sendMail } = require('./mailController')
 function checkAuthenticated(req, res, next) {
   if (req.isAuthenticated()) {
     if (typeof req.session.currentLoggedIn != 'undefined' && req.session.currentLoggedIn == 'doctor') {
-      req.flash('error_msg', 'Please log in as General User to view that resource')
+      req.flash('error_msg', 'Please log in as Patient to view that resource')
       res.redirect('back');
       return
     }
@@ -20,6 +20,26 @@ function checkAuthenticated(req, res, next) {
   req.session.returnTo = req.originalUrl;
   req.flash('error_msg', 'Please log in to view that resource')
   res.redirect('/auth/login');
+}
+
+function checkAuthenticatedForAjax(req, res, next) {
+  if (req.isAuthenticated()) {
+    if (typeof req.session.currentLoggedIn != 'undefined' && req.session.currentLoggedIn == 'doctor') {
+      res.send({
+        error_msg: 'Please log in as Doctor to view that resource',
+        redirectTo: `/` 
+      })
+      return
+    }
+  
+    return next();
+  }
+  req.session.returnTo = req.originalUrl;
+  res.send({
+    error_msg: 'Please log in to view that resource',
+    redirectTo: '/auth/login' 
+  })
+  return
 }
 
 
@@ -36,6 +56,26 @@ function checkAuthenticatedDoctor(req, res, next) {
   req.session.returnTo = req.originalUrl;
   req.flash('error_msg', 'Please log in to view that resource')
   res.redirect('/auth/login');
+}
+
+function checkAuthenticatedDoctorForAjax(req, res, next) {
+  if (req.isAuthenticated()) {
+    if (typeof req.session.currentLoggedIn != 'undefined' && req.session.currentLoggedIn == 'patient') {
+      res.send({
+        error_msg: 'Please log in as Doctor to view that resource',
+        redirectTo: `/` 
+      })
+      return
+    }
+    
+    return next();
+  }
+  req.session.returnTo = req.originalUrl;
+  res.send({
+    error_msg: 'Please log in to view that resource',
+    redirectTo: '/auth/login' 
+  })
+  return
 }
 
 function checkNotAuthenticated(req, res, next) {
@@ -83,6 +123,31 @@ let checkEmailVerified = (req, res, next) => {
   return
 }
 
+let checkEmailVerifiedForAjax = (req, res, next) => {
+  let currentLoggedIn = req.session.currentLoggedIn;
+
+  if (req.user.emailVerified) {
+    return next()
+  }
+  if (typeof currentLoggedIn != 'undefined') {
+    res.send({
+      error_msg: 'Please verify your email first.',
+      redirectTo: `/${currentLoggedIn}/accountVerification` 
+    })
+    return;
+  }
+
+  // No role is assigned to req.session.currentLoggedIn. So we can't figure to which route we need to direct
+  if (req.user) {
+    delete req.session.currentLoggedIn;
+    req.logout();
+  }
+  res.send({
+    error_msg: '"Error occured. Please log in again."',
+    redirectTo: `"/auth/login"` 
+  })
+  return
+}
 
 async function postResetPass(req, res) {
   let navDisplayName = req.user.name.displayName;
@@ -114,14 +179,14 @@ async function postResetPass(req, res) {
   if (errors.length > 0) {
     res.render("resetPass", { navDisplayName, userRole, errors });
   } else {
-    let user = await User.findOne({ email: req.user.email })
-    user.password = password
+    let patient = await Patient.findOne({ email: req.user.email })
+    patient.password = password
 
     bcrypt.genSalt(10, (err, salt) => {
-      bcrypt.hash(user.password, salt, async (err, hash) => {
-        if (err) res.render('404', {navDisplayName, userRole, error: err.message });
-        user.password = hash;
-        await user.save()
+      bcrypt.hash(patient.password, salt, async (err, hash) => {
+        if (err) res.render('404', {navDisplayName, patientRole, error: err.message });
+        patient.password = hash;
+        await patient.save()
         res.redirect('/');
       });
     });
@@ -162,14 +227,14 @@ async function postResetPassDoctor(req, res) {
   if (errors.length > 0) {
     res.render("resetPass", { navDisplayName,userRole,  errors });
   } else {
-    let user = await Doctor.findOne({ email: req.user.email })
-    user.password = password
+    let doctor = await Doctor.findOne({ email: req.user.email })
+    doctor.password = password
 
     bcrypt.genSalt(10, (err, salt) => {
-      bcrypt.hash(user.password, salt, async (err, hash) => {
+      bcrypt.hash(doctor.password, salt, async (err, hash) => {
         if (err) res.render('404', {navDisplayName, userRole ,error: err.message });
-        user.password = hash;
-        await user.save()
+        doctor.password = hash;
+        await doctor.save()
         res.redirect('/');
       });
     });
@@ -182,8 +247,8 @@ async function forgotpassHandler(req, res) {
   console.log('came in forgotpass')
   // console.log(req.body)
   try {
-    // selecting User or Doctor model according to role field value
-    model = (role=='patient')? User : Doctor
+    // selecting Patient or Doctor model according to role field value
+    model = (role=='patient')? Patient : Doctor
     subject = (role=='patient')? 'General account passowrod forgotten' : 'Doctor account passowrod forgotten'
     let otp = cryptoRandomString({ length: 6 });
     let hashedOtp = ''
@@ -196,20 +261,15 @@ async function forgotpassHandler(req, res) {
           res.send({ error: err.message })
         }
         hashedOtp = hash
-        let user = await model.findOneAndUpdate(
-          {
+        let user = await model.findOne({
             $or: [{ email: emailOrPhone }, { phoneNumber: emailOrPhone }]
-          },
-          {
-            otp: hashedOtp
-          },
-          {
-            new: true
-          }
-        )
+        })
+        user.otp = hashedOtp        
+        await user.save()  
+
         if(typeof user==='undefined'){
           console.log('user wasnot found with this credential')
-          res.send({ error: "User is not registered" })
+          res.send({ error: "Patient is not registered" })
         }
         // sending mail
         let mailData = {
@@ -219,7 +279,6 @@ async function forgotpassHandler(req, res) {
             `After login please change the password. Your one time password is:\n ${otp}\n `,
         }
         sendMail(mailData)
-
       });
     });
     res.send({ success: "We have sent you an email with temporary password" });
@@ -266,7 +325,7 @@ let emailVerificationLinkGenerator = async (req, res) => {
   try {
     console.log('came in verification')
     if (role == "patient") {
-      let patient = await User.findOne({ email: email })
+      let patient = await Patient.findOne({ email: email })
       if (patient) {
         let existingRandomString = await UrlRandomString.findOne({ userID: patient._id, userType: role })
         let newRandomString = cryptoRandomString({ length: 64, type: 'url-safe' })
@@ -392,7 +451,7 @@ let emailVerificationHandler = async (req, res) => {
       await UrlRandomString.deleteOne({ _id: existingRandomString._id })
 
       if (role == 'patient') {
-        let patient = await User.findById(ID);
+        let patient = await Patient.findById(ID);
         if (patient) {
           patient.emailVerified = true;
           await patient.save()
@@ -465,11 +524,14 @@ module.exports = {
   postResetPass,
   postResetPassDoctor,
   checkAuthenticated,
+  checkAuthenticatedForAjax,
   checkNotAuthenticated,
   checkAuthenticatedDoctor,
+  checkAuthenticatedDoctorForAjax,
   emailVerificationHandler,
   emailVerificationLinkGenerator,
   checkEmailVerified,
   checkEmailNotVerified,
+  checkEmailVerifiedForAjax,
 
 }

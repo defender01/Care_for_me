@@ -1,8 +1,8 @@
 const LocalStrategy = require('passport-local').Strategy;
 const bcrypt = require('bcryptjs');
 
-// Load User model
-const User = require('../models/userInfo');
+// Load Patient model
+const Patient = require('../models/patient');
 const Doctor = require("../models/doctor").doctorModel;
 
 module.exports = {
@@ -11,37 +11,37 @@ module.exports = {
     'patientStrategy',   
     new LocalStrategy({ usernameField: 'emailOrPhone',passReqToCallback: true }, (req,emailOrPhone, password, done) => {
       // Match user
-      User.findOne({
+      Patient.findOne({
         // email: email
         // email: emailOrPhone
         $or: [ { email: emailOrPhone }, { phoneNumber: emailOrPhone } ] 
-      }).then(async (user) => {
-        if (!user) {
+      }).then(async (patient) => {
+        if (!patient) {
           return done(null, false, { message: 'That email or phone no is not registered' });
         }
         console.log('in passport strategy')
-        console.log(user)
+        console.log(patient)
         // Match password
-        let  userOtp
-        if(typeof user.otp!= 'undefined' && user.otp!=''){
+        let  patientOtp
+        if(typeof patient.otp!= 'undefined' && patient.otp!=''){
           console.log('checking otp')          
-          userOtp = user.otp
+          patientOtp = patient.otp
           // resetting otp
-          user.otp =''
-          await user.save()          
+          patient.otp =''
+          await patient.save()          
         }
 
         try{
-          // console.log(password, user.password, userOtp)
-          // console.log(typeof(password), typeof(user.password), typeof(userOtp))
-          // console.log(String(password), String(user.password), String(userOtp))
+          // console.log(password, patient.password, patientOtp)
+          // console.log(typeof(password), typeof(patient.password), typeof(patientOtp))
+          // console.log(String(password), String(patient.password), String(patientOtp))
 
-          let passwordMatch = await bcrypt.compare(String(password), String(user.password));
-          let passwordOrOtpMatch = await bcrypt.compare(String(password), String(userOtp));
+          let passwordMatch = await bcrypt.compare(String(password), String(patient.password));
+          let passwordOrOtpMatch = await bcrypt.compare(String(password), String(patientOtp));
           // console.log(passwordMatch, "  ",passwordOrOtpMatch)
           if(passwordMatch|| passwordOrOtpMatch){
             req.session.currentLoggedIn = 'patient';
-            return done(null, user);
+            return done(null, patient);
           } 
           else {
             return done(null, false, { message: 'Password incorrect' });
@@ -59,7 +59,7 @@ module.exports = {
   // });
 
   // passport.deserializeUser(function(id, done) {
-  //   User.findById(id, function(err, user) {
+  //   Patient.findById(id, function(err, user) {
   //     done(err, user);
   //   });
   // });
@@ -73,32 +73,32 @@ doctorStrategy: function(passport) {
         // email: email
         // email: emailOrPhone
         $or: [ { email: emailOrPhone }, { phoneNumber: emailOrPhone } ] 
-      }).then(async (user) => {
-        if (!user) {
+      }).then(async (doctor) => {
+        if (!doctor) {
           return done(null, false, { message: 'That email or phone no is not registered' });
         }
 
         // Match password
-        let  userOtp
-        if(typeof user.otp!= 'undefined' && user.otp!=''){
+        let  doctorOtp
+        if(typeof doctor.otp!= 'undefined' && doctor.otp!=''){
           console.log('checking otp')          
-          userOtp = user.otp
+          doctorOtp = doctor.otp
           // resetting otp
-          user.otp =''
-          await user.save()          
+          doctor.otp =''
+          await doctor.save()          
         }
 
         try{
-          // console.log(password, user.password, userOtp)
-          // console.log(typeof(password), typeof(user.password), typeof(userOtp))
-          // console.log(String(password), String(user.password), String(userOtp))
+          // console.log(password, doctor.password, doctorOtp)
+          // console.log(typeof(password), typeof(doctor.password), typeof(doctorOtp))
+          // console.log(String(password), String(doctor.password), String(doctorOtp))
 
-          let passwordMatch = await bcrypt.compare(String(password), String(user.password));
-          let passwordOrOtpMatch = await bcrypt.compare(String(password), String(userOtp));
+          let passwordMatch = await bcrypt.compare(String(password), String(doctor.password));
+          let passwordOrOtpMatch = await bcrypt.compare(String(password), String(doctorOtp));
           // console.log(passwordMatch, "  ",passwordOrOtpMatch)
           if(passwordMatch|| passwordOrOtpMatch){
             req.session.currentLoggedIn = 'doctor';
-            return done(null, user);
+            return done(null, doctor);
           } 
           else {
             return done(null, false, { message: 'Password incorrect' });

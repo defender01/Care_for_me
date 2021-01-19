@@ -3,7 +3,7 @@ const router = express.Router();
 const bcrypt = require("bcryptjs");
 const passport = require("passport");
 const mongoose = require("mongoose");
-const User = require("../../models/userInfo");
+const Patient = require("../../models/patient");
 const {
   sectionModel,
   vaccineModel,
@@ -64,25 +64,29 @@ let getQuestionsFromAllSections = async (user) => {
 router.get("/", checkAuthenticated, checkEmailVerified, async (req, res) => {
   let navDisplayName = req.user.name.displayName;
   let userRole = req.user.role
-  let userDetails,
+  let patientDetails,
     wholeSectionCollection,
     medicalHistoryData,
     vaccineData,
     substanceData;
   try {
-    userDetails = await User.findOne({ _id: req.user._id });
+    patientDetails = await Patient.findOne({ _id: req.user._id });
+    // console.log(patientDetails)
+    // patientDetailsLean = await Patient.findOne({ _id: req.user._id }).lean()
+    // console.log(patientDetailsLean)
     wholeSectionCollection = await getQuestionsFromAllSections(req.user);
     vaccineData = await vaccineModel.find({});
     substanceData = await substanceModel.find({});
     medicalHistoryData = await answerModel.find({ userID: req.user._id });
     // console.log(medicalHistoryData.length)
+    
     const {
       mapQuesToAnswer,
       mapSubSecToAdditionalIDs,
     } = processAnswerModelData(medicalHistoryData);
 
     res.render("patientProfile", {
-      userDetails,
+      patientDetails,
       navDisplayName, userRole,
       vaccineData,
       substanceData,
@@ -341,17 +345,17 @@ router.get("/update/:sectionID", checkAuthenticated, checkEmailVerified, async (
 
   console.log(sectionID)
   if (sectionID === "personalInfo") {
-    let userDetails;
+    let patientDetails;
 
     try {
-      userDetails = await User.findOne({ _id: req.user._id });
+      patientDetails = await Patient.findOne({ _id: req.user._id });
     } catch (err) {
       console.error(err);
       res.render("404", {navDisplayName, userRole, error: err.message });
       return;
     }
 
-    res.render("updatePatientPersonalInfo", { navDisplayName, userRole, userDetails });
+    res.render("updatePatientPersonalInfo", { navDisplayName, userRole, patientDetails });
     return;
   }
 
@@ -534,7 +538,7 @@ router.post("/update-personalInfo", checkAuthenticated, checkEmailVerified, asyn
     additionalAddress,
   } = req.body;
 
-  const userDetails = {
+  const patientDetails = {
     name: {
       firstName:firstName,
       lastName:lastName,
@@ -591,11 +595,11 @@ router.post("/update-personalInfo", checkAuthenticated, checkEmailVerified, asyn
     res.render("updatePatientPersonalInfo", {
       navDisplayName, userRole,
       errors,
-      userDetails
+      patientDetails
     });
   } else {
     try {
-      let users = await User.find({
+      let patients = await Patient.find({
         $and: [
           { _id: { $ne: req.user._id } },
           {
@@ -609,12 +613,12 @@ router.post("/update-personalInfo", checkAuthenticated, checkEmailVerified, asyn
       });
       // console.log("came in users");
       // console.log(users);
-      if (users.length) {
-        users.forEach((user) => {
-          if (user.email == email) errors.push({ msg: "Email already exists" });
-          if (user.phoneNumber == phoneNumber)
+      if (patients.length) {
+        patients.forEach((patient) => {
+          if (patient.email == email) errors.push({ msg: "Email already exists" });
+          if (patient.phoneNumber == phoneNumber)
             errors.push({ msg: "Phone no already exists" });
-          if (user.idNumber == idNumber)
+          if (patient.idNumber == idNumber)
             errors.push({
               msg:
                 "ID number(NID/ Passport/ Birth Certificate no) already exists",
@@ -623,44 +627,44 @@ router.post("/update-personalInfo", checkAuthenticated, checkEmailVerified, asyn
         res.render("updatePatientPersonalInfo", {
           navDisplayName, userRole,
           errors,
-          userDetails
+          patientDetails
         });
       } 
       else {
-        let user = await User.findOne({ _id: req.user._id });
-        user.name.firstName = firstName;
-        user.name.lastName = lastName;
-        user.name.displayName = displayName;
-        user.email = email;
-        if (typeof password !== "undefined") user.password = password;
-        user.birthDate = birthDate;
-        user.phoneNumber = phoneNumber;
-        user.idNumber = idNumber;
-        user.gender = gender;
-        user.idChoice = idChoice;
-        user.occupation = occupation;
-        user.organization = organization;
-        user.location.country = country;
-        user.location.state = state;
-        user.location.city = city;
-        user.location.additionalAddress = additionalAddress;
+        let patient = await Patient.findOne({ _id: req.user._id });
+        patient.name.firstName = firstName;
+        patient.name.lastName = lastName;
+        patient.name.displayName = displayName;
+        patient.email = email;
+        if (typeof password !== "undefined") patient.password = password;
+        patient.birthDate = birthDate;
+        patient.phoneNumber = phoneNumber;
+        patient.idNumber = idNumber;
+        patient.gender = gender;
+        patient.idChoice = idChoice;
+        patient.occupation = occupation;
+        patient.organization = organization;
+        patient.location.country = country;
+        patient.location.state = state;
+        patient.location.city = city;
+        patient.location.additionalAddress = additionalAddress;
 
         if (typeof password !== "undefined") {
           bcrypt.genSalt(10, (err, salt) => {
-            bcrypt.hash(user.password, salt, async (err, hash) => {
+            bcrypt.hash(patient.password, salt, async (err, hash) => {
               if (err) res.render("404", {navDisplayName, userRole, error: err.message });
-              user.password = hash;              
+              patient.password = hash;              
               console.log('password change')
-              // console.log({user})
-              await user.save();
+              // console.log({patient})
+              await patient.save();
               req.logout();
               req.flash("success_msg", "Your data has successfully updated. Please login again");
               res.redirect("/auth/login");
             });
           });         
         }else {
-          // console.log({user})
-          await user.save()
+          // console.log({patient})
+          await patient.save()
           res.redirect("/");
         }
       }
