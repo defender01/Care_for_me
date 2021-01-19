@@ -69,5 +69,16 @@ router.post('/save', checkAuthenticatedDoctor, checkEmailVerified, async (req, r
   res.send({data})
 })
 
+router.get('/records', checkAuthenticatedDoctor, checkEmailVerified,async (req, res) => {
+  let navDisplayName = req.user.name.displayName;
+  let userRole = req.user.role
+  res.render('doctorPatientRecords', {navDisplayName, userRole})
+})
+
+router.get('/records/id', checkAuthenticatedDoctor, checkEmailVerified,async (req, res) => {
+  let navDisplayName = req.user.name.displayName;
+  let userRole = req.user.role
+  res.render('doctorPatientRecordsQuestions', {navDisplayName, userRole})
+})
 
 module.exports = router;

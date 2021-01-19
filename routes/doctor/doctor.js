@@ -16,7 +16,7 @@ const {
     checkAuthenticatedDoctorForAjax,
     checkEmailVerifiedForAjax,
 } = require("../../controllers/auth_helper");
-// Load User model
+// Load Patient model
 const Patient = require("../../models/patient");
 const { session } = require("passport");
 const Doctor = require("../../models/doctor").doctorModel;

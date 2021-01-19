@@ -3,6 +3,7 @@ const router = express.Router();
 const bcrypt = require("bcryptjs");
 const passport = require("passport");
 const mongoose = require("mongoose");
+var sizeof = require('object-sizeof');
 
 const {
   forgotpassHandler,
