@@ -49,9 +49,6 @@
               <div class="sec-name">
                 <a >Selected Questions</a>
               </div>
-              <div class="sec-items-cnt">
-                <%=questions.length%>
-              </div>
             </div>
           </div>
         </div>
@@ -80,7 +77,9 @@
       let defaultStDateStr = stDateStr
       let defaultEnDateStr = defaultEnDate.getFullYear()+'-'+ defaultEnDate.getMonth()+1 +'-'+ ( defaultEnDate.getDate()<10? '0'+defaultEnDate.getDate() : defaultEnDate.getDate() )
 
-      let questions = <%- JSON.stringify(questions) %>;
+      let questions = JSON.parse(localStorage.followupQuestions).questions
+      console.log(questions)
+      delete localStorage.followupQuestions
       let totalCnt = questions.length;
 
    
@@ -306,6 +305,9 @@
         })
         
       }
+      let testItem =JSON.parse( localStorage.testItem)
+      console.log(testItem)
+      console.log(typeof testItem)
     </script>
   </body>
 </html>

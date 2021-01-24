@@ -12,60 +12,48 @@ const {
   saveProfileQues,
   getAddQuesDoctor,
   saveDoctorQues
-} = require("../controllers/adminFunctions");
+} = require("../../controllers/adminFunctions");
 
 const {
   uploadVaccineAndSubstanceToDB,
   clearWholeAnswerCollection
-} = require("../controllers/database_controller");
+} = require("../../controllers/database_controller");
 
-const { questionModel, optionModel } = require("../models/inputCollection");
+const { questionModel, optionModel } = require("../../models/inputCollection");
 
-const { parameterModel } = require("../models/followup");
+const { parameterModel } = require("../../models/followup");
 
-router.get('/', (req, res)=> {
-  let navDisplayName = req.user.name.displayName;
+const {checkAuthenticatedAdmin } = require("../../controllers/auth_helper");
+
+router.get('/', checkAuthenticatedAdmin,  (req, res)=> {
+  let navDisplayName = req.user.name.displayName
   res.render('admin',{navDisplayName})
 })
 
-router.get("/addQues/profile", sendSectionSubSec);
-router.post("/addQues/profile", saveQuesOp);
-
-router.get("/addQues/doctor", getAddQuesDoctor);
-// router.post("/addQues/doctor", saveDoctorQues);
-
-router.get("/profile/edit", (req, res) =>{
-  let navDisplayName = req.user.name.displayName;
-  res.render('adminProfileQuesCollection', {navDisplayName})
-})
-// get profile ques for edit
-router.get("/profile/edit/:qId", editProfileQues)
-// save profile ques
-router.post("/profile/edit", saveProfileQues)
 
 // this is for deleting section subsection....have to delete this later
-router.get("/deleteSectionSubsection", deleteSecSubSecQuesOp);
+router.get("/deleteSectionSubsection", checkAuthenticatedAdmin, deleteSecSubSecQuesOp);
 
 // this is for clearing whole vaccine collection, substance collection and uploading again all vaccines and subtances to the database
-router.get("/uploadVaccineAndSubstanceToDB", uploadVaccineAndSubstanceToDB);
+router.get("/uploadVaccineAndSubstanceToDB", checkAuthenticatedAdmin, uploadVaccineAndSubstanceToDB);
 
 // This is for clearing whole answer collection
-router.get("/clearWholeAnswerCollection", clearWholeAnswerCollection)
+router.get("/clearWholeAnswerCollection", checkAuthenticatedAdmin, clearWholeAnswerCollection)
 
 // this provides new id
-router.get('/getNewId', async (req, res) => {
+router.get('/getNewId', checkAuthenticatedAdmin, async (req, res) => {
   res.send({ id: new mongoose.Types.ObjectId() })
 })
 
-router.get("/followupQues/edit", async (req,res) => {
-  let navDisplayName = req.user.name.displayName;
+router.get("/followupQues/edit", checkAuthenticatedAdmin, async (req,res) => {
+  let navDisplayName = req.user.name.displayName
   let parameters = await parameterModel.find({})
   
   res.render('adminEditFollowupQues', {navDisplayName, parameters})
 })
 // saving parameter details after edit or change in doctor followup questions
-router.post('/followupQues/edit', async(req, res) => {
-  let navDisplayName = req.user.name.displayName;
+router.post('/followupQues/edit', checkAuthenticatedAdmin, async(req, res) => {
+  let navDisplayName = req.user.name.displayName
   let parameters,parameter
   data = req.body
   
@@ -117,7 +105,7 @@ router.post('/followupQues/edit', async(req, res) => {
 })
 
 //creating new parameter for doctor followup questions
-router.get('/newFollowupParam', async (req, res) => {
+router.get('/newFollowupParam', checkAuthenticatedAdmin, async (req, res) => {
   let parameter = new parameterModel({
     _id: new mongoose.Types.ObjectId(),
   })
@@ -133,7 +121,7 @@ router.get('/newFollowupParam', async (req, res) => {
 })
 
 
-router.get('/deleteParameter/:pId', async(req, res) => {
+router.get('/deleteParameter/:pId', checkAuthenticatedAdmin, async(req, res) => {
   let id = req.params.pId
   console.log({id})
   let parameters
@@ -146,5 +134,8 @@ router.get('/deleteParameter/:pId', async(req, res) => {
   }
   res.send({success:'delete completed'})
 })
+
+
+router.use("/profile", require("./profile.js"))
 
 module.exports = router;

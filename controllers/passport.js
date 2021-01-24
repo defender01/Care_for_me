@@ -4,6 +4,7 @@ const bcrypt = require('bcryptjs');
 // Load User model
 const User = require('../models/userInfo');
 const Doctor = require("../models/doctor").doctorModel;
+const Admin = require("../models/admin").adminModel;
 
 module.exports = {
   patientStrategy: function(passport) {
@@ -117,6 +118,55 @@ doctorStrategy: function(passport) {
 
   // passport.deserializeUser(function(id, done) {
   //   Doctor.findById(id, function(err, user) {
+  //     done(err, user);
+  //   });
+  // });
+},
+
+adminStrategy: function(passport) {
+  passport.use(    
+    'adminStrategy',
+    new LocalStrategy({ usernameField: 'email', passReqToCallback: true },  (req, email, password, done) => {
+      // Match user
+      Admin.findOne({
+        // email: email
+        email: email
+      }).then(async (user) => {
+        // console.log("admin user in passort")
+        // console.log({user})
+
+        if (!user) {
+          return done(null, false, { message: 'That email or phone no is not registered' });
+        }
+
+        try{
+          // console.log(password, user.password, userOtp)
+          // console.log(typeof(password), typeof(user.password), typeof(userOtp))
+          // console.log(String(password), String(user.password), String(userOtp))
+
+          let passwordMatch = await bcrypt.compare(String(password), String(user.password));
+          // console.log(passwordMatch)
+          if(passwordMatch){
+            req.session.currentLoggedIn = 'admin';
+            return done(null, user);
+          } 
+          else {
+            return done(null, false, { message: 'Password incorrect' });
+          }
+        }catch(err){
+          console.error(err)
+        }
+
+      });
+    })
+  );
+
+  // passport.serializeUser(function(user, done) {
+  //   done(null, user.id);
+  // });
+
+  // passport.deserializeUser(function(id, done) {
+  //   Admin.findById(id, function(err, user) {
   //     done(err, user);
   //   });
   // });

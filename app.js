@@ -6,12 +6,14 @@ var session = require("express-session")
 var passport = require("passport")
 const User = require('./models/userInfo');
 const Doctor = require("./models/doctor").doctorModel;
+const Admin = require("./models/admin").adminModel;
 
 require("dotenv").config()
 
 // Passport Config
 require('./controllers/passport').patientStrategy(passport)
 require('./controllers/passport').doctorStrategy(passport)
+require('./controllers/passport').adminStrategy(passport)
 
 passport.serializeUser(function (user, done) {
   var key = {
@@ -22,7 +24,17 @@ passport.serializeUser(function (user, done) {
 });
 
 passport.deserializeUser(function (key, done) {
-  var Model = (key.type == 'patient') ? User : Doctor;
+  let Model
+  if (key.type == 'patient'){
+    Model = User
+  }
+  else if(key.type == 'patient'){
+    Model = Doctor
+  }
+  else{
+    Model = Admin
+  }
+  // var Model = (key.type == 'patient') ? User : Doctor;
   Model.findOne({ _id: key.id }, function (err, user) {
     done(err, user);
   })
@@ -119,7 +131,7 @@ app.get("/termsAndConditions", (req, res) => {
 
 //routes
 app.use("/data", require("./routes/data.js"))
-app.use("/admin", require("./routes/adminFacility.js"))
+app.use("/admin", require("./routes/admin/adminFacility.js"))
 app.use("/auth", require("./routes/auth.js"))
 app.use("/patient", require("./routes/patient/patient.js"))
 app.use("/doctor", require("./routes/doctor/doctor.js"))
