@@ -28,7 +28,7 @@ passport.deserializeUser(function (key, done) {
   if (key.type == 'patient'){
     Model = User
   }
-  else if(key.type == 'patient'){
+  else if(key.type == 'doctor'){
     Model = Doctor
   }
   else{

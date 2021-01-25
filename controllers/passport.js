@@ -20,7 +20,7 @@ module.exports = {
         if (!user) {
           return done(null, false, { message: 'That email or phone no is not registered' });
         }
-        console.log('in passport strategy')
+        console.log('in passport strategy for patient')
         console.log(user)
         // Match password
         let  userOtp
@@ -79,6 +79,10 @@ doctorStrategy: function(passport) {
           return done(null, false, { message: 'That email or phone no is not registered' });
         }
 
+        
+        console.log('in passport strategy for doctor')
+        console.log(user)
+
         // Match password
         let  userOtp
         if(typeof user.otp!= 'undefined' && user.otp!=''){
@@ -96,7 +100,7 @@ doctorStrategy: function(passport) {
 
           let passwordMatch = await bcrypt.compare(String(password), String(user.password));
           let passwordOrOtpMatch = await bcrypt.compare(String(password), String(userOtp));
-          // console.log(passwordMatch, "  ",passwordOrOtpMatch)
+          console.log('for doctor:', passwordMatch, "  ",passwordOrOtpMatch)
           if(passwordMatch|| passwordOrOtpMatch){
             req.session.currentLoggedIn = 'doctor';
             return done(null, user);
