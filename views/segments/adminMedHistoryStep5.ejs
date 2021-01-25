@@ -24,7 +24,7 @@
     />
 
     <script>
-     $.get("/admin/profile/getSectionData/Previous Diseases and Disorders", (data) => {
+     $.get("/profile/getSectionData/Previous Diseases and Disorders", (data) => {
       let elmStr = "";
       for (let i = 0; i < data.subSections.length; i++) {
         elmStr += getSubSectionStr(data.subSections[i]);

@@ -9,13 +9,8 @@ const { sendMail } = require('./mailController')
 
 function checkAuthenticated(req, res, next) {
   if (req.isAuthenticated()) {
-<<<<<<< HEAD
-    if (typeof req.session.currentLoggedIn != 'undefined' && req.session.currentLoggedIn != 'patient') {
-      req.flash('error_msg', 'Please log in as Patient User to view that resource')
-=======
     if (typeof req.session.currentLoggedIn != 'undefined' && req.session.currentLoggedIn == 'doctor') {
       req.flash('error_msg', 'Please log in as Patient to view that resource')
->>>>>>> c485c79b29767f60413336ca1516218715333d9a
       res.redirect('back');
       return
     }
@@ -50,7 +45,7 @@ function checkAuthenticatedForAjax(req, res, next) {
 
 function checkAuthenticatedDoctor(req, res, next) {
   if (req.isAuthenticated()) {
-    if (typeof req.session.currentLoggedIn != 'undefined' && req.session.currentLoggedIn != 'doctor') {
+    if (typeof req.session.currentLoggedIn != 'undefined' && req.session.currentLoggedIn == 'patient') {
       req.flash('error_msg', 'Please log in as Doctor to view that resource')
       res.redirect('back');
       return
@@ -63,20 +58,24 @@ function checkAuthenticatedDoctor(req, res, next) {
   res.redirect('/auth/login');
 }
 
-function checkAuthenticatedAdmin(req, res, next) {
-  console.log(req.isAuthenticated())
+function checkAuthenticatedDoctorForAjax(req, res, next) {
   if (req.isAuthenticated()) {
-    if (typeof req.session.currentLoggedIn != 'undefined' && req.session.currentLoggedIn != 'admin') {
-      req.flash('error_msg', 'Please log in as Admin to view that resource')
-      res.redirect('back');
+    if (typeof req.session.currentLoggedIn != 'undefined' && req.session.currentLoggedIn == 'patient') {
+      res.send({
+        error_msg: 'Please log in as Doctor to view that resource',
+        redirectTo: `/` 
+      })
       return
     }
     
     return next();
   }
   req.session.returnTo = req.originalUrl;
-  req.flash('error_msg', 'Please log in to view that resource')
-  res.redirect('/auth/login/admin');
+  res.send({
+    error_msg: 'Please log in to view that resource',
+    redirectTo: '/auth/login' 
+  })
+  return
 }
 
 function checkNotAuthenticated(req, res, next) {
@@ -528,11 +527,7 @@ module.exports = {
   checkAuthenticatedForAjax,
   checkNotAuthenticated,
   checkAuthenticatedDoctor,
-<<<<<<< HEAD
-  checkAuthenticatedAdmin,
-=======
   checkAuthenticatedDoctorForAjax,
->>>>>>> c485c79b29767f60413336ca1516218715333d9a
   emailVerificationHandler,
   emailVerificationLinkGenerator,
   checkEmailVerified,

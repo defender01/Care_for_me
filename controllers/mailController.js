@@ -1,23 +1,14 @@
 var nodemailer = require('nodemailer');
 
-// var transporter = nodemailer.createTransport({
-//   service: 'gmail',
-//   auth: {
-//     user: 'careformebd@gmail.com',
-//     pass: 'its an open and shut case'
-//   }
-// });
-
 var transporter = nodemailer.createTransport({
   host: 'smtp.hostinger.com',
   port: 465,
-  secure: true,
+  secure: true, // true for 465, false for other ports
   auth: {
     user: 'amarshastho@monerdaktar.health',
     pass: 'zxcVBN<>5421'
   }
 });
-
 
 function mailOptions(mailData){
   return {

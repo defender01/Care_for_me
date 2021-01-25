@@ -16,7 +16,7 @@
     </div>
     <input type="button" name="next" class="next action-button" value="Next" />
     <script>
-      $.get("/admin/profile/getSectionData/Birth and Developmental History", (data) => {
+      $.get("/profile/getSectionData/Birth and Developmental History", (data) => {
         let elmStr = "";
         for (let i = 0; i < data.subSections.length; i++) {
           if(data.subSections[i].name !== 'Immunization History'){
@@ -42,7 +42,7 @@
             elmStr += getQuestionStr(subSection.questions[i]);
         }
 
-        return '<div class="secondary-container">' + elmStr +'<button type="button" class="btn btn-secondary" onclick="location.href=\'/admin/profile/addQues\'" >ADD QUESTION</button>' +"</div>";
+        return '<div class="secondary-container">' + elmStr +'<button type="button" class="btn btn-secondary" onclick="location.href=\'/admin/addQues/profile\'" >ADD QUESTION</button>' +"</div>";
       }
       function getQuestionStr(question) {
         let elmStr = "";

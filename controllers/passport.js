@@ -4,7 +4,6 @@ const bcrypt = require('bcryptjs');
 // Load Patient model
 const Patient = require('../models/patient');
 const Doctor = require("../models/doctor").doctorModel;
-const Admin = require("../models/admin").adminModel;
 
 module.exports = {
   patientStrategy: function(passport) {
@@ -20,13 +19,8 @@ module.exports = {
         if (!patient) {
           return done(null, false, { message: 'That email or phone no is not registered' });
         }
-<<<<<<< HEAD
-        console.log('in passport strategy for patient')
-        console.log(user)
-=======
         console.log('in passport strategy')
         console.log(patient)
->>>>>>> c485c79b29767f60413336ca1516218715333d9a
         // Match password
         let  patientOtp
         if(typeof patient.otp!= 'undefined' && patient.otp!=''){
@@ -84,10 +78,6 @@ doctorStrategy: function(passport) {
           return done(null, false, { message: 'That email or phone no is not registered' });
         }
 
-        
-        console.log('in passport strategy for doctor')
-        console.log(user)
-
         // Match password
         let  doctorOtp
         if(typeof doctor.otp!= 'undefined' && doctor.otp!=''){
@@ -103,9 +93,9 @@ doctorStrategy: function(passport) {
           // console.log(typeof(password), typeof(doctor.password), typeof(doctorOtp))
           // console.log(String(password), String(doctor.password), String(doctorOtp))
 
-          let passwordMatch = await bcrypt.compare(String(password), String(user.password));
-          let passwordOrOtpMatch = await bcrypt.compare(String(password), String(userOtp));
-          console.log('for doctor:', passwordMatch, "  ",passwordOrOtpMatch)
+          let passwordMatch = await bcrypt.compare(String(password), String(doctor.password));
+          let passwordOrOtpMatch = await bcrypt.compare(String(password), String(doctorOtp));
+          // console.log(passwordMatch, "  ",passwordOrOtpMatch)
           if(passwordMatch|| passwordOrOtpMatch){
             req.session.currentLoggedIn = 'doctor';
             return done(null, doctor);
@@ -127,55 +117,6 @@ doctorStrategy: function(passport) {
 
   // passport.deserializeUser(function(id, done) {
   //   Doctor.findById(id, function(err, user) {
-  //     done(err, user);
-  //   });
-  // });
-},
-
-adminStrategy: function(passport) {
-  passport.use(    
-    'adminStrategy',
-    new LocalStrategy({ usernameField: 'email', passReqToCallback: true },  (req, email, password, done) => {
-      // Match user
-      Admin.findOne({
-        // email: email
-        email: email
-      }).then(async (user) => {
-        // console.log("admin user in passort")
-        // console.log({user})
-
-        if (!user) {
-          return done(null, false, { message: 'That email or phone no is not registered' });
-        }
-
-        try{
-          // console.log(password, user.password, userOtp)
-          // console.log(typeof(password), typeof(user.password), typeof(userOtp))
-          // console.log(String(password), String(user.password), String(userOtp))
-
-          let passwordMatch = await bcrypt.compare(String(password), String(user.password));
-          // console.log(passwordMatch)
-          if(passwordMatch){
-            req.session.currentLoggedIn = 'admin';
-            return done(null, user);
-          } 
-          else {
-            return done(null, false, { message: 'Password incorrect' });
-          }
-        }catch(err){
-          console.error(err)
-        }
-
-      });
-    })
-  );
-
-  // passport.serializeUser(function(user, done) {
-  //   done(null, user.id);
-  // });
-
-  // passport.deserializeUser(function(id, done) {
-  //   Admin.findById(id, function(err, user) {
   //     done(err, user);
   //   });
   // });

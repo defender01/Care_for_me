@@ -256,7 +256,7 @@ async function saveQuesOp(req, res) {
   //   .exec();
   // console.log(util.inspect({ datas }, false, null, true /* enable colors */));
 
-  res.redirect("/admin/profile/addQues");
+  res.redirect("/admin/addQues");
 }
 
 async function deleteSecSubSecQuesOp(req, res) {
@@ -278,6 +278,7 @@ async function deleteSecSubSecQuesOp(req, res) {
 
 async function getSectionData(req, res) {
   let section = req.params.section;
+  let navDisplayName = req.user.name.displayName;
   let data = await sectionModel
     .findOne({
       name: section,
