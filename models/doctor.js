@@ -10,6 +10,12 @@ const doctorSchema = new mongoose.Schema({
       type: String,
       required: true
     },
+    fullName : {
+      type: String,
+      default: function() {
+        return this.name.firstName + " " + this.name.lastName
+      }
+    },
     displayName: {
       type: String,
       required: true
@@ -88,11 +94,18 @@ const doctorSchema = new mongoose.Schema({
     type: String,
     default: 'No'
   },
-  created: {
+  updated: {
     type: Date,
     default: Date.now
   },
 
+});
+
+doctorSchema
+  .pre('save', function(next){
+   this.name.fullName = this.name.firstName + " " + this.name.lastName
+   this.updated = Date.now()
+   next();
 });
 
 module.exports = {

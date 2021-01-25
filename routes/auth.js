@@ -16,7 +16,12 @@ const {
   checkAuthenticated,
   checkAuthenticatedDoctor,
 } = require("../controllers/auth_helper");
+<<<<<<< HEAD
 // Load User model
+=======
+// Load Patient model
+const Patient = require("../models/patient");
+>>>>>>> c485c79b29767f60413336ca1516218715333d9a
 const { session } = require("passport");
 const User = require("../models/userInfo");
 const Doctor = require("../models/doctor").doctorModel;
@@ -126,21 +131,21 @@ router.post("/patient/register", async (req, res) => {
     });
   } else {
     try {
-      let users = await User.find({
+      let patients = await Patient.find({
         $or: [
           { email: email },
           { phoneNumber: phoneNumber },
           { idNumber: idNumber },
         ],
       });
-      if (users.length) {
-        // console.log(users);
-        users.forEach((user) => {
-          // console.log(user);
-          if (user.email == email) errors.push({ msg: "Email already exists" });
-          if (user.phoneNumber == phoneNumber)
+      if (patients.length) {
+        // console.log(patients);
+        patients.forEach((patient) => {
+          // console.log(patient);
+          if (patient.email == email) errors.push({ msg: "Email already exists" });
+          if (patient.phoneNumber == phoneNumber)
             errors.push({ msg: "Phone no already exists" });
-          if (user.idNumber == idNumber)
+          if (patient.idNumber == idNumber)
             errors.push({
               msg:
                 "ID number(NID/ Passport/ Birth Certificate no) already exists",
@@ -165,7 +170,7 @@ router.post("/patient/register", async (req, res) => {
           additionalAddress,
         });
       } else {
-        const newUser = new User({
+        const newPatient = new Patient({
           name: {
             firstName: firstName,
             lastName: lastName,
@@ -189,14 +194,14 @@ router.post("/patient/register", async (req, res) => {
           termAgree: termAgree,
         });
 
-        console.log({ newUser });
+        console.log({ newPatient });
 
         bcrypt.genSalt(10, (err, salt) => {
-          bcrypt.hash(newUser.password, salt, async (err, hash) => {
+          bcrypt.hash(newPatient.password, salt, async (err, hash) => {
             if (err) res.render("404", { error: err.message });
-            newUser.password = hash;
-            console.log({ newUser });
-            await newUser.save();
+            newPatient.password = hash;
+            console.log({ newPatient });
+            await newPatient.save();
             req.flash("success_msg", "You are now registered and can log in");
             res.redirect("/auth/login");
           });
@@ -474,19 +479,15 @@ router.post("/login", async (req, res, next) => {
   console.log(req.body);
   let successRedirectUrl;
   if (role == "patient") {
-    let user = await User.findOne({
+    let patient = await Patient.findOne({
       $or: [{ email: emailOrPhone }, { phoneNumber: emailOrPhone }],
     });
-    console.log("checking user");
-    // let userLean =  await User.findOne({
-    //   $or: [{ email: emailOrPhone }, { phoneNumber: emailOrPhone }],
-    // }).lean();
-    // console.log('size of user: '+ sizeof(user))
-    // console.log('size of user: '+ sizeof(userLean))
-    // if user is signing in using otp we should reset the otp to null
-    if (user) {
-      if (typeof user.otp == "undefined" || user.otp == "") {
-        successRedirectUrl = user.emailVerified
+    console.log("checking patient");
+    console.log(patient);
+    // if patient is signing in using otp we should reset the otp to null
+    if (patient) {
+      if (typeof patient.otp == "undefined" || patient.otp == "") {
+        successRedirectUrl = patient.emailVerified
           ? sessionURL || "/"
           : "/patient/accountVerification";
       } else {
@@ -500,14 +501,14 @@ router.post("/login", async (req, res, next) => {
       failureFlash: true,
     })(req, res, next);
   } else {
-    let user = await Doctor.findOne({
+    let doctor = await Doctor.findOne({
       $or: [{ email: emailOrPhone }, { phoneNumber: emailOrPhone }],
     });
-    console.log("checking user");
-    // if user is signing in using otp we should reset the otp to null
-    if (user) {
-      if (typeof user.otp == "undefined" || user.otp == "") {
-        successRedirectUrl = user.emailVerified
+    console.log("checking doctor");
+    // if doctor is signing in using otp we should reset the otp to null
+    if (doctor) {
+      if (typeof doctor.otp == "undefined" || doctor.otp == "") {
+        successRedirectUrl = doctor.emailVerified
           ? sessionURL || "/"
           : "/doctor/accountVerification";
       } else {

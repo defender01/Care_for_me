@@ -54,7 +54,7 @@
                 *First name:
               </div>
               <div class="input-field">
-                <input type="text" name="firstName" class="form-control" value="<%= typeof userDetails.name.firstName !== 'undefined' ? userDetails.name.firstName : '' %>" required>
+                <input type="text" name="firstName" class="form-control" value="<%= typeof patientDetails.name.firstName !== 'undefined' ? patientDetails.name.firstName : '' %>" required>
               </div>
             </div>
             <div class="single-ques">
@@ -62,7 +62,7 @@
                 *Last name:
               </div>
               <div class="input-field">
-                <input type="text" name="lastName" class="form-control" value="<%= typeof userDetails.name.lastName !== 'undefined' ? userDetails.name.lastName : '' %>" required>
+                <input type="text" name="lastName" class="form-control" value="<%= typeof patientDetails.name.lastName !== 'undefined' ? patientDetails.name.lastName : '' %>" required>
               </div>
             </div>
             <div class="single-ques">
@@ -70,7 +70,7 @@
                 *Display name:
               </div>
               <div class="input-field">
-                <input type="text" name="displayName" class="form-control" value="<%= typeof userDetails.name.displayName !== 'undefined' ? userDetails.name.displayName : '' %>" required>
+                <input type="text" name="displayName" class="form-control" value="<%= typeof patientDetails.name.displayName !== 'undefined' ? patientDetails.name.displayName : '' %>" required>
               </div>
             </div>
             <div class="single-ques">
@@ -79,28 +79,28 @@
               </div>
               <div class="gender-cont">               
                 <div class="gender-each">
-                  <% if(typeof userDetails.gender !== 'undefined' && userDetails.gender.toString() =='male'){ %>
+                  <% if(typeof patientDetails.gender !== 'undefined' && patientDetails.gender.toString() =='male'){ %>
                     <input class="form-check-input" type="radio" name="gender" value="male" checked required>Male
                   <% } else { %>
                     <input class="form-check-input" type="radio" name="gender" value="male" required>Male
                   <% } %>
                 </div>
                 <div class="gender-each">
-                  <% if(typeof userDetails.gender !== 'undefined' && userDetails.gender.toString() =='female'){ %>
+                  <% if(typeof patientDetails.gender !== 'undefined' && patientDetails.gender.toString() =='female'){ %>
                       <input class="form-check-input" type="radio" name="gender" value="female" checked>Female
                     <% } else { %>
                       <input class="form-check-input" type="radio" name="gender" value="female" >Female
                     <% } %>                  
                 </div>                
                 <div class="gender-each">
-                  <% if(typeof userDetails.gender !== 'undefined' && userDetails.gender.toString() =='other'){ %>
+                  <% if(typeof patientDetails.gender !== 'undefined' && patientDetails.gender.toString() =='other'){ %>
                       <input class="form-check-input" type="radio" name="gender" value="other" checked>Other
                     <% } else { %>
                       <input class="form-check-input" type="radio" name="gender" value="other" >Other
                     <% } %>                  
                 </div>
                 <div class="gender-each">
-                  <% if(typeof userDetails.gender !== 'undefined' && userDetails.gender.toString() =='notInterested'){ %>
+                  <% if(typeof patientDetails.gender !== 'undefined' && patientDetails.gender.toString() =='notInterested'){ %>
                       <input class="form-check-input" type="radio" name="gender" value="notInterested" checked>Not Interested
                     <% } else { %>
                       <input class="form-check-input" type="radio" name="gender" value="notInterested" >Not Interested
@@ -113,7 +113,7 @@
                 *Birth date:
               </div>
               <div class="input-field">
-                <input type="date" name="birthDate" class="form-control" value="<%= typeof userDetails.birthDate !== 'undefined' ? userDetails.birthDate : '' %>" required>
+                <input type="date" name="birthDate" class="form-control" value="<%= typeof patientDetails.birthDate !== 'undefined' ? patientDetails.birthDate : '' %>" required>
               </div>
             </div>
             <div class="single-ques">
@@ -121,7 +121,7 @@
                 Occupation:
               </div>
               <div class="input-field">
-                <input type="text" name="occupation" class="form-control" value="<%= typeof userDetails.occupation !== 'undefined' ? userDetails.occupation : '' %>" >
+                <input type="text" name="occupation" class="form-control" value="<%= typeof patientDetails.occupation !== 'undefined' ? patientDetails.occupation : '' %>" >
               </div>
             </div>
             <div class="single-ques">
@@ -129,20 +129,20 @@
                 Organization:
               </div>
               <div class="input-field">
-                <input type="text" name="organization" class="form-control" value="<%= typeof userDetails.organization !== 'undefined' ? userDetails.organization : '' %>">
+                <input type="text" name="organization" class="form-control" value="<%= typeof patientDetails.organization !== 'undefined' ? patientDetails.organization : '' %>">
               </div>
             </div> 
             <div class="address-cont">
               <div class="sec-title">Address:</div>
               <div class="item-holder">
                 <select name="country" class="countries" id="countryId">
-                  <option value="<%= typeof userDetails.location.country !== 'undefined' ? userDetails.location.country : '' %>" selected>Select Country</option>
+                  <option value="<%= typeof patientDetails.location.country !== 'undefined' ? patientDetails.location.country : '' %>" selected>Select Country</option>
                 </select>
                 <select name="state" class="states" id="stateId">
-                  <option value="<%= typeof userDetails.location.state !== 'undefined' ? userDetails.location.state : '' %>" selected>Select State</option>
+                  <option value="<%= typeof patientDetails.location.state !== 'undefined' ? patientDetails.location.state : '' %>" selected>Select State</option>
                 </select>
                 <select name="city" class="cities" id="cityId">
-                  <option value="<%= typeof userDetails.location.city !== 'undefined' ? userDetails.location.city : '' %>" selected>Select City</option>
+                  <option value="<%= typeof patientDetails.location.city !== 'undefined' ? patientDetails.location.city : '' %>" selected>Select City</option>
                 </select>
               </div>              
             </div>
@@ -151,7 +151,7 @@
                 Additional address:
               </div>
               <div class="input-field">
-                <input type="text" name="additionalAddress" class="form-control" value="<%= typeof userDetails.location.additionalAddress != 'undefined' ? userDetails.location.additionalAddress : '' %>" >
+                <input type="text" name="additionalAddress" class="form-control" value="<%= typeof patientDetails.location.additionalAddress != 'undefined' ? patientDetails.location.additionalAddress : '' %>" >
               </div>
             </div> 
             <div class="single-ques">
@@ -159,15 +159,15 @@
                 *Phone no:
               </div>
               <div class="input-field">
-                <input type="text" name="phoneNumber" class="form-control" value="<%= typeof userDetails.phoneNumber != 'undefined' ? userDetails.phoneNumber : '' %>" required>
+                <input type="text" name="phoneNumber" class="form-control" value="<%= typeof patientDetails.phoneNumber != 'undefined' ? patientDetails.phoneNumber : '' %>" required>
               </div>
             </div>
 
             <%  let nidSelected = '', birthCertificateSelected = '', passportSelected = '';
-                if (typeof userDetails.idChoice !== 'undefined'){
-                    nidSelected = (userDetails.idChoice.toString() == 'nidNumber') ? 'selected' : ''
-                    birthCertificateSelected = (userDetails.idChoice.toString() == 'birthCertificateNumber') ? 'selected' : ''
-                    passportSelected = (userDetails.idChoice.toString() == 'passportNumber') ? 'selected' : ''
+                if (typeof patientDetails.idChoice !== 'undefined'){
+                    nidSelected = (patientDetails.idChoice.toString() == 'nidNumber') ? 'selected' : ''
+                    birthCertificateSelected = (patientDetails.idChoice.toString() == 'birthCertificateNumber') ? 'selected' : ''
+                    passportSelected = (patientDetails.idChoice.toString() == 'passportNumber') ? 'selected' : ''
                 }
             %>
             <div class="single-ques">
@@ -179,7 +179,7 @@
                 </select>                
               </div>
               <div class="input-field">
-                <input type="text" id="idNumber" name="idNumber" class="form-control" value="<%= typeof userDetails.idNumber != 'undefined' ? userDetails.idNumber : '' %>" required>
+                <input type="text" id="idNumber" name="idNumber" class="form-control" value="<%= typeof patientDetails.idNumber != 'undefined' ? patientDetails.idNumber : '' %>" required>
               </div>
             </div>        
           
@@ -188,7 +188,7 @@
                 *Email:
               </div>
               <div class="input-field">
-                <input type="email" name="email" class="form-control" value="<%= typeof userDetails.email != 'undefined' ? userDetails.email : '' %>" required>
+                <input type="email" name="email" class="form-control" value="<%= typeof patientDetails.email != 'undefined' ? patientDetails.email : '' %>" required>
               </div>
             </div>
             <div class="showPassChange" onclick="showPassSec()">

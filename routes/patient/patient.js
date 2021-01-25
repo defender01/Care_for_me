@@ -14,8 +14,8 @@ const {
   checkAuthenticated,
   checkAuthenticatedDoctor,
 } = require("../../controllers/auth_helper");
-// Load User model
-const User = require("../../models/userInfo");
+// Load Patient model
+const Patient = require("../../models/patient");
 const { session } = require("passport");
 
 let checkNotNull = (val) => {

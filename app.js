@@ -4,7 +4,7 @@ var bodyParser = require("body-parser")
 var flash = require('connect-flash')
 var session = require("express-session")
 var passport = require("passport")
-const User = require('./models/userInfo');
+const Patient = require('./models/patient');
 const Doctor = require("./models/doctor").doctorModel;
 const Admin = require("./models/admin").adminModel;
 
@@ -110,7 +110,17 @@ app.get("/test", async (req, res) => {
     navDisplayName = req.user.name.displayName
     userRole = req.user.role
   }
-  res.render("test", { navDisplayName, userRole })
+
+  try{
+    let patients = await Patient.find({"gender": {$in: ['male', 'female']} })
+    console.log(patients.length)
+    res.send(patients)
+  }catch(err){
+    console.log(err)
+    res.send(err)
+  }
+  
+  // res.render("test", { navDisplayName, userRole })
 })
 
 app.post("/test", async (req, res) => {
@@ -170,4 +180,3 @@ var PORT = process.env.PORT || 5000
 app.listen(PORT, () => {
   console.log('Express server listening on port', PORT)
 })
-
