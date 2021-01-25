@@ -12,25 +12,41 @@ const parameterSchema = new Schema({
   ],
 });
 
-const recordSchema = new Schema({
+const followupAnswerSchema = new Schema({
+  answers: String,
+  questionCreated: Date,
+  responseTime: Date,
+});
+
+const followupQuesSchema = new Schema(
+  {
+    inputType: String,
+    name: String,
+    minVal: Number,
+    maxVal: Number,
+    duration: {
+      startDate: Date,
+      endDate: Date,
+    },
+    frequency: Number,
+    lastCreated: Date,
+    answers: [{ type: Schema.Types.ObjectId, ref: "followupQuesAns" }],
+  }
+)
+
+const followupRecordSchema = new Schema({
   doctorId: String,
   patientId: String,
-  questions: [
-    {
-      inputType: String,
-      name: String,
-      minVal: Number,
-      maxVal: Number,
-      duration: {
-        startDate: Date,
-        endDate: Date,
-      },
-      frequency: Number,
-    },
-  ],
+  questions: [{ type: Schema.Types.ObjectId, ref: "followupQues" }],
+  recordStartDate: Date,
+  recordEndDate: Date
 });
+
+
 
 module.exports = {
   parameterModel: mongoose.model("parameterModel", parameterSchema),
-  recordModel: mongoose.model("record", recordSchema),
+  followupModel: mongoose.model("followupRecord", followupRecordSchema),
+  followupQuesModel: mongoose.model("followupQues", followupQuesSchema),
+  followupQuesAnsModel: mongoose.model("followuQuesAns", followupAnswerSchema),
 };

@@ -1,0 +1,54 @@
+<html lang="en">
+  <head>
+	  <!-- Required meta tags -->
+	  <meta charset="utf-8">
+	  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	  
+	  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+	<!-- stylesheet for navbar -->
+	<link rel="stylesheet" href="/assets/cssFiles/navbar.css">
+
+	<link rel="stylesheet" href="/assets/cssFiles/signin.css">
+
+    <title>Registration-Care for me</title>
+  </head>
+
+  <body>		
+	<!-- navigation bar -->
+	<% include ./segments/navbar %>
+
+	<main>
+		<div class="box-container">
+			<% include ./segments/messages %>
+			<div class="response-msg" >
+				<div class="alert alert-warning alert-dismissible fade show" role="alert" id="errorMsg" style="display: none;">
+					<p id="receivedErrMsg"></p>
+				</div>
+				<div class="alert alert-success alert-dismissible fade show" role="alert" id="successMsg" style="display: none;">
+					<p id="receivedSuccessMsg"></p>
+				</div>
+			</div>
+			<form action="/auth/login/admin" method="post" id="Login_Form">
+				<div class="title">
+					Welcome! Please Sign In
+				</div>
+				<div class="input-container">
+					<input type="text" class="form-control" id="email" name="email" placeholder="Email id" required="" autofocus="" />
+					<input type="password" class="form-control" name="password" placeholder="password" required=""/>  
+				</div>
+				
+				<div class="btn-container">
+					<button class="login-btn"  name="Submit" value="Login" type="Submit">Login</button>  	
+				</div>	
+			</form>	
+
+		</div>
+	</main>
+	<!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+  </body>
+</html>

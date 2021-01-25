@@ -84,6 +84,16 @@ main .side-bar .nav-sec-cont .sec-cont .sec-name-and-cnt .sec-name {
   margin: 10px;
 }
 
+main .side-bar .nav-sec-cont .sec-cont .sec-name-and-cnt a {
+  color: #9498a3;
+}
+
+main .side-bar .nav-sec-cont .sec-cont .sec-name-and-cnt a:hover {
+  color: #567ce4;
+  text-shadow: blue;
+  cursor: pointer;
+}
+
 main .side-bar .nav-sec-cont .sec-cont .sec-name-and-cnt:hover {
   color: #567ce4;
   text-shadow: blue;
@@ -154,7 +164,7 @@ main .wrapper .notify-bar .sec-title {
   margin: auto;
   margin-left: 30px;
   text-align: left;
-  font-size: 28px;
+  font-size: 20px;
 }
 
 @media (max-width: 1000px) {
@@ -163,14 +173,14 @@ main .wrapper .notify-bar .sec-title {
   }
 }
 
-main .wrapper .notify-bar .edit {
+main .wrapper .notify-bar .btn-container {
   flex: 1;
   margin: auto;
   text-align: center;
   display: flex;
 }
 
-main .wrapper .notify-bar .edit button {
+main .wrapper .notify-bar .btn-container button {
   margin: auto;
   text-align: center;
   color: #ffffff;
@@ -183,7 +193,7 @@ main .wrapper .notify-bar .edit button {
   border-color: #b63a0d;
 }
 
-main .wrapper .notify-bar .edit button:hover {
+main .wrapper .notify-bar .btn-container button:hover {
   background-color: white;
   color: #6d330c;
   animation-name: banner-btn-bg;
@@ -200,12 +210,6 @@ main .wrapper .sec-holder .subsec-holder {
   height: 100%;
   padding: 20px;
   width: calc(100%-200px);
-}
-
-@media (min-width: 1000px) {
-  main .wrapper .sec-holder .subsec-holder {
-    margin-right: 250px;
-  }
 }
 
 main .wrapper .sec-holder .subsec-holder .subsec {
@@ -260,45 +264,6 @@ main .wrapper .sec-holder .subsec-holder .subsec .mytable .table-row .detail {
   padding: 5px;
   font-size: 17px;
   color: #000000;
-}
-
-@media (min-width: 1000px) {
-  main .wrapper .sec-holder .subsec-holder .subsec .mytable .table-row .detail {
-    padding-left: 60px;
-  }
-}
-
-main .wrapper .sec-holder .sub-sec-scrollspy {
-  position: fixed;
-  top: 0;
-  right: 10px;
-  overflow-x: hidden;
-  margin-top: 200px;
-  width: 250px;
-  max-height: 470px;
-  background-color: white;
-  padding: 20px;
-  box-shadow: 0 0 2px rgba(98, 97, 99, 0.76);
-  border-radius: 2px;
-}
-
-@media (max-width: 1000px) {
-  main .wrapper .sec-holder .sub-sec-scrollspy {
-    display: none;
-  }
-}
-
-main .wrapper .sec-holder .sub-sec-scrollspy .sub-sec-each {
-  padding: 5px;
-}
-
-main .wrapper .sec-holder .sub-sec-scrollspy .sub-sec-each a {
-  color: #90949c;
-}
-
-main .wrapper .sec-holder .sub-sec-scrollspy .sub-sec-each a:hover {
-  color: #567ce4;
-  text-shadow: blue;
 }
 
 @keyframes banner-btn-bg {

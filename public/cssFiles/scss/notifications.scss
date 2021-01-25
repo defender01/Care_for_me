@@ -66,7 +66,7 @@ main {
       }
     }
     .nav-sec-cont {
-      font-family: Nanum Gothic;
+      //font-family: Nanum Gothic;
       font-size: $normal-font-size;
       padding: 10px 10px 10px 20px;
       overflow-y: auto;
@@ -196,7 +196,7 @@ main {
       }
     }
     .page-holder {
-      font-family: Nanum Gothic;
+      //font-family: Nanum Gothic;
       margin-top: 70px;
       .dlt-btn {
         min-width: 50px;
@@ -213,14 +213,13 @@ main {
         width: 100%;
         tbody{
           tr{
+            margin: 30px;
             td{
-              border-top: 1px solid #dee2e6;
-              border-bottom: 1px solid #dee2e6;
-              
+              border-bottom: 5px solid #ffffff;              
             }
           }
           .new{
-            background-color: rgba(218, 218, 221, 0.726);
+            background-color: rgba(217, 217, 223, 0.856);
           }
           .request-notify{
             .icon-cont{

@@ -61,7 +61,6 @@ main .side-bar .topic-container .angle i {
 }
 
 main .side-bar .nav-sec-cont {
-  font-family: Nanum Gothic;
   font-size: 20px;
   padding: 10px 10px 10px 20px;
   overflow-y: auto;
@@ -204,7 +203,6 @@ main .wrapper .notify-bar .btn-container .dlt-param-btn {
 }
 
 main .wrapper .page-holder {
-  font-family: Nanum Gothic;
   margin-top: 70px;
 }
 
@@ -225,13 +223,16 @@ main .wrapper .page-holder table {
   width: 100%;
 }
 
+main .wrapper .page-holder table tbody tr {
+  margin: 30px;
+}
+
 main .wrapper .page-holder table tbody tr td {
-  border-top: 1px solid #dee2e6;
-  border-bottom: 1px solid #dee2e6;
+  border-bottom: 5px solid #ffffff;
 }
 
 main .wrapper .page-holder table tbody .new {
-  background-color: rgba(218, 218, 221, 0.726);
+  background-color: rgba(217, 217, 223, 0.856);
 }
 
 main .wrapper .page-holder table tbody .request-notify .icon-cont {

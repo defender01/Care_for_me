@@ -65,7 +65,7 @@ main {
       }
     }
     .nav-sec-cont {      
-      font-family: Nanum Gothic;
+      //font-family: Nanum Gothic;
       font-size: $normal-font-size;
       padding: 10px 10px 10px 20px;
       overflow-y: auto;
@@ -109,6 +109,15 @@ main {
             margin: 10px 5px 10px 5px;
             padding-left: 10px;
             color: $label-color;
+            a{
+              color: #9498a3;
+              &:hover{
+                  // background-color: $hover-color;
+                  color: rgb(86, 124, 228);
+                  text-shadow: blue;
+                  cursor: pointer;
+              }
+            }
           }
         }
         .btn-container{
@@ -183,19 +192,31 @@ main {
       }
       
       .btn-container {
-        flex: 1;
+        // flex: 1;
         max-width: 300px;
         display: flex;
-        .continue {
-          flex: 1;
-        }
-        .dlt-param-btn {
-          flex: 1;
-        }
+        button{
+          margin: auto;
+          text-align: center;
+          color: #ffffff;
+          font-size: 20px;
+          background-color: coral;
+          border-width:3px;  
+          border-style:solid;
+          border-radius: 8px;
+          padding: 5px 20px 5px 20px;
+          border-color: rgb(182, 58, 13);
+          &:hover{
+              background-color: rgb(255, 255, 255);
+              color: rgb(109, 51, 12);
+              animation-name: banner-btn-bg;
+              animation-duration: .3s;
+          }
+      }
       }
     }
     .page-holder {
-      font-family: Nanum Gothic;
+      //font-family: Nanum Gothic;
       margin-top: 70px;
       .dlt-btn {
         min-width: 50px;
@@ -370,7 +391,7 @@ main {
         }
        
         margin-left: 0px;
-        padding-right: 50px;
+        // padding-right: 50px;
         width: 100%;
       }
     }

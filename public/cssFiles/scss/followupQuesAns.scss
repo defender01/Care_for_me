@@ -78,7 +78,16 @@ main{
 					.sec-name{
                         flex: 2;
                         margin: 10px;
-					}
+                    }
+                    a{
+                        color: #9498a3;
+                        &:hover{
+                            // background-color: $hover-color;
+                            color: rgb(86, 124, 228);
+                            text-shadow: blue;
+                            cursor: pointer;
+                        }
+                    }
 					&:hover{
 						// background-color: $hover-color;
                         color: rgb(86, 124, 228);
@@ -147,13 +156,13 @@ main{
 				margin: auto;
 				margin-left: 30px;
 				text-align: left;
-				font-size: 28px;
+				font-size: 20px;
 				@media (max-width:1000px){
 					font-size: 16px;
 				}
             }
            
-            .edit{		
+            .btn-container{		
 				flex: 1;		
                 margin: auto;
                 text-align: center;
@@ -187,11 +196,8 @@ main{
                 flex:1;
                 height: 100%;
                 padding:20px;
-                width: calc(100%-200px);                
-                
-                @media(min-width: 1000px){
-                    margin-right: 250px;
-                  }
+                width: calc(100%-200px);           
+
                 .subsec{
                     background-color: #ffffff;	
                     margin-bottom: 80px;
@@ -237,44 +243,16 @@ main{
                                 flex: 4;
                                 text-align: left;
                                 padding: 5px;
-                                @media(min-width: 1000px){
-                                    padding-left: 60px;
-                                }                                
+                                // @media(min-width: 1000px){
+                                //     padding-left: 60px;
+                                // }                                
                                 font-size: 17px;
                                 color: #000000;
                             }
                         }
                     }
                 }
-            }  
-            .sub-sec-scrollspy{
-                
-                @media (max-width: 1000px){
-                    display: none;
-                }
-                position: fixed;
-                top: 0;
-                right: 10px;
-                overflow-x: hidden;
-                margin-top: 200px;
-                width:250px;
-                max-height: 470px;
-                background-color: white;
-                padding:20px;
-
-                box-shadow: 0 0 2px rgba(98, 97, 99, 0.76);
-                border-radius: 2px;
-                .sub-sec-each{
-                    padding: 5px;
-                    a{
-                        color: $label-color;
-                        &:hover{                            
-                            color: rgb(86, 124, 228);
-                            text-shadow: blue;
-                        }
-                    }
-                }               
-            }          
+            }         
         }
 
     }
