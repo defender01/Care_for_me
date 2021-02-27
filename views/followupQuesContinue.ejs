@@ -72,10 +72,10 @@
       let defaultEnDate = new Date(stDate.getFullYear(), stDate.getMonth(), stDate.getDate()+10)
       // adding 1 to getMonth() because in this function month is 0 indexed Jan=0th month
       // but while taking input month is 1 indexed, Jan = 1th month 
-      let stDateStr = stDate.getFullYear()+'-'+ stDate.getMonth()+1 +'-'+ ( stDate.getDate()<10? '0'+stDate.getDate() : stDate.getDate() )
-      let enDateStr = enDate.getFullYear()+'-'+ enDate.getMonth()+1 +'-'+ ( enDate.getDate()<10? '0'+enDate.getDate() : enDate.getDate() )
+      let stDateStr = stDate.getFullYear()+'-'+ (stDate.getMonth()<10? '0'+(stDate.getMonth()+1) : (stDate.getMonth()+1)) +'-'+ ( stDate.getDate()<10? '0'+stDate.getDate() : stDate.getDate() )
+      let enDateStr = enDate.getFullYear()+'-'+ (enDate.getMonth()<10? '0'+(enDate.getMonth()+1) : (enDate.getMonth()+1)) +'-'+ ( enDate.getDate()<10? '0'+enDate.getDate() : enDate.getDate() )
       let defaultStDateStr = stDateStr
-      let defaultEnDateStr = defaultEnDate.getFullYear()+'-'+ defaultEnDate.getMonth()+1 +'-'+ ( defaultEnDate.getDate()<10? '0'+defaultEnDate.getDate() : defaultEnDate.getDate() )
+      let defaultEnDateStr = defaultEnDate.getFullYear()+'-'+ (defaultEnDate.getMonth()<10? '0'+(defaultEnDate.getMonth()+1) : (defaultEnDate.getMonth()+1))+'-'+ ( defaultEnDate.getDate()<10? '0'+defaultEnDate.getDate() : defaultEnDate.getDate() )
 
       let questions = JSON.parse(localStorage.followupQuestions).questions
       console.log(questions)
@@ -238,8 +238,8 @@
         // because any date in endDate before startDate is invalid
         let stDate = new Date($('#startDate'+qId).val())
         let enDate = new Date(stDate.getFullYear(), stDate.getMonth(), stDate.getDate()+10)
-        let stDateStr = stDate.getFullYear()+'-'+ stDate.getMonth()+1 +'-'+ ( stDate.getDate()<10? '0'+stDate.getDate() : stDate.getDate() )
-        let enDateStr = enDate.getFullYear()+'-'+ enDate.getMonth()+1 +'-'+ ( enDate.getDate()<10? '0'+enDate.getDate() : enDate.getDate() )
+        let stDateStr = stDate.getFullYear()+'-'+ (stDate.getMonth()<10? '0'+(stDate.getMonth()+1) : (stDate.getMonth()+1))+'-'+ ( stDate.getDate()<10? '0'+stDate.getDate() : stDate.getDate() )
+        let enDateStr = enDate.getFullYear()+'-'+ (enDate.getMonth()<10? '0'+(enDate.getMonth()+1) : (enDate.getMonth()+1)) +'-'+ ( enDate.getDate()<10? '0'+enDate.getDate() : enDate.getDate() )
         
         $('#endDate'+qId).attr('min', stDateStr)
         $('#endDate'+qId).attr('value', enDateStr)
@@ -305,9 +305,6 @@
         })
         
       }
-      let testItem =JSON.parse( localStorage.testItem)
-      console.log(testItem)
-      console.log(typeof testItem)
     </script>
   </body>
 </html>
