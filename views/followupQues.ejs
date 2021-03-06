@@ -230,7 +230,7 @@
             minVal : $('#minVal'+qId).val(),
           }
           console.log(question)
-          // questions.push(question)
+          questions.push(question)
 
 
           // allQues+=`    <input type="text" name="questionId" value="${question.id}"  style="display: none;">
@@ -245,6 +245,8 @@
         })        
 
         localStorage.followupQuestions = JSON.stringify({questions})
+        let temp = JSON.parse(localStorage.followupQuestions).questions
+        console.log({temp})
         window.location.href = "/doctor/followupQues/continue";
 
 

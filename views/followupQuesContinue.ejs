@@ -223,7 +223,7 @@
 
         $('#quesForm').replaceWith(
           `
-          <form method="POST" action="/doctor/followupQues/continue" id="quesForm">
+          <form method="POST" action="/doctor/followupQues/save" id="quesForm">
             ${allQues}
           </form>
           `
@@ -250,8 +250,7 @@
         if($('#selectQues'+qId).is(":checked")){
           totalCnt++
         }
-        else{totalCnt--
-        }
+        else{totalCnt--}
         $("#total").replaceWith(`
           <div class="total-selected" id="total">
             Total Selected Questions: ${totalCnt}
