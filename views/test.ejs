@@ -1,40 +1,309 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 
-    <title>Hello, world!</title>
-  </head>
-  <body>
+    <!-- fontawesome cdn -->
+    <link rel="stylesheet" href="//use.fontawesome.com/releases/v5.0.7/css/all.css">
 
+    <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+    crossorigin="anonymous"></script>
+
+    <!-- stylesheet for navbar -->
+    <link rel="stylesheet" href="/assets/cssFiles/navbar.css">
+    <link rel="stylesheet" href="/assets/cssFiles/followupQues.css" />
+    <!-- for loader -->
+    <script src="/assets/jsFiles/loader.js"></script>    
+    <link rel="stylesheet" href="/assets/cssFiles/loader.css" />
+
+
+    <title>Registration-Care for me</title>
+  </head>
+
+  <body onload="displayQues()">
+    <!-- display loading icon -->
+    <div class="se-pre-con"></div>
+    <!-- ends -->
+
+    <!-- navigation bar -->
+    <% include ./segments/navbar %>
+    
     <main>
-      <form action="/test" method="POST">
-        <select class="form-control" name="frequency" id="sectionId" >
-          <option  selected value='4'>4hour </option>
-          <% for(let i = 0 ; i < 25; i++) {%>
-            <option value="<%= i %>"><%= i %> hour</option>                    
-          <% } %>                    
-        </select>
-        <button type="submit">submit</button>
+      <div class="side-bar">
+        <div class="topic-container">
+          <div class="topic">
+            <h3>Sections</h3>
+          </div>
+          <div class="angle">
+            <i class="fas fa-angle-left" id="leftAngle"  onclick="hideSidebar()"></i>
+          </div>
+        </div>
+        <!-- here are all sidebar items -->
+        <div class="nav-sec-cont">
+          <div class="sec-cont">
+            <div class="sec-name-and-cnt" >
+              <div class="sec-name">
+                <a >Selected Questions</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id='addParamHere'></div>
+      
+      <form method="POST" action="/doctor/followupQues/save" id="quesForm">
       </form>
      
     </main>
-
+    
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+
     <script>
+      let stDate = new Date();
+      let enDate = new Date(stDate.getFullYear()+5, stDate.getMonth(), stDate.getDate())
+      // for setting default 10 days followup
+      let defaultEnDate = new Date(stDate.getFullYear(), stDate.getMonth(), stDate.getDate()+10)
+      // adding 1 to getMonth() because in this function month is 0 indexed Jan=0th month
+      // but while taking input month is 1 indexed, Jan = 1th month 
+      let stDateStr = stDate.getFullYear()+'-'+ (stDate.getMonth()<10? '0'+(stDate.getMonth()+1) : (stDate.getMonth()+1)) +'-'+ ( stDate.getDate()<10? '0'+stDate.getDate() : stDate.getDate() )
+      let enDateStr = enDate.getFullYear()+'-'+ (enDate.getMonth()<10? '0'+(enDate.getMonth()+1) : (enDate.getMonth()+1)) +'-'+ ( enDate.getDate()<10? '0'+enDate.getDate() : enDate.getDate() )
+      let defaultStDateStr = stDateStr
+      let defaultEnDateStr = defaultEnDate.getFullYear()+'-'+ (defaultEnDate.getMonth()<10? '0'+(defaultEnDate.getMonth()+1) : (defaultEnDate.getMonth()+1))+'-'+ ( defaultEnDate.getDate()<10? '0'+defaultEnDate.getDate() : defaultEnDate.getDate() )
+
       let questions = JSON.parse(localStorage.followupQuestions).questions
       console.log({questions})
+      delete localStorage.followupQuestions
+      let totalCnt = questions.length;
+
+   
+
+      function displaySidebar(){
+        $('#leftAngle').css('display','block')
+        $('.side-bar').css('left', '0')
+      }
+      function hideSidebar(){
+        $('#leftAngle').css('display','none')
+        $('.side-bar').css('left', '-300px')
+      }
+      
+      window.onresize = function() {
+          if (window.innerWidth >= 1000) {
+            $('.side-bar').css('left', '0')
+          }
+      }
+
+      function save(){
+        let items = $('input[type="checkbox"]')
+        let ques =[]
+        for(let i=0; i<items.length; i++){
+          if(items[i].checked){
+            ques.push(items[i].name)
+          }
+        }
+        console.log(ques)
+      }
+
+      function displayQues(){
+        let allQues = ''
+        for(let i=0; i<questions.length; i++) {
+          allQues+=`<tr>
+                      <th scope="row"> <input type="checkbox" name="selectQues" id="selectQues${questions[i].id}" value="${questions[i].id}" onchange="checkCount('${questions[i].id}')" checked> </th>
+                      <td>
+                        ${questions[i].name}
+                        <input type="text" id="question${questions[i].id}" value="${questions[i].name}"  style="display: none;">
+                        <input type="text" id="inputType${questions[i].id}" value="${questions[i].inputType}"  style="display: none;">
+                      </td>                
+                      <td> 
+                        <input class="form-control" type="date" id="startDate${questions[i].id}" min="${stDateStr}"  value="${questions[i].startDate}" onchange="setEndDate('${questions[i].id}')" >
+                      </td> 
+                      <td>
+                        <input class="form-control" type="date" id="endDate${questions[i].id}" min="${stDateStr}" value="${questions[i].endDate}">                          
+                      </td>
+                      <td> 
+                        <select class="form-control" name="frequency" id="frequency${questions[i].id}" >
+                          <option selected value='${questions[i].frequency}'> ${questions[i].frequency<24? questions[i].frequency+' hour': questions[i].frequency/24+' day'}</option>
+                          <% for(let j = 1 ; j < 24; j++) {%>
+                            <option value="<%=j%>"><%= j %> hour</option>                    
+                          <% } %>
+                          <% for(let j = 1 ; j < 10; j++) {%>
+                            <option value="<%=j*24%>"><%= j %> day</option>                    
+                          <% } %>                     
+                        </select>
+                      </td>
+                      ${questions[i].inputType=='numberType'?
+                        `<td> <input class="form-control" type="number" id="maxVal${questions[i].id}" value="${questions[i].maxVal}"> </td>`+
+                        `<td> <input class="form-control" type="number" id="minVal${questions[i].id}" value="${questions[i].minVal}"> </td>`
+                        :
+                        `<td> </td>`+
+                        `<td> </td>`
+                      }                        
+                    </tr>            `
+        } 
+        $('#addParamHere').replaceWith(`
+          <div id='addParamHere'></div>
+          <div class="wrapper" id="paramDetails">
+            <div class="notify-bar">
+              <div class="angle">
+                <i class="fas fa-angle-right" onclick="displaySidebar()"></i>
+              </div>
+              <div class="total-selected" id="total">
+                Total Selected Questions: ${questions.length}
+              </div>
+              <div class="continue">
+                <button onclick="continueAndSave()">
+                  Continue
+                </button>
+              </div>
+            </div>
+            
+            <div class="page-holder" id="quesHolder">
+              <table class="table table-striped table-bordered">
+                <thead >
+                  <tr>
+                    <th scope="col">Select</th>
+                    <th scope="col">Question</th>
+                    <th scope="col">Start Date</th>
+                    <th scope="col">End Date</th>
+                    <th scope="col">Frequency</th>
+                    <th scope="col">Max value</th>
+                    <th scope="col">Min value</th>
+                  </tr>
+                </thead>
+                <tbody>
+                
+                ${allQues}
+                <tr id="addQuesHere" style="display: none;"><td></td></tr>
+                </tbody>
+              </table> 
+              <div class="addNewQues">
+                <div class="multi-btn">
+                  <button type="button" onclick="addQues('numberType')">Add Numeric Question</button>
+                  <button type="button" onclick="addQues('textType')">Add Text Question</button>
+                </div>
+              </div>  
+            </div>
+          </div>
+        `)
+      }
+
+      function continueAndSave(){
+        let questions = []
+        let allQues = ''
+        $('input[name="selectQues"]:checked').each(function() {
+          let qId = this.value
+          let question= {
+            id : qId,
+            inputType : $('#inputType'+qId).val(),
+            name : $('#question'+qId).val(),
+            startDate : $('#startDate'+qId).val(),
+            endDate : $('#endDate'+qId).val(),
+            frequency : $('#frequency'+qId).val(),
+            maxVal : $('#maxVal'+qId).val(),
+            minVal : $('#minVal'+qId).val(),
+          }
+          console.log(question)
+
+          allQues+=`    <input type="text" name="questionId" value="${question.id}"  style="display: none;">
+                        <input type="text" name="inputType${question.id}" value="${question.inputType}"  style="display: none;">
+                        <input type="text" name="name${question.id}" value="${question.name}"  style="display: none;">
+                        <input type="date" name="startDate${question.id}" value="${question.startDate}" style="display: none;">
+                        <input type="date" name="endDate${question.id}" value="${question.endDate}" style="display: none;">                          
+                        <input type="text" name="frequency${question.id}" value="${question.frequency}" style="display: none;">
+                        <input type="number" name="maxVal${question.id}" value="${question.maxVal}" style="display: none;">
+                        <input type="number" name="minVal${question.id}" value="${question.minVal}" style="display: none;">
+                        `  
+        })
+
+        $('#quesForm').replaceWith(
+          `
+          <form method="POST" action="/doctor/followupQues/save" id="quesForm">
+            ${allQues}
+          </form>
+          `
+        )
+
+        $('#quesForm').submit()
+        
+      }
+
+      function setEndDate(qId){
+        // this function sets the endDate min according to the selected startDate
+        // because any date in endDate before startDate is invalid
+        let stDate = new Date($('#startDate'+qId).val())
+        let enDate = new Date(stDate.getFullYear(), stDate.getMonth(), stDate.getDate()+10)
+        let stDateStr = stDate.getFullYear()+'-'+ (stDate.getMonth()<10? '0'+(stDate.getMonth()+1) : (stDate.getMonth()+1))+'-'+ ( stDate.getDate()<10? '0'+stDate.getDate() : stDate.getDate() )
+        let enDateStr = enDate.getFullYear()+'-'+ (enDate.getMonth()<10? '0'+(enDate.getMonth()+1) : (enDate.getMonth()+1)) +'-'+ ( enDate.getDate()<10? '0'+enDate.getDate() : enDate.getDate() )
+        
+        $('#endDate'+qId).attr('min', stDateStr)
+        $('#endDate'+qId).attr('value', enDateStr)
+      }
+
+      function checkCount(qId){
+        console.log('in checkCount() id found= '+qId)
+        if($('#selectQues'+qId).is(":checked")){
+          totalCnt++
+        }
+        else{totalCnt--}
+        $("#total").replaceWith(`
+          <div class="total-selected" id="total">
+            Total Selected Questions: ${totalCnt}
+          </div>
+        `)
+      }
+
+      function addQues(inputType){
+        $.get('/doctor/getNewId', (data)=>{
+          let newId = data.id
+          questions.push({
+            id: newId
+          })
+          $("#addQuesHere").replaceWith(`
+            <tr>
+              <th scope="row"> <input type="checkbox" name="selectQues" id="selectQues${newId}" value="${newId}" onchange="checkCount('${newId}')" checked> </th>
+              <td>
+                <input class="form-control" type="text" id="question${newId}">
+                <input type="text" id="inputType${newId}" value="${inputType}"  style="display: none;">
+              </td>                
+              <td> 
+                <input class="form-control" type="date" id="startDate${newId}" min="${stDateStr}" max="${enDateStr}" value="${defaultStDateStr}" onchange="setEndDate('${newId}')" >
+              </td> 
+              <td>
+                <input class="form-control" type="date" id="endDate${newId}" min="${stDateStr}" max="${enDateStr}" value="${defaultEnDateStr}">                          
+              </td>
+              <td> 
+                <select class="form-control" name="frequency" id="frequency${newId}" >
+                  <option selected value='24'> 1 day </option>
+                  <% for(let j = 1 ; j < 24; j++) {%>
+                    <option value="<%=j%>"><%= j %> hour</option>                    
+                  <% } %>
+                  <% for(let j = 1 ; j < 10; j++) {%>
+                    <option value="<%=j*24%>"><%= j %> day</option>                    
+                  <% } %>                     
+                </select>
+              </td>
+              ${inputType=='numberType'?
+                `<td> <input class="form-control" type="number" id="maxVal${newId}"> </td>`+
+                `<td> <input class="form-control" type="number" id="minVal${newId}"> </td>`
+                :
+                `<td> </td>`+
+                `<td> </td>`
+              }                        
+            </tr>     
+            <tr id="addQuesHere" style="display: none;"><td></td></tr>       
+          `);
+
+          checkCount(newId)
+          
+        })
+        
+      }
     </script>
   </body>
-  
-
 </html>
