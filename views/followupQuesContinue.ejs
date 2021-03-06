@@ -55,7 +55,7 @@
       </div>
       <div id='addParamHere'></div>
       
-      <form method="POST" action="/doctor/followupQues/save" id="quesForm">
+      <form method="POST" action="/doctor/followupQues/continue" id="quesForm">
       </form>
      
     </main>
@@ -223,7 +223,7 @@
 
         $('#quesForm').replaceWith(
           `
-          <form method="POST" action="/doctor/followupQues/save" id="quesForm">
+          <form method="POST" action="/doctor/followupQues/continue" id="quesForm">
             ${allQues}
           </form>
           `

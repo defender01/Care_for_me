@@ -28,8 +28,8 @@ router.post('/continue', checkAuthenticatedDoctor, checkEmailVerified, async (re
   let navDisplayName = req.user.name.displayName;
   let userRole = req.user.role
   let data = req.body
-  let qIds = data.questionId
-  let questions = []
+  // let qIds = data.questionId
+  // let questions = []
   // if(typeof qIds!== 'undefined'){
   //   if(Array.isArray(qIds)){
   //     for(let i=0; i< qIds.length; i++){
@@ -63,14 +63,7 @@ router.post('/continue', checkAuthenticatedDoctor, checkEmailVerified, async (re
   //   }
   // }
   
-  console.log(util.inspect({questions}, false, null, true /* enable colors */))
-  res.render('followUpQuesContinue', { navDisplayName, userRole})
-})
-
-router.post('/save', checkAuthenticatedDoctor, checkEmailVerified, async (req, res) => {
-  let navDisplayName = req.user.name.displayName;
-  let userRole = req.user.role
-  let data = req.body
+  console.log({data})
   res.send({data})
 })
 
