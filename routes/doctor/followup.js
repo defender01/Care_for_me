@@ -22,8 +22,7 @@ router.get('/',checkAuthenticatedDoctor, checkEmailVerified, async (req, res) =>
 router.get('/continue', checkAuthenticatedDoctor, checkEmailVerified, async (req, res) => {
   let navDisplayName = req.user.name.displayName;
   let userRole = req.user.role
-  // res.render('followUpQuesContinue', { navDisplayName, userRole})
-  res.render('test', { navDisplayName, userRole})
+  res.render('followupQuesContinue', { navDisplayName, userRole})
 })
 router.post('/continue', checkAuthenticatedDoctor, checkEmailVerified, async (req, res) => {
   let navDisplayName = req.user.name.displayName;
