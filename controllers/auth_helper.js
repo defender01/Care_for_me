@@ -529,7 +529,7 @@ let emailVerificationHandler = async (req, res) => {
       res.redirect("/auth/login");
       return
     }
-  } catch{
+  } catch(err){
     console.error(err);
     res.render("404", { error: err.message });
     return
