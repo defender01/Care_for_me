@@ -19,53 +19,51 @@ router.get('/',checkAuthenticatedDoctor, checkEmailVerified, async (req, res) =>
   res.render('followupQues', {navDisplayName,userRole, parameters})
 })
 
+router.get('/continue', checkAuthenticatedDoctor, checkEmailVerified, async (req, res) => {
+  let navDisplayName = req.user.name.displayName;
+  let userRole = req.user.role
+  res.render('followupQuesContinue', { navDisplayName, userRole})
+})
 router.post('/continue', checkAuthenticatedDoctor, checkEmailVerified, async (req, res) => {
   let navDisplayName = req.user.name.displayName;
   let userRole = req.user.role
   let data = req.body
-  let qIds = data.questionId
-  let questions = []
-  if(typeof qIds!== 'undefined'){
-    if(Array.isArray(qIds)){
-      for(let i=0; i< qIds.length; i++){
-        let qId = qIds[i]
-        let question = {
-          id : qId,
-          inputType : data['inputType'+qId],
-          name : data['name'+qId],
-          startDate : data['startDate'+qId],
-          endDate : data['endDate'+qId],
-          frequency : data['frequency'+qId],
-          maxVal : data['maxVal'+qId],
-          minVal : data['minVal'+qId],
-        }
-        questions.push(question)
-      }    
-    }
-    else{
-      let qId = qIds
-      let question = {
-        id : qId,
-        inputType : data['inputType'+qId],
-        name : data['name'+qId],
-        startDate : data['startDate'+qId],
-        endDate : data['endDate'+qId],
-        frequency : data['frequency'+qId],
-        maxVal : data['maxVal'+qId],
-        minVal : data['minVal'+qId],
-      }
-      questions.push(question)
-    }
-  }
+  // let qIds = data.questionId
+  // let questions = []
+  // if(typeof qIds!== 'undefined'){
+  //   if(Array.isArray(qIds)){
+  //     for(let i=0; i< qIds.length; i++){
+  //       let qId = qIds[i]
+  //       let question = {
+  //         id : qId,
+  //         inputType : data['inputType'+qId],
+  //         name : data['name'+qId],
+  //         startDate : data['startDate'+qId],
+  //         endDate : data['endDate'+qId],
+  //         frequency : data['frequency'+qId],
+  //         maxVal : data['maxVal'+qId],
+  //         minVal : data['minVal'+qId],
+  //       }
+  //       questions.push(question)
+  //     }    
+  //   }
+  //   else{
+  //     let qId = qIds
+  //     let question = {
+  //       id : qId,
+  //       inputType : data['inputType'+qId],
+  //       name : data['name'+qId],
+  //       startDate : data['startDate'+qId],
+  //       endDate : data['endDate'+qId],
+  //       frequency : data['frequency'+qId],
+  //       maxVal : data['maxVal'+qId],
+  //       minVal : data['minVal'+qId],
+  //     }
+  //     questions.push(question)
+  //   }
+  // }
   
-  console.log(util.inspect({questions}, false, null, true /* enable colors */))
-  res.render('followUpQuesContinue', {questions, navDisplayName, userRole})
-})
-
-router.post('/save', checkAuthenticatedDoctor, checkEmailVerified, async (req, res) => {
-  let navDisplayName = req.user.name.displayName;
-  let userRole = req.user.role
-  let data = req.body
+  console.log({data})
   res.send({data})
 })
 
@@ -75,10 +73,16 @@ router.get('/records', checkAuthenticatedDoctor, checkEmailVerified,async (req, 
   res.render('doctorPatientRecords', {navDisplayName, userRole})
 })
 
-router.get('/records/id', checkAuthenticatedDoctor, checkEmailVerified,async (req, res) => {
+router.get('/id', checkAuthenticatedDoctor, checkEmailVerified,async (req, res) => {
   let navDisplayName = req.user.name.displayName;
   let userRole = req.user.role
-  res.render('doctorPatientRecordsQuestions', {navDisplayName, userRole})
+  res.render('doctorPatientRecordsQues', {navDisplayName, userRole})
+})
+
+router.get('/questionAns/qId', checkAuthenticatedDoctor, checkEmailVerified,async (req, res) => {
+  let navDisplayName = req.user.name.displayName;
+  let userRole = req.user.role
+  res.render('doctorPatientRecordsQuesAns', {navDisplayName, userRole})
 })
 
 module.exports = router;

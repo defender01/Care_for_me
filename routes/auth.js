@@ -20,6 +20,7 @@ const {
 const Patient = require("../models/patient");
 const { session } = require("passport");
 const Doctor = require("../models/doctor").doctorModel;
+const Admin = require("../models/admin").adminModel;
 
 let checkNotNull = (val) => {
   return typeof val !== "undefined" && val !== "" && val !== null;
@@ -535,4 +536,45 @@ router.post("/forgotpass", forgotpassHandler);
 
 router.get("/verify_email/:hash", emailVerificationHandler);
 
+
+// login for admin
+router.get("/login/admin",checkNotAuthenticated, (req, res) => res.render("adminLogin"));
+router.post("/login/admin", async (req, res, next) => {
+
+  delete req.session.returnTo;
+
+  console.log(req.body);
+
+  console.log("checking admin");
+
+  passport.authenticate("adminStrategy", {
+    successRedirect: "/admin",
+    failureRedirect: "/auth/login/admin",
+    failureFlash: true,
+  })(req, res, next);
+});
+
+// router.get("/adminSave", async (req, res) =>{
+//   let email= 'amarshastho@monerdaktar.health'
+//   let password= 'skyground5458'
+//   {
+//     const newUser = new Admin({
+//       email: email,
+//       password: password,
+//     });
+
+//     console.log({ newUser });
+
+//     bcrypt.genSalt(10, (err, salt) => {
+//       bcrypt.hash(newUser.password, salt, async (err, hash) => {
+//         console.log({err})
+//         newUser.password = hash;
+//         console.log({ newUser });
+//         await newUser.save();
+//         req.flash("success_msg", "You are now registered and can log in");
+//         res.redirect("/auth/login/admin");
+//       });
+//     });
+//   }
+// })
 module.exports = router;

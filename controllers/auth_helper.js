@@ -9,8 +9,8 @@ const { sendMail } = require('./mailController')
 
 function checkAuthenticated(req, res, next) {
   if (req.isAuthenticated()) {
-    if (typeof req.session.currentLoggedIn != 'undefined' && req.session.currentLoggedIn == 'doctor') {
-      req.flash('error_msg', 'Please log in as Patient to view that resource')
+    if (typeof req.session.currentLoggedIn != 'undefined' && req.session.currentLoggedIn != 'patient') {
+      req.flash('error_msg', 'Please log in as Patient User to view that resource')
       res.redirect('back');
       return
     }
@@ -45,7 +45,7 @@ function checkAuthenticatedForAjax(req, res, next) {
 
 function checkAuthenticatedDoctor(req, res, next) {
   if (req.isAuthenticated()) {
-    if (typeof req.session.currentLoggedIn != 'undefined' && req.session.currentLoggedIn == 'patient') {
+    if (typeof req.session.currentLoggedIn != 'undefined' && req.session.currentLoggedIn != 'doctor') {
       req.flash('error_msg', 'Please log in as Doctor to view that resource')
       res.redirect('back');
       return
@@ -76,6 +76,23 @@ function checkAuthenticatedDoctorForAjax(req, res, next) {
     redirectTo: '/auth/login' 
   })
   return
+}
+
+
+function checkAuthenticatedAdmin(req, res, next) {
+  console.log(req.isAuthenticated())
+  if (req.isAuthenticated()) {
+    if (typeof req.session.currentLoggedIn != 'undefined' && req.session.currentLoggedIn != 'admin') {
+      req.flash('error_msg', 'Please log in as Admin to view that resource')
+      res.redirect('back');
+      return
+    }
+    
+    return next();
+  }
+  req.session.returnTo = req.originalUrl;
+  req.flash('error_msg', 'Please log in to view that resource')
+  res.redirect('/auth/login/admin');
 }
 
 function checkNotAuthenticated(req, res, next) {
@@ -512,7 +529,7 @@ let emailVerificationHandler = async (req, res) => {
       res.redirect("/auth/login");
       return
     }
-  } catch{
+  } catch(err){
     console.error(err);
     res.render("404", { error: err.message });
     return
@@ -528,6 +545,7 @@ module.exports = {
   checkNotAuthenticated,
   checkAuthenticatedDoctor,
   checkAuthenticatedDoctorForAjax,
+  checkAuthenticatedAdmin,
   emailVerificationHandler,
   emailVerificationLinkGenerator,
   checkEmailVerified,

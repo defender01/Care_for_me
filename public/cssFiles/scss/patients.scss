@@ -109,6 +109,15 @@ main {
             margin: 10px 5px 10px 5px;
             padding-left: 10px;
             color: $label-color;
+            a{
+              color: #9498a3;
+              &:hover{
+                  // background-color: $hover-color;
+                  color: rgb(86, 124, 228);
+                  text-shadow: blue;
+                  cursor: pointer;
+              }
+            }
           }
         }
         .btn-container{

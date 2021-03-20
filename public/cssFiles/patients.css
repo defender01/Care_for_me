@@ -116,6 +116,16 @@ main .side-bar .nav-sec-cont .card .filter-container .filter {
   color: #90949c;
 }
 
+main .side-bar .nav-sec-cont .card .filter-container .filter a {
+  color: #9498a3;
+}
+
+main .side-bar .nav-sec-cont .card .filter-container .filter a:hover {
+  color: #567ce4;
+  text-shadow: blue;
+  cursor: pointer;
+}
+
 main .side-bar .nav-sec-cont .card .btn-container {
   width: 100%;
 }
