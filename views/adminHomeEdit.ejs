@@ -65,7 +65,7 @@
                 <% if(typeof data != 'undefined' && data!=null && typeof data.services!= 'undefined'){ %>
                   <% for(let i=0; i<data.services.length; i++){ %>
                     <div class="item-holder" id="service<%= data.services[i]._id %>">
-                      <div class="delete-btn" >
+                      <div class="delete-btn" style="display: none;" >
                         <button onclick="deleteItem('service<%= data.services[i]._id %>')">Delete</button>
                       </div> 
                       <input type="text" name="serviceId" value="<%= typeof data != 'undefined' && data!=null ? data.services[i]._id : '' %>" style="display: none;"/>
@@ -90,7 +90,7 @@
                 <% }%>
               <div id="addPlaceService"></div>
               <div class="add-button">
-                <button type="button" onclick="createService()">Add New</button>
+                <button type="button" onclick="createService()" style="display: none;">Add New</button>
               </div>                                
             </div>
             
@@ -243,7 +243,7 @@
           let newId = data.id
           $('#addPlaceService').replaceWith(
             `<div class="item-holder" id="service${newId}">
-              <div class="delete-btn" >
+              <div class="delete-btn" style="display: none;">
                 <button onclick="deleteItem('service${newId}')">Delete</button>
               </div> 
               <input type="text" name="serviceId" value="${newId}" style="display: none;"/>
