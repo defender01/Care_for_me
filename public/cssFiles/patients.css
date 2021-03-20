@@ -78,7 +78,7 @@ main .side-bar .nav-sec-cont .card {
   box-shadow: 0 0 1px rgba(153, 152, 153, 0.76);
 }
 
-@media (max-width: 10 0px) {
+@media (max-width: 1000px) {
   main .side-bar .nav-sec-cont .card {
     display: none;
   }
@@ -92,6 +92,11 @@ main .side-bar .nav-sec-cont .card .card-title {
   border-bottom: solid;
   border-width: 1px;
   border-color: rgba(207, 207, 209, 0.726);
+}
+
+main .side-bar .nav-sec-cont .card .card-title i {
+  color: #f15353;
+  margin-right: 10px;
 }
 
 main .side-bar .nav-sec-cont .card .search-input {

@@ -11,6 +11,12 @@ main{
       overflow: auto;
       padding-bottom: 270px;
     }
+    .readMore{
+        color: rgb(72, 99, 252);
+        &:hover{            
+            color: rgb(16, 44, 199);
+        }
+    }
 }
 .banner{
     padding: 10%;
@@ -128,6 +134,44 @@ main{
     padding: 10%;
     background-color: rgba(214, 214, 208, 0.87);
     .feature{
+        margin: 50px 0 50px 0;
+        @media(min-width: 1000px){
+            display: flex;
+        }
+        .details{
+            flex: 1.6;
+            h1{
+                font-size: 30px;
+            }
+            p{
+                text-align: justify;
+                font-size: 22px;
+            }
+        }
+        .image-container{
+            padding: 50px;
+            flex: 1;
+            .image-holder{
+                margin: auto;
+                background-color: rgb(211, 81, 81);
+                width: 100%;
+                height: calc((100vw-20)*.59);
+                img{
+                    height: 100%;
+                    width: 100%;         
+                }
+            }       
+        }
+    }
+}
+.review-container{
+    padding: 10%;
+    background-color: #ffffff;
+    .review-title{
+        text-align: center;
+        margin-bottom: 20px;
+    }
+    .review{
         margin: 50px 0 50px 0;
         @media(min-width: 1000px){
             display: flex;

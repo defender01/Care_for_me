@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+
+    <!-- fontawesome cdn -->
+    <link rel="stylesheet" href="//use.fontawesome.com/releases/v5.0.7/css/all.css">
+
+    <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+    crossorigin="anonymous"></script>
+
+    <!-- stylesheet for navbar -->
+    <link rel="stylesheet" href="/assets/cssFiles/navbar.css">
+    <link rel="stylesheet" href="/assets/cssFiles/doctorRegistration.css" />
+    <script src="/assets/jsFiles/doctor.js"></script>  
+    <!-- for loader -->
+    <script src="/assets/jsFiles/loader.js"></script>    
+    <link rel="stylesheet" href="/assets/cssFiles/loader.css" />
+    <!-- for date range picker -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+
+    <!-- for address cdn -->    
+    <script src="//geodata.solutions/includes/countrystatecity.js"></script>
+
+    <title>Registration-Care for me</title>
+  </head>
+
+  <body>
+    <!-- display loading icon -->
+    <div class="se-pre-con"></div>
+    <!-- ends -->
+
+    <!-- navigation bar -->
+    <% include ./segments/adminNavbar %>
+    
+    <main>
+      <div class="wrapper">
+        <div class="notify-bar">
+          <div class="title">
+            Home Page Information Form
+          </div>
+        </div>
+        
+        <form method="POST" action="/admin/home/edit">
+          <div class="ques-container">
+            <% include ./segments/messages %>   
+            
+            <input type="text" name="homeId" value="<%= typeof data != 'undefined' && data!=null ? data._id : '' %>" style="display: none;"/>
+            <div class="single-ques">
+              <div class="label">
+                About us:
+              </div>
+              <div class="input-field">
+                <textarea name="aboutUs" class="form-control"  rows="4" required><%= typeof data != 'undefined' && data!=null && typeof data.aboutUs != 'undefined' ? data.aboutUs : '' %></textarea>
+              </div>
+            </div>
+            <div class="multi-cont">
+              <div class="sec-title">Services</div>
+                <% if(typeof data != 'undefined' && data!=null && typeof data.services!= 'undefined'){ %>
+                  <% for(let i=0; i<data.services.length; i++){ %>
+                    <div class="item-holder" id="service<%= data.services[i]._id %>">
+                      <div class="delete-btn" >
+                        <button onclick="deleteItem('service<%= data.services[i]._id %>')">Delete</button>
+                      </div> 
+                      <input type="text" name="serviceId" value="<%= typeof data != 'undefined' && data!=null ? data.services[i]._id : '' %>" style="display: none;"/>
+                      <div class="single-ques">
+                        <div class="label">
+                          Service Name:
+                        </div>
+                        <div class="input-field">
+                          <input type="text" name="serviceName<%= data.services[i]._id %>" class="form-control" value="<%= typeof data != 'undefined' && data!=null ? data.services[i].name : '' %>" required>
+                        </div>
+                      </div> 
+                      <div class="single-ques">
+                        <div class="label">
+                          Service Details:
+                        </div>
+                        <div class="input-field">
+                          <textarea name="serviceDetails<%= data.services[i]._id %>" class="form-control"  rows="4" required><%= typeof data != 'undefined' && data!=null ? data.services[i].details : '' %></textarea>
+                        </div>
+                      </div>                              
+                    </div>
+                  <% } %> 
+                <% }%>
+              <div id="addPlaceService"></div>
+              <div class="add-button">
+                <button type="button" onclick="createService()">Add New</button>
+              </div>                                
+            </div>
+            
+            <div class="multi-cont">
+              <div class="sec-title">Feature</div>
+                <% if(typeof data != 'undefined' && data!=null && typeof data.features!= 'undefined'){ %>
+                  <% for(let i=0; i<data.features.length; i++){ %>
+                    <div class="item-holder" id="feature<%= data.features[i]._id %>">
+                      <div class="delete-btn" >
+                        <button onclick="deleteItem('feature<%= data.features[i]._id %>')">Delete</button>
+                      </div> 
+                      <input type="text" name="featureId" value="<%= typeof data != 'undefined' && data!=null ? data.features[i]._id : '' %>" style="display: none;"/>
+                      <div class="single-ques">
+                        <div class="label">
+                          Feature Name:
+                        </div>
+                        <div class="input-field">
+                          <input type="text" name="featureName<%= data.features[i]._id %>" class="form-control" value="<%= typeof data != 'undefined' && data!=null ? data.features[i].name : '' %>" required>
+                        </div>
+                      </div> 
+                      <div class="single-ques">
+                        <div class="label">
+                          Feature Details:
+                        </div>
+                        <div class="input-field">
+                          <textarea name="featureDetails<%= data.features[i]._id %>" class="form-control"  rows="4" required><%= typeof data != 'undefined' && data!=null ? data.features[i].details : '' %></textarea>
+                        </div>
+                      </div>                              
+                    </div>
+                  <% } %> 
+                <% }%>
+              <div id="addPlaceFeature"></div>
+              <div class="add-button">
+                <button type="button" onclick="createFeature()">Add New</button>
+              </div>                                
+            </div>
+            <div class="multi-cont">
+              <div class="sec-title">Reviews</div>
+                <% if(typeof data != 'undefined' && data!=null && typeof data.reviews!= 'undefined'){ %>
+                  <% for(let i=0; i<data.reviews.length; i++){ %>
+                    <div class="item-holder" id="review<%= data.reviews[i]._id %>">
+                      <div class="delete-btn" >
+                        <button onclick="deleteItem('review<%= data.reviews[i]._id %>')">Delete</button>
+                      </div> 
+                      <input type="text" name="reviewId" value="<%= typeof data != 'undefined' && data!=null ? data.reviews[i]._id : '' %>" style="display: none;"/>
+                      <div class="single-ques">
+                        <div class="label">
+                          Reviewer name:
+                        </div>
+                        <div class="input-field">
+                          <input type="text" name="reviewerName<%= data.reviews[i]._id %>" class="form-control" value="<%= typeof data != 'undefined' && data!=null ? data.reviews[i].name : '' %>" required>
+                        </div>
+                      </div> 
+                      <div class="single-ques">
+                        <div class="label">
+                          Review Details:
+                        </div>
+                        <div class="input-field">
+                          <textarea name="reviewDetails<%= data.reviews[i]._id %>" class="form-control"  rows="4" required><%= typeof data != 'undefined' && data!=null ? data.reviews[i].details : '' %></textarea>
+                        </div>
+                      </div>                              
+                    </div>
+                  <% } %> 
+                <% }%>
+              <div id="addPlaceReview"></div>
+              <div class="add-button">
+                <button type="button" onclick="createReview()">Add New</button>
+              </div>                                
+            </div>
+  
+            <div class="submit-btn">
+              <button type="submit">Submit</button>
+            </div>
+          </div> 
+            
+        </form>
+        
+      </div>
+     
+      
+    </main>
+    
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    <script>
+      function createFeature(){
+        $.get('/admin/getNewId', (data) => {
+          let newId = data.id
+          $('#addPlaceFeature').replaceWith(
+            `<div class="item-holder" id="feature${newId}">
+              <div class="delete-btn" >
+                <button onclick="deleteItem('feature${newId}')">Delete</button>
+              </div> 
+              <input type="text" name="featureId" value="${newId}" style="display: none;"/>
+              <div class="single-ques">
+                <div class="label">
+                  Feature Name:
+                </div>
+                <div class="input-field">
+                  <input type="text" name="featureName${newId}" class="form-control"  required>
+                </div>
+              </div> 
+              <div class="single-ques">
+                <div class="label">
+                  Feature Details:
+                </div>
+                <div class="input-field">
+                  <textarea name="featureDetails${newId}" class="form-control"  rows="4" required></textarea>
+                </div>
+              </div>                              
+            </div>
+            <div id="addPlaceFeature"></div>`
+          )
+        })
+    }
+    function createReview(){
+        $.get('/admin/getNewId', (data) => {
+          let newId = data.id
+          $('#addPlaceReview').replaceWith(
+            `<div class="item-holder" id="review${newId}">
+              <div class="delete-btn" >
+                <button onclick="deleteItem('review${newId}')">Delete</button>
+              </div> 
+              <input type="text" name="reviewId" value="${newId}" style="display: none;"/>
+              <div class="single-ques">
+                <div class="label">
+                  Reviewer Name:
+                </div>
+                <div class="input-field">
+                  <input type="text" name="reviewerName${newId}" class="form-control"  required>
+                </div>
+              </div> 
+              <div class="single-ques">
+                <div class="label">
+                  Review Details:
+                </div>
+                <div class="input-field">
+                  <textarea name="reviewDetails${newId}" class="form-control"  rows="4" required></textarea>
+                </div>
+              </div>                              
+            </div>
+            <div id="addPlaceReview"></div>`
+          )
+        })
+    }
+    function createService(){
+        $.get('/admin/getNewId', (data) => {
+          let newId = data.id
+          $('#addPlaceService').replaceWith(
+            `<div class="item-holder" id="service${newId}">
+              <div class="delete-btn" >
+                <button onclick="deleteItem('service${newId}')">Delete</button>
+              </div> 
+              <input type="text" name="serviceId" value="${newId}" style="display: none;"/>
+              <div class="single-ques">
+                <div class="label">
+                  Service Name:
+                </div>
+                <div class="input-field">
+                  <input type="text" name="serviceName${newId}" class="form-control"  required>
+                </div>
+              </div> 
+              <div class="single-ques">
+                <div class="label">
+                  Service Details:
+                </div>
+                <div class="input-field">
+                  <textarea name="serviceDetails${newId}" class="form-control"  rows="4" required></textarea>
+                </div>
+              </div>                              
+            </div>
+            <div id="addPlaceService"></div>`
+          )
+        })
+    }
+        
+    function deleteItem(id){
+      $('#'+id).remove()
+    }
+    </script>
+  </body>
+</html>

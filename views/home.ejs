@@ -61,8 +61,11 @@
             <h1>
               About us
             </h1>
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc pretium luctus enim, quis suscipit erat posuere a. Mauris condimentum, ligula a semper sollicitudin, libero nulla malesuada risus, eget imperdiet dolor enim id arcu. Nullam commodo diam sed nisl sodales eleifend. Nullam convallis tristique est nec bibendum. Nullam rutrum fermentum egestas. Nam vel consequat felis. Donec iaculis odio a pretium aliquam. Integer vitae enim tincidunt, iaculis diam at, blandit justo. Ut ultrices interdum venenatis.
+            <p >
+              <%= typeof data != 'undefined' && data!=null ? data.aboutUs.substring(0,Math.min(450, data.aboutUs.length)) : '' %>
+              <%if(data.aboutUs.length>450) {%>
+                 <span id="aboutUs<%=data._id %>" style="display: none;"><%= data.aboutUs.substring(450, data.aboutUs.length)%></span> <a href="" onclick="return false;"><span id = 'readMore<%=data._id %>' class='readMore' onclick="toggle('aboutUs<%=data._id %>','readMore<%=data._id %>', 'more')">Read More</span></a>
+              <%}%>
             </p>
           </div>
           <div class="about-photo">
@@ -77,78 +80,118 @@
             <h1>Make life easy</h1>    
           </div>
           <div class="all-services">
-            <div class="service">
-              <div class="service-icon">
-                <i class="far fa-clipboard"></i>
-              </div>
-              <div class="service-detail">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                Nunc pretium luctus enim, quis suscipit erat posuere a. 
-              </div> 
-            </div> 
-            <div class="service">
-              <div class="service-icon">
-                <i class="fas fa-user-md"></i>
-              </div>
-              <div class="service-detail">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                Nunc pretium luctus enim, quis suscipit erat posuere a.
-              </div> 
-            </div> 
-            <div class="service">
-              <div class="service-icon">
-                <i class="far fa-bell"></i>
-              </div>
-              <div class="service-detail">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                Nunc pretium luctus enim, quis suscipit erat posuere a.
-              </div>  
-            </div> 
+            <% if(typeof data != 'undefined' && data!=null && typeof data.services!= 'undefined'){ %>
+              <% for(let i=0; i<data.services.length; i++){ %>
+                <%if(i==0) {%>
+                  <div class="service">
+                    <div class="service-icon">
+                      <i class="far fa-clipboard"></i>
+                    </div>
+                    <div class="service-detail">
+                      <p >
+                        <%= typeof data != 'undefined' && data!=null ? data.services[i].details.substring(0,Math.min(100, data.services[i].details.length)) : '' %>
+                        <%if(data.services[i].details.length>100) {%>
+                          <span id="serviceDetails<%=data.services[i]._id %>" style="display: none;"><%= data.services[i].details.substring(100, data.services[i].details.length)%></span> <a href="" onclick="return false;"><span id = 'readMore<%=data.services[i]._id %>' class='readMore' onclick="toggle('serviceDetails<%=data.services[i]._id %>','readMore<%=data.services[i]._id %>', 'more')">Read More</span></a>
+                        <%}%>
+                      </p>
+                    </div> 
+                  </div> 
+                <%} else if(i==1) {%>
+                  <div class="service">
+                    <div class="service-icon">
+                      <i class="fas fa-user-md"></i>
+                    </div>
+                    <div class="service-detail">
+                      <p >
+                        <%= typeof data != 'undefined' && data!=null ? data.services[i].details.substring(0,Math.min(100, data.services[i].details.length)) : '' %>
+                        <%if(data.services[i].details.length>100) {%>
+                          <span id="serviceDetails<%=data.services[i]._id %>" style="display: none;"><%= data.services[i].details.substring(100, data.services[i].details.length)%></span> <a href="" onclick="return false;"><span id = 'readMore<%=data.services[i]._id %>' class='readMore' onclick="toggle('serviceDetails<%=data.services[i]._id %>','readMore<%=data.services[i]._id %>', 'more')">Read More</span></a>
+                        <%}%>
+                      </p>
+                    </div> 
+                  </div> 
+                <%} else if(i==2) {%>
+                  <div class="service">
+                    <div class="service-icon">
+                      <i class="far fa-bell"></i>
+                    </div>
+                    <div class="service-detail">
+                      <p >
+                        <%= typeof data != 'undefined' && data!=null ? data.services[i].details.substring(0,Math.min(100, data.services[i].details.length)) : '' %>
+                        <%if(data.services[i].details.length>100) {%>
+                          <span id="serviceDetails<%=data.services[i]._id %>" style="display: none;"><%= data.services[i].details.substring(100, data.services[i].details.length)%></span> <a href="" onclick="return false;"><span id = 'readMore<%=data.services[i]._id %>' class='readMore' onclick="toggle('serviceDetails<%=data.services[i]._id %>','readMore<%=data.services[i]._id %>', 'more')">Read More</span></a>
+                        <%}%>
+                      </p>
+                    </div> 
+                  </div> 
+                <%}%>
+              <% } %> 
+            <% }%>
           </div>               
         </div>
         <div class="feature-container">
-          <!-- feature 1 -->
-          <div class="feature">
-            <div class="details">
-              <h1>Feature</h1>
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc pretium luctus enim, quis suscipit erat posuere a. Mauris condimentum, ligula a semper sollicitudin, libero nulla malesuada risus, eget imperdiet dolor enim id arcu. Nullam commodo diam sed nisl sodales eleifend. Nullam convallis tristique est nec bibendum. Nullam rutrum fermentum egestas. Nam vel consequat felis. Donec iaculis odio a pretium aliquam. Integer vitae enim tincidunt, iaculis diam at, blandit justo. Ut ultrices interdum venenatis. Sed porttitor tempor lectus id rutrum. Vivamus maximus sodales massa, et volutpat nunc auctor sit amet. Integer venenatis iaculis augue, eu condimentum nibh finibus sit amet. Mauris quis consequat arcu.
-              </p>
-            </div>
-            <div class="image-container">
-              <div class="image-holder">
-                <img src="/resources/doctor.jpg" alt="Photo is not loaded">
-              </div>
-            </div>
+          <% if(typeof data != 'undefined' && data!=null && typeof data.features!= 'undefined'){ %>
+            <% for(let i=0; i<data.services.length; i++){ %>
+              <%if(i==0) {%>
+                <div class="feature">
+                  <div class="details">
+                    <h1><%= typeof data != 'undefined' && data!=null ? data.features[i].name : '' %></h1>
+                    <p >
+                      <%= typeof data != 'undefined' && data!=null ? data.features[i].details.substring(0,Math.min(400, data.features[i].details.length)) : '' %>
+                      <%if(data.features[i].details.length>400) {%>
+                        <span id="featureDetails<%=data.features[i]._id %>" style="display: none;"><%= data.features[i].details.substring(400, data.features[i].details.length)%></span> <a href="" onclick="return false;"><span id = 'readMore<%=data.features[i]._id %>' class='readMore' onclick="toggle('featureDetails<%=data.features[i]._id %>','readMore<%=data.features[i]._id %>', 'more')">Read More</span></a>
+                      <%}%>
+                    </p>
+                  </div>
+                  <div class="image-container">
+                    <div class="image-holder">
+                      <img src="/resources/doctor.jpg" alt="Photo is not loaded">
+                    </div>
+                  </div>
+                </div>
+              <%} else if(i==1) {%>
+                <div class="feature">
+                  <div class="image-container">
+                    <div class="image-holder">
+                      <img src="/resources/record.jpg" alt="Photo is not loaded">
+                    </div>
+                  </div>
+                  <div class="details">
+                    <h1><%= typeof data != 'undefined' && data!=null ? data.features[i].name : '' %></h1>
+                    <p >
+                      <%= typeof data != 'undefined' && data!=null ? data.features[i].details.substring(0,Math.min(400, data.features[i].details.length)) : '' %>
+                      <%if(data.features[i].details.length>400) {%>
+                        <span id="featureDetails<%=data.features[i]._id %>" style="display: none;"><%= data.features[i].details.substring(400, data.features[i].details.length)%></span> <a href="" onclick="return false;"><span id = 'readMore<%=data.features[i]._id %>' class='readMore' onclick="toggle('featureDetails<%=data.features[i]._id %>','readMore<%=data.features[i]._id %>', 'more')">Read More</span></a>
+                      <%}%>
+                    </p>
+                  </div>          
+                </div> 
+              <%}%>
+            <% } %> 
+          <% }%>
+        </div>
+        <div class="review-container">
+          <div class="review-title">
+            <h1>Thoughts of Users</h1>
           </div>
-          <!-- feature 2 -->
-          <div class="feature">
-            <div class="image-container">
-              <div class="image-holder">
-                <img src="/resources/record.jpg" alt="Photo is not loaded">
-              </div>
-            </div>
-            <div class="details">
-              <h1>Feature</h1>
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc pretium luctus enim, quis suscipit erat posuere a. Mauris condimentum, ligula a semper sollicitudin, libero nulla malesuada risus, eget imperdiet dolor enim id arcu. Nullam commodo diam sed nisl sodales eleifend. Nullam convallis tristique est nec bibendum. Nullam rutrum fermentum egestas. Nam vel consequat felis. Donec iaculis odio a pretium aliquam. Integer vitae enim tincidunt, iaculis diam at, blandit justo. Ut ultrices interdum venenatis. Sed porttitor tempor lectus id rutrum. Vivamus maximus sodales massa, et volutpat nunc auctor sit amet. Integer venenatis iaculis augue, eu condimentum nibh finibus sit amet. Mauris quis consequat arcu.
-              </p>
-            </div>          
-          </div>
-          <!-- feature 3 -->
-          <div class="feature">
-            <div class="details">
-              <h1>Feature</h1>
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc pretium luctus enim, quis suscipit erat posuere a. Mauris condimentum, ligula a semper sollicitudin, libero nulla malesuada risus, eget imperdiet dolor enim id arcu. Nullam commodo diam sed nisl sodales eleifend. Nullam convallis tristique est nec bibendum. Nullam rutrum fermentum egestas. Nam vel consequat felis. Donec iaculis odio a pretium aliquam. Integer vitae enim tincidunt, iaculis diam at, blandit justo. Ut ultrices interdum venenatis. Sed porttitor tempor lectus id rutrum. Vivamus maximus sodales massa, et volutpat nunc auctor sit amet. Integer venenatis iaculis augue, eu condimentum nibh finibus sit amet. Mauris quis consequat arcu.
-              </p>
-            </div>
-            <div class="image-container">
-              <div class="image-holder">
-                <img src="/resources/diary.jpg" alt="Photo is not loaded">
-              </div>
-            </div>
-          </div>
+          <% if(typeof data != 'undefined' && data!=null && typeof data.reviews!= 'undefined'){ %>
+            <% for(let i=0; i<data.services.length; i++){ %>
+              <%if(i==0) {%>
+                <!-- feature 3 -->
+                <div class="review">
+                  <div class="details">
+                    <h1><%= typeof data != 'undefined' && data!=null ? data.reviews[i].name : '' %></h1>
+                    <p >
+                      <%= typeof data != 'undefined' && data!=null ? data.reviews[i].details.substring(0,Math.min(400, data.reviews[i].details.length)) : '' %>
+                      <%if(data.reviews[i].details.length>400) {%>
+                        <span id="reviewDetails<%=data.reviews[i]._id %>" style="display: none;"><%= data.reviews[i].details.substring(400, data.reviews[i].details.length)%></span> <a href="" onclick="return false;"><span id = 'readMore<%=data.reviews[i]._id %>' class='readMore' onclick="toggle('reviewDetails<%=data.reviews[i]._id %>','readMore<%=data.reviews[i]._id %>', 'more')">Read More</span></a>
+                      <%}%>
+                    </p>
+                  </div>            
+                </div>
+              <%}%>
+            <% } %> 
+          <% }%>
         </div>
       </div>
     </main>
@@ -158,5 +201,16 @@
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script>
+      function toggle(spanId, readMoreId, state){
+        console.log({spanId, readMoreId})
+        $( "#"+spanId ).slideToggle( "slow" );
+        if(state == 'more'){
+          $('#'+ readMoreId).replaceWith(`<span id = '${readMoreId}' class='readMore' onclick="toggle('${spanId}','${readMoreId}', 'less')">Read Less</span>`)
+        }else{
+          $('#'+ readMoreId).replaceWith(`<span id = '${readMoreId}' class='readMore' onclick="toggle('${spanId}','${readMoreId}', 'more')">Read More</span>`)
+        }
+      }
+    </script>
   </body>
 </html>

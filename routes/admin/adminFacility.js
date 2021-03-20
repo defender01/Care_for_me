@@ -22,6 +22,7 @@ const {
 const { questionModel, optionModel } = require("../../models/inputCollection");
 
 const { parameterModel } = require("../../models/followup");
+const {homeModel} = require("../../models/home");
 
 const {checkAuthenticatedAdmin } = require("../../controllers/auth_helper");
 
@@ -43,6 +44,83 @@ router.get("/clearWholeAnswerCollection", checkAuthenticatedAdmin, clearWholeAns
 // this provides new id
 router.get('/getNewId', checkAuthenticatedAdmin, async (req, res) => {
   res.send({ id: new mongoose.Types.ObjectId() })
+})
+
+router.get("/home/edit", checkAuthenticatedAdmin, async (req,res) => {
+  let navDisplayName = req.user.name.displayName
+  let data 
+  try{
+    data = await homeModel.findOne({})
+  }catch(err){
+    res.render('404',{'error': err.message})
+    return
+  }  
+  console.log('home data:')
+  console.log(util.inspect({data}, false, null, true /* enable colors */))
+  res.render('adminHomeEdit', {navDisplayName, data})
+})
+router.post("/home/edit", checkAuthenticatedAdmin, async (req,res) => {
+  let data = req.body
+  let homeId = data.homeId
+  let home = null
+  let services = [], features = [], reviews = []
+  console.log(data)
+
+  let serviceId = typeof data.serviceId!= 'undefined'? Array.isArray(data.serviceId)? data.serviceId : [data.serviceId] : []
+  let featureId = typeof data.featureId!= 'undefined'? Array.isArray(data.featureId)? data.featureId : [data.featureId] : []
+  let reviewId = typeof data.reviewId!= 'undefined'? Array.isArray(data.reviewId)? data.reviewId : [data.reviewId] : []
+  for(let i=0; i<serviceId.length; i++){
+    let service = {
+      _id: serviceId[i],
+      name: data['serviceName'+serviceId[i]],
+      details: data['serviceDetails'+serviceId[i]],
+    }
+    services.push(service)
+  }
+  for(let i=0; i<featureId.length; i++){
+    let feature = {
+      _id: featureId[i],
+      name: data['featureName'+featureId[i]],
+      details: data['featureDetails'+featureId[i]],
+    }
+    features.push(feature)
+  }
+  
+  for(let i=0; i<reviewId.length; i++){
+    let review = {
+      _id: reviewId[i],
+      name: data['reviewerName'+reviewId[i]],
+      details: data['reviewDetails'+reviewId[i]],
+    }
+    reviews.push(review)
+  }  
+  if(homeId ==''){
+    home =  new homeModel({
+      _id: new mongoose.Types.ObjectId()
+    })
+  }
+  else{
+    try{
+      home = await homeModel.findOne({_id: homeId})
+    }catch(err){
+      res.render('404',{'error':err.message})
+      return
+    }
+  }
+  home.aboutUs = data.aboutUs
+  home.services = services
+  home.features = features
+  home.reviews = reviews
+  // console.log(util.inspect({home}, false, null, true /* enable colors */))
+  let result = null
+  try{
+    result = await home.save()
+  }catch(err){
+    res.render('404',{'error': err.message})
+    return
+  }  
+  req.flash('success_msg', 'Successfully updated home details.')
+  res.redirect('back')
 })
 
 router.get("/followupQues/edit", checkAuthenticatedAdmin, async (req,res) => {
