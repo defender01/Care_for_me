@@ -78,7 +78,7 @@ main .side-bar .nav-sec-cont .card {
   box-shadow: 0 0 1px rgba(153, 152, 153, 0.76);
 }
 
-@media (max-width: 10 0px) {
+@media (max-width: 1000px) {
   main .side-bar .nav-sec-cont .card {
     display: none;
   }
@@ -297,13 +297,8 @@ main .wrapper .page-holder table tbody .patient-info .dlt-btn-cont button:hover 
 }
 
 main .wrapper .page-holder .pagination-holder {
-  display: flex;
-  margin: 20px 0 50px 0;
-  height: 150px;
-}
-
-main .wrapper .page-holder .pagination-holder nav {
-  margin: auto;
+  margin: 30px 0 50px 0;
+  height: 80px;
 }
 
 main .wrapper .page-holder .card {

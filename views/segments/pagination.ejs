@@ -1,0 +1,44 @@
+<% // console.log(currentPage, hasNextPage, hasPreviousPage,nextPage,previousPage,lastPage, URL) %>
+
+<% if(typeof hasPreviousPage != 'undefined' && typeof currentPage != 'undefined' && typeof hasNextPage != 'undefined' && typeof nextPage != 'undefined' && typeof previousPage != 'undefined' && typeof lastPage != 'undefined' && typeof URL != 'undefined') { %>
+
+  <div class="custom-pagination" id="pagination">
+    <% if(hasPreviousPage) { %>
+    <a href="<%=URL%><%=previousPage%>" class="arrow">&laquo;</a>
+    <% } else { %>
+    <a href="#" class="arrow disabled-btn" tabindex="-1">&laquo;</a>
+    <% } if(currentPage>= 5) { %>
+    <a href="<%=URL%>1">1</a>
+    <a href="<%=URL%>2">2</a>
+    <a href="#">...</a>
+    <a href="<%=URL%><%=currentPage - 1%>"> <%=currentPage - 1%> </a>
+    <% } else { for(let i=1 ; i < currentPage; i++) { %>
+    <a href="<%=URL%><%=i%>"> <%=i%> </a>
+    <% } } %>
+    <a href="<%=URL%><%=currentPage%>" class="active"> <%=currentPage%> </a>
+    <% if(currentPage + 5> lastPage) { for(let i = currentPage + 1; i <= lastPage;
+    i++) { %>
+    <a href="<%=URL%><%=i%>"> <%=i%> </a>
+    <% } } else { %>
+    <a href="<%=URL%><%=currentPage + 1%>"> <%=currentPage + 1%> </a>
+    <a href="#">...</a>
+    <a href="<%=URL%><%=lastPage - 1%>"> <%=lastPage - 1%> </a>
+    <a href="<%=URL%><%=lastPage%>"> <%=lastPage%> </a>
+  
+    <% } if(hasNextPage) { %>
+    <a href="<%=URL%><%=nextPage%>" class="arrow">&raquo;</a>
+    <% } else { %>
+    <a href="#" class="arrow disabled-btn" tabindex="-1">&raquo;</a>
+    <% } %>
+  </div>
+
+<% } else { %>
+
+  <div class="custom-pagination" id="pagination">
+    <a href="#" class="arrow disabled-btn" tabindex="-1">&laquo;</a>
+    <a href="#" class="active"> 1 </a>
+    <a href="#" class="arrow disabled-btn" tabindex="-1">&raquo;</a>
+  </div>
+
+<% } %>
+

@@ -1,37 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 
-    <!-- fontawesome cdn -->
-    <link rel="stylesheet" href="//use.fontawesome.com/releases/v5.0.7/css/all.css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+    integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous" />
 
-    <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+  <!-- fontawesome cdn -->
+  <link rel="stylesheet" href="//use.fontawesome.com/releases/v5.0.7/css/all.css" />
+
+  <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
     crossorigin="anonymous"></script>
 
-    <!-- stylesheet for navbar -->
-    <link rel="stylesheet" href="/assets/cssFiles/navbar.css">
-    <link rel="stylesheet" href="/assets/cssFiles/patients.css" />
-    <!-- for loader -->
-    <script src="/assets/jsFiles/loader.js"></script>    
-    <link rel="stylesheet" href="/assets/cssFiles/loader.css" />
+  <!-- stylesheet for navbar -->
+  <link rel="stylesheet" href="/assets/cssFiles/navbar.css" />
+  <link rel="stylesheet" href="/assets/cssFiles/patients.css" />
+  <!-- stylesheet for pagination -->
+  <link rel="stylesheet" href="/assets/cssFiles/pagination.css" />
 
+  <!-- for loader -->
+  <script src="/assets/jsFiles/loader.js"></script>
+  <link rel="stylesheet" href="/assets/cssFiles/loader.css" />
 
-    <title>Registration-Care for me</title>
-  </head>
+  <title>Registration-Care for me</title>
+</head>
 
-  <body onload="">
-    <!-- display loading icon -->
-    <div class="se-pre-con"></div>
-    <!-- ends -->
+<body onload="">
+  <!-- display loading icon -->
+  <div class="se-pre-con"></div>
+  <!-- ends -->
 
-    <!-- navigation bar -->
-    <% include ./segments/navbar %>
-    
+  <!-- navigation bar -->
+  <% include ./segments/navbar %>
+
     <main>
       <div class="side-bar">
         <div class="topic-container">
@@ -39,27 +43,29 @@
             <h3>Search Menu</h3>
           </div>
           <div class="angle">
-            <i class="fas fa-angle-left" id="leftAngle"  onclick="hideSidebar()"></i>
+            <i class="fas fa-angle-left" id="leftAngle" onclick="hideSidebar()"></i>
           </div>
         </div>
         <!-- here are all sidebar items -->
         <div class="nav-sec-cont">
           <div class="card">
-            <div class="card-title">
-              Search patient
-            </div>
+            <div class="card-title">Search patient</div>
 
-            <form action="/doctor/patients/searchResults" method="post" id="searchMenuForm">
+            <form action="/doctor/patients/searchResults" method="get" id="searchMenuForm">
               <div class="search-input">
-                <input type="text" name="searchKey" class="form-control" id="searchKey" placeholder="Enter patient's name" required>
+                <input type="text" name="searchKey" class="form-control" id="searchKey"
+                  placeholder="Enter patient's name" value="<%= typeof searchKey != 'undefined' ? searchKey : '' %>"
+                  required />
               </div>
               <div class="filter-container">
-                <div class="filter-title">
-                  Options
-                </div>
+                <div class="filter-title">Options</div>
                 <div class="filter">
                   <div class="form-check">
-                    <input class="form-check-input" type="radio" name="searchOption" value="name" id="searchOptionName" checked>
+                    <input class="form-check-input" type="radio" name="searchOption" value="name" id="searchOptionName"
+                      <%=(typeof searchOption !='undefined' && (searchOption=='email' || searchOption=='phoneNumber' ))
+                      ? '' : 'checked' %>
+                    required
+                    />
                     <label class="form-check-label" for="searchOptionName">
                       By name
                     </label>
@@ -67,7 +73,9 @@
                 </div>
                 <div class="filter">
                   <div class="form-check">
-                    <input class="form-check-input" type="radio" name="searchOption" value="email" id="searchOptionMail">
+                    <input class="form-check-input" type="radio" name="searchOption" value="email" id="searchOptionMail"
+                      <%=(typeof searchOption !='undefined' && searchOption=='email' ) ? 'checked' : '' %>
+                    />
                     <label class="form-check-label" for="searchOptionMail">
                       By mail id
                     </label>
@@ -75,7 +83,10 @@
                 </div>
                 <div class="filter">
                   <div class="form-check">
-                    <input class="form-check-input" type="radio" name="searchOption" value="phoneNumber" id="searchOptionMobile">
+                    <input class="form-check-input" type="radio" name="searchOption" value="phoneNumber"
+                      id="searchOptionMobile" <%=(typeof searchOption !='undefined' && searchOption=='phoneNumber' )
+                      ? 'checked' : '' %>
+                    />
                     <label class="form-check-label" for="searchOptionMobile">
                       By mobile no
                     </label>
@@ -83,12 +94,12 @@
                 </div>
               </div>
               <div class="filter-container">
-                <div class="filter-title">
-                  Search filters
-                </div>
+                <div class="filter-title">Search filters</div>
                 <div class="filter">
                   <div class="form-check">
-                    <input class="form-check-input" name="searchFilter" type="checkbox" value="male" id="malePatient">
+                    <input class="form-check-input" name="searchFilter" type="checkbox" value="male" id="malePatient"
+                      <%=(typeof searchFilter !='undefined' && searchFilter.includes('male') ) ? 'checked' : '' %>
+                    />
                     <label class="form-check-label" for="malePatient">
                       Male patient
                     </label>
@@ -96,7 +107,10 @@
                 </div>
                 <div class="filter">
                   <div class="form-check">
-                    <input class="form-check-input" name="searchFilter" type="checkbox" value="female" id="femalePatient">
+                    <input class="form-check-input" name="searchFilter" type="checkbox" value="female"
+                      id="femalePatient" <%=(typeof searchFilter !='undefined' && searchFilter.includes('female') ) ? 'checked'
+                      : '' %>
+                    />
                     <label class="form-check-label" for="femalePatient">
                       Female patient
                     </label>
@@ -104,7 +118,10 @@
                 </div>
                 <div class="filter">
                   <div class="form-check">
-                    <input class="form-check-input" name="searchFilter" type="checkbox" value="followupRunning" id="runningPatient">
+                    <input class="form-check-input" name="searchFilter" type="checkbox" value="followupRunning"
+                      id="runningPatient" <%=(typeof searchFilter !='undefined' && searchFilter.includes('followupRunning') )
+                      ? 'checked' : '' %>
+                    />
                     <label class="form-check-label" for="runningPatient">
                       Running followup
                     </label>
@@ -112,34 +129,41 @@
                 </div>
               </div>
               <div class="btn-container">
-                <button id="search-btn" type="button" class="search-btn">
+                <button id="search-btn" type="submit" class="search-btn">
                   Search
                 </button>
               </div>
             </form>
-
           </div>
-
         </div>
       </div>
-      
+
       <div class="wrapper" id="">
         <!-- Modal -->
-        <div class="modal fade" id="deletePatientModal" tabindex="-1" aria-labelledby="deletePatientModalLabel" aria-hidden="true">
+        <div class="modal fade" id="deletePatientModal" tabindex="-1" aria-labelledby="deletePatientModalLabel"
+          aria-hidden="true">
           <div class="modal-dialog">
             <div class="modal-content">
               <div class="modal-header">
-                <h5 class="modal-title" id="deletePatientModalLabel">Are you sure you want to remove "Abdur Rahman" from patient list?</h5>
+                <h5 class="modal-title" id="deletePatientModalLabel">
+                  Are you sure you want to remove "Abdur Rahman" from patient
+                  list?
+                </h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>
               </div>
               <div class="modal-body">
-                If you click "Yes" patient "Abdur Rahman" will be parmanently deleted.
+                If you click "Yes" patient "Abdur Rahman" will be parmanently
+                deleted.
               </div>
               <div class="modal-footer">
-                <button type="button" class="btn btn-success" onclick="">Yes</button>
-                <button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
+                <button type="button" class="btn btn-success" onclick="">
+                  Yes
+                </button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">
+                  No
+                </button>
               </div>
             </div>
           </div>
@@ -149,27 +173,29 @@
             <i class="fas fa-angle-right" onclick="displaySidebar()"></i>
           </div>
           <div class="selected-current" id="notifyBarTitle">
-            Patient Desk 
+            <% if(typeof searchResults !='undefined' ) { %>
+              Search Results <% } else { %> Patient Desk <% } %>
           </div>
-          
         </div>
-        
+
         <div class="page-holder" id="">
           <div class="card">
-            <div class="card-title">
-              Search patient
-            </div>
-            <form action="/doctor/patients/searchResults" method="post" id="searchMenuForm2">
+            <div class="card-title">Search patient</div>
+            <form action="/doctor/patients/searchResults" method="get" id="searchMenuForm2">
               <div class="search-input">
-                <input type="text" name="searchKey2" id="searchKey2" class="form-control" placeholder="Enter patient's name" required>
+                <input type="text" name="searchKey" id="searchKey2" class="form-control"
+                  placeholder="Enter patient's name" value="<%= typeof searchKey != 'undefined' ? searchKey : '' %>"
+                  required />
               </div>
               <div class="filter-container">
-                <div class="filter-title">
-                  Options
-                </div>
+                <div class="filter-title">Options</div>
                 <div class="filter">
                   <div class="form-check">
-                    <input class="form-check-input" type="radio" name="searchOption2" value="name" id="searchOptionName2" checked >
+                    <input class="form-check-input" type="radio" name="searchOption" value="name" id="searchOptionName2"
+                      <%=(typeof searchOption !='undefined' && (searchOption=='email' || searchOption=='phoneNumber' ))
+                      ? '' : 'checked' %>
+                    required
+                    />
                     <label class="form-check-label" for="searchOptionName2">
                       By name
                     </label>
@@ -177,7 +203,10 @@
                 </div>
                 <div class="filter">
                   <div class="form-check">
-                    <input class="form-check-input" type="radio" name="searchOption2" value="email" id="searchOptionMail2">
+                    <input class="form-check-input" type="radio" name="searchOption" value="email"
+                      id="searchOptionMail2" <%=(typeof searchOption !='undefined' && searchOption=='email' )
+                      ? 'checked' : '' %>
+                    />
                     <label class="form-check-label" for="searchOptionMail2">
                       By mail id
                     </label>
@@ -185,7 +214,10 @@
                 </div>
                 <div class="filter">
                   <div class="form-check">
-                    <input class="form-check-input" type="radio" name="searchOption2" value="phoneNumber" id="searchOptionMobile2">
+                    <input class="form-check-input" type="radio" name="searchOption" value="phoneNumber"
+                      id="searchOptionMobile2" <%=(typeof searchOption !='undefined' && searchOption=='phoneNumber' )
+                      ? 'checked' : '' %>
+                    />
                     <label class="form-check-label" for="searchOptionMobile2">
                       By mobile no
                     </label>
@@ -193,12 +225,12 @@
                 </div>
               </div>
               <div class="filter-container">
-                <div class="filter-title">
-                  Search Filters
-                </div>
+                <div class="filter-title">Search Filters</div>
                 <div class="filter">
                   <div class="form-check">
-                    <input class="form-check-input" name="searchFilter2" type="checkbox" value="male" id="malePatient">
+                    <input class="form-check-input" name="searchFilter" type="checkbox" value="male" id="malePatient"
+                      <%=(typeof searchFilter !='undefined' && searchFilter.includes('male') ) ? 'checked' : '' %>
+                    />
                     <label class="form-check-label" for="malePatient">
                       Male patient
                     </label>
@@ -206,7 +238,10 @@
                 </div>
                 <div class="filter">
                   <div class="form-check">
-                    <input class="form-check-input" name="searchFilter2" type="checkbox" value="female" id="femalePatient">
+                    <input class="form-check-input" name="searchFilter" type="checkbox" value="female"
+                      id="femalePatient" <%=(typeof searchFilter !='undefined' && searchFilter.includes('female') ) ? 'checked'
+                      : '' %>
+                    />
                     <label class="form-check-label" for="femalePatient">
                       Female patient
                     </label>
@@ -214,7 +249,10 @@
                 </div>
                 <div class="filter">
                   <div class="form-check">
-                    <input class="form-check-input" name="searchFilter2" type="checkbox" value="followupRunning" id="runningPatient">
+                    <input class="form-check-input" name="searchFilter" type="checkbox" value="followupRunning"
+                      id="runningPatient" <%=(typeof searchFilter !='undefined' && searchFilter.includes('followupRunning') )
+                      ? 'checked' : '' %>
+                    />
                     <label class="form-check-label" for="runningPatient">
                       Running followup
                     </label>
@@ -222,17 +260,15 @@
                 </div>
               </div>
               <div class="btn-container">
-                <button id="search-btn2" type="button" class="search-btn">
+                <button id="search-btn2" type="submit" class="search-btn">
                   Search
                 </button>
               </div>
-    
             </form>
           </div>
-          <div class="se-pre-con" id="loadingGif"></div>
           <div class="table-responsive" id="patientTableContainer">
             <table class="table table-bordered table-hover" id="patientTable">
-              <thead >
+              <thead>
                 <tr>
                   <th scope="col"></th>
                   <th scope="col">Name</th>
@@ -240,211 +276,131 @@
                   <th scope="col">Option</th>
                 </tr>
               </thead>
-                         
+
               <tbody>
-                <%for(let i=0; i<10; i++){%>
+                <%
+                 let data = (typeof patientDesk != 'undefined') ? patientDesk : ((typeof searchResults != 'undefined') ? searchResults : [])  
+                 %>
+                
+                <% if(typeof data != 'undefined') {%>
+                <% for(let singleData of data) { %>
                   <tr class="patient-info">
-                    <td  class="patient-icon">
+                    <td class="patient-icon">
                       <a href=""><i class="fas fa-user"></i></a>
                     </td>
                     <td class="info">
                       <div class="patientSummary">
                         <div class="segment">
-                          Name: <a href="">Abdur Rahman</a>
+                          Name: <a href=""><%= singleData.name %></a>
                         </div>
-                        <div class="segment">
-                          Email: abdur@outlook.com
-                        </div>
-                      </div>                      
+                        <div class="segment">Email: <%= singleData.email %></div>
+                      </div>
                     </td>
                     <td class="info">
-                      <a href="/doctor/followupQues/records">10 Records</a>
+                      <a href="/doctor/followupQues/records"> <%= singleData.recordCount %></a>
                     </td>
                     <td class="dlt-btn-cont">
-                      <button type="button" data-toggle="modal" data-target="#deletePatientModal">Remove</button>
+                      <button type="button" data-toggle="modal" data-target="#deletePatientModal">
+                        Remove
+                      </button>
                     </td>
                   </tr>
-                <%}%>  
+                  <%}%>
+                  <%}%>
               </tbody>
-            </table>  
-          </div> 
-          
+            </table>
+          </div>
+
           <div class="pagination-holder">
-            <nav aria-label="Page navigation example">
-              <ul class="pagination">
-                <li class="page-item">
-                  <a class="page-link" href="#" aria-label="Previous">
-                    <span aria-hidden="true">&laquo;</span>
-                  </a>
-                </li>
-                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                <li class="page-item">
-                  <a class="page-link" href="#" aria-label="Next">
-                    <span aria-hidden="true">&raquo;</span>
-                  </a>
-                </li>
-              </ul>
-            </nav>
-          </div>         
+            <% include ./segments/pagination %>
+          </div>
         </div>
       </div>
-
-     
     </main>
-    
+
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+      integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+      crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+      integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+      crossorigin="anonymous"></script>
 
     <script>
       var stDate = new Date();
-      var enDate = new Date(stDate.getFullYear()+5, stDate.getMonth(), stDate.getDate())
+      var enDate = new Date(
+        stDate.getFullYear() + 5,
+        stDate.getMonth(),
+        stDate.getDate()
+      );
       // adding 1 to getMonth() because in this function month is 0 indexed Jan=0th month
-      // but while taking input month is 1 indexed, Jan = 1th month 
-      var stDateStr = stDate.getFullYear()+'-'+ ( stDate.getMonth()<10? '0'+stDate.getMonth()+1 : stDate.getMonth()+1 )+'-'+ ( stDate.getDate()<10? '0'+stDate.getDate() : stDate.getDate() )
-      var enDateStr = enDate.getFullYear()+'-'+ ( enDate.getMonth()<10? '0'+enDate.getMonth()+1 : enDate.getMonth()+1 )+'-'+ ( enDate.getDate()<10? '0'+enDate.getDate() : enDate.getDate() )
+      // but while taking input month is 1 indexed, Jan = 1th month
+      var stDateStr =
+        stDate.getFullYear() +
+        "-" +
+        (stDate.getMonth() < 10
+          ? "0" + stDate.getMonth() + 1
+          : stDate.getMonth() + 1) +
+        "-" +
+        (stDate.getDate() < 10 ? "0" + stDate.getDate() : stDate.getDate());
+      var enDateStr =
+        enDate.getFullYear() +
+        "-" +
+        (enDate.getMonth() < 10
+          ? "0" + enDate.getMonth() + 1
+          : enDate.getMonth() + 1) +
+        "-" +
+        (enDate.getDate() < 10 ? "0" + enDate.getDate() : enDate.getDate());
 
-      $('#searchMenuForm input[type="radio"][name="searchOption"]').on('change', function() {
-        if (this.value == 'name') $('#searchKey').attr("placeholder", "Enter patient's name");
-        else if (this.value == 'email') $('#searchKey').attr("placeholder", "Enter patient's email id");
-        else if (this.value == 'phoneNumber') $('#searchKey').attr("placeholder", "Enter patient's mobile no");
-      });
+      $('#searchMenuForm input[type="radio"][name="searchOption"]').on(
+        "change",
+        function () {
+          if (this.value == "name")
+            $("#searchKey").attr("placehol der", "Enter patient's name");
+          else if (this.value == "email")
+            $("#searchKey").attr("placeholder", "Enter patient's email id");
+          else if (this.value == "phoneNumber")
+            $("#searchKey").attr("placeholder", "Enter patient's mobile no");
+        }
+      );
 
-      $('#searchMenuForm2 input[type="radio"][name="searchOption2"]').on('change', function() {
-        if (this.value == 'name') $('#searchKey2').attr("placeholder", "Enter patient's name");
-        else if (this.value == 'email') $('#searchKey2').attr("placeholder", "Enter patient's email id");
-        else if (this.value == 'phoneNumber') $('#searchKey2').attr("placeholder", "Enter patient's mobile no");
-      });
+      $('#searchMenuForm2 input[type="radio"][name="searchOption"]').on(
+        "change",
+        function () {
+          if (this.value == "name")
+            $("#searchKey2").attr("placeholder", "Enter patient's name");
+          else if (this.value == "email")
+            $("#searchKey2").attr("placeholder", "Enter patient's email id");
+          else if (this.value == "phoneNumber")
+            $("#searchKey2").attr("placeholder", "Enter patient's mobile no");
+        }
+      );
 
-      function displaySidebar(){
+      function displaySidebar() {
         // $('#rightAngle').css('display','none')
-        $('#leftAngle').css('display','block')
-        $('.side-bar').css('left', '0')
+        $("#leftAngle").css("display", "block");
+        $(".side-bar").css("left", "0");
       }
-      function hideSidebar(){
-        $('#leftAngle').css('display','none')
+      function hideSidebar() {
+        $("#leftAngle").css("display", "none");
         // $('#rightAngle').css('display','block')
-        $('.side-bar').css('left', '-300px')
-      }
-      
-      function screenDisplayCheck () {
-          if (window.innerWidth >= 1000) {
-            $('.side-bar').css('left', '0')
-          }
-          else {
-            console.log('came in resize less 1000psx')
-            $('.angle').css('display','none')
-            $('.side-bar').css('left', '-300px')
-          }
+        $(".side-bar").css("left", "-300px");
       }
 
-      window.onresize = screenDisplayCheck
-      window.onload = screenDisplayCheck
-
-      $('#search-btn').on('click', (e) => {
-        e.preventDefault();
-        Submit('');
-      })
-
-      $('#search-btn2').on('click', (e) => {
-        e.preventDefault();
-        Submit('2');
-      })
-
-      const check = (str) => {
-        const res = (str == '') || (str == null) || (typeof str == 'undefined');
-        return res;
-      };
-
-      const Submit = (extension) => {
-        $("#loadingGif").fadeIn();
-
-        const searchKey = $(`input[type="text"][name="searchKey${extension}"]`).val().trim();
-        const searchOption = $(`input[type="radio"][name="searchOption${extension}"]:checked`).val().trim();
-        let searchFilter = []
-        $(`input[type="checkbox"][name="searchFilter${extension}"]:checked`).each(function() {
-          searchFilter.push(this.value.trim())
-        });
-
-        if(check(searchKey)){
-          alert($(`#searchKey${extension}`).attr("placeholder"))
+      function screenDisplayCheck() {
+        if (window.innerWidth >= 1000) {
+          $(".side-bar").css("left", "0");
+        } else {
+          console.log("came in resize less 1000psx");
+          $(".angle").css("display", "none");
+          $(".side-bar").css("left", "-300px");
         }
-        else{
-          const data = {
-            searchKey,
-            searchOption,
-            searchFilter: JSON.stringify(searchFilter)
-          }
+      }
 
-          // console.log(data)
-          
-          $.ajax({
-            type: 'POST',
-            url: '/doctor/patients/searchResults',
-            data,
-            success: (data) => {
-              console.log(data)
-              
-              if(typeof data.error_msg != 'undefined') {
-                $("#loadingGif").fadeOut('slow');  
-                alert(data.error_msg)
-                if(typeof data.redirectTo != 'undefined') location = data.redirectTo
-              }
-
-              $("#notifyBarTitle").html("Search Results")
-              let searchResults = data.searchResults
-              let patientTableBodyHtml = ``
-              for(let i=0;i<searchResults.length;i++){
-                patientTableBodyHtml += `
-                  <tr class="patient-info">
-                    <td  class="patient-icon">
-                      <a href=""><i class="fas fa-user"></i></a>
-                    </td>
-                    <td class="info">
-                      <div class="patientSummary">
-                        <div class="segment">
-                          Name: <a href="">${searchResults[i].name}</a>
-                        </div>
-                        <div class="segment">
-                          Email: <a href="">${searchResults[i].email}</a> 
-                        </div>
-                      </div>                      
-                    </td>
-                    <td class="info">
-                      <a href="/doctor/patients/records">${searchResults[i].recordCount}</a>
-                    </td>
-                    <td class="dlt-btn-cont">
-                      <button type="button" data-toggle="modal" data-target="#deletePatientModal">Remove</button>
-                    </td>
-                  </tr>`
-              }
-
-              $('#patientTableContainer').html(
-                `<table class="table table-bordered table-hover" id="patientTable">
-                  <thead >
-                    <tr>
-                      <th scope="col"></th>
-                      <th scope="col">Name</th>
-                      <th scope="col">Records</th>
-                      <th scope="col">Option</th>
-                    </tr>
-                  </thead>
-                            
-                  <tbody>
-                    ${patientTableBodyHtml}
-                  </tbody>
-                </table>`
-              )
-              $("#loadingGif").fadeOut('fast');
-            },
-          });
-        }
-
-      };
-    
+      window.onresize = screenDisplayCheck;
+      window.onload = screenDisplayCheck;
     </script>
-  </body>
+</body>
+
 </html>
