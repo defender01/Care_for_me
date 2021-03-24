@@ -133,6 +133,11 @@ main{
 .feature-container{
     padding: 10%;
     background-color: rgba(214, 214, 208, 0.87);
+    .feature-title{
+        text-align: center;
+        font-size: 40px;
+        margin-bottom: 20px;
+    }
     .feature{
         margin: 50px 0 50px 0;
         @media(min-width: 1000px){

@@ -55,8 +55,8 @@ router.get("/home/edit", checkAuthenticatedAdmin, async (req,res) => {
     res.render('404',{'error': err.message})
     return
   }  
-  console.log('home data:')
-  console.log(util.inspect({data}, false, null, true /* enable colors */))
+  // console.log('home data:')
+  // console.log(util.inspect({data}, false, null, true /* enable colors */))
   res.render('adminHomeEdit', {navDisplayName, data})
 })
 router.post("/home/edit", checkAuthenticatedAdmin, async (req,res) => {

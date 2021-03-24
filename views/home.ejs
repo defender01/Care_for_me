@@ -130,9 +130,12 @@
           </div>               
         </div>
         <div class="feature-container">
+          <div class="feature-title">
+            Our Features
+          </div>
           <% if(typeof data != 'undefined' && data!=null && typeof data.features!= 'undefined'){ %>
-            <% for(let i=0; i<data.services.length; i++){ %>
-              <%if(i==0) {%>
+            <% for(let i=0; i<data.features.length; i++){ %>
+              <%if(i%2==0) {%>
                 <div class="feature">
                   <div class="details">
                     <h1><%= typeof data != 'undefined' && data!=null ? data.features[i].name : '' %></h1>
@@ -149,28 +152,11 @@
                     </div>
                   </div>
                 </div>
-              <%} else if(i==1) {%>
+              <%} else if(i%2==1) {%>
                 <div class="feature">
                   <div class="image-container">
                     <div class="image-holder">
                       <img src="/resources/record.jpg" alt="Photo is not loaded">
-                    </div>
-                  </div>
-                  <div class="details">
-                    <h1><%= typeof data != 'undefined' && data!=null ? data.features[i].name : '' %></h1>
-                    <p >
-                      <%= typeof data != 'undefined' && data!=null ? data.features[i].details.substring(0,Math.min(400, data.features[i].details.length)) : '' %>
-                      <%if(data.features[i].details.length>400) {%>
-                        <span id="featureDetails<%=data.features[i]._id %>" style="display: none;"><%= data.features[i].details.substring(400, data.features[i].details.length)%></span> <a href="" onclick="return false;"><span id = 'readMore<%=data.features[i]._id %>' class='readMore' onclick="toggle('featureDetails<%=data.features[i]._id %>','readMore<%=data.features[i]._id %>', 'more')">Read More</span></a>
-                      <%}%>
-                    </p>
-                  </div>          
-                </div> 
-              <%}else {%>
-                <div class="feature">
-                  <div class="image-container">
-                    <div class="image-holder">
-                      <img src="" alt="Photo is not loaded">
                     </div>
                   </div>
                   <div class="details">
@@ -192,7 +178,7 @@
             <h1>Thoughts of Users</h1>
           </div>
           <% if(typeof data != 'undefined' && data!=null && typeof data.reviews!= 'undefined'){ %>
-            <% for(let i=0; i<data.services.length; i++){ %>
+            <% for(let i=0; i<data.reviews.length; i++){ %>
               <!-- feature 3 -->
               <div class="review">
                 <div class="details">

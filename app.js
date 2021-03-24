@@ -4,10 +4,13 @@ var bodyParser = require("body-parser")
 var flash = require('connect-flash')
 var session = require("express-session")
 var passport = require("passport")
+const util = require('util')
+
 const Patient = require('./models/patient');
 const Doctor = require("./models/doctor").doctorModel;
 const Admin = require("./models/admin").adminModel;
 const {homeModel} = require("./models/home");
+
 
 require("dotenv").config()
 
@@ -106,6 +109,7 @@ app.get("/", async (req, res) => {
     res.render('404',{'error': err.message})
     return
   }  
+  // console.log(util.inspect({data}, false, null, true /* enable colors */))
   res.render("home", { navDisplayName, userRole, data })
 })
 
