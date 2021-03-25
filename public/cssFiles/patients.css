@@ -94,6 +94,11 @@ main .side-bar .nav-sec-cont .card .card-title {
   border-color: rgba(207, 207, 209, 0.726);
 }
 
+main .side-bar .nav-sec-cont .card .card-title i {
+  color: #f15353;
+  margin-right: 10px;
+}
+
 main .side-bar .nav-sec-cont .card .search-input {
   padding: 5px;
 }

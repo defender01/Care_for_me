@@ -85,6 +85,10 @@ main {
         border-radius: 5px;
         box-shadow: 0 0 1px rgba(153, 152, 153, 0.76);                
         .card-title{
+          i{
+            color: #f15353;
+            margin-right: 10px;
+          }
           margin: 5px 5px 10px 5px;
           padding: 0 0 10px 0;
           font-size: 18px;
@@ -321,7 +325,7 @@ main {
 
         border-radius: 5px;
         box-shadow: 0 0 1px rgba(153, 152, 153, 0.76);                
-        .card-title{
+        .card-title{          
           margin: 5px 5px 10px 5px;
           padding: 0 0 10px 0;
           font-size: 18px;

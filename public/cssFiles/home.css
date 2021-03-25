@@ -15,6 +15,14 @@ main .content-wrap {
   padding-bottom: 270px;
 }
 
+main .readMore {
+  color: #4863fc;
+}
+
+main .readMore:hover {
+  color: #102cc7;
+}
+
 .banner {
   padding: 10%;
   width: 100%;
@@ -151,6 +159,12 @@ main .content-wrap {
   background-color: rgba(214, 214, 208, 0.87);
 }
 
+.feature-container .feature-title {
+  text-align: center;
+  font-size: 40px;
+  margin-bottom: 20px;
+}
+
 .feature-container .feature {
   margin: 50px 0 50px 0;
 }
@@ -187,6 +201,56 @@ main .content-wrap {
 }
 
 .feature-container .feature .image-container .image-holder img {
+  height: 100%;
+  width: 100%;
+}
+
+.review-container {
+  padding: 10%;
+  background-color: #ffffff;
+}
+
+.review-container .review-title {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.review-container .review {
+  margin: 50px 0 50px 0;
+}
+
+@media (min-width: 1000px) {
+  .review-container .review {
+    display: flex;
+  }
+}
+
+.review-container .review .details {
+  flex: 1.6;
+}
+
+.review-container .review .details h1 {
+  font-size: 30px;
+}
+
+.review-container .review .details p {
+  text-align: justify;
+  font-size: 22px;
+}
+
+.review-container .review .image-container {
+  padding: 50px;
+  flex: 1;
+}
+
+.review-container .review .image-container .image-holder {
+  margin: auto;
+  background-color: #d35151;
+  width: 100%;
+  height: calc((100vw-20)*.59);
+}
+
+.review-container .review .image-container .image-holder img {
   height: 100%;
   width: 100%;
 }

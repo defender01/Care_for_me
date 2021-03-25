@@ -4,9 +4,13 @@ var bodyParser = require("body-parser")
 var flash = require('connect-flash')
 var session = require("express-session")
 var passport = require("passport")
+const util = require('util')
+
 const Patient = require('./models/patient');
 const Doctor = require("./models/doctor").doctorModel;
 const Admin = require("./models/admin").adminModel;
+const {homeModel} = require("./models/home");
+
 
 require("dotenv").config()
 
@@ -94,12 +98,19 @@ app.use(function (req, res, next) {
 
 app.get("/", async (req, res) => {
   let navDisplayName = ''
-  let userRole = ''
+  let userRole = '', data = null
   if (req.user){
     navDisplayName = req.user.name.displayName
     userRole = req.user.role
   }
-  res.render("home", { navDisplayName, userRole })
+  try{
+    data = await homeModel.findOne({})
+  }catch(err){
+    res.render('404',{'error': err.message})
+    return
+  }  
+  // console.log(util.inspect({data}, false, null, true /* enable colors */))
+  res.render("home", { navDisplayName, userRole, data })
 })
 
 app.get("/test", async (req, res) => {
