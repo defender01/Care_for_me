@@ -290,6 +290,19 @@ main {
                 }
               }
             }
+            .add-btn-cont{
+              text-align: left;
+              button{
+                padding: 5px 10px;
+                border: 0px;
+                border-radius: 4px;
+                background-color: #25b346;
+                color: #ffffff;
+                &:hover {
+                  background-color: #218838;
+                }
+              }
+            }
           }
         }
       }

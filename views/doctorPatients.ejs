@@ -299,11 +299,25 @@
                     <td class="info">
                       <a href="/doctor/followupQues/records"> <%= singleData.recordCount %></a>
                     </td>
-                    <td class="dlt-btn-cont">
-                      <button type="button" data-toggle="modal" data-target="#deletePatientModal">
-                        Remove
-                      </button>
-                    </td>
+                    <% if(singleData.exists) { %>
+                      
+                      <td class="dlt-btn-cont">
+                        <button type="button" id="removeButton" data-patient-name="<%= singleData.name %>" data-toggle="modal" data-target="#deletePatientModal">
+                          Remove
+                        </button>
+                      </td>
+
+                    <% } else { %>
+                      
+                      <td class="add-btn-cont">
+                        <button type="button" id="addButton">
+                          Add
+                        </button>
+
+                        <p id="requestSent" style="display: none;"> Request Sent </p>
+                      </td>
+                    
+                    <% } %>
                   </tr>
                   <%}%>
                   <%}%>
@@ -397,6 +411,18 @@
           $(".side-bar").css("left", "-300px");
         }
       }
+
+      $("#addButton").on("click", function(e){
+        $("#requestSent").css("display", "block");
+        $("#addButton").css("display", "none");
+      })
+
+      $("#removeButton").on("click", function(e){
+        let patientName =  $(this).data('patient-name')
+        let modalQuestion = `Are you sure you want to remove ${patientName} from patient list?`
+        $("#deletePatientModalLabel").html(modalQuestion)
+        
+      })
 
       window.onresize = screenDisplayCheck;
       window.onload = screenDisplayCheck;

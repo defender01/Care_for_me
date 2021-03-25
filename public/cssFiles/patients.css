@@ -306,6 +306,22 @@ main .wrapper .page-holder table tbody .patient-info .dlt-btn-cont button:hover 
   background-color: #9e2323;
 }
 
+main .wrapper .page-holder table tbody .patient-info .add-btn-cont {
+  text-align: left;
+}
+
+main .wrapper .page-holder table tbody .patient-info .add-btn-cont button {
+  padding: 5px 10px;
+  border: 0px;
+  border-radius: 4px;
+  background-color: #25b346;
+  color: #ffffff;
+}
+
+main .wrapper .page-holder table tbody .patient-info .add-btn-cont button:hover {
+  background-color: #218838;
+}
+
 main .wrapper .page-holder .pagination-holder {
   margin: 30px 0 50px 0;
   height: 80px;
