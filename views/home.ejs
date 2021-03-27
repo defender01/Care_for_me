@@ -42,7 +42,8 @@
 
     <main>
       <div class="content-wrap">
-        <div class="banner">
+        <% let backgroundImagePath = (typeof data != 'undefined' && typeof data.coverImagePath != 'undefined') ? data.coverImagePath: '/resources/takingRecord.jpg' %>
+        <div class="banner" style="background-image: url('<%= backgroundImagePath %>')">
           <div class="banner-title">
             <h1>
               Organize your medical information with us
@@ -70,7 +71,9 @@
           </div>
           <div class="about-photo">
             <div class="img-container">
-              <img src="/resources/consultation.jpg" alt="Photo is not loaded">
+
+              <% let aboutUsImagePath = (typeof data != 'undefined' && typeof data.aboutUsImagePath != 'undefined') ? data.aboutUsImagePath: '/resources/consultation.jpg' %>
+              <img src="<%= aboutUsImagePath %>" alt="Photo is not loaded">
             </div>          
           </div>
         </div>
@@ -148,7 +151,7 @@
                   </div>
                   <div class="image-container">
                     <div class="image-holder">
-                      <img src="/resources/doctor.jpg" alt="Photo is not loaded">
+                      <img src="<%= (typeof data.features[i].imagePath != 'undefined') ? data.features[i].imagePath: '/resources/doctor.jpg' %> " alt="Photo is not loaded">
                     </div>
                   </div>
                 </div>
@@ -156,7 +159,7 @@
                 <div class="feature">
                   <div class="image-container">
                     <div class="image-holder">
-                      <img src="/resources/record.jpg" alt="Photo is not loaded">
+                      <img src="<%= (typeof data.features[i].imagePath != 'undefined') ? data.features[i].imagePath: '/resources/record.jpg' %>" alt="Photo is not loaded">
                     </div>
                   </div>
                   <div class="details">

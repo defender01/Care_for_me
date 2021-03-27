@@ -2,6 +2,9 @@ const express = require("express");
 const router = express.Router();
 const mongoose = require("mongoose");
 const util = require('util')
+const multer = require('multer')
+const path = require('path')
+const fs = require('fs').promises;
 
 const {
   sendSectionSubSec,
@@ -14,6 +17,8 @@ const {
   saveDoctorQues
 } = require("../../controllers/adminFunctions");
 
+const {checkNotNull} = require("../../controllers/functionCollection")
+
 const {
   uploadVaccineAndSubstanceToDB,
   clearWholeAnswerCollection
@@ -21,16 +26,60 @@ const {
 
 const { questionModel, optionModel } = require("../../models/inputCollection");
 
-const { parameterModel } = require("../../models/followup");
+const {parameterModel} = require("../../models/followup");
 const {homeModel} = require("../../models/home");
 
 const {checkAuthenticatedAdmin } = require("../../controllers/auth_helper");
+
+// Set The Storage Engine
+const storage = multer.diskStorage({
+  destination: './resources/homePictures',
+  filename: function(req, file, cb){
+    cb(null,file.fieldname + '-' + Date.now() + path.extname(file.originalname));
+  }
+});
+
+// Init Upload
+const upload = multer({
+  storage: storage,
+  limits:{fileSize: 5000000},
+  fileFilter: function(req, file, cb){
+    checkFileType(file, cb);
+  }
+}).any()
+
+// Check File Type
+function checkFileType(file, cb){
+  // Allowed ext
+  const filetypes = /jpeg|jpg|png|gif/;
+  // Check ext
+  const extname = filetypes.test(path.extname(file.originalname).toLowerCase());
+  // Check mime
+  const mimetype = filetypes.test(file.mimetype);
+
+  if(mimetype && extname){
+    return cb(null,true);
+  } else {
+    cb('Error: Images Only!');
+  }
+}
+
+async function deleteFile(req, res, filePath){
+  if(!checkNotNull(filePath)) return
+
+  try {
+    await fs.unlink(filePath);
+    console.log(`successfully deleted ${filePath}`);
+  } catch (err) {
+    res.render('404',{'error': err.message})
+    return
+  }
+}
 
 router.get('/', checkAuthenticatedAdmin,  (req, res)=> {
   let navDisplayName = req.user.name.displayName
   res.render('admin',{navDisplayName})
 })
-
 
 // this is for deleting section subsection....have to delete this later
 router.get("/deleteSectionSubsection", checkAuthenticatedAdmin, deleteSecSubSecQuesOp);
@@ -59,68 +108,128 @@ router.get("/home/edit", checkAuthenticatedAdmin, async (req,res) => {
   // console.log(util.inspect({data}, false, null, true /* enable colors */))
   res.render('adminHomeEdit', {navDisplayName, data})
 })
-router.post("/home/edit", checkAuthenticatedAdmin, async (req,res) => {
-  let data = req.body
-  let homeId = data.homeId
-  let home = null
-  let services = [], features = [], reviews = []
-  console.log(data)
+router.post("/home/edit", checkAuthenticatedAdmin, async (req,res) => {  
 
-  let serviceId = typeof data.serviceId!= 'undefined'? Array.isArray(data.serviceId)? data.serviceId : [data.serviceId] : []
-  let featureId = typeof data.featureId!= 'undefined'? Array.isArray(data.featureId)? data.featureId : [data.featureId] : []
-  let reviewId = typeof data.reviewId!= 'undefined'? Array.isArray(data.reviewId)? data.reviewId : [data.reviewId] : []
-  for(let i=0; i<serviceId.length; i++){
-    let service = {
-      _id: serviceId[i],
-      name: data['serviceName'+serviceId[i]],
-      details: data['serviceDetails'+serviceId[i]],
-    }
-    services.push(service)
-  }
-  for(let i=0; i<featureId.length; i++){
-    let feature = {
-      _id: featureId[i],
-      name: data['featureName'+featureId[i]],
-      details: data['featureDetails'+featureId[i]],
-    }
-    features.push(feature)
-  }
-  
-  for(let i=0; i<reviewId.length; i++){
-    let review = {
-      _id: reviewId[i],
-      name: data['reviewerName'+reviewId[i]],
-      details: data['reviewDetails'+reviewId[i]],
-    }
-    reviews.push(review)
-  }  
-  if(homeId ==''){
-    home =  new homeModel({
-      _id: new mongoose.Types.ObjectId()
+  upload(req, res, async (err) => {
+    let data = req.body
+    let files = req.files
+    let homeId = data.homeId
+    let home = null
+    let services = [], features = [], reviews = []
+    
+    // console.log(req.body)
+    // console.log(req.files)
+
+    if(err){
+      req.flash('error_msg', err.message)
+      res.redirect('back')
+      return 
+    } 
+    console.log('File Uploaded!')
+    
+    let covImgIdx = files.findIndex((file) => {
+      return file.fieldname == `coverImage`
     })
-  }
-  else{
-    try{
-      home = await homeModel.findOne({_id: homeId})
-    }catch(err){
-      res.render('404',{'error':err.message})
-      return
+    let coverImagePath =  data['prevCoverImagePath']
+
+    if(covImgIdx != -1){
+      deleteFile(req,res, coverImagePath)
+      coverImagePath = files[covImgIdx].path.replace(/\\/g, "/")
     }
-  }
-  home.aboutUs = data.aboutUs
-  home.services = services
-  home.features = features
-  home.reviews = reviews
-  // console.log(util.inspect({home}, false, null, true /* enable colors */))
-  let result = null
-  try{
-    result = await home.save()
-  }catch(err){
-    res.render('404',{'error': err.message})
+
+    let aboutUsImgIdx = files.findIndex((file) => {
+      return file.fieldname == `aboutUsImage`
+    })
+    let aboutUsImagePath =  data['prevAboutUsImagePath']
+
+    if(aboutUsImgIdx != -1){
+      deleteFile(req,res, aboutUsImagePath)
+      aboutUsImagePath = files[aboutUsImgIdx].path.replace(/\\/g, "/")
+    }
+    
+    let serviceId = typeof data.serviceId!= 'undefined'? Array.isArray(data.serviceId)? data.serviceId : [data.serviceId] : []
+    let featureId = typeof data.featureId!= 'undefined'? Array.isArray(data.featureId)? data.featureId : [data.featureId] : []
+    let reviewId = typeof data.reviewId!= 'undefined'? Array.isArray(data.reviewId)? data.reviewId : [data.reviewId] : []
+    for(let i=0; i<serviceId.length; i++){
+      let service = {
+        _id: serviceId[i],
+        name: data['serviceName'+serviceId[i]],
+        details: data['serviceDetails'+serviceId[i]],
+      }
+      services.push(service)
+    }
+    for(let i=0; i<featureId.length; i++){
+      let idx = files.findIndex((file) => {
+        return file.fieldname == `featureImage${featureId[i]}`
+      })
+
+      let feature = {
+        _id: featureId[i],
+        name: data['featureName'+featureId[i]],
+        details: data['featureDetails'+featureId[i]],
+        imagePath: data['prevFeatureImagePath'+featureId[i]]
+      }
+
+      if(idx != -1){
+        let prevPath =  data['prevFeatureImagePath'+featureId[i]]
+        feature.imagePath = files[idx].path.replace(/\\/g, "/")
+        deleteFile(req,res, prevPath)
+      }
+      features.push(feature)
+    }
+    
+    for(let i=0; i<reviewId.length; i++){
+      let idx = files.findIndex((file) => {
+        return file.fieldname == `reviewImage${reviewId[i]}`
+      })
+
+      let review = {
+        _id: reviewId[i],
+        name: data['reviewerName'+reviewId[i]],
+        details: data['reviewDetails'+reviewId[i]],
+        imagePath: data['prevReviewImagePath'+reviewId[i]]
+      }
+      
+      if(idx != -1){
+        let prevPath =  data['prevReviewImagePath'+reviewId[i]]
+        review.imagePath = files[idx].path.replace(/\\/g, "/")
+        deleteFile(req,res, prevPath)
+      }
+      reviews.push(review)
+    }  
+    if(homeId ==''){
+      home =  new homeModel({
+        _id: new mongoose.Types.ObjectId()
+      })
+    }
+    else{
+      try{
+        home = await homeModel.findOne({_id: homeId})
+      }catch(err){
+        res.render('404',{'error':err.message})
+        return
+      }
+    }
+    home.coverImagePath = coverImagePath
+    home.aboutUsImagePath = aboutUsImagePath
+    home.aboutUs = data.aboutUs
+    home.services = services
+    home.features = features
+    home.reviews = reviews
+    // console.log(util.inspect({home}, false, null, true /* enable colors */))
+    let result = null
+    try{
+      result = await home.save()
+    }catch(err){
+      res.render('404',{'error': err.message})
+      return
+    }  
+    
+    req.flash('success_msg', 'Successfully updated home details.')
+    res.redirect('back')
     return
-  }  
-  req.flash('success_msg', 'Successfully updated home details.')
-  res.redirect('back')
+  });
+
 })
 
 router.get("/followupQues/edit", checkAuthenticatedAdmin, async (req,res) => {

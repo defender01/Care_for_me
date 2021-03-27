@@ -20,13 +20,6 @@
     <!-- for loader -->
     <script src="/assets/jsFiles/loader.js"></script>    
     <link rel="stylesheet" href="/assets/cssFiles/loader.css" />
-    <!-- for date range picker -->
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
-
-    <!-- for address cdn -->    
-    <script src="//geodata.solutions/includes/countrystatecity.js"></script>
 
     <title>Registration-Care for me</title>
   </head>
@@ -47,11 +40,24 @@
           </div>
         </div>
         
-        <form method="POST" action="/admin/home/edit">
+        <form method="POST" action="/admin/home/edit" enctype="multipart/form-data">
           <div class="ques-container">
             <% include ./segments/messages %>   
-            
             <input type="text" name="homeId" value="<%= typeof data != 'undefined' && data!=null ? data._id : '' %>" style="display: none;"/>
+            
+            <input type="text" name="prevCoverImagePath" value="<%= typeof data != 'undefined' && typeof data.coverImagePath != 'undefined' ? data.coverImagePath : '' %>" style="display: none;"/>
+            <div class="single-ques">
+              <div class="label">
+                Cover Image:
+              </div>
+              <div class="input-field">
+                <div class="custom-file">
+                  <input type="file" name="coverImage" class="custom-file-input" id="coverImage" onchange="changeLabel('coverImage', 'coverImageLabel')">
+                  <label id="coverImageLabel" class="custom-file-label" for="coverImage">Choose file</label>
+                </div>
+              </div>
+            </div>
+
             <div class="single-ques">
               <div class="label">
                 About us:
@@ -60,6 +66,20 @@
                 <textarea name="aboutUs" class="form-control"  rows="4" required><%= typeof data != 'undefined' && data!=null && typeof data.aboutUs != 'undefined' ? data.aboutUs : '' %></textarea>
               </div>
             </div>
+
+            <input type="text" name="prevAboutUsImagePath" value="<%= typeof data != 'undefined' && typeof data.aboutUsImagePath != 'undefined' ? data.aboutUsImagePath : '' %>" style="display: none;"/>
+            <div class="single-ques">
+              <div class="label">
+                About Us Representative Image:
+              </div>
+              <div class="input-field">
+                <div class="custom-file">
+                  <input type="file" name="aboutUsImage" class="custom-file-input" id="aboutUsImage" onchange="changeLabel('aboutUsImage', 'aboutUsImageLabel')">
+                  <label id="aboutUsImageLabel" class="custom-file-label" for="aboutUsImage">Choose file</label>
+                </div>
+              </div>
+            </div>
+
             <div class="multi-cont">
               <div class="sec-title">Services</div>
                 <% if(typeof data != 'undefined' && data!=null && typeof data.services!= 'undefined'){ %>
@@ -118,7 +138,21 @@
                         <div class="input-field">
                           <textarea name="featureDetails<%= data.features[i]._id %>" class="form-control"  rows="4" required><%= typeof data != 'undefined' && data!=null ? data.features[i].details : '' %></textarea>
                         </div>
-                      </div>                              
+                      </div>
+
+                      <input type="text" name="prevFeatureImagePath<%= data.features[i]._id %>" value="<%= typeof data.features[i].imagePath != 'undefined' ? data.features[i].imagePath : '' %>" style="display: none;"/>
+                      <div class="single-ques">
+                        <div class="label">
+                          Representative Image:
+                        </div>
+                        <div class="input-field">
+                          <div class="custom-file">
+                            <input type="file" name="featureImage<%= data.features[i]._id %>" class="custom-file-input" id="featureImage<%= data.features[i]._id %>" onchange="changeLabel('featureImage<%= data.features[i]._id %>', 'featureImageLabel<%= data.features[i]._id %>')">
+                            <label id="featureImageLabel<%= data.features[i]._id %>" class="custom-file-label" for="featureImage<%= data.features[i]._id %>">Choose file</label>
+                          </div>
+                        </div>
+                      </div>
+                      
                     </div>
                   <% } %> 
                 <% }%>
@@ -151,7 +185,21 @@
                         <div class="input-field">
                           <textarea name="reviewDetails<%= data.reviews[i]._id %>" class="form-control"  rows="4" required><%= typeof data != 'undefined' && data!=null ? data.reviews[i].details : '' %></textarea>
                         </div>
-                      </div>                              
+                      </div> 
+
+                      <input type="text" name="prevReviewImagePath<%= data.reviews[i]._id %>" value="<%= typeof data.reviews[i].imagePath != 'undefined' ? data.reviews[i].imagePath : '' %>" style="display: none;"/>
+                      <div class="single-ques">
+                        <div class="label">
+                          Representative Image:
+                        </div>
+                        <div class="input-field">
+                          <div class="custom-file">
+                            <input type="file" name="reviewImage<%= data.reviews[i]._id %>" class="custom-file-input" id="reviewImage<%= data.reviews[i]._id %>" onchange="changeLabel('reviewImage<%= data.reviews[i]._id %>', 'reviewImageLabel<%= data.reviews[i]._id %>')">
+                            <label id="reviewImageLabel<%= data.reviews[i]._id %>" class="custom-file-label" for="reviewImage<%= data.reviews[i]._id %>">Choose file</label>
+                          </div>
+                        </div>
+                      </div>
+                      
                     </div>
                   <% } %> 
                 <% }%>
@@ -169,8 +217,7 @@
         </form>
         
       </div>
-     
-      
+
     </main>
     
     <!-- Optional JavaScript -->
@@ -178,6 +225,15 @@
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
     <script>
+      
+      function changeLabel(fileInputId, fileInputLabelId){
+        let element = $(`#${fileInputId}`); 
+        console.log(fileInputId)
+        console.log(fileInputLabelId)
+        var fileName = element[0].files[0].name;
+        $(`#${fileInputLabelId}`).html(fileName);
+      }
+
       function createFeature(){
         $.get('/admin/getNewId', (data) => {
           let newId = data.id
@@ -202,7 +258,21 @@
                 <div class="input-field">
                   <textarea name="featureDetails${newId}" class="form-control"  rows="4" required></textarea>
                 </div>
-              </div>                              
+              </div> 
+
+              <input type="text" name="prevFeatureImagePath${newId}" value="" style="display: none;"/>
+              <div class="single-ques">
+                <div class="label">
+                  Representative Image:
+                </div>
+                <div class="input-field">
+                  <div class="custom-file">
+                    <input type="file" name="featureImage${newId}" class="custom-file-input" id="featureImage${newId}" onchange="changeLabel('featureImage${newId}', 'featureImageLabel${newId}')" required>
+                    <label id="featureImageLabel${newId}" class="custom-file-label" for="featureImage${newId}">Choose file</label>
+                  </div>
+                </div>
+              </div>
+              
             </div>
             <div id="addPlaceFeature"></div>`
           )
@@ -232,7 +302,21 @@
                 <div class="input-field">
                   <textarea name="reviewDetails${newId}" class="form-control"  rows="4" required></textarea>
                 </div>
-              </div>                              
+              </div> 
+
+              <input type="text" name="prevReviewImagePath${newId}" value="" style="display: none;"/>
+              <div class="single-ques">
+                <div class="label">
+                  Representative Image:
+                </div>
+                <div class="input-field">
+                  <div class="custom-file">
+                    <input type="file" name="reviewImage${newId}" class="custom-file-input" id="reviewImage${newId}" onchange="changeLabel('reviewImage${newId}', 'reviewImageLabel${newId}')" required>
+                    <label id="reviewImageLabel${newId}" class="custom-file-label" for="reviewImage${newId}">Choose file</label>
+                  </div>
+                </div>
+              </div> 
+
             </div>
             <div id="addPlaceReview"></div>`
           )

@@ -1,7 +1,9 @@
 const mongoose = require("mongoose");
 
 const homeSchema = new mongoose.Schema({
-  aboutUs: String ,
+  coverImagePath: String,
+  aboutUs: String,
+  aboutUsImagePath: String,
   services: [{
     _id: mongoose.Schema.Types.ObjectId,
     name: String,
@@ -10,12 +12,14 @@ const homeSchema = new mongoose.Schema({
   features: [{
     _id: mongoose.Schema.Types.ObjectId,
     name: String,
-    details: String
+    details: String,
+    imagePath: String
   }],
   reviews: [{
     _id: mongoose.Schema.Types.ObjectId,
     name: String,
-    details: String
+    details: String,
+    imagePath: String
   }],
 });
 
