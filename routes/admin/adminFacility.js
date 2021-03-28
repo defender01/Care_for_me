@@ -205,6 +205,13 @@ router.post("/home/edit", checkAuthenticatedAdmin, async (req,res) => {
     else{
       try{
         home = await homeModel.findOne({_id: homeId})
+        home.features.forEach((feature) => {
+          if(typeof data['featureName'+feature._id] == 'undefined') deleteFile(req, res, feature.imagePath)
+        })
+
+        home.reviews.forEach((review) => {
+          if(typeof data['reviewerName'+review._id] == 'undefined') deleteFile(req, res, review.imagePath)
+        })
       }catch(err){
         res.render('404',{'error':err.message})
         return
