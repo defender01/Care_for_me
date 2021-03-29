@@ -65,7 +65,7 @@
             <p >
               <%= typeof data != 'undefined' && data!=null ? data.aboutUs.substring(0,Math.min(450, data.aboutUs.length)) : '' %>
               <%if(data.aboutUs.length>450) {%>
-                 ...<span id="aboutUs<%=data._id %>" style="display: none;"><%= data.aboutUs.substring(450, data.aboutUs.length)%></span> <a href="" onclick="return false;"><span id = 'readMore<%=data._id %>' class='readMore' onclick="toggle('aboutUs<%=data._id %>','readMore<%=data._id %>', 'more')">Read More</span></a>
+                 <span id="aboutUs<%=data._id %>" style="display: none;"><%= data.aboutUs.substring(450, data.aboutUs.length)%></span> <a href="" onclick="return false;"><span id = 'readMore<%=data._id %>' class='readMore' onclick="toggle('aboutUs<%=data._id %>','readMore<%=data._id %>', 'more')">... Read More</span></a>
               <%}%>
             </p>
           </div>
@@ -94,7 +94,7 @@
                       <p >
                         <%= typeof data != 'undefined' && data!=null ? data.services[i].details.substring(0,Math.min(100, data.services[i].details.length)) : '' %>
                         <%if(data.services[i].details.length>100) {%>
-                          ...<span id="serviceDetails<%=data.services[i]._id %>" style="display: none;"><%= data.services[i].details.substring(100, data.services[i].details.length)%></span> <a href="" onclick="return false;"><span id = 'readMore<%=data.services[i]._id %>' class='readMore' onclick="toggle('serviceDetails<%=data.services[i]._id %>','readMore<%=data.services[i]._id %>', 'more')">Read More</span></a>
+                          <span id="serviceDetails<%=data.services[i]._id %>" style="display: none;"><%= data.services[i].details.substring(100, data.services[i].details.length)%></span> <a href="" onclick="return false;"><span id = 'readMore<%=data.services[i]._id %>' class='readMore' onclick="toggle('serviceDetails<%=data.services[i]._id %>','readMore<%=data.services[i]._id %>', 'more')">... Read More</span></a>
                         <%}%>
                       </p>
                     </div> 
@@ -108,7 +108,7 @@
                       <p >
                         <%= typeof data != 'undefined' && data!=null ? data.services[i].details.substring(0,Math.min(100, data.services[i].details.length)) : '' %>
                         <%if(data.services[i].details.length>100) {%>
-                          ...<span id="serviceDetails<%=data.services[i]._id %>" style="display: none;"><%= data.services[i].details.substring(100, data.services[i].details.length)%></span> <a href="" onclick="return false;"><span id = 'readMore<%=data.services[i]._id %>' class='readMore' onclick="toggle('serviceDetails<%=data.services[i]._id %>','readMore<%=data.services[i]._id %>', 'more')">Read More</span></a>
+                          <span id="serviceDetails<%=data.services[i]._id %>" style="display: none;"><%= data.services[i].details.substring(100, data.services[i].details.length)%></span> <a href="" onclick="return false;"><span id = 'readMore<%=data.services[i]._id %>' class='readMore' onclick="toggle('serviceDetails<%=data.services[i]._id %>','readMore<%=data.services[i]._id %>', 'more')">... Read More</span></a>
                         <%}%>
                       </p>
                     </div> 
@@ -122,7 +122,7 @@
                       <p >
                         <%= typeof data != 'undefined' && data!=null ? data.services[i].details.substring(0,Math.min(100, data.services[i].details.length)) : '' %>
                         <%if(data.services[i].details.length>100) {%>
-                          ...<span id="serviceDetails<%=data.services[i]._id %>" style="display: none;"><%= data.services[i].details.substring(100, data.services[i].details.length)%></span> <a href="" onclick="return false;"><span id = 'readMore<%=data.services[i]._id %>' class='readMore' onclick="toggle('serviceDetails<%=data.services[i]._id %>','readMore<%=data.services[i]._id %>', 'more')">Read More</span></a>
+                          <span id="serviceDetails<%=data.services[i]._id %>" style="display: none;"><%= data.services[i].details.substring(100, data.services[i].details.length)%></span> <a href="" onclick="return false;"><span id = 'readMore<%=data.services[i]._id %>' class='readMore' onclick="toggle('serviceDetails<%=data.services[i]._id %>','readMore<%=data.services[i]._id %>', 'more')">... Read More</span></a>
                         <%}%>
                       </p>
                     </div> 
@@ -145,7 +145,7 @@
                     <p >
                       <%= typeof data != 'undefined' && data!=null ? data.features[i].details.substring(0,Math.min(400, data.features[i].details.length)) : '' %>
                       <%if(data.features[i].details.length>400) {%>
-                        ...<span id="featureDetails<%=data.features[i]._id %>" style="display: none;"><%= data.features[i].details.substring(400, data.features[i].details.length)%></span> <a href="" onclick="return false;"><span id = 'readMore<%=data.features[i]._id %>' class='readMore' onclick="toggle('featureDetails<%=data.features[i]._id %>','readMore<%=data.features[i]._id %>', 'more')">Read More</span></a>
+                        <span id="featureDetails<%=data.features[i]._id %>" style="display: none;"><%= data.features[i].details.substring(400, data.features[i].details.length)%></span> <a href="" onclick="return false;"><span id = 'readMore<%=data.features[i]._id %>' class='readMore' onclick="toggle('featureDetails<%=data.features[i]._id %>','readMore<%=data.features[i]._id %>', 'more')">... Read More</span></a>
                       <%}%>
                     </p>
                   </div>
@@ -167,7 +167,7 @@
                     <p >
                       <%= typeof data != 'undefined' && data!=null ? data.features[i].details.substring(0,Math.min(400, data.features[i].details.length)) : '' %>
                       <%if(data.features[i].details.length>400) {%>
-                        ...<span id="featureDetails<%=data.features[i]._id %>" style="display: none;"><%= data.features[i].details.substring(400, data.features[i].details.length)%></span> <a href="" onclick="return false;"><span id = 'readMore<%=data.features[i]._id %>' class='readMore' onclick="toggle('featureDetails<%=data.features[i]._id %>','readMore<%=data.features[i]._id %>', 'more')">Read More</span></a>
+                        <span id="featureDetails<%=data.features[i]._id %>" style="display: none;"><%= data.features[i].details.substring(400, data.features[i].details.length)%></span> <a href="" onclick="return false;"><span id = 'readMore<%=data.features[i]._id %>' class='readMore' onclick="toggle('featureDetails<%=data.features[i]._id %>','readMore<%=data.features[i]._id %>', 'more')">... Read More</span></a>
                       <%}%>
                     </p>
                   </div>          
@@ -189,8 +189,8 @@
                     <p >
                       <%= typeof data != 'undefined' && data!=null ? data.reviews[i].details.substring(0,Math.min(400, data.reviews[i].details.length)) : '' %>
                       <%if(data.reviews[i].details.length>400) {%>
-                        ...<span id="reviewDetails<%=data.reviews[i]._id %>" style="display: none;"><%= data.reviews[i].details.substring(400, data.reviews[i].details.length)%></span>
-                          <a href="" onclick="return false;"><span id = 'readMore<%=data.reviews[i]._id %>' class='readMore' onclick="toggle('reviewDetails<%=data.reviews[i]._id %>','readMore<%=data.reviews[i]._id %>', 'more')">Read More</span></a>
+                        <span id="reviewDetails<%=data.reviews[i]._id %>" style="display: none;"><%= data.reviews[i].details.substring(400, data.reviews[i].details.length)%></span>
+                          <a href="" onclick="return false;"><span id = 'readMore<%=data.reviews[i]._id %>' class='readMore' onclick="toggle('reviewDetails<%=data.reviews[i]._id %>','readMore<%=data.reviews[i]._id %>', 'more')">... Read More</span></a>
                       <%}%>
                     </p>
                   </div>
@@ -207,8 +207,8 @@
                     <p >
                       <%= typeof data != 'undefined' && data!=null ? data.reviews[i].details.substring(0,Math.min(400, data.reviews[i].details.length)) : '' %>
                       <%if(data.reviews[i].details.length>400) {%>
-                        ...<span id="reviewDetails<%=data.reviews[i]._id %>" style="display: none;"><%= data.reviews[i].details.substring(400, data.reviews[i].details.length)%></span>
-                          <a href="" onclick="return false;"><span id = 'readMore<%=data.reviews[i]._id %>' class='readMore' onclick="toggle('reviewDetails<%=data.reviews[i]._id %>','readMore<%=data.reviews[i]._id %>', 'more')">Read More</span></a>
+                        <span id="reviewDetails<%=data.reviews[i]._id %>" style="display: none;"><%= data.reviews[i].details.substring(400, data.reviews[i].details.length)%></span>
+                          <a href="" onclick="return false;"><span id = 'readMore<%=data.reviews[i]._id %>' class='readMore' onclick="toggle('reviewDetails<%=data.reviews[i]._id %>','readMore<%=data.reviews[i]._id %>', 'more')">... Read More</span></a>
                       <%}%>
                     </p>
                   </div>
@@ -238,7 +238,7 @@
         if(state == 'more'){
           $('#'+ readMoreId).replaceWith(`<span id = '${readMoreId}' class='readMore' onclick="toggle('${spanId}','${readMoreId}', 'less')">Read Less</span>`)
         }else{
-          $('#'+ readMoreId).replaceWith(`<span id = '${readMoreId}' class='readMore' onclick="toggle('${spanId}','${readMoreId}', 'more')">Read More</span>`)
+          $('#'+ readMoreId).replaceWith(`<span id = '${readMoreId}' class='readMore' onclick="toggle('${spanId}','${readMoreId}', 'more')">... Read More</span>`)
         }
       }
     </script>
