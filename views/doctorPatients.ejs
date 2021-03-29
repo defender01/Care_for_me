@@ -25,7 +25,7 @@
   <script src="/assets/jsFiles/loader.js"></script>
   <link rel="stylesheet" href="/assets/cssFiles/loader.css" />
 
-  <title>Registration-Care for me</title>
+  <title>Registration-Amar.health</title>
 </head>
 
 <body onload="">
@@ -321,6 +321,30 @@
                   </tr>
                   <%}%>
                   <%}%>
+
+                  <%for(let i=0; i<10; i++){%>
+                    <tr class="patient-info">
+                      <td  class="patient-icon">
+                        <a href=""><i class="fas fa-user"></i></a>
+                      </td>
+                      <td class="info">
+                        <div class="patientSummary">
+                          <div class="segment">
+                            Name: <a href="">Abdur Rahman</a>
+                          </div>
+                          <div class="segment">
+                            Email: abdur@outlook.com
+                          </div>
+                        </div>                      
+                      </td>
+                      <td class="info">
+                        <a href="/doctor/followupQues/records">10 Records</a>
+                      </td>
+                      <td class="dlt-btn-cont">
+                        <button type="button" data-toggle="modal" data-target="#deletePatientModal">Remove</button>
+                      </td>
+                    </tr>
+                  <%}%> 
               </tbody>
             </table>
           </div>

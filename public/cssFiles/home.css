@@ -16,7 +16,8 @@ main .content-wrap {
 }
 
 main .readMore {
-  color: #4863fc;
+  color: #020202;
+  font-weight: bold;
 }
 
 main .readMore:hover {
@@ -96,7 +97,7 @@ main .readMore:hover {
 
 .about-us .about-photo {
   flex: 1;
-  padding: 40px;
+  margin: 20px 50px 20px 50px;
   display: flex;
 }
 
@@ -189,7 +190,7 @@ main .readMore:hover {
 }
 
 .feature-container .feature .image-container {
-  padding: 50px;
+  margin: 20px 50px 20px 50px;
   flex: 1;
 }
 
@@ -239,8 +240,11 @@ main .readMore:hover {
 }
 
 .review-container .review .image-container {
-  padding: 50px;
+  border-radius: 5px;
+  margin: 20px 50px 20px 50px;
+  padding: 20px 20px 20px 20px;
   flex: 1;
+  box-shadow: 0 0 15px rgba(98, 97, 99, 0.76);
 }
 
 .review-container .review .image-container .image-holder {

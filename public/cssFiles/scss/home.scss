@@ -12,7 +12,8 @@ main{
       padding-bottom: 270px;
     }
     .readMore{
-        color: rgb(72, 99, 252);
+        color: rgb(2, 2, 2);
+        font-weight: bold;
         &:hover{            
             color: rgb(16, 44, 199);
         }
@@ -80,7 +81,7 @@ main{
     }
     .about-photo{
         flex: 1;
-        padding: 40px;
+        margin: 20px 50px 20px 50px ;
         display: flex;
         .img-container{
             margin: auto;
@@ -154,7 +155,7 @@ main{
             }
         }
         .image-container{
-            padding: 50px;
+            margin: 20px 50px 20px 50px ;
             flex: 1;
             .image-holder{
                 margin: auto;
@@ -192,8 +193,11 @@ main{
             }
         }
         .image-container{
-            padding: 50px;
+            border-radius: 5px;
+            margin: 20px 50px 20px 50px ;
+            padding: 20px 20px 20px 20px;
             flex: 1;
+            box-shadow: 0 0 15px rgba(98, 97, 99, 0.76);
             .image-holder{
                 margin: auto;
                 background-color: rgb(211, 81, 81);

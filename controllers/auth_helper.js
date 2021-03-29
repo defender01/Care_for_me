@@ -365,9 +365,9 @@ let emailVerificationLinkGenerator = async (req, res) => {
 
         let mailData = {
           mailTo: email,
-          subject: 'Care for me - Verify your email address',
+          subject: 'Amar.health - Verify your email address',
           msg: `Hi ${patient.name.firstName},\n` +
-            `Thank you for registering your account on Care for me!\n` +
+            `Thank you for registering your account on Amar.health!\n` +
             `We are sending you this email to verify your email address. Simply click the link below, look for the success message:\n` +
             `${linkForVerification}\n`,
         }
@@ -413,9 +413,9 @@ let emailVerificationLinkGenerator = async (req, res) => {
 
         let mailData = {
           mailTo: email,
-          subject: 'Care for me - Verify your email address',
+          subject: 'Amar.health - Verify your email address',
           msg: `Hi ${doctor.name.firstName},\n` +
-            `Thank you for registering your account on Care for me!\n` +
+            `Thank you for registering your account on Amar.health!\n` +
             `We are sending you this email to verify your email address. Simply click the link below, look for the success message:\n` +
             `${linkForVerification}\n`,
         }
