@@ -202,6 +202,11 @@
                 </div>
               <%} else if(i%2==1) {%>
                 <div class="review">
+                  <div class="image-container">
+                    <div class="image-holder">
+                      <img src="<%= (typeof data.reviews[i].imagePath != 'undefined') ? data.reviews[i].imagePath: '/resources/record.jpg' %>" alt="Photo is not loaded">
+                    </div>
+                  </div> 
                   <div class="details">
                     <h1><%= typeof data != 'undefined' && data!=null ? data.reviews[i].name : '' %></h1>
                     <p >
@@ -212,11 +217,7 @@
                       <%}%>
                     </p>
                   </div>
-                  <div class="image-container">
-                    <div class="image-holder">
-                      <img src="<%= (typeof data.reviews[i].imagePath != 'undefined') ? data.reviews[i].imagePath: '/resources/record.jpg' %>" alt="Photo is not loaded">
-                    </div>
-                  </div>            
+                             
                 </div>
               <% } %> 
             <% } %> 
