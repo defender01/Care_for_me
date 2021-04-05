@@ -225,6 +225,7 @@ main .wrapper .page-holder table {
 
 main .wrapper .page-holder table tbody tr {
   margin: 30px;
+  border: 10px solid white;
 }
 
 main .wrapper .page-holder table tbody tr td {

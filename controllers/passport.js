@@ -6,6 +6,8 @@ const Patient = require('../models/patient');
 const Doctor = require("../models/doctor").doctorModel;
 const Admin = require("../models/admin").adminModel;
 
+const {checkNotNull}= require("./functionCollection")
+
 module.exports = {
   patientStrategy: function(passport) {
   passport.use( 
@@ -23,25 +25,26 @@ module.exports = {
         console.log('in passport strategy for patient')
         console.log(patient)
         // Match password
-        let  patientOtp
-        if(typeof patient.otp!= 'undefined' && patient.otp!=''){
-          console.log('checking otp')          
-          patientOtp = patient.otp
-          // resetting otp
-          patient.otp =''
-          await patient.save()          
-        }
 
         try{
+          let  patientOtp = ''
+          if(checkNotNull(patient.otp)){
+            console.log('checking otp')          
+            patientOtp = patient.otp                     
+          }
           // console.log(password, patient.password, patientOtp)
           // console.log(typeof(password), typeof(patient.password), typeof(patientOtp))
           // console.log(String(password), String(patient.password), String(patientOtp))
+          
 
           let passwordMatch = await bcrypt.compare(String(password), String(patient.password));
-          let passwordOrOtpMatch = await bcrypt.compare(String(password), String(patientOtp));
-          // console.log(passwordMatch, "  ",passwordOrOtpMatch)
-          if(passwordMatch|| passwordOrOtpMatch){
+          let otpMatch = await bcrypt.compare(String(password), String(patientOtp));
+          // console.log(passwordMatch, "  ",otpMatch)
+          if(passwordMatch|| otpMatch){
             req.session.currentLoggedIn = 'patient';
+            // resetting otp
+            patient.otp =''
+            await patient.save() 
             return done(null, patient);
           } 
           else {
@@ -84,25 +87,24 @@ doctorStrategy: function(passport) {
         console.log(doctor)
 
         // Match password
-        let  doctorOtp
-        if(typeof doctor.otp!= 'undefined' && doctor.otp!=''){
-          console.log('checking otp')          
-          doctorOtp = doctor.otp
-          // resetting otp
-          doctor.otp =''
-          await doctor.save()          
-        }
-
         try{
+          let  doctorOtp=''
+          if(checkNotNull(doctor.otp)){
+            console.log('checking otp')          
+            doctorOtp = doctor.otp                
+          }
           // console.log(password, doctor.password, doctorOtp)
           // console.log(typeof(password), typeof(doctor.password), typeof(doctorOtp))
           // console.log(String(password), String(doctor.password), String(doctorOtp))
 
           let passwordMatch = await bcrypt.compare(String(password), String(doctor.password));
-          let passwordOrOtpMatch = await bcrypt.compare(String(password), String(doctorOtp));
-          console.log('for doctor:', passwordMatch, "  ",passwordOrOtpMatch)
-          if(passwordMatch|| passwordOrOtpMatch){
+          let otpMatch = await bcrypt.compare(String(password), String(doctorOtp));
+          console.log('for doctor:', passwordMatch, "  ",otpMatch)
+          if(passwordMatch|| otpMatch){
             req.session.currentLoggedIn = 'doctor';
+            // resetting otp
+            doctor.otp =''
+            await doctor.save()
             return done(null, doctor);
           } 
           else {

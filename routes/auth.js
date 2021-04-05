@@ -16,15 +16,13 @@ const {
   checkAuthenticated,
   checkAuthenticatedDoctor,
 } = require("../controllers/auth_helper");
+const {checkNotNull}= require("../controllers/functionCollection")
 // Load Patient model
 const Patient = require("../models/patient");
 const { session } = require("passport");
 const Doctor = require("../models/doctor").doctorModel;
 const Admin = require("../models/admin").adminModel;
 
-let checkNotNull = (val) => {
-  return typeof val !== "undefined" && val !== "" && val !== null;
-};
 
 // Register Page
 router.get("/:role/register", checkNotAuthenticated, (req, res) => {
