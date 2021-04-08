@@ -213,9 +213,13 @@ main {
         width: 100%;
         tbody{
           tr{
+            z-index: 0;
             margin: 30px;
             border: 10px solid rgb(255, 255, 255);
             background-color: rgba(220, 221, 228, 0.178);
+            &:hover{
+              background-color: rgba(181, 182, 187, 0.541);
+            }
           }
           .new{
             background-color: rgba(217, 217, 223, 0.856);

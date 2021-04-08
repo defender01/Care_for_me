@@ -5,6 +5,7 @@ var flash = require('connect-flash')
 var session = require("express-session")
 var passport = require("passport")
 const util = require('util')
+var fs = require('fs');
 
 const Patient = require('./models/patient');
 const Doctor = require("./models/doctor").doctorModel;
@@ -76,7 +77,7 @@ app.use(flash())
 
 mongoose
   .connect(
-    "mongodb+srv://defender:11223344@cluster0-rrw3g.mongodb.net/test?retryWrites=true&w=majority",
+    process.env.MONGODB_URL,
     {
       useNewUrlParser: true,
       useUnifiedTopology: true,
@@ -114,26 +115,15 @@ app.get("/", async (req, res) => {
 })
 
 app.get("/test", async (req, res) => {
-  let navDisplayName = ''
-  let userRole = ''
-  if (req.user){
-    navDisplayName = req.user.name.displayName
-    userRole = req.user.role
-  }
-
-  try{
-    let patients = await Patient.find({"gender": {$in: ['male', 'female']} })
-    console.log(patients.length)
-    res.send(patients)
-  }catch(err){
-    console.log(err)
-    res.send(err)
-  }
   
+
+
+  res.send({'success': 'success'})
   // res.render("test", { navDisplayName, userRole })
 })
 
 app.post("/test", async (req, res) => {
+ 
   console.log(req.body)
 })
 

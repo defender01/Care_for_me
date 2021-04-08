@@ -83,6 +83,65 @@ let clearWholeAnswerCollection = async (req, res) =>
     })
 }
 
+function saveToNewDatabase(){
+//     let {adminModel} = require('./models/admin')
+//   let dailyInfo = require('./models/dailyInfo')
+//   let {doctorModel} = require('./models/doctor')
+//   let {doctorPatientModel} = require('./models/doctorPatient')
+//   let {parameterModel,followupModel,followupQuesModel,followupQuesAnsModel} = require('./models/followup')
+//   let {homeModel} = require('./models/home')
+//   let {
+//     sectionModel,
+//     subSectionModel,
+//     questionModel,
+//     optionModel,
+//   }  = require('./models/inputCollection')
+//   let medHistoryModel = require('./models/medHistoryInfo')
+//   let {notification} = require('./models/notification')
+//   let patient = require('./models/patient')
+//   let {randomStringModel} = require('./models/randomStringForURL')
+
+//   let models = [adminModel, dailyInfo, doctorModel, doctorPatientModel, parameterModel,followupModel,followupQuesModel,
+//                 followupQuesAnsModel, homeModel, sectionModel, subSectionModel, questionModel, optionModel,
+//                 medHistoryModel,notification, patient, randomStringModel ]
+//   let modelsName = ['adminModel', 'dailyInfo', 'doctorModel', 'doctorPatientModel', 'parameterModel','followupModel','followupQuesModel',
+//     'followupQuesAnsModel', 'homeModel', 'sectionModel', 'subSectionModel', 'questionModel', 'optionModel',
+//     'medHistoryModel','notification', 'patient', 'randomStringModel' ]
+    
+//   for(let i = 0; i<models.length; i++){
+//     try{
+//       let data = await models[i].find({})
+//       // console.log(data)
+//       console.log('i= '+i+'  data.length= ' +data.length+ ' model= '+modelsName[i])
+//       // await fs.promises.writeFile(`./Database/${i}.json`, JSON.stringify(data))
+//     }catch(err){
+//       res.send({err})
+//       return
+//     }
+//   }
+
+  // save to new database
+  
+  // for(let i = 0; i<models.length; i++){
+  //   try{
+  //     let data = await fs.promises.readFile(`./Database/${i}.json`)
+  //     data = JSON.parse(data)
+  //     // if(i==1){
+  //     //   console.log(data)
+  //     // }
+  //     for(let j=0; j<data.length;j++){
+  //       let doc = new models[i](data[j])
+  //       await doc.save()
+  //     }
+  //     // console.log(data)
+  //     console.log('i= '+i+'  data.length= ' +data.length+ ' model= '+modelsName[i])
+  //   }catch(err){
+  //     res.send({err})
+  //     return
+  //   }
+  // }
+}
+
 module.exports = {
     uploadVaccineAndSubstanceToDB,
     clearWholeAnswerCollection

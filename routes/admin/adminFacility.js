@@ -68,11 +68,11 @@ async function deleteFile(req, res, filePath){
   if(!checkNotNull(filePath)) return
 
   try {
-    await fs.unlink(filePath);
+    await fs.unlink(filePath);      
     console.log(`successfully deleted ${filePath}`);
   } catch (err) {
-    res.render('404',{'error': err.message})
-    return
+    console.log('deleteFile err = ',{err})
+    throw new Error(err.message)
   }
 }
 
@@ -109,31 +109,35 @@ router.get("/home/edit", checkAuthenticatedAdmin, async (req,res) => {
   res.render('adminHomeEdit', {navDisplayName, data})
 })
 router.post("/home/edit", checkAuthenticatedAdmin, async (req,res) => {  
-
+  let navDisplayName = req.user.name.displayName
+  let userRole = req.user.role
   upload(req, res, async (err) => {
     let data = req.body
     let files = req.files
     let homeId = data.homeId
     let home = null
-    let services = [], features = [], reviews = []
+    let services = [], features = [], reviews = [], errors = []
     
-    // console.log(req.body)
-    // console.log(req.files)
-
-    if(err){
+    console.log(req.body)
+    console.log(req.files)
+    console.log({err})
+    if(err){      
       req.flash('error_msg', err.message)
       res.redirect('back')
       return 
     } 
     console.log('File Uploaded!')
-    
     let covImgIdx = files.findIndex((file) => {
       return file.fieldname == `coverImage`
     })
     let coverImagePath =  data['prevCoverImagePath']
 
     if(covImgIdx != -1){
-      deleteFile(req,res, coverImagePath)
+      try{
+        await deleteFile(req,res, coverImagePath)
+      }catch(err){
+        errors.push({msg: err.message})
+      }      
       coverImagePath = files[covImgIdx].path.replace(/\\/g, "/")
     }
 
@@ -143,7 +147,11 @@ router.post("/home/edit", checkAuthenticatedAdmin, async (req,res) => {
     let aboutUsImagePath =  data['prevAboutUsImagePath']
 
     if(aboutUsImgIdx != -1){
-      deleteFile(req,res, aboutUsImagePath)
+      try{
+        await deleteFile(req,res, aboutUsImagePath)
+      }catch(err){
+        errors.push({msg: err.message})
+      }         
       aboutUsImagePath = files[aboutUsImgIdx].path.replace(/\\/g, "/")
     }
     
@@ -173,7 +181,11 @@ router.post("/home/edit", checkAuthenticatedAdmin, async (req,res) => {
       if(idx != -1){
         let prevPath =  data['prevFeatureImagePath'+featureId[i]]
         feature.imagePath = files[idx].path.replace(/\\/g, "/")
-        deleteFile(req,res, prevPath)
+        try{
+          await deleteFile(req,res, prevPath)
+        }catch(err){
+          errors.push({msg: err.message})
+        }          
       }
       features.push(feature)
     }
@@ -193,7 +205,11 @@ router.post("/home/edit", checkAuthenticatedAdmin, async (req,res) => {
       if(idx != -1){
         let prevPath =  data['prevReviewImagePath'+reviewId[i]]
         review.imagePath = files[idx].path.replace(/\\/g, "/")
-        deleteFile(req,res, prevPath)
+        try{
+          await deleteFile(req,res, prevPath)
+        }catch(err){
+          errors.push({msg: err.message})
+        }
       }
       reviews.push(review)
     }  
@@ -203,19 +219,26 @@ router.post("/home/edit", checkAuthenticatedAdmin, async (req,res) => {
       })
     }
     else{
-      try{
-        home = await homeModel.findOne({_id: homeId})
-        home.features.forEach((feature) => {
-          if(typeof data['featureName'+feature._id] == 'undefined') deleteFile(req, res, feature.imagePath)
-        })
+      home = await homeModel.findOne({_id: homeId})
+      home.features.forEach(async (feature) => {
+        if(typeof data['featureName'+feature._id] == 'undefined'){
+          try{
+            await deleteFile(req, res, feature.imagePath)
+          }catch(err){
+            errors.push({msg: err.message})
+          } 
+        } 
+      })
 
-        home.reviews.forEach((review) => {
-          if(typeof data['reviewerName'+review._id] == 'undefined') deleteFile(req, res, review.imagePath)
-        })
-      }catch(err){
-        res.render('404',{'error':err.message})
-        return
-      }
+      home.reviews.forEach(async (review) => {
+        if(typeof data['reviewerName'+review._id] == 'undefined'){
+          try{
+            await deleteFile(req, res, review.imagePath)
+          }catch(err){
+            errors.push({msg: err.message})
+          } 
+        } 
+      })
     }
     home.coverImagePath = coverImagePath
     home.aboutUsImagePath = aboutUsImagePath
@@ -224,14 +247,23 @@ router.post("/home/edit", checkAuthenticatedAdmin, async (req,res) => {
     home.features = features
     home.reviews = reviews
     // console.log(util.inspect({home}, false, null, true /* enable colors */))
-    let result = null
     try{
-      result = await home.save()
+      let result = await home.save()
     }catch(err){
-      res.render('404',{'error': err.message})
-      return
-    }  
+      errors.push({msg: err.message})
+    }
     
+    if(errors.length>0){      
+      try{
+        let data = await homeModel.findOne()
+        console.log({errors})
+        res.render('adminHomeEdit', {navDisplayName, data, errors})
+        return
+      }catch(err){
+        res.render('404', {navDisplayName, userRole, error: '404 Page Not Found' });
+        return
+      }      
+    }
     req.flash('success_msg', 'Successfully updated home details.')
     res.redirect('back')
     return
