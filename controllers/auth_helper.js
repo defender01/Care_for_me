@@ -4,6 +4,7 @@ const cryptoRandomString = require('crypto-random-string');
 const Patient = require("../models/patient")
 const Doctor = require("../models/doctor").doctorModel;
 const UrlRandomString = require("../models/randomStringForURL").randomStringModel;
+const {checkNotNull} = require("../controllers/functionCollection")
 
 const { sendMail } = require('./mailController')
 
@@ -281,13 +282,17 @@ async function forgotpassHandler(req, res) {
         let user = await model.findOne({
             $or: [{ email: emailOrPhone }, { phoneNumber: emailOrPhone }]
         })
+        
+        if(!checkNotNull(user)){
+          console.log('user wasnot found with this credential')
+          res.send({ error: "Patient is not registered" })
+          return
+        }
+
         user.otp = hashedOtp        
         await user.save()  
 
-        if(typeof user==='undefined'){
-          console.log('user wasnot found with this credential')
-          res.send({ error: "Patient is not registered" })
-        }
+        
         // sending mail
         let mailData = {
           mailTo: user.email,
@@ -296,9 +301,11 @@ async function forgotpassHandler(req, res) {
             `After login please change the password. Your one time password is:\n ${otp}\n `,
         }
         sendMail(mailData)
+        res.send({ success: "We have sent you an email with temporary password" });
+        return
       });
     });
-    res.send({ success: "We have sent you an email with temporary password" });
+    
 
   } catch (err) {
     console.error(err);

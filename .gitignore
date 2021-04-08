@@ -1,1 +1,6 @@
+# directiories
 node_modules/
+resources/
+
+# files
+# .env

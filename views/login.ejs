@@ -23,9 +23,15 @@
 			<div class="response-msg" >
 				<div class="alert alert-warning alert-dismissible fade show" role="alert" id="errorMsg" style="display: none;">
 					<p id="receivedErrMsg"></p>
+					<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+					</button>
 				</div>
 				<div class="alert alert-success alert-dismissible fade show" role="alert" id="successMsg" style="display: none;">
 					<p id="receivedSuccessMsg"></p>
+					<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
 				</div>
 			</div>
 			<form action="/auth/login" method="post" id="Login_Form">
