@@ -16,6 +16,9 @@
     <!-- stylesheet for navbar -->
     <link rel="stylesheet" href="/assets/cssFiles/navbar.css">
     <link rel="stylesheet" href="/assets/cssFiles/notifications.css" />
+    <!-- stylesheet for pagination -->
+    <link rel="stylesheet" href="/assets/cssFiles/pagination.css" />
+
     <!-- for loader -->
     <script src="/assets/jsFiles/loader.js"></script>    
     <link rel="stylesheet" href="/assets/cssFiles/loader.css" />
@@ -137,63 +140,93 @@
           <div class="table-responsive">
             <table class="table table-hover ">                         
               <tbody>
-                <tr class="request-notify new">
-                  <td class="icon-cont">
-                    <i class="fas fa-user-plus"></i>
-                  </td>
-                  <td class="text-cont">
-                    <a href="">Dr. Rahman Khan</a> wants to add you as Doctor   
-                  </td>
-                  <td class="btn-cont">
-                    <button type="button" class="btn-safe">Accept</button>
-                    <button type="button" class="btn-danger">Decline</button>
-                  </td>
-                </tr>
-                <tr class="warning-notify">
-                  <td class="icon-cont">
-                    <i class="fas fa-exclamation-circle"></i>
-                  </td>
-                  <td class="text-cont">
-                     Your patient <a href="">Abdur Rahman</a> has an irregularity
-                  </td>
-                  <td class="btn-cont">
-                    <button type="button">Check</button>                    
-                  </td>
-                </tr>
-                <tr class="reminder-notify">
-                  <td class="icon-cont">
-                    <i class="far fa-clock"></i>
-                  </td>
-                  <td class="text-cont">
-                    You have 4 followup questions to answer           
-                  </td>
-                  <td class="btn-cont">
-                    <button type="button">View</button>                    
-                  </td>
-                </tr>
+                <% if(typeof notifications != undefined && notifications.length != 0) { %>
+                  
+                  <% for(let notification of notifications) {%>
+                    
+                    <% if(notification.notificationType == 'requestAccepted'){ %>
+                      <tr class="request-notify <%= (notification.seen == false) ? 'new': '' %> ">
+                        <td class="icon-cont">
+                          <i class="fas fa-user-plus"></i>
+                        </td>
+                        <td class="text-cont">
+                          Your patient <a href=""> <%= notification.patient.name %> </a> has accepted your request.   
+                        </td>
+                        <td class="btn-cont">
+                      
+                        </td>
+                      </tr>
+                    <% } else if(notification.notificationType == 'irregularity') { %>
+                      <tr class="warning-notify <%= (notification.seen == false) ? 'new': '' %>">
+                        <td class="icon-cont">
+                          <i class="fas fa-exclamation-circle"></i>
+                        </td>
+                        <td class="text-cont">
+                           Your patient <a href=""> <%= notification.patient.name %> </a> has an irregularity
+                        </td>
+                        <td class="btn-cont">
+                          <button type="button">Check</button>                    
+                        </td>
+                      </tr>
+                    <%} else { %>
+                      <tr class="reminder-notify <%= (notification.seen == false) ? 'new' : '' %>">
+                        <td class="icon-cont">
+                          <i class="far fa-clock"></i>
+                        </td>
+                        <td class="text-cont">
+                          You have 4 followup questions to answer           
+                        </td>
+                        <td class="btn-cont">
+                          <button type="button">View</button>                    
+                        </td>
+                      </tr>
+                    <% } %> 
+                  
+                  <% } %>
+
+                <% } else { %>
+                  <tr class="request-notify new">
+                    <td class="icon-cont">
+                      <i class="fas fa-user-plus"></i>
+                    </td>
+                    <td class="text-cont">
+                      Your patient <a href=""> Abdur Rahman </a> has accepted your request.   
+                    </td>
+                    <td class="btn-cont">
+                      
+                    </td>
+                  </tr>
+                  <tr class="warning-notify">
+                    <td class="icon-cont">
+                      <i class="fas fa-exclamation-circle"></i>
+                    </td>
+                    <td class="text-cont">
+                       Your patient <a href="">Abdur Rahman</a> has an irregularity
+                    </td>
+                    <td class="btn-cont">
+                      <button type="button">Check</button>                    
+                    </td>
+                  </tr>
+                  <tr class="reminder-notify">
+                    <td class="icon-cont">
+                      <i class="far fa-clock"></i>
+                    </td>
+                    <td class="text-cont">
+                      You have 4 followup questions to answer           
+                    </td>
+                    <td class="btn-cont">
+                      <button type="button">View</button>               
+                    </td>
+                  </tr>
+                 <% } %>
               </tbody>
             </table>  
           </div> 
           
           <div class="pagination-holder">
-            <nav aria-label="Page navigation example">
-              <ul class="pagination">
-                <li class="page-item">
-                  <a class="page-link" href="#" aria-label="Previous">
-                    <span aria-hidden="true">&laquo;</span>
-                  </a>
-                </li>
-                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                <li class="page-item">
-                  <a class="page-link" href="#" aria-label="Next">
-                    <span aria-hidden="true">&raquo;</span>
-                  </a>
-                </li>
-              </ul>
-            </nav>
-          </div>         
+            <% include ./segments/pagination %>
+          </div>
+
         </div>
       </div>
 

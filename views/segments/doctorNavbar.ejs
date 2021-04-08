@@ -12,7 +12,9 @@
 <li class="nav-item ">
   <a class="nav-link" href="/doctor/notifications" 
     >Notifications
-    <span class="badge">3</span>
+    <% if (typeof totalUnseenNotifications != 'undefined' && totalUnseenNotifications != null && totalUnseenNotifications != 0) {%>
+      <span class="badge"> <%= totalUnseenNotifications %> </span>
+    <% } %>
   </a>
 </li>
 <li class="nav-item ">

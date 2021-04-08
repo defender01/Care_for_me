@@ -1,6 +1,7 @@
 let express = require('express');
 let router = express.Router();
 let dataModel = require('../models/dailyInfo');
+const {checkNotNull, calculateUnseenNotifications} = require("../controllers/functionCollection")
 
 const {
   checkAuthenticated,
@@ -11,7 +12,17 @@ const {
 router.get('/input', checkAuthenticated, checkEmailVerified, async (req, res) => {
   let navDisplayName = req.user.name.displayName;
   let userRole = req.user.role
-  res.render('storyForm', { navDisplayName, userRole });
+  let totalUnseenNotifications = 0
+  try{
+    totalUnseenNotifications = await calculateUnseenNotifications(req.user._id, userRole)
+  }catch(err){
+    return res.render("404", {
+      navDisplayName,
+      userRole,
+      error: err.message,
+    });
+  }
+  res.render('storyForm', { navDisplayName, userRole, totalUnseenNotifications });
 });
 
 router.post('/input', checkAuthenticated, checkEmailVerified, async (req, res) => {
@@ -39,7 +50,7 @@ router.post('/input', checkAuthenticated, checkEmailVerified, async (req, res) =
     med_details: req.body.taking_med == 'yes' ? req.body.med_details : '',
     diary: req.body.diary
   });
-  await userData.save((err, data) => {
+  userData.save((err, data) => {
     if (err) console.error(err);
     console.log(' data with this id is saved');
   });
@@ -49,12 +60,18 @@ router.post('/input', checkAuthenticated, checkEmailVerified, async (req, res) =
 router.get('/collection', checkAuthenticated, checkEmailVerified, async (req, res) => {
   let navDisplayName = req.user.name.displayName;
   let userRole = req.user.role
-  await dataModel.find({}, (err, data) => {
-    if (err) console.error(err);
-    else res.render('info_display', { data, userRole, navDisplayName });
-  });
+  let data
+  try{
+    data = await dataModel.find({})
+    let totalUnseenNotifications = await calculateUnseenNotifications(req.user._id, userRole)
+    res.render('info_display', { data, userRole, navDisplayName, totalUnseenNotifications});
+  }catch(err){
+    return res.render("404", {
+      navDisplayName,
+      userRole,
+      error: err.message,
+    });
+  }
 });
-
-
 
 module.exports = router;

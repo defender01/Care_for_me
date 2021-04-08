@@ -16,6 +16,9 @@
     <!-- stylesheet for navbar -->
     <link rel="stylesheet" href="/assets/cssFiles/navbar.css">
     <link rel="stylesheet" href="/assets/cssFiles/notifications.css" />
+    <!-- stylesheet for pagination -->
+    <link rel="stylesheet" href="/assets/cssFiles/pagination.css" />
+
     <!-- for loader -->
     <script src="/assets/jsFiles/loader.js"></script>    
     <link rel="stylesheet" href="/assets/cssFiles/loader.css" />
@@ -137,62 +140,96 @@
           <div class="table-responsive">
             <table class="table table-hover ">                         
               <tbody>
-                <tr class="request-notify new">
-                  <td class="icon-cont">
-                    <i class="fas fa-user-plus"></i>
-                  </td>
-                  <td class="text-cont">
-                    <a href="">Dr. Rahman Khan</a> wants to add you as patient   
-                  </td>
-                  <td class="btn-cont">
-                    <button type="button">Accept</button>
-                  </td>
-                </tr>
-                <tr class="warning-notify">
-                  <td class="icon-cont">
-                    <i class="fas fa-exclamation-circle"></i>
-                  </td>
-                  <td class="text-cont">
-                     Your patient <a href="">Abdur Rahman</a> has an irregularity
-                  </td>
-                  <td class="btn-cont">
-                    <button type="button">Check</button>                    
-                  </td>
-                </tr>
-                <tr class="reminder-notify">
-                  <td class="icon-cont">
-                    <i class="far fa-clock"></i>
-                  </td>
-                  <td class="text-cont">
-                    You have 4 followup questions to answer           
-                  </td>
-                  <td class="btn-cont">
-                    <button type="button">View</button>                    
-                  </td>
-                </tr>
+                <% if(typeof notifications != undefined && notifications.length != 0) { %>
+                  
+                  <% for(let notification of notifications) {%>
+                    
+                    <% if(notification.notificationType == 'doctorRequest'){ %>
+                      <tr class="request-notify <%= (notification.seen == false) ? 'new' : '' %> ">
+                        <td class="icon-cont">
+                          <i class="fas fa-user-plus"></i>
+                        </td>
+                        <td class="text-cont">
+                          <a href=""> Dr. <%= notification.doctor.name %> </a> wants to add you as patient   
+                        </td>
+                        <td class="btn-cont">
+                          <button type="button" class="btn-safe acceptButton" data-notification-id="<%= notification._id %>" data-doctor-id="<%= notification.doctor._id %>" id="acceptButton-<%= notification._id %>"> Accept </button>
+                          <button type="button" class="btn-danger declineButton" data-notification-id="<%= notification._id %>" id="declineButton-<%= notification._id %>"> Decline </button>
+                          <p id="requestAccepted-<%= notification._id %>" style="display: none;"> Request Accepted </p>
+                          <p id="requestDeclined-<%= notification._id %>" style="display: none;"> Request Declined </p>
+                        </td>
+                      </tr>
+                    <% } else if(notification.notificationType == 'irregularity') { %>
+                      <tr class="warning-notify <%= (notification.seen == false) ? 'new' : '' %>">
+                        <td class="icon-cont">
+                          <i class="fas fa-exclamation-circle"></i>
+                        </td>
+                        <td class="text-cont">
+                           Your patient <a href="">Abdur Rahman</a> has an irregularity
+                        </td>
+                        <td class="btn-cont">
+                          <button type="button">Check</button>                    
+                        </td>
+                      </tr>
+                    <%} else { %>
+                      <tr class="reminder-notify <%= (notification.seen == false) ? 'new' : '' %>">
+                        <td class="icon-cont">
+                          <i class="far fa-clock"></i>
+                        </td>
+                        <td class="text-cont">
+                          You have <%= notification.followupCnt %> followup questions to answer           
+                        </td>
+                        <td class="btn-cont">
+                          <button type="button">View</button>                    
+                        </td>
+                      </tr>
+                    <% } %> 
+                  
+                  <% } %>
+
+                <% } else { %>
+                  <tr class="request-notify new">
+                    <td class="icon-cont">
+                      <i class="fas fa-user-plus"></i>
+                    </td>
+                    <td class="text-cont">
+                      <a href="">Dr. Rahman Khan</a> wants to add you as patient   
+                    </td>
+                    <td class="btn-cont">
+                      <button type="button" class="btn-safe">Accept</button>
+                      <button type="button" class="btn-danger">Decline</button>
+                    </td>
+                  </tr>
+                  <tr class="warning-notify">
+                    <td class="icon-cont">
+                      <i class="fas fa-exclamation-circle"></i>
+                    </td>
+                    <td class="text-cont">
+                       Your patient <a href="">Abdur Rahman</a> has an irregularity
+                    </td>
+                    <td class="btn-cont">
+                      <button type="button">Check</button>                    
+                    </td>
+                  </tr>
+                  <tr class="reminder-notify">
+                    <td class="icon-cont">
+                      <i class="far fa-clock"></i>
+                    </td>
+                    <td class="text-cont">
+                      You have 4 followup questions to answer           
+                    </td>
+                    <td class="btn-cont">
+                      <button type="button">View</button>                    
+                    </td>
+                  </tr>
+                 <% } %> 
               </tbody>
             </table>  
           </div> 
           
           <div class="pagination-holder">
-            <nav aria-label="Page navigation example">
-              <ul class="pagination">
-                <li class="page-item">
-                  <a class="page-link" href="#" aria-label="Previous">
-                    <span aria-hidden="true">&laquo;</span>
-                  </a>
-                </li>
-                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                <li class="page-item">
-                  <a class="page-link" href="#" aria-label="Next">
-                    <span aria-hidden="true">&raquo;</span>
-                  </a>
-                </li>
-              </ul>
-            </nav>
-          </div>         
+            <% include ./segments/pagination %>
+          </div>        
         </div>
       </div>
 
@@ -233,6 +270,72 @@
             $('.side-bar').css('left', '-300px')
           }
       }
+
+      $(".acceptButton").on("click", function(e){
+        e.preventDefault();
+        // console.log(this.id, e.target.id)
+
+        let data = {
+          notificationId: $(this).data('notification-id'),
+          doctorId: $(this).data('doctor-id')
+        }
+        
+        $.ajax({
+          type: 'POST',
+          url: '/patient/acceptDoctorRequest',
+          data,
+          success: (response) => {
+            if (response.status) {
+              let notificationId = $(this).data('notification-id')
+              $(`#acceptButton-${notificationId}`).hide()
+              $(`#declineButton-${notificationId}`).hide()
+              $(`#requestAccepted-${notificationId}`).show()
+            }
+            else{
+              console.log("Error in server.")
+              alert("Request Accepting failed")
+            }
+          },
+          error: () => {
+            console.log("Error in sending request to server.")
+            alert("Request Accepting failed")
+          }
+        });
+
+      })
+
+      $(".declineButton").on("click", function(e){
+        e.preventDefault();
+        // console.log(this.id, e.target.id)
+
+        let data = {
+          notificationId : $(this).data('notification-id')
+        }
+        
+        $.ajax({
+          type: 'POST',
+          url: '/patient/deleteDoctorRequest',
+          data,
+          success: (response) => {
+            if (response.status) {
+              let notificationId = $(this).data('notification-id')
+              $(`#acceptButton-${notificationId}`).hide()
+              $(`#declineButton-${notificationId}`).hide()
+              $(`#requestDeclined-${notificationId}`).show()
+            }
+            else{
+              console.log("Error in server.")
+              alert("Request declining failed")
+            }
+          },
+          error: () => {
+            console.log("Error in sending request to server.")
+            alert("Request declining failed")
+          }
+        });
+
+      })
+
       window.onresize = screenDisplayCheck
       window.onload = screenDisplayCheck
 

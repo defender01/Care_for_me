@@ -4,6 +4,7 @@ const bcrypt = require("bcryptjs");
 const mongoose = require("mongoose");
 const Doctor = require("../../models/doctor").doctorModel;
 const { getSectionData } = require("../../controllers/adminFunctions");
+const {checkNotNull, calculateUnseenNotifications} = require("../../controllers/functionCollection")
 
 //import camelCase function
 const camelCase = require("../../controllers/functionCollection").camelCase;
@@ -39,6 +40,7 @@ router.get("/", checkAuthenticatedDoctor, checkEmailVerified, async (req, res) =
   ]
 
   try {
+    const totalUnseenNotifications = await calculateUnseenNotifications(req.user._id, userRole)
     doctorInfo = await Doctor.findOne({ _id: req.user._id });
 
     for (let i = 0, max = sectionNames.length; i < max; i++) {
@@ -68,17 +70,15 @@ router.get("/", checkAuthenticatedDoctor, checkEmailVerified, async (req, res) =
 
     res.render("doctorProfile", {
       doctorProfileData,
-      navDisplayName, userRole
+      navDisplayName, userRole,
+      totalUnseenNotifications
     });
   } catch (err) {
-    console.log(err);
-    res.send({ msg: err.message });
+    console.error(err);
+    res.render("404", { navDisplayName, userRole, error: err.message });
+    return;
   }
 });
-
-let checkNotNull = (val) => {
-  return typeof val !== "undefined" && val !== "" && val !== null;
-};
 
 router.get("/update/:sectionID", checkAuthenticatedDoctor, checkEmailVerified, async (req, res) => {
   let sectionID = req.params.sectionID;
@@ -86,24 +86,29 @@ router.get("/update/:sectionID", checkAuthenticatedDoctor, checkEmailVerified, a
   let userRole = req.user.role
 
   // console.log(sectionID)
-
-  let doctorInfo;
-
   try {
-    doctorInfo = await Doctor.findOne({ _id: req.user._id });
+    const doctorInfo = await Doctor.findOne({ _id: req.user._id })
+    const totalUnseenNotifications = await calculateUnseenNotifications(req.user._id, userRole)
+    return res.render("updateDoctorProfile", { navDisplayName, userRole, doctorInfo, sectionID, totalUnseenNotifications});
   } catch (err) {
     console.error(err);
     res.render("404", { navDisplayName, userRole, error: err.message });
     return;
   }
 
-  res.render("updateDoctorProfile", { navDisplayName, userRole, doctorInfo, sectionID });
-  return;
 })
 
 router.post("/update", checkAuthenticatedDoctor, checkEmailVerified, async (req, res) => {
   let navDisplayName = req.user.name.displayName;
   let userRole = req.user.role
+  let totalUnseenNotifications = 0
+  let errors = [];
+
+  try{
+    totalUnseenNotifications = await calculateUnseenNotifications(req.user._id, userRole)
+  }catch(err){
+    errors.push({msg: err.message})
+  }
 
   // console.log(req.body)
   let reqBody = req.body;
@@ -261,8 +266,6 @@ router.post("/update", checkAuthenticatedDoctor, checkEmailVerified, async (req,
 
   // console.log(doctorInfo);
 
-  let errors = [];
-
   if (
     !firstName ||
     !lastName ||
@@ -301,6 +304,7 @@ router.post("/update", checkAuthenticatedDoctor, checkEmailVerified, async (req,
       navDisplayName, userRole,
       errors,
       doctorInfo,
+      totalUnseenNotifications
     })
   } else {
     try {
@@ -333,6 +337,7 @@ router.post("/update", checkAuthenticatedDoctor, checkEmailVerified, async (req,
           navDisplayName, userRole,
           errors,
           doctorInfo,
+          totalUnseenNotifications
         })
       } else {
         let doctor = await Doctor.findOne({ _id: req.user._id });

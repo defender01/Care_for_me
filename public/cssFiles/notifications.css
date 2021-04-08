@@ -319,13 +319,8 @@ main .wrapper .page-holder table tbody .reminder-notify .btn-cont button:hover {
 }
 
 main .wrapper .page-holder .pagination-holder {
-  display: flex;
-  margin: 20px 0 50px 0;
-  height: 150px;
-}
-
-main .wrapper .page-holder .pagination-holder nav {
-  margin: auto;
+  margin: 30px 0 50px 0;
+  height: 80px;
 }
 
 main .wrapper .page-holder .card {
