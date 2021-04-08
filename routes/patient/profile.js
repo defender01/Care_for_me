@@ -11,6 +11,7 @@ const {
   answerModel,
 } = require("../../models/inputCollection");
 const { getSectionData } = require("../../controllers/adminFunctions");
+const {checkNotNull, calculateUnseenNotifications} = require("../../controllers/functionCollection")
 
 //import camelCase function
 const camelCase = require("../../controllers/functionCollection").camelCase;
@@ -25,8 +26,8 @@ const {
 let getQuestionsFromAllSections = async (user) => {
   let navDisplayName = user.name.displayName;
   let userRole = user.role
+  let data
 
-  let data;
   try {
     data = await sectionModel
       .find({})
@@ -54,58 +55,14 @@ let getQuestionsFromAllSections = async (user) => {
       .exec();
   } catch (err) {
     console.error(err);
-    res.render("404", {navDisplayName, userRole, error: err.message });
-    return;
+    throw new Error(err.message)
   }
   // console.log(util.inspect({ data }, false, null, true /* enable colors */));
   return data;
 };
 
-router.get("/", checkAuthenticated, checkEmailVerified, async (req, res) => {
-  let navDisplayName = req.user.name.displayName;
-  let userRole = req.user.role
-  let patientDetails,
-    wholeSectionCollection,
-    medicalHistoryData,
-    vaccineData,
-    substanceData;
-  try {
-    patientDetails = await Patient.findOne({ _id: req.user._id });
-    // console.log(patientDetails)
-    // patientDetailsLean = await Patient.findOne({ _id: req.user._id }).lean()
-    // console.log(patientDetailsLean)
-    wholeSectionCollection = await getQuestionsFromAllSections(req.user);
-    vaccineData = await vaccineModel.find({});
-    substanceData = await substanceModel.find({});
-    medicalHistoryData = await answerModel.find({ userID: req.user._id });
-    // console.log(medicalHistoryData.length)
-    
-    const {
-      mapQuesToAnswer,
-      mapSubSecToAdditionalIDs,
-    } = processAnswerModelData(medicalHistoryData);
-
-    res.render("patientProfile", {
-      patientDetails,
-      navDisplayName, userRole,
-      vaccineData,
-      substanceData,
-      wholeSectionCollection,
-      mapQuesToAnswer,
-      mapSubSecToAdditionalIDs,
-    });
-  } catch (err) {
-    console.log(err);
-    res.send({ msg: err.message });
-  }
-});
-
 // let physicalDiseases = ["Asthma", "Aneurysm", "Diabetes", "Epilepsy Seizures", "Headaches or migraines", "Heart diseases", "High blood pressure", "Kidney disease", "Lung Disease", "Migraine", "Arthritis", "Elevated cholesterol", "Multiple Sclerosis", "Stroke", "Thyroid", "Tuberculosis", "Bleeding disorder"]
 // let mentalDiseases = ["Neurocognitive disordero: dementia/ alzheimer’s disease", "Neurodevelopmental disorder", "Obsessive compulsive disorder", "Schizophrenia", "Depression", "Panic disorder", "Mood disorder", "Attention deficit hyperactivity disorder", "Convulsions", "Somatoform disorder", "Stress disorder", "Eating disorder", "Impulsive control disorder", "Substance abuse disorder"]
-
-let checkNotNull = (val) => {
-  return typeof val !== "undefined" && val !== "" && val !== null;
-};
 
 let processAnswerModelData = (medicalHistoryData) => {
   let mapQuesToAnswer = {},
@@ -157,15 +114,59 @@ let processAnswerModelData = (medicalHistoryData) => {
   return { mapQuesToAnswer, mapSubSecToAdditionalIDs };
 };
 
+router.get("/", checkAuthenticated, checkEmailVerified, async (req, res) => {
+  let navDisplayName = req.user.name.displayName;
+  let userRole = req.user.role
+  let patientDetails,
+    wholeSectionCollection,
+    medicalHistoryData,
+    vaccineData,
+    substanceData,
+    totalUnseenNotifications = 0
+    
+  try {
+    patientDetails = await Patient.findOne({ _id: req.user._id });
+    // console.log(patientDetails)
+    // patientDetailsLean = await Patient.findOne({ _id: req.user._id }).lean()
+    // console.log(patientDetailsLean)
+    wholeSectionCollection = await getQuestionsFromAllSections(req.user);
+    vaccineData = await vaccineModel.find({});
+    substanceData = await substanceModel.find({});
+    medicalHistoryData = await answerModel.find({ userID: req.user._id });
+    // console.log(medicalHistoryData.length)
+    totalUnseenNotifications = await calculateUnseenNotifications(req.user._id, userRole)
+    
+    const {
+      mapQuesToAnswer,
+      mapSubSecToAdditionalIDs,
+    } = processAnswerModelData(medicalHistoryData);
+
+    res.render("patientProfile", {
+      patientDetails,
+      navDisplayName, userRole,
+      totalUnseenNotifications,
+      vaccineData,
+      substanceData,
+      wholeSectionCollection,
+      mapQuesToAnswer,
+      mapSubSecToAdditionalIDs,
+    });
+  } catch (err) {
+    console.log(err);
+    res.send({ msg: err.message });
+  }
+});
+
 router.get("/medHistory", checkAuthenticated, checkEmailVerified, async (req, res) => {
   let navDisplayName = req.user.name.displayName;
   let userRole = req.user.role
-  let substanceData, vaccineData, medicalHistoryData;
+  let substanceData, vaccineData, medicalHistoryData, totalUnseenNotifications = 0 
 
   try {
     vaccineData = await vaccineModel.find({});
     substanceData = await substanceModel.find({});
     medicalHistoryData = await answerModel.find({ userID: req.user._id });
+    totalUnseenNotifications = await calculateUnseenNotifications(req.user._id, userRole)
   } catch (err) {
     console.error(err);
     res.render("404", { navDisplayName, userRole,error: err.message });
@@ -185,6 +186,7 @@ router.get("/medHistory", checkAuthenticated, checkEmailVerified, async (req, re
   //console.log(mapQuesToAnswer, mapSubSecToAdditionalIDs)
   res.render("medHistory", {
     navDisplayName, userRole,
+    totalUnseenNotifications,
     substanceData,
     vaccineData,
     mapQuesToAnswer,
@@ -332,7 +334,8 @@ router.post("/medHistory", checkAuthenticated, checkEmailVerified, async (req, r
     }
   } catch (err) {
     console.error(err);
-    res.send({ error: err.message });
+    res.render("404", { navDisplayName, userRole,error: err.message });
+    return;
   }
 
   res.redirect("/profile");
@@ -342,6 +345,7 @@ router.get("/update/:sectionID", checkAuthenticated, checkEmailVerified, async (
   let sectionID = req.params.sectionID;
   let navDisplayName = req.user.name.displayName;
   let userRole = req.user.role
+  let totalUnseenNotifications = 0
 
   console.log(sectionID)
   if (sectionID === "personalInfo") {
@@ -349,13 +353,14 @@ router.get("/update/:sectionID", checkAuthenticated, checkEmailVerified, async (
 
     try {
       patientDetails = await Patient.findOne({ _id: req.user._id });
+      totalUnseenNotifications = await calculateUnseenNotifications(req.user._id, userRole)
     } catch (err) {
       console.error(err);
       res.render("404", {navDisplayName, userRole, error: err.message });
       return;
     }
 
-    res.render("updatePatientPersonalInfo", { navDisplayName, userRole, patientDetails });
+    res.render("updatePatientPersonalInfo", { navDisplayName, userRole, patientDetails, totalUnseenNotifications });
     return;
   }
 
@@ -372,6 +377,7 @@ router.get("/update/:sectionID", checkAuthenticated, checkEmailVerified, async (
     let vaccineData, medicalHistoryData;
 
     try {
+      totalUnseenNotifications = await calculateUnseenNotifications(req.user._id, userRole)
       vaccineData = await vaccineModel.find({});
       medicalHistoryData = await answerModel.find({
         userID: req.user._id,
@@ -389,8 +395,10 @@ router.get("/update/:sectionID", checkAuthenticated, checkEmailVerified, async (
     } = medicalHistoryData.length
       ? processAnswerModelData(medicalHistoryData)
       : { mapQuesToAnswer: {}, mapSubSecToAdditionalIDs: {} };
+      
     res.render("updateMedHistoryStep1", {
       navDisplayName, userRole,
+      totalUnseenNotifications,
       sectionID,
       vaccineData,
       mapQuesToAnswer,
@@ -401,6 +409,7 @@ router.get("/update/:sectionID", checkAuthenticated, checkEmailVerified, async (
     let medicalHistoryData;
 
     try {
+      totalUnseenNotifications = await calculateUnseenNotifications(req.user._id, userRole)
       medicalHistoryData = await answerModel.find({
         userID: req.user._id,
         sectionID: sectionID,
@@ -419,6 +428,7 @@ router.get("/update/:sectionID", checkAuthenticated, checkEmailVerified, async (
       : { mapQuesToAnswer: {}, mapSubSecToAdditionalIDs: {} };
     res.render("updateMedHistoryStep2", {
       navDisplayName, userRole,
+      totalUnseenNotifications,
       sectionID,
       mapQuesToAnswer,
       mapSubSecToAdditionalIDs,
@@ -428,6 +438,7 @@ router.get("/update/:sectionID", checkAuthenticated, checkEmailVerified, async (
     let substanceData, medicalHistoryData;
 
     try {
+      totalUnseenNotifications = await calculateUnseenNotifications(req.user._id, userRole)
       substanceData = await substanceModel.find({});
       medicalHistoryData = await answerModel.find({
         userID: req.user._id,
@@ -447,6 +458,7 @@ router.get("/update/:sectionID", checkAuthenticated, checkEmailVerified, async (
       : { mapQuesToAnswer: {}, mapSubSecToAdditionalIDs: {} };
     res.render("updateMedHistoryStep3", {
       navDisplayName, userRole,
+      totalUnseenNotifications,
       sectionID,
       substanceData,
       mapQuesToAnswer,
@@ -457,6 +469,7 @@ router.get("/update/:sectionID", checkAuthenticated, checkEmailVerified, async (
     let medicalHistoryData;
 
     try {
+      totalUnseenNotifications = await calculateUnseenNotifications(req.user._id, userRole)
       medicalHistoryData = await answerModel.find({
         userID: req.user._id,
         sectionID: sectionID,
@@ -475,6 +488,7 @@ router.get("/update/:sectionID", checkAuthenticated, checkEmailVerified, async (
       : { mapQuesToAnswer: {}, mapSubSecToAdditionalIDs: {} };
     res.render("updateMedHistoryStep4", {
       navDisplayName, userRole,
+      totalUnseenNotifications,
       sectionID,
       mapQuesToAnswer,
       mapSubSecToAdditionalIDs,
@@ -484,6 +498,7 @@ router.get("/update/:sectionID", checkAuthenticated, checkEmailVerified, async (
     let medicalHistoryData;
 
     try {
+      totalUnseenNotifications = await calculateUnseenNotifications(req.user._id, userRole)
       medicalHistoryData = await answerModel.find({
         userID: req.user._id,
         sectionID: sectionID,
@@ -502,6 +517,7 @@ router.get("/update/:sectionID", checkAuthenticated, checkEmailVerified, async (
       : { mapQuesToAnswer: {}, mapSubSecToAdditionalIDs: {} };
     res.render("updateMedHistoryStep5", {
       navDisplayName, userRole,
+      totalUnseenNotifications,
       sectionID,
       mapQuesToAnswer,
       mapSubSecToAdditionalIDs,
@@ -516,8 +532,10 @@ router.post("/update-personalInfo", checkAuthenticated, checkEmailVerified, asyn
   // let data = req.user;
   let navDisplayName = req.user.name.displayName;
   let userRole = req.user.role
+  let totalUnseenNotifications = 0
   // console.log({ data });
   // console.log(req.body)
+
   const {
     firstName,
     lastName,
@@ -562,6 +580,12 @@ router.post("/update-personalInfo", checkAuthenticated, checkEmailVerified, asyn
 
   let errors = [];
 
+  try{
+    totalUnseenNotifications = await calculateUnseenNotifications(req.user._id, userRole)
+  }catch(err){
+    errors.push({msg: err.message})
+  }
+
   if (
     !firstName ||
     !lastName ||
@@ -594,6 +618,7 @@ router.post("/update-personalInfo", checkAuthenticated, checkEmailVerified, asyn
     // console.log({errors})
     res.render("updatePatientPersonalInfo", {
       navDisplayName, userRole,
+      totalUnseenNotifications,
       errors,
       patientDetails
     });
@@ -627,6 +652,7 @@ router.post("/update-personalInfo", checkAuthenticated, checkEmailVerified, asyn
         res.render("updatePatientPersonalInfo", {
           navDisplayName, userRole,
           errors,
+          totalUnseenNotifications,
           patientDetails
         });
       } 
@@ -693,6 +719,7 @@ router.post("/update/:sectionID", checkAuthenticated, checkEmailVerified, async 
 
   try {
     paramSection = await sectionModel.findById(paramSectoinID);
+    
     // console.log(paramSection)
   } catch (err) {
     console.error(err);

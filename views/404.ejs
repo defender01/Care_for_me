@@ -30,7 +30,11 @@
             <i class="fas fa-exclamation-triangle"></i>
         </div>
         <div class="warning">
+          <% if (typeof error != 'undefined') { %>
             <h1><%= error%></h1>
+          <% } else { %>
+            <h1>404 Not Found</h1>
+          <% } %>
         </div>
         
     </main>

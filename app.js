@@ -11,7 +11,7 @@ const Patient = require('./models/patient');
 const Doctor = require("./models/doctor").doctorModel;
 const Admin = require("./models/admin").adminModel;
 const {homeModel} = require("./models/home");
-
+const {calculateUnseenNotifications} = require("./controllers/functionCollection")
 
 require("dotenv").config()
 
@@ -100,18 +100,20 @@ app.use(function (req, res, next) {
 app.get("/", async (req, res) => {
   let navDisplayName = ''
   let userRole = '', data = null
-  if (req.user){
-    navDisplayName = req.user.name.displayName
-    userRole = req.user.role
-  }
+  let totalUnseenNotifications = 0
   try{
+    if (req.user){
+      navDisplayName = req.user.name.displayName
+      userRole = req.user.role
+      totalUnseenNotifications = await calculateUnseenNotifications(req.user._id, userRole)
+    }
     data = await homeModel.findOne({})
   }catch(err){
     res.render('404',{'error': err.message})
     return
   }  
   // console.log(util.inspect({data}, false, null, true /* enable colors */))
-  res.render("home", { navDisplayName, userRole, data })
+  return res.render("home", { navDisplayName, userRole, data, totalUnseenNotifications})
 })
 
 app.get("/test", async (req, res) => {

@@ -15,7 +15,10 @@ const doctorPatientSchema = new mongoose.Schema({
     phoneNumber: String,
     gender: String
   },
-  recordCount: Number
+  recordCount:{
+    type: Number,
+    default: 0
+  }
 });
 
 module.exports = {

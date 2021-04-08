@@ -150,7 +150,7 @@
                   list?
                 </h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
+                  <span aria-hidden="true">&times; </span>
                 </button>
               </div>
               <div class="modal-body">
@@ -158,7 +158,8 @@
                 deleted.
               </div>
               <div class="modal-footer">
-                <button type="button" class="btn btn-success" onclick="">
+                <input type="hidden" id="patientIdToDelete" value="" style="display: none;">
+                <button id="modalYesButton" type="button" class="btn btn-success">
                   Yes
                 </button>
                 <button type="button" class="btn btn-danger" data-dismiss="modal">
@@ -284,14 +285,14 @@
                 
                 <% if(typeof data != 'undefined') {%>
                 <% for(let singleData of data) { %>
-                  <tr class="patient-info">
+                  <tr class="patient-info" id="tableRow-<%= singleData._id %>">
                     <td class="patient-icon">
                       <a href=""><i class="fas fa-user"></i></a>
                     </td>
                     <td class="info">
                       <div class="patientSummary">
                         <div class="segment">
-                          Name: <a href=""><%= singleData.name %></a>
+                          Name: <a href=""><%= singleData.name %> </a>
                         </div>
                         <div class="segment">Email: <%= singleData.email %></div>
                       </div>
@@ -302,7 +303,7 @@
                     <% if(singleData.exists) { %>
                       
                       <td class="dlt-btn-cont">
-                        <button type="button" id="removeButton" data-patient-name="<%= singleData.name %>" data-toggle="modal" data-target="#deletePatientModal">
+                        <button type="button" class="removeButton" id="removeButton-<%= singleData._id %>" data-patient-id="<%= singleData._id %>" data-patient-name="<%= singleData.name %>" data-toggle="modal" data-target="#deletePatientModal">
                           Remove
                         </button>
                       </td>
@@ -310,11 +311,11 @@
                     <% } else { %>
                       
                       <td class="add-btn-cont">
-                        <button type="button" id="addButton">
+                        <button type="button" class="addButton" data-patient-id="<%= singleData._id %>" id="addButton-<%= singleData._id %>">
                           Add
                         </button>
 
-                        <p id="requestSent" style="display: none;"> Request Sent </p>
+                        <p id="requestSent-<%= singleData._id %>" style="display: none;"> Request Sent </p>
                       </td>
                     
                     <% } %>
@@ -322,7 +323,7 @@
                   <%}%>
                   <%}%>
 
-                  <%for(let i=0; i<10; i++){%>
+                  <!-- <%for(let i=0; i<10; i++){%>
                     <tr class="patient-info">
                       <td  class="patient-icon">
                         <a href=""><i class="fas fa-user"></i></a>
@@ -344,7 +345,7 @@
                         <button type="button" data-toggle="modal" data-target="#deletePatientModal">Remove</button>
                       </td>
                     </tr>
-                  <%}%> 
+                  <%}%>  -->
               </tbody>
             </table>
           </div>
@@ -395,7 +396,7 @@
         "change",
         function () {
           if (this.value == "name")
-            $("#searchKey").attr("placehol der", "Enter patient's name");
+            $("#searchKey").attr("placeholder", "Enter patient's name");
           else if (this.value == "email")
             $("#searchKey").attr("placeholder", "Enter patient's email id");
           else if (this.value == "phoneNumber")
@@ -436,16 +437,94 @@
         }
       }
 
-      $("#addButton").on("click", function(e){
-        $("#requestSent").css("display", "block");
-        $("#addButton").css("display", "none");
+      $(".addButton").on("click", function(e){
+        e.preventDefault();
+        // console.log(this.id, e.target.id)
+
+        let data = {
+          patientId : $(this).data('patient-id'),
+          notificationType: 'doctorRequest' 
+        }
+        
+        $.ajax({
+          type: 'POST',
+          url: '/doctor/sendNotificationToPatient',
+          data,
+          success: (response) => {
+            if (response.status) {
+              let patientId = $(this).data('patient-id')
+              $(`#addButton-${patientId}`).hide()
+              $(`#requestSent-${patientId}`).show()
+            }
+            else{
+              console.log("Error in server.")
+              alert("Request sent failed")
+            }
+          },
+          error: () => {
+            console.log("Error in sending request to server.")
+            alert("Request sent failed")
+          }
+        });
+
       })
 
-      $("#removeButton").on("click", function(e){
+      $(".removeButton").on("click", function(e){
         let patientName =  $(this).data('patient-name')
-        let modalQuestion = `Are you sure you want to remove ${patientName} from patient list?`
+        let patientId = $(this).data('patient-id')
+        // console.log(patientName, patientId)
+        let modalQuestion = `Are you sure you want to remove <b> "${patientName}" </b> from patient list?`
+        let modalBody = `If you click <b> "Yes" </b> patient <b> "${patientName}" </b> will be parmanently deleted.`
+        $("#patientIdToDelete").val(patientId)
         $("#deletePatientModalLabel").html(modalQuestion)
+        $(".modal-body").html(modalBody)
+      })
+
+      $("#modalYesButton").on("click", function(e){
+        e.preventDefault();
+        console.log(this.id, e.target.id)
+
+        let data = {
+          patientId : $("#patientIdToDelete").val()
+        }
         
+        $.ajax({
+          type: 'POST',
+          url: '/doctor/removePatientFromPatientDesk',
+          data,
+          success: (response) => {
+            if (response.status) {
+              let pathname = window.location.pathname;
+              let patientId = $("#patientIdToDelete").val()
+              // console.log("Pathname: " + pathname)
+              if(pathname.indexOf("searchResults") == -1){
+                $(`#tableRow-${patientId}`).remove()
+              }
+              else{
+                let addButtonHtml = `<td class="add-btn-cont">
+                                      <button type="button" class="addButton" data-patient-id="${patientId}" id="addButton-${patientId}">
+                                        Add
+                                      </button>
+
+                                      <p id="requestSent-${patientId}" style="display: none;"> Request Sent </p>
+                                    </td>`
+                $(`#tableRow-${patientId} .dlt-btn-cont`).replaceWith(addButtonHtml)
+              }
+              $('#deletePatientModal').modal('toggle');
+              alert("Patient Deletion Operation Successful")
+            }
+            else{
+              console.log("Error in server.")
+              $('#deletePatientModal').modal('toggle');
+              alert("Patient Deletion Operation Failed")
+            }
+          },
+          error: () => {
+            console.log("Error in sending request to server.")
+            $('#deletePatientModal').modal('toggle');
+            alert("Patient Deletion Operation Failed")
+          }
+        })
       })
 
       window.onresize = screenDisplayCheck;
