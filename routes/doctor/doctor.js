@@ -89,7 +89,9 @@ router.get(
         typeof req.query.page != "undefined" ? req.query.page : 1
       );
   
-      const doctorPatients = await DoctorPatient.find({}, "patient recordCount")
+      const doctorPatients = await DoctorPatient
+        .find({"doctor._id": req.user._id}, "patient recordCount")
+        .sort({ created: -1})
         .limit(LIMIT)
         .skip(LIMIT * (page - 1));
   
@@ -370,8 +372,17 @@ router.get(
     try{
       const notifications = await doctorNotification
         .find({ doctorId: req.user._id })
+        .sort({ created: -1})
         .limit(LIMIT)
-        .skip(LIMIT * (page - 1));
+        .skip(LIMIT * (page - 1))
+
+      for(let notification of notifications){
+        if(notification.seen == false){
+          notification.seen = true
+          await notification.save()
+          notification.seen = false // It's for highlighting new unseen notifications on the page on loading for the first time. 
+        }
+      }
 
       const totalNotifications = await doctorNotification.countDocuments({
         doctorId: req.user._id,
@@ -420,20 +431,28 @@ router.post(
     // console.log(typeof patientId)
     if (notificationType == "doctorRequest") {
       try {
-        await patientNotification.deleteMany({
+
+        let notification = await patientNotification.findOne({
           patientId: mongoose.Types.ObjectId(patientId),
           notificationType: notificationType,
           "doctor._id": req.user._id,
         });
 
-        let notification = new patientNotification({
-          patientId: mongoose.Types.ObjectId(patientId),
-          notificationType: notificationType,
-          doctor: {
-            _id: req.user._id,
-            name: req.user.name.fullName,
-          },
-        });
+        if(checkNotNull(notification)){
+          notification.created = Date.now()
+          notification.seen = false
+        }
+        else{
+          notification = new patientNotification({
+            patientId: mongoose.Types.ObjectId(patientId),
+            notificationType: notificationType,
+            doctor: {
+              _id: req.user._id,
+              name: req.user.name.fullName,
+            },
+          });
+        }
+
         await notification.save();
         return res.send({ status: true });
 

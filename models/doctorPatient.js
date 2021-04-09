@@ -18,6 +18,10 @@ const doctorPatientSchema = new mongoose.Schema({
   recordCount:{
     type: Number,
     default: 0
+  },
+  created: { 
+    type: Date, 
+    default: Date.now
   }
 });
 
