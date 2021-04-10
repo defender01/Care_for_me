@@ -122,7 +122,7 @@ router.post("/home/edit", checkAuthenticatedAdmin, async (req,res) => {
     console.log(req.files)
     console.log({err})
     if(err){      
-      req.flash('error_msg', err.message)
+      req.flash('error_msg', err)
       res.redirect('back')
       return 
     } 
