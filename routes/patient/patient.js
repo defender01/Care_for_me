@@ -42,6 +42,21 @@ router.get("/resetpassword", checkAuthenticated, async (req, res) => {
 
 router.post("/resetpassword", checkAuthenticated, postResetPass);
 
+router.get('/records', checkAuthenticated, checkEmailVerified, async (req, res) => {
+  let navDisplayName = req.user.name.displayName;
+  let userRole = req.user.role
+  try{
+    const totalUnseenNotifications = await calculateUnseenNotifications(req.user._id, userRole)
+    res.render('patientRecords', {navDisplayName, userRole, totalUnseenNotifications})
+  }catch(err){
+    return res.render("404", {
+      navDisplayName,
+      userRole,
+      error: err.message,
+    });
+  }
+})
+
 router.get(
     "/accountVerification",
     checkAuthenticated,
@@ -76,40 +91,59 @@ router.get(
     const LIMIT = 10;
     const navDisplayName = req.user.name.displayName;
     const userRole = req.user.role;
-    const totalUnseenNotifications = await calculateUnseenNotifications(req.user._id, userRole)
 
     const page = parseInt(
         typeof req.query.page != "undefined" ? req.query.page : 1
     );
     
-    const notifications = await patientNotification.find({patientId : req.user._id})
-    .limit(LIMIT)
-    .skip(LIMIT * (page - 1))
+    try{
+      const notifications = await patientNotification
+      .find({patientId : req.user._id})
+      .sort({ created: -1})
+      .limit(LIMIT)
+      .skip(LIMIT * (page - 1))
 
-    const totalNotifications = await patientNotification.countDocuments({patientId : req.user._id})
+      for(let notification of notifications){
+        if(notification.seen == false){
+          notification.seen = true
+          await notification.save()
+          notification.seen = false // It's for highlighting new unseen notifications on the page on loading for the first time. 
+        }
+      }
 
-    let paginationUrl = req.originalUrl.toString();
-    if (paginationUrl.includes(`page=`))
-      paginationUrl = paginationUrl.replace(`page=${page}`, "page=");
-    else {
-      paginationUrl = paginationUrl.includes("?")
-        ? `${paginationUrl}&page=`
-        : `${paginationUrl}?page=`;
-    }
+      const totalNotifications = await patientNotification.countDocuments({patientId : req.user._id})
 
-    res.render("patientNotifications", { 
+      const totalUnseenNotifications = await calculateUnseenNotifications(req.user._id, userRole)
+
+      let paginationUrl = req.originalUrl.toString();
+      if (paginationUrl.includes(`page=`))
+        paginationUrl = paginationUrl.replace(`page=${page}`, "page=");
+      else {
+        paginationUrl = paginationUrl.includes("?")
+          ? `${paginationUrl}&page=`
+          : `${paginationUrl}?page=`;
+      }
+
+      res.render("patientNotifications", { 
+          navDisplayName,
+          userRole,
+          notifications,
+          totalUnseenNotifications,
+          currentPage: page,
+          hasNextPage: page * LIMIT < totalNotifications,
+          hasPreviousPage: page > 1,
+          nextPage: page + 1,
+          previousPage: page - 1,
+          lastPage: Math.ceil(totalNotifications / LIMIT),
+          URL: paginationUrl
+      });
+    }catch(err){
+      return res.render("404", {
         navDisplayName,
         userRole,
-        notifications,
-        totalUnseenNotifications,
-        currentPage: page,
-        hasNextPage: page * LIMIT < totalNotifications,
-        hasPreviousPage: page > 1,
-        nextPage: page + 1,
-        previousPage: page - 1,
-        lastPage: Math.ceil(totalNotifications / LIMIT),
-        URL: paginationUrl
-    });
+        error: err.message,
+      });
+    }
   }
 );
 
@@ -125,7 +159,7 @@ router.post(
       let doctorPatientInstance = new DoctorPatient({
         doctor:{
           _id: doctorDetails._id,
-          name: doctorDetails.fullName,
+          name: doctorDetails.name.fullName,
           email: doctorDetails.email,
           phoneNumber: doctorDetails.phoneNumber,
           gender: doctorDetails.gender
@@ -183,7 +217,16 @@ router.post(
 router.get('/doctors', checkAuthenticated, checkEmailVerified, async (req, res) => {
   let navDisplayName = req.user.name.displayName;
   let userRole = req.user.role
-  res.render('patientDoctors', {navDisplayName, userRole})
+  try{
+    const totalUnseenNotifications = await calculateUnseenNotifications(req.user._id, userRole)
+    res.render('patientDoctors', {navDisplayName, userRole, totalUnseenNotifications})
+  }catch(err){
+    return res.render("404", {
+      navDisplayName,
+      userRole,
+      error: err.message,
+    });
+  }  
 })
 
 // this provides new id

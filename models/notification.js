@@ -16,7 +16,7 @@ const doctorNotificationSchema = new mongoose.Schema({
     name: String,
     questionId: mongoose.Schema.Types.ObjectId,
   },
-  createdAt: { 
+  created: { 
     type: Date, 
     default: Date.now
   }
@@ -37,7 +37,7 @@ const patientNotificationSchema = new mongoose.Schema({
     _id: mongoose.Schema.Types.ObjectId,
     name: String,
   },
-  createdAt: { 
+  created: { 
     type: Date, 
     default: Date.now
   }
