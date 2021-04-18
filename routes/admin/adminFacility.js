@@ -64,7 +64,7 @@ function checkFileType(file, cb){
   }
 }
 
-async function deleteFile(req, res, filePath){
+async function deleteFile(filePath){
   if(!checkNotNull(filePath)) return
 
   try {

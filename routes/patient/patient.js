@@ -214,20 +214,73 @@ router.post(
   }
 );
 
+
 router.get('/doctors', checkAuthenticated, checkEmailVerified, async (req, res) => {
+  const LIMIT = 10;
   let navDisplayName = req.user.name.displayName;
-  let userRole = req.user.role
+  let userRole = req.user.role;
   try{
     const totalUnseenNotifications = await calculateUnseenNotifications(req.user._id, userRole)
-    res.render('patientDoctors', {navDisplayName, userRole, totalUnseenNotifications})
+
+    const page = parseInt(
+      typeof req.query.page != "undefined" ? req.query.page : 1
+    );
+
+    const patientDoctors = await DoctorPatient
+      .find({"patient._id": req.user._id}, "doctor recordCount")
+      .sort({ created: -1})
+      .limit(LIMIT)
+      .skip(LIMIT * (page - 1));
+
+    const totalItems = await DoctorPatient.countDocuments();
+    // console.log(doctorPatients)
+    let doctorDesk = [];
+
+    patientDoctors.forEach((element) => {
+      let instance = {
+        _id: element.doctor._id,
+        name: element.doctor.name,
+        email: element.doctor.email,
+        phoneNumber: element.doctor.phoneNumber,
+        gender: element.doctor.gender,
+        recordCount: `${element.recordCount} Records`,
+        exists: true,
+      };
+      doctorDesk.push(instance);
+    });
+    // console.log(doctorDesk)
+
+    let paginationUrl = req.originalUrl.toString();
+    if (paginationUrl.includes(`page=`))
+      paginationUrl = paginationUrl.replace(`page=${page}`, "page=");
+    else {
+      paginationUrl = paginationUrl.includes("?")
+        ? `${paginationUrl}&page=`
+        : `${paginationUrl}?page=`;
+    }
+
+    return res.render("patientDoctors", {
+      navDisplayName,
+      userRole,
+      totalUnseenNotifications,
+      doctorDesk,
+      currentPage: page,
+      hasNextPage: page * LIMIT < totalItems,
+      hasPreviousPage: page > 1,
+      nextPage: page + 1,
+      previousPage: page - 1,
+      lastPage: Math.ceil(totalItems / LIMIT),
+      URL: paginationUrl,
+    });
   }catch(err){
     return res.render("404", {
       navDisplayName,
       userRole,
       error: err.message,
     });
-  }  
-})
+  }
+}  
+)
 
 // this provides new id
 router.get("/getNewId", (req, res) => {
