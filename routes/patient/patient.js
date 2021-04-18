@@ -20,7 +20,7 @@ const Doctor = require("../../models/doctor").doctorModel
 const DoctorPatient = require("../../models/doctorPatient").doctorPatientModel
 const { session } = require("passport");
 const {doctorNotification, patientNotification} = require("../../models/notification");
-const {checkNotNull, calculateUnseenNotifications} = require("../../controllers/functionCollection")
+const {checkNotNull, calculateUnseenNotifications, preprocessData} = require("../../controllers/functionCollection")
 
 // resetpassword
 router.get("/resetpassword", checkAuthenticated, async (req, res) => {
@@ -118,6 +118,7 @@ router.post(
   checkAuthenticated,
   checkEmailVerified,
   async (req, res) => {
+    preprocessData(req.body)
     const {notificationId, doctorId} = req.body
     try{
       let doctorDetails = await Doctor.findById(mongoose.Types.ObjectId(doctorId), "name.fullName email phoneNumber gender")
@@ -164,6 +165,7 @@ router.post(
   checkAuthenticated,
   checkEmailVerified,
   async (req, res) => {
+    preprocessData(req.body)
     const { notificationId} = req.body 
     try{
       await patientNotification.deleteOne({
@@ -178,10 +180,10 @@ router.post(
   }
 );
 
-router.get('/records', checkAuthenticated, checkEmailVerified, async (req, res) => {
+router.get('/doctors', checkAuthenticated, checkEmailVerified, async (req, res) => {
   let navDisplayName = req.user.name.displayName;
   let userRole = req.user.role
-  res.render('patientRecords', {navDisplayName, userRole})
+  res.render('patientDoctors', {navDisplayName, userRole})
 })
 
 // this provides new id
@@ -190,5 +192,6 @@ router.get("/getNewId", (req, res) => {
 });
 
 router.use("/profile", require("./profile.js"));
+router.use("/followupQues", require("./followup.js"));
 
 module.exports = router;

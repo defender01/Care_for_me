@@ -4,10 +4,8 @@ const bcrypt = require("bcryptjs");
 const mongoose = require("mongoose");
 const Doctor = require("../../models/doctor").doctorModel;
 const { getSectionData } = require("../../controllers/adminFunctions");
-const {checkNotNull, calculateUnseenNotifications} = require("../../controllers/functionCollection")
+const {camelCase, checkNotNull, calculateUnseenNotifications, preprocessData} = require("../../controllers/functionCollection")
 
-//import camelCase function
-const camelCase = require("../../controllers/functionCollection").camelCase;
 
 const {
   checkAuthenticatedDoctor,
@@ -99,6 +97,7 @@ router.get("/update/:sectionID", checkAuthenticatedDoctor, checkEmailVerified, a
 })
 
 router.post("/update", checkAuthenticatedDoctor, checkEmailVerified, async (req, res) => {
+  preprocessData(req.body)
   let navDisplayName = req.user.name.displayName;
   let userRole = req.user.role
   let totalUnseenNotifications = 0

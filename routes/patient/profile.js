@@ -11,10 +11,13 @@ const {
   answerModel,
 } = require("../../models/inputCollection");
 const { getSectionData } = require("../../controllers/adminFunctions");
-const {checkNotNull, calculateUnseenNotifications} = require("../../controllers/functionCollection")
 
 //import camelCase function
-const camelCase = require("../../controllers/functionCollection").camelCase;
+const {
+  camelCase, 
+  checkNotNull, 
+  calculateUnseenNotifications, 
+  preprocessData} = require("../../controllers/functionCollection")
 
 const {
   checkAuthenticated,
@@ -195,6 +198,7 @@ router.get("/medHistory", checkAuthenticated, checkEmailVerified, async (req, re
 });
 
 router.post("/medHistory", checkAuthenticated, checkEmailVerified, async (req, res) => {
+  preprocessData(req.body)
   let data = req.body;
   let navDisplayName = req.user.name.displayName;
   let userRole = req.user.role
@@ -529,6 +533,7 @@ router.get("/update/:sectionID", checkAuthenticated, checkEmailVerified, async (
 });
 
 router.post("/update-personalInfo", checkAuthenticated, checkEmailVerified, async (req, res) => {
+  preprocessData(req.body)
   // let data = req.user;
   let navDisplayName = req.user.name.displayName;
   let userRole = req.user.role
@@ -703,6 +708,7 @@ router.post("/update-personalInfo", checkAuthenticated, checkEmailVerified, asyn
 });
 
 router.post("/update/:sectionID", checkAuthenticated, checkEmailVerified, async (req, res) => {
+  preprocessData(req.body)
   let paramSectoinID = req.params.sectionID;
   let navDisplayName = req.user.name.displayName;
   let userRole = req.user.role

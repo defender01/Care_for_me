@@ -9,10 +9,10 @@ const {
   checkEmailVerified
 } = require("../../controllers/auth_helper");
 
-const {checkNotNull, calculateUnseenNotifications} = require("../../controllers/functionCollection")
+const {checkNotNull, calculateUnseenNotifications, preprocessData} = require("../../controllers/functionCollection")
 const { parameterModel } = require("../../models/followup");
 
-router.get('/',checkAuthenticatedDoctor, checkEmailVerified, async (req, res) => {
+router.get('/assign',checkAuthenticatedDoctor, checkEmailVerified, async (req, res) => {
   let navDisplayName = req.user.name.displayName;
   let userRole = req.user.role
   try{
@@ -28,7 +28,7 @@ router.get('/',checkAuthenticatedDoctor, checkEmailVerified, async (req, res) =>
   }
 })
 
-router.get('/continue', checkAuthenticatedDoctor, checkEmailVerified, async (req, res) => {
+router.get('/assign/continue', checkAuthenticatedDoctor, checkEmailVerified, async (req, res) => {
   let navDisplayName = req.user.name.displayName;
   let userRole = req.user.role
   try{
@@ -42,7 +42,8 @@ router.get('/continue', checkAuthenticatedDoctor, checkEmailVerified, async (req
     });
   }
 })
-router.post('/continue', checkAuthenticatedDoctor, checkEmailVerified, async (req, res) => {
+router.post('/assign/continue', checkAuthenticatedDoctor, checkEmailVerified, async (req, res) => {
+  preprocessData(req.body)
   let navDisplayName = req.user.name.displayName;
   let userRole = req.user.role
   let data = req.body
@@ -85,7 +86,7 @@ router.post('/continue', checkAuthenticatedDoctor, checkEmailVerified, async (re
   res.send({data})
 })
 
-router.get('/records', checkAuthenticatedDoctor, checkEmailVerified,async (req, res) => {
+router.get('/records/pId', checkAuthenticatedDoctor, checkEmailVerified,async (req, res) => {
   let navDisplayName = req.user.name.displayName
   let userRole = req.user.role
   try{
@@ -100,7 +101,7 @@ router.get('/records', checkAuthenticatedDoctor, checkEmailVerified,async (req, 
   }
 })
 
-router.get('/id', checkAuthenticatedDoctor, checkEmailVerified,async (req, res) => {
+router.get('/questions', checkAuthenticatedDoctor, checkEmailVerified,async (req, res) => {
   let navDisplayName = req.user.name.displayName;
   let userRole = req.user.role
   try{

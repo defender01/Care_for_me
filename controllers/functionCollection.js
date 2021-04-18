@@ -33,9 +33,23 @@ let calculateUnseenNotifications = async (userID, userRole) => {
   return totalUnseenNotifications
 }
 
+function preprocessData(obj){
+  for (let key of Object.keys(obj)) {
+    if (Array.isArray(obj[key])) {
+      for (let i = 0, max = obj[key].length; i < max; i++) {
+        if (checkNotNull(obj[key][i]))
+          obj[key][i] = obj[key][i].trim();
+      }
+    } else {
+      if (checkNotNull(obj[key])) obj[key] = obj[key].trim();
+    }
+  }
+}
+
 module.exports = 
 {
   camelCase: camelCase,
   checkNotNull: checkNotNull,
-  calculateUnseenNotifications: calculateUnseenNotifications
+  calculateUnseenNotifications: calculateUnseenNotifications,
+  preprocessData: preprocessData
 }

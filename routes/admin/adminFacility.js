@@ -17,7 +17,7 @@ const {
   saveDoctorQues
 } = require("../../controllers/adminFunctions");
 
-const {checkNotNull} = require("../../controllers/functionCollection")
+const {checkNotNull, preprocessData}= require("../../controllers/functionCollection")
 
 const {
   uploadVaccineAndSubstanceToDB,
@@ -109,6 +109,7 @@ router.get("/home/edit", checkAuthenticatedAdmin, async (req,res) => {
   res.render('adminHomeEdit', {navDisplayName, data})
 })
 router.post("/home/edit", checkAuthenticatedAdmin, async (req,res) => {  
+  preprocessData(req.body)
   let navDisplayName = req.user.name.displayName
   let userRole = req.user.role
   upload(req, res, async (err) => {
@@ -122,7 +123,7 @@ router.post("/home/edit", checkAuthenticatedAdmin, async (req,res) => {
     console.log(req.files)
     console.log({err})
     if(err){      
-      req.flash('error_msg', err.message)
+      req.flash('error_msg', err)
       res.redirect('back')
       return 
     } 
@@ -279,6 +280,7 @@ router.get("/followupQues/edit", checkAuthenticatedAdmin, async (req,res) => {
 })
 // saving parameter details after edit or change in doctor followup questions
 router.post('/followupQues/edit', checkAuthenticatedAdmin, async(req, res) => {
+  preprocessData(req.body)
   let navDisplayName = req.user.name.displayName
   let parameters,parameter
   data = req.body

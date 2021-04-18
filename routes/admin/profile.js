@@ -13,6 +13,7 @@ const {
   editProfileQues,
   saveProfileQues,
 } = require("../../controllers/adminFunctions");
+const {checkNotNull, preprocessData}= require("../../controllers/functionCollection")
 
 
 router.get("/addQues", checkAuthenticatedAdmin, sendSectionSubSec);

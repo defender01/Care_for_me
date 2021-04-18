@@ -25,7 +25,7 @@
   <script src="/assets/jsFiles/loader.js"></script>
   <link rel="stylesheet" href="/assets/cssFiles/loader.css" />
 
-  <title>Patients-Amar.health</title>
+  <title>Doctors-Amar.health</title>
 </head>
 
 <body onload="">
@@ -49,12 +49,12 @@
         <!-- here are all sidebar items -->
         <div class="nav-sec-cont">
           <div class="card">
-            <div class="card-title">Search Patient</div>
+            <div class="card-title">Search Doctor</div>
 
-            <form action="/doctor/patients/searchResults" method="get" id="searchMenuForm">
+            <form action="/patient/doctors/searchResults" method="get" id="searchMenuForm">
               <div class="search-input">
                 <input type="text" name="searchKey" class="form-control" id="searchKey"
-                  placeholder="Enter patient's name" value="<%= typeof searchKey != 'undefined' ? searchKey : '' %>"
+                  placeholder="Enter doctor's name" value="<%= typeof searchKey != 'undefined' ? searchKey : '' %>"
                   required />
               </div>
               <div class="filter-container">
@@ -93,41 +93,6 @@
                   </div>
                 </div>
               </div>
-              <div class="filter-container">
-                <div class="filter-title">Search filters</div>
-                <div class="filter">
-                  <div class="form-check">
-                    <input class="form-check-input" name="searchFilter" type="checkbox" value="male" id="malePatient"
-                      <%=(typeof searchFilter !='undefined' && searchFilter.includes('male') ) ? 'checked' : '' %>
-                    />
-                    <label class="form-check-label" for="malePatient">
-                      Male patient
-                    </label>
-                  </div>
-                </div>
-                <div class="filter">
-                  <div class="form-check">
-                    <input class="form-check-input" name="searchFilter" type="checkbox" value="female"
-                      id="femalePatient" <%=(typeof searchFilter !='undefined' && searchFilter.includes('female') ) ? 'checked'
-                      : '' %>
-                    />
-                    <label class="form-check-label" for="femalePatient">
-                      Female patient
-                    </label>
-                  </div>
-                </div>
-                <div class="filter">
-                  <div class="form-check">
-                    <input class="form-check-input" name="searchFilter" type="checkbox" value="followupRunning"
-                      id="runningPatient" <%=(typeof searchFilter !='undefined' && searchFilter.includes('followupRunning') )
-                      ? 'checked' : '' %>
-                    />
-                    <label class="form-check-label" for="runningPatient">
-                      Running followup
-                    </label>
-                  </div>
-                </div>
-              </div>
               <div class="btn-container">
                 <button id="search-btn" type="submit" class="search-btn">
                   Search
@@ -135,18 +100,28 @@
               </div>
             </form>
           </div>
+          <div class="card">
+            <div class="card-title">
+              <i class="fas fa-hourglass-start"></i> 4 Pending Questions
+            </div>
+            <div class="btn-container">
+              <button type="submit" class="search-btn"  onclick="location.href='#'" >
+                Answer
+              </button>
+            </div>
+          </div>
         </div>
       </div>
 
       <div class="wrapper" id="">
         <!-- Modal -->
-        <div class="modal fade" id="deletePatientModal" tabindex="-1" aria-labelledby="deletePatientModalLabel"
+        <div class="modal fade" id="deleteDoctorModal" tabindex="-1" aria-labelledby="deleteDoctorModalLabel"
           aria-hidden="true">
           <div class="modal-dialog">
             <div class="modal-content">
               <div class="modal-header">
-                <h5 class="modal-title" id="deletePatientModalLabel">
-                  Are you sure you want to remove "Abdur Rahman" from patient
+                <h5 class="modal-title" id="deleteDoctorModalLabel">
+                  Are you sure you want to remove "Dr. Abdur Rahman" from doctor
                   list?
                 </h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -154,11 +129,11 @@
                 </button>
               </div>
               <div class="modal-body">
-                If you click "Yes" patient "Abdur Rahman" will be parmanently
+                If you click "Yes" doctor "Dr. Abdur Rahman" will be parmanently
                 deleted.
               </div>
               <div class="modal-footer">
-                <input type="hidden" id="patientIdToDelete" value="" style="display: none;">
+                <input type="hidden" id="doctorIdToDelete" value="" style="display: none;">
                 <button id="modalYesButton" type="button" class="btn btn-success">
                   Yes
                 </button>
@@ -175,17 +150,17 @@
           </div>
           <div class="selected-current" id="notifyBarTitle">
             <% if(typeof searchResults !='undefined' ) { %>
-              Search Results <% } else { %> Patient Desk <% } %>
+              Search Results <% } else { %> Doctor Desk <% } %>
           </div>
         </div>
 
         <div class="page-holder" id="">
           <div class="card">
-            <div class="card-title">Search patient</div>
-            <form action="/doctor/patients/searchResults" method="get" id="searchMenuForm2">
+            <div class="card-title">Search Doctor</div>
+            <form action="/patient/doctors/searchResults" method="get" id="searchMenuForm2">
               <div class="search-input">
                 <input type="text" name="searchKey" id="searchKey2" class="form-control"
-                  placeholder="Enter patient's name" value="<%= typeof searchKey != 'undefined' ? searchKey : '' %>"
+                  placeholder="Enter doctor's name" value="<%= typeof searchKey != 'undefined' ? searchKey : '' %>"
                   required />
               </div>
               <div class="filter-container">
@@ -229,32 +204,32 @@
                 <div class="filter-title">Search Filters</div>
                 <div class="filter">
                   <div class="form-check">
-                    <input class="form-check-input" name="searchFilter" type="checkbox" value="male" id="malePatient"
+                    <input class="form-check-input" name="searchFilter" type="checkbox" value="male" id="maleDoctor"
                       <%=(typeof searchFilter !='undefined' && searchFilter.includes('male') ) ? 'checked' : '' %>
                     />
-                    <label class="form-check-label" for="malePatient">
-                      Male patient
+                    <label class="form-check-label" for="maleDoctor">
+                      Male doctor
                     </label>
                   </div>
                 </div>
                 <div class="filter">
                   <div class="form-check">
                     <input class="form-check-input" name="searchFilter" type="checkbox" value="female"
-                      id="femalePatient" <%=(typeof searchFilter !='undefined' && searchFilter.includes('female') ) ? 'checked'
+                      id="femaleDoctor" <%=(typeof searchFilter !='undefined' && searchFilter.includes('female') ) ? 'checked'
                       : '' %>
                     />
-                    <label class="form-check-label" for="femalePatient">
-                      Female patient
+                    <label class="form-check-label" for="femaleDoctor">
+                      Female doctor
                     </label>
                   </div>
                 </div>
                 <div class="filter">
                   <div class="form-check">
                     <input class="form-check-input" name="searchFilter" type="checkbox" value="followupRunning"
-                      id="runningPatient" <%=(typeof searchFilter !='undefined' && searchFilter.includes('followupRunning') )
+                      id="runningDoctor" <%=(typeof searchFilter !='undefined' && searchFilter.includes('followupRunning') )
                       ? 'checked' : '' %>
                     />
-                    <label class="form-check-label" for="runningPatient">
+                    <label class="form-check-label" for="runningDoctor">
                       Running followup
                     </label>
                   </div>
@@ -267,8 +242,8 @@
               </div>
             </form>
           </div>
-          <div class="table-responsive" id="patientTableContainer">
-            <table class="table table-bordered table-hover" id="patientTable">
+          <div class="table-responsive" id="doctorTableContainer">
+            <table class="table table-bordered table-hover" id="doctorTable">
               <thead>
                 <tr>
                   <th scope="col"></th>
@@ -277,20 +252,21 @@
                   <th scope="col">Option</th>
                 </tr>
               </thead>
+              
 
               <tbody>
                 <%
-                 let data = (typeof patientDesk != 'undefined') ? patientDesk : ((typeof searchResults != 'undefined') ? searchResults : [])  
+                 let data = (typeof doctorDesk != 'undefined') ? doctorDesk : ((typeof searchResults != 'undefined') ? searchResults : [])  
                  %>
                 
                 <% if(typeof data != 'undefined') {%>
                 <% for(let singleData of data) { %>
-                  <tr class="patient-info" id="tableRow-<%= singleData._id %>">
-                    <td class="patient-icon">
+                  <tr class="doctor-info" id="tableRow-<%= singleData._id %>">
+                    <td class="doctor-icon">
                       <a href=""><i class="fas fa-user"></i></a>
                     </td>
                     <td class="info">
-                      <div class="patientSummary">
+                      <div class="doctorSummary">
                         <div class="segment">
                           Name: <a href=""><%= singleData.name %> </a>
                         </div>
@@ -298,12 +274,12 @@
                       </div>
                     </td>
                     <td class="info">
-                      <a href="/doctor/followupQues/records/pId"> <%= singleData.recordCount %></a>
+                      <a href="/patient/followupQues/records/dId"> <%= singleData.recordCount %></a>
                     </td>
                     <% if(singleData.exists) { %>
                       
                       <td class="dlt-btn-cont">
-                        <button type="button" class="removeButton" id="removeButton-<%= singleData._id %>" data-patient-id="<%= singleData._id %>" data-patient-name="<%= singleData.name %>" data-toggle="modal" data-target="#deletePatientModal">
+                        <button type="button" class="removeButton" id="removeButton-<%= singleData._id %>" data-doctor-id="<%= singleData._id %>" data-doctor-name="<%= singleData.name %>" data-toggle="modal" data-target="#deleteDoctorModal">
                           Remove
                         </button>
                       </td>
@@ -311,7 +287,7 @@
                     <% } else { %>
                       
                       <td class="add-btn-cont">
-                        <button type="button" class="addButton" data-patient-id="<%= singleData._id %>" id="addButton-<%= singleData._id %>">
+                        <button type="button" class="addButton" data-doctor-id="<%= singleData._id %>" id="addButton-<%= singleData._id %>">
                           Add
                         </button>
 
@@ -323,15 +299,15 @@
                   <%}%>
                   <%}%>
 
-                  <!-- <%for(let i=0; i<10; i++){%>
-                    <tr class="patient-info">
-                      <td  class="patient-icon">
-                        <a href=""><i class="fas fa-user"></i></a>
+                  <%for(let i=0; i<10; i++){%>
+                    <tr class="doctor-info">
+                      <td  class="doctor-icon">
+                        <a href="" style="font-size: 30px;"><i class="fas fa-user-md"></i></a>
                       </td>
                       <td class="info">
-                        <div class="patientSummary">
+                        <div class="doctorSummary">
                           <div class="segment">
-                            Name: <a href="">Abdur Rahman</a>
+                            Name: <a href="">Dr. Abdur Rahman</a>
                           </div>
                           <div class="segment">
                             Email: abdur@outlook.com
@@ -339,13 +315,13 @@
                         </div>                      
                       </td>
                       <td class="info">
-                        <a href="/doctor/followupQues/records/pId">10 Records</a>
+                        <a href="/patient/followupQues/records/dId">10 Records</a>
                       </td>
                       <td class="dlt-btn-cont">
-                        <button type="button" data-toggle="modal" data-target="#deletePatientModal">Remove</button>
+                        <button type="button" data-toggle="modal" data-target="#deleteDoctorModal">Remove</button>
                       </td>
                     </tr>
-                  <%}%>  -->
+                  <%}%> 
               </tbody>
             </table>
           </div>
@@ -396,11 +372,11 @@
         "change",
         function () {
           if (this.value == "name")
-            $("#searchKey").attr("placeholder", "Enter patient's name");
+            $("#searchKey").attr("placeholder", "Enter doctor's name");
           else if (this.value == "email")
-            $("#searchKey").attr("placeholder", "Enter patient's email id");
+            $("#searchKey").attr("placeholder", "Enter doctor's email id");
           else if (this.value == "phoneNumber")
-            $("#searchKey").attr("placeholder", "Enter patient's mobile no");
+            $("#searchKey").attr("placeholder", "Enter doctor's mobile no");
         }
       );
 
@@ -408,11 +384,11 @@
         "change",
         function () {
           if (this.value == "name")
-            $("#searchKey2").attr("placeholder", "Enter patient's name");
+            $("#searchKey2").attr("placeholder", "Enter doctor's name");
           else if (this.value == "email")
-            $("#searchKey2").attr("placeholder", "Enter patient's email id");
+            $("#searchKey2").attr("placeholder", "Enter doctor's email id");
           else if (this.value == "phoneNumber")
-            $("#searchKey2").attr("placeholder", "Enter patient's mobile no");
+            $("#searchKey2").attr("placeholder", "Enter doctor's mobile no");
         }
       );
 
@@ -442,19 +418,19 @@
         // console.log(this.id, e.target.id)
 
         let data = {
-          patientId : $(this).data('patient-id'),
+          doctorId : $(this).data('doctor-id'),
           notificationType: 'doctorRequest' 
         }
         
         $.ajax({
           type: 'POST',
-          url: '/doctor/sendNotificationToPatient',
+          url: '/patient/sendNotificationToDoctor',
           data,
           success: (response) => {
             if (response.status) {
-              let patientId = $(this).data('patient-id')
-              $(`#addButton-${patientId}`).hide()
-              $(`#requestSent-${patientId}`).show()
+              let doctorId = $(this).data('doctor-id')
+              $(`#addButton-${doctorId}`).hide()
+              $(`#requestSent-${doctorId}`).show()
             }
             else{
               console.log("Error in server.")
@@ -470,13 +446,13 @@
       })
 
       $(".removeButton").on("click", function(e){
-        let patientName =  $(this).data('patient-name')
-        let patientId = $(this).data('patient-id')
-        // console.log(patientName, patientId)
-        let modalQuestion = `Are you sure you want to remove <b> "${patientName}" </b> from patient list?`
-        let modalBody = `If you click <b> "Yes" </b> patient <b> "${patientName}" </b> will be parmanently deleted.`
-        $("#patientIdToDelete").val(patientId)
-        $("#deletePatientModalLabel").html(modalQuestion)
+        let doctorName =  $(this).data('doctor-name')
+        let doctorId = $(this).data('doctor-id')
+        // console.log(doctorName, doctorId)
+        let modalQuestion = `Are you sure you want to remove <b> "${doctorName}" </b> from doctor list?`
+        let modalBody = `If you click <b> "Yes" </b> doctor <b> "${doctorName}" </b> will be parmanently deleted.`
+        $("#doctorIdToDelete").val(doctorId)
+        $("#deleteDoctorModalLabel").html(modalQuestion)
         $(".modal-body").html(modalBody)
       })
 
@@ -485,44 +461,44 @@
         console.log(this.id, e.target.id)
 
         let data = {
-          patientId : $("#patientIdToDelete").val()
+          doctorId : $("#doctorIdToDelete").val()
         }
         
         $.ajax({
           type: 'POST',
-          url: '/doctor/removePatientFromPatientDesk',
+          url: '/patient/removeDoctorFromDoctorDesk',
           data,
           success: (response) => {
             if (response.status) {
               let pathname = window.location.pathname;
-              let patientId = $("#patientIdToDelete").val()
+              let doctorId = $("#doctorIdToDelete").val()
               // console.log("Pathname: " + pathname)
               if(pathname.indexOf("searchResults") == -1){
-                $(`#tableRow-${patientId}`).remove()
+                $(`#tableRow-${doctorId}`).remove()
               }
               else{
                 let addButtonHtml = `<td class="add-btn-cont">
-                                      <button type="button" class="addButton" data-patient-id="${patientId}" id="addButton-${patientId}">
+                                      <button type="button" class="addButton" data-doctor-id="${doctorId}" id="addButton-${doctorId}">
                                         Add
                                       </button>
 
-                                      <p id="requestSent-${patientId}" style="display: none;"> Request Sent </p>
+                                      <p id="requestSent-${doctorId}" style="display: none;"> Request Sent </p>
                                     </td>`
-                $(`#tableRow-${patientId} .dlt-btn-cont`).replaceWith(addButtonHtml)
+                $(`#tableRow-${doctorId} .dlt-btn-cont`).replaceWith(addButtonHtml)
               }
-              $('#deletePatientModal').modal('toggle');
-              alert("Patient Deletion Operation Successful")
+              $('#deleteDoctorModal').modal('toggle');
+              alert("Doctor Deletion Operation Successful")
             }
             else{
               console.log("Error in server.")
-              $('#deletePatientModal').modal('toggle');
-              alert("Patient Deletion Operation Failed")
+              $('#deleteDoctorModal').modal('toggle');
+              alert("Doctor Deletion Operation Failed")
             }
           },
           error: () => {
             console.log("Error in sending request to server.")
-            $('#deletePatientModal').modal('toggle');
-            alert("Patient Deletion Operation Failed")
+            $('#deleteDoctorModal').modal('toggle');
+            alert("Doctor Deletion Operation Failed")
           }
         })
       })

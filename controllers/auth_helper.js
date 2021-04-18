@@ -4,7 +4,11 @@ const cryptoRandomString = require('crypto-random-string');
 const Patient = require("../models/patient")
 const Doctor = require("../models/doctor").doctorModel;
 const UrlRandomString = require("../models/randomStringForURL").randomStringModel;
-const {checkNotNull} = require("../controllers/functionCollection")
+const {
+  camelCase, 
+  checkNotNull, 
+  calculateUnseenNotifications, 
+  preprocessData} = require("./functionCollection")
 
 const { sendMail } = require('./mailController')
 
@@ -168,6 +172,7 @@ let checkEmailVerifiedForAjax = (req, res, next) => {
 }
 
 async function postResetPass(req, res) {
+  preprocessData(req.body)
   let navDisplayName = req.user.name.displayName;
   let userRole = req.user.role
 
@@ -214,6 +219,7 @@ async function postResetPass(req, res) {
 
 
 async function postResetPassDoctor(req, res) {
+  preprocessData(req.body)
   // console.log(req.body)
 
   let navDisplayName = req.user.name.displayName;
@@ -261,6 +267,7 @@ async function postResetPassDoctor(req, res) {
 }
 
 async function forgotpassHandler(req, res) {
+  preprocessData(req.body)
   const { role, emailOrPhone } = req.body
   console.log('came in forgotpass')
   // console.log(req.body)
@@ -316,6 +323,7 @@ async function forgotpassHandler(req, res) {
 
 
 let emailVerificationLinkGenerator = async (req, res) => {
+  preprocessData(req.body)
   // console.log(req.body)
   let navDisplayName = req.user.name.displayName;
   let userRole = req.user.role

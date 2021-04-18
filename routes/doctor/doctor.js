@@ -16,13 +16,13 @@ const {
   checkAuthenticatedDoctorForAjax,
   checkEmailVerifiedForAjax,
 } = require("../../controllers/auth_helper");
+const {checkNotNull, calculateUnseenNotifications, preprocessData}= require("../../controllers/functionCollection")
 // Load Patient model
 const Patient = require("../../models/patient");
 const { session } = require("passport");
 const Doctor = require("../../models/doctor").doctorModel;
 const DoctorPatient = require("../../models/doctorPatient").doctorPatientModel;
 const e = require("express");
-const {checkNotNull, calculateUnseenNotifications} = require("../../controllers/functionCollection")
 
 const {
   doctorNotification,
@@ -143,25 +143,25 @@ router.get(
   }
 );
 
-router.get(
-  "/patients/records",
-  checkAuthenticatedDoctor,
-  checkEmailVerified,
-  async (req, res) => {
-    let navDisplayName = req.user.name.displayName;
-    let userRole = req.user.role;
-    try{
-      const totalUnseenNotifications = await calculateUnseenNotifications(req.user._id, userRole)
-      return res.render("doctorPatientRecords", { navDisplayName, userRole, totalUnseenNotifications });
-    }catch(err){
-      return res.render("404", {
-        navDisplayName,
-        userRole,
-        error: err.message,
-      });
-    }
-  }
-);
+// router.get(
+//   "/patients/records",
+//   checkAuthenticatedDoctor,
+//   checkEmailVerified,
+//   async (req, res) => {
+//     let navDisplayName = req.user.name.displayName;
+//     let userRole = req.user.role;
+//     try{
+//       const totalUnseenNotifications = await calculateUnseenNotifications(req.user._id, userRole)
+//       return res.render("doctorPatientRecords", { navDisplayName, userRole, totalUnseenNotifications });
+//     }catch(err){
+//       return res.render("404", {
+//         navDisplayName,
+//         userRole,
+//         error: err.message,
+//       });
+//     }
+//   }
+// );
 
 router.get(
   "/patients/searchResults",
@@ -416,6 +416,7 @@ router.post(
   checkAuthenticatedDoctor,
   checkEmailVerified,
   async (req, res) => {
+    preprocessData(req.body)
     const { patientId, notificationType } = req.body;
     // console.log(typeof patientId)
     if (notificationType == "doctorRequest") {
@@ -450,6 +451,7 @@ router.post(
   checkAuthenticatedDoctor,
   checkEmailVerified,
   async (req, res) => {
+    preprocessData(req.body)
     const { patientId} = req.body;
     // console.log(typeof patientId)
     try {

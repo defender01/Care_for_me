@@ -1,7 +1,11 @@
 let express = require('express');
 let router = express.Router();
 let dataModel = require('../models/dailyInfo');
-const {checkNotNull, calculateUnseenNotifications} = require("../controllers/functionCollection")
+const {
+  camelCase, 
+  checkNotNull, 
+  calculateUnseenNotifications, 
+  preprocessData} = require("../controllers/functionCollection")
 
 const {
   checkAuthenticated,
@@ -26,6 +30,7 @@ router.get('/input', checkAuthenticated, checkEmailVerified, async (req, res) =>
 });
 
 router.post('/input', checkAuthenticated, checkEmailVerified, async (req, res) => {
+  preprocessData(req.body)
   console.log(req.body);
   let userData = new dataModel({
     _someId: req.body.ObjectId,

@@ -6,6 +6,7 @@ const {
   questionModel,
   optionModel,
 } = require("../models/inputCollection");
+const { preprocessData } = require("./functionCollection");
 
 // once sections and sub sections are uploaded, then these functions are no longer needed
 
@@ -198,6 +199,7 @@ async function sendSectionSubSec(req, res) {
 }
 
 async function saveQuesOp(req, res) {
+  preprocessData(req.body)
   // console.log(util.inspect(req.body, false, null, true /* enable colors */));
   console.log(
     util.inspect(
@@ -337,6 +339,7 @@ async function editProfileQues (req, res){
 }
 
 async function saveProfileQues (req, res) {
+  preprocessData(req.body)
   // console.log(util.inspect( req.body , false, null, true /* enable colors */));
   let data = req.body
   if(Object.keys(data).length==1){

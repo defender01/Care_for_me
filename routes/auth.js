@@ -16,7 +16,11 @@ const {
   checkAuthenticated,
   checkAuthenticatedDoctor,
 } = require("../controllers/auth_helper");
-const {checkNotNull}= require("../controllers/functionCollection")
+const {
+  camelCase, 
+  checkNotNull, 
+  calculateUnseenNotifications, 
+  preprocessData} = require("../controllers/functionCollection")
 // Load Patient model
 const Patient = require("../models/patient");
 const { session } = require("passport");
@@ -40,16 +44,7 @@ router.post("/patient/register", async (req, res) => {
   console.log(req.body);
 
   // trimming each value in req.body
-  for (let key of Object.keys(req.body)) {
-    if (Array.isArray(req.body[key])) {
-      for (let i = 0, max = req.body[key].length; i < max; i++) {
-        if (checkNotNull(req.body[key][i]))
-          req.body[key][i] = req.body[key][i].trim();
-      }
-    } else {
-      if (checkNotNull(req.body[key])) req.body[key] = req.body[key].trim();
-    }
-  }
+  preprocessData(req.body)
 
   const {
     firstName,
@@ -210,6 +205,7 @@ router.post("/patient/register", async (req, res) => {
 
 // Doctor Register
 router.post("/doctor/register", async (req, res) => {
+  preprocessData(req.body)
   console.log(req.body)
   let reqBody = req.body;
   let requiresCastingToArray = [
@@ -232,6 +228,8 @@ router.post("/doctor/register", async (req, res) => {
     "awardDetails",
   ];
 
+  preprocessData(req.body)
+
   requiresCastingToArray.forEach((value) => {
     //console.log(value + " " + Object.prototype.hasOwnProperty.call(reqBody, value))
     if (Object.prototype.hasOwnProperty.call(reqBody, value)) {
@@ -241,17 +239,7 @@ router.post("/doctor/register", async (req, res) => {
     } else reqBody[value] = [];
   });
 
-  // trimming each value in req.body
-  for (let key of Object.keys(reqBody)) {
-    if (Array.isArray(reqBody[key])) {
-      for (let i = 0, max = reqBody[key].length; i < max; i++) {
-        if (checkNotNull(reqBody[key][i]))
-          reqBody[key][i] = reqBody[key][i].trim();
-      }
-    } else {
-      if (checkNotNull(reqBody[key])) reqBody[key] = reqBody[key].trim();
-    }
-  }
+ 
 
   console.log(reqBody);
 
@@ -463,6 +451,7 @@ router.post("/doctor/register", async (req, res) => {
 router.get("/login", checkNotAuthenticated, (req, res) => res.render("login"));
 
 router.post("/login", async (req, res, next) => {
+  preprocessData(req.body)
   // stored URL in the session
   let sessionURL = req.session.returnTo;
   // console.log("sessionURL : " + sessionURL)
@@ -538,7 +527,7 @@ router.get("/verify_email/:hash", emailVerificationHandler);
 // login for admin
 router.get("/login/admin",checkNotAuthenticated, (req, res) => res.render("adminLogin"));
 router.post("/login/admin", async (req, res, next) => {
-
+  preprocessData(req.body)
   delete req.session.returnTo;
 
   console.log(req.body);
