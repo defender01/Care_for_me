@@ -61,7 +61,7 @@
       </div>
       <div id='addParamHere'></div>
 
-      <form method="POST" action="/doctor/followupQues/assign/continue" id="quesForm">
+      <form method="POST" action="/doctor/followupQues/assign/continue?pId=<%=pId%>" id="quesForm">
       </form>
      
     </main>
@@ -72,6 +72,7 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
 
     <script>
+      let pId=<%-JSON.stringify(pId)%>
       let stDate = new Date();
       let enDate = new Date(stDate.getFullYear()+5, stDate.getMonth(), stDate.getDate())
       // for setting default 10 days followup
@@ -233,33 +234,15 @@
           questions.push(question)
 
 
-          // allQues+=`    <input type="text" name="questionId" value="${question.id}"  style="display: none;">
-          //             <input type="text" name="inputType${question.id}" value="${question.inputType}"  style="display: none;">
-          //             <input type="text" name="name${question.id}" value="${question.name}"  style="display: none;">
-          //             <input type="date" name="startDate${question.id}" value="${question.startDate}" style="display: none;">
-          //             <input type="date" name="endDate${question.id}" value="${question.endDate}" style="display: none;">   
-          //             <input type="text" name="frequency${question.id}" value="${question.frequency}" style="display: none;">	
-          //             <input type="number" name="maxVal${question.id}" value="${question.maxVal}" style="display: none;">	
-          //             <input type="number" name="minVal${question.id}" value="${question.minVal}" style="display: none;">
-          //         `
+        
         })        
 
         localStorage.followupQuestions = JSON.stringify({questions})
         let temp = JSON.parse(localStorage.followupQuestions).questions
         console.log({temp})
-        window.location.href = "/doctor/followupQues/assign/continue";
+        window.location.href = `/doctor/followupQues/assign/continue?pId=${pId}`;
 
 
-
-        
-        // $('#quesForm').replaceWith(	
-        //   `	
-        //   <form method="POST" action="/doctor/followupQues/assign/continue" id="quesForm">	
-        //     ${allQues}	
-        //   </form>	
-        //   `	
-        // )	
-        // $('#quesForm').submit()	
       }
 
       function setEndDate(qId){

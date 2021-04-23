@@ -97,27 +97,6 @@
                 <div class="filter-title">Search filters</div>
                 <div class="filter">
                   <div class="form-check">
-                    <input class="form-check-input" name="searchFilter" type="checkbox" value="male" id="malePatient"
-                      <%=(typeof searchFilter !='undefined' && searchFilter.includes('male') ) ? 'checked' : '' %>
-                    />
-                    <label class="form-check-label" for="malePatient">
-                      Male patient
-                    </label>
-                  </div>
-                </div>
-                <div class="filter">
-                  <div class="form-check">
-                    <input class="form-check-input" name="searchFilter" type="checkbox" value="female"
-                      id="femalePatient" <%=(typeof searchFilter !='undefined' && searchFilter.includes('female') ) ? 'checked'
-                      : '' %>
-                    />
-                    <label class="form-check-label" for="femalePatient">
-                      Female patient
-                    </label>
-                  </div>
-                </div>
-                <div class="filter">
-                  <div class="form-check">
                     <input class="form-check-input" name="searchFilter" type="checkbox" value="followupRunning"
                       id="runningPatient" <%=(typeof searchFilter !='undefined' && searchFilter.includes('followupRunning') )
                       ? 'checked' : '' %>
@@ -132,6 +111,19 @@
                 <button id="search-btn" type="submit" class="search-btn">
                   Search
                 </button>
+              </div>
+            </form>
+          </div>
+          <div class="card">
+            <div class="card-title">Apply filters</div>
+            <form action="/doctor/patients/searchResults" method="get" id="filterMenuForm">
+              <div class="filter-container">
+                <div class="filter">
+                  <a href="">Male patient</a>
+                </div>
+                <div class="filter">
+                  <a href="">Female patient</a>
+                </div>
               </div>
             </form>
           </div>
@@ -229,27 +221,6 @@
                 <div class="filter-title">Search Filters</div>
                 <div class="filter">
                   <div class="form-check">
-                    <input class="form-check-input" name="searchFilter" type="checkbox" value="male" id="malePatient"
-                      <%=(typeof searchFilter !='undefined' && searchFilter.includes('male') ) ? 'checked' : '' %>
-                    />
-                    <label class="form-check-label" for="malePatient">
-                      Male patient
-                    </label>
-                  </div>
-                </div>
-                <div class="filter">
-                  <div class="form-check">
-                    <input class="form-check-input" name="searchFilter" type="checkbox" value="female"
-                      id="femalePatient" <%=(typeof searchFilter !='undefined' && searchFilter.includes('female') ) ? 'checked'
-                      : '' %>
-                    />
-                    <label class="form-check-label" for="femalePatient">
-                      Female patient
-                    </label>
-                  </div>
-                </div>
-                <div class="filter">
-                  <div class="form-check">
                     <input class="form-check-input" name="searchFilter" type="checkbox" value="followupRunning"
                       id="runningPatient" <%=(typeof searchFilter !='undefined' && searchFilter.includes('followupRunning') )
                       ? 'checked' : '' %>
@@ -264,6 +235,19 @@
                 <button id="search-btn2" type="submit" class="search-btn">
                   Search
                 </button>
+              </div>
+            </form>
+          </div>
+          <div class="card">
+            <div class="card-title">Apply filters</div>
+            <form action="/doctor/patients/searchResults" method="get" id="filterMenuForm2">
+              <div class="filter-container">
+                <div class="filter">
+                  <a href="">Male patient</a>
+                </div>
+                <div class="filter">
+                  <a href="">Female patient</a>
+                </div>
               </div>
             </form>
           </div>
@@ -298,7 +282,7 @@
                       </div>
                     </td>
                     <td class="info">
-                      <a href="/doctor/followupQues/records/pId"> <%= singleData.recordCount %></a>
+                      <a href="/doctor/followupQues/records?pId=<%=singleData._id%>"> <%= singleData.recordCount %></a>
                     </td>
                     <% if(singleData.exists) { %>
                       
@@ -339,7 +323,7 @@
                         </div>                      
                       </td>
                       <td class="info">
-                        <a href="/doctor/followupQues/records/pId">10 Records</a>
+                        <a href="/doctor/followupQues/records">10 Records</a>
                       </td>
                       <td class="dlt-btn-cont">
                         <button type="button" data-toggle="modal" data-target="#deletePatientModal">Remove</button>

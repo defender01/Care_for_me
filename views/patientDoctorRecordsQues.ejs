@@ -73,7 +73,9 @@
             <i class="fas fa-angle-right" onclick="displaySidebar()"></i>
           </div>
           <div class="selected-current" id="">
-            Patient Desk > Abdur Rahman > Record 1 > All Questions
+            <% if(typeof doctorInfo !=='undefined'){%>
+              Doctor Desk > <%= doctorInfo.name.fullName%> > record <%=recordInd%>
+            <%}%>
           </div>
           
         </div>
@@ -124,8 +126,31 @@
                   <th scope="col">See Responses</th>
                 </tr>
               </thead>
-                         
-              <tbody>
+              <% if(typeof followupRecord !== 'undefined'){%>
+                <tbody>
+                  <% let questions = typeof followupRecord.questions !== 'undefined'? followupRecord.questions : []%>
+                  <%for(let i=0; i<questions.length; i++){%>
+                    <tr class="patient-info">  
+                      <th scope="row"  style="text-align: center;"><%=i+1%></th> 
+                      <td class="info"><%=questions[i].name%></td>                 
+                      <td class="info"><%=questions[i].duration.startDate.toDateString()%> - <%=questions[i].duration.endDate.toDateString()%></td>
+                      <%if(Date.now()<questions[i].duration.startDate){%>
+                        <td class="info">Upcoming</td>
+                      <%}else if(Date.now()>questions[i].duration.endDate){%>
+                        <td class="info">Ended</td>
+                      <%}else{%>
+                        <td class="info">Running</td>
+                      <%}%> 
+                      <td class="info"><%=questions[i].answers.length%></td>
+                      <td  class="info-btn-cont">
+                        <button type="button" onclick="location.href='/patient/followupQues/questionAns/qId'" value="See this question's responses"><i class="far fa-clipboard" ></i> Responses</button>
+                      </td>
+                    </tr>
+                  <%}%>  
+                </tbody>
+              <%}%>
+              
+              <!-- <tbody>
                 <%for(let i=0; i<5; i++){%>
                   <tr class="patient-info">  
                     <th scope="row"  style="text-align: center;"><%=i+1%></th> 
@@ -138,19 +163,7 @@
                     </td>
                   </tr>
                 <%}%>  
-                <%for(let i=5; i<10; i++){%>
-                  <tr class="patient-info">  
-                    <th scope="row"  style="text-align: center;"><%=i+1%></th>     
-                    <td class="info">What is your temperature?</td>              
-                    <td class="info">12/9/21 - 20/10/21</td>
-                    <td class="info">Ended</td>
-                    <td class="info">12</td>
-                    <td  class="info-btn-cont">
-                      <button><i class="far fa-clipboard" ></i> Details</button>
-                    </td>
-                  </tr>
-                <%}%>  
-              </tbody>
+              </tbody> -->
             </table>  
           </div> 
                  

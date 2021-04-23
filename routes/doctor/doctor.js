@@ -28,6 +28,12 @@ const {
   doctorNotification,
   patientNotification,
 } = require("../../models/notification");
+const {
+  parameterModel,
+  followupModel,
+  followupQuesModel,
+  followupQuesAnsModel
+}= require("../../models/followup")
 
 router.get("/resetpassword", checkAuthenticatedDoctor, async (req, res) => {
   let navDisplayName = req.user.name.displayName;

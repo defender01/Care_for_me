@@ -55,7 +55,7 @@
       </div>
       <div id='addParamHere'></div>
       
-      <form method="POST" action="/doctor/followupQues/assign/continue" id="quesForm">
+      <form method="POST" action="/doctor/followupQues/assign/continue?pId=<%=pId%>" id="quesForm">
       </form>
      
     </main>
@@ -66,6 +66,7 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
 
     <script>
+      let pId=<%-JSON.stringify(pId)%>
       let stDate = new Date();
       let enDate = new Date(stDate.getFullYear()+5, stDate.getMonth(), stDate.getDate())
       // for setting default 10 days followup
@@ -223,7 +224,7 @@
 
         $('#quesForm').replaceWith(
           `
-          <form method="POST" action="/doctor/followupQues/assign/continue" id="quesForm">
+          <form method="POST" action="/doctor/followupQues/assign/continue?pId=${pId}" id="quesForm">
             ${allQues}
           </form>
           `

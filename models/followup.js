@@ -13,7 +13,7 @@ const parameterSchema = new Schema({
 });
 
 const followupAnswerSchema = new Schema({
-  answers: String,
+  answer: String,
   questionCreated: Date,
   responseTime: Date,
 });

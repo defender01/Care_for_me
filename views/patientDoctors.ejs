@@ -274,7 +274,7 @@
                       </div>
                     </td>
                     <td class="info">
-                      <a href="/patient/followupQues/records/dId"> <%= singleData.recordCount %></a>
+                      <a href="/patient/followupQues/records?dId=<%=singleData._id%>"> <%= singleData.recordCount %></a>
                     </td>
                     <% if(singleData.exists) { %>
                       
@@ -315,7 +315,7 @@
                         </div>                      
                       </td>
                       <td class="info">
-                        <a href="/patient/followupQues/records/dId">10 Records</a>
+                        <a href="/patient/followupQues/records">10 Records</a>
                       </td>
                       <td class="dlt-btn-cont">
                         <button type="button" data-toggle="modal" data-target="#deleteDoctorModal">Remove</button>
