@@ -15,10 +15,6 @@ const doctorPatientSchema = new mongoose.Schema({
     phoneNumber: String,
     gender: String
   },
-  recordCount:{
-    type: Number,
-    default: 0
-  },
   created: { 
     type: Date, 
     default: Date.now

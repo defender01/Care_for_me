@@ -19,17 +19,19 @@ const {
 const {checkNotNull, calculateUnseenNotifications, preprocessData}= require("../../controllers/functionCollection")
 // Load Patient model
 const Patient = require("../../models/patient");
-const { session } = require("passport");
 const Doctor = require("../../models/doctor").doctorModel;
 const DoctorPatient = require("../../models/doctorPatient").doctorPatientModel;
-const e = require("express");
-
+const {
+  sectionModel,
+  vaccineModel,
+  substanceModel,
+  answerModel,
+} = require("../../models/inputCollection");
 const {
   doctorNotification,
   patientNotification,
 } = require("../../models/notification");
 const {
-  parameterModel,
   followupModel,
   followupQuesModel,
   followupQuesAnsModel
@@ -79,6 +81,30 @@ router.post(
   emailVerificationLinkGenerator
 );
 
+let calculatePatientRecordCount = async (doctorPatients, dortorId) => {
+  try{
+    // console.log(doctorPatients)
+    let patientIds = doctorPatients.map((element) => {
+      return element.patient._id;
+    })
+  
+    let patientRecords = await followupModel.find({
+      doctorId: dortorId,
+      patientId: {$in: patientIds}
+    }, "patientId");
+  
+    let recordCount = {}
+    patientRecords.forEach((element) => {
+      recordCount[element.patientId.toString()] = (recordCount[element.patientId.toString()] || 0) + 1
+    })
+  
+    return recordCount
+  }catch(err){
+    console.log('err = ',{err})
+    throw new Error(err.message)
+  }
+}
+
 // patient list page
 router.get(
   "/patients",
@@ -90,19 +116,26 @@ router.get(
     let userRole = req.user.role;
     try{
       const totalUnseenNotifications = await calculateUnseenNotifications(req.user._id, userRole)
-  
-      const page = parseInt(
-        typeof req.query.page != "undefined" ? req.query.page : 1
-      );
+
+      let {genderFilter, page} = req.query
+      page = parseInt( typeof page != "undefined" ? page : 1);
+      genderFilter = (typeof genderFilter != "undefined") ? genderFilter : [];
+      genderFilter = Array.isArray(genderFilter) ? genderFilter : [genderFilter];
+
+      let queryForDoctorPatients = {"doctor._id": req.user._id};
+      if (genderFilter.length)
+        queryForDoctorPatients["patient.gender"] = {$in: genderFilter};
   
       const doctorPatients = await DoctorPatient
-        .find({"doctor._id": req.user._id}, "patient recordCount")
+        .find(queryForDoctorPatients, "patient")
         .sort({ created: -1})
         .limit(LIMIT)
         .skip(LIMIT * (page - 1));
-  
-      const totalItems = await DoctorPatient.countDocuments();
+
       // console.log(doctorPatients)
+      const totalItems = await DoctorPatient.countDocuments(queryForDoctorPatients);
+      const recordCount = await calculatePatientRecordCount(doctorPatients, req.user._id)
+  
       let patientDesk = [];
   
       doctorPatients.forEach((element) => {
@@ -112,7 +145,7 @@ router.get(
           email: element.patient.email,
           phoneNumber: element.patient.phoneNumber,
           gender: element.patient.gender,
-          recordCount: `${element.recordCount} Records`,
+          recordCount: `${recordCount[element.patient._id.toString()] || 0} Records`,
           exists: true,
         };
         patientDesk.push(instance);
@@ -133,6 +166,7 @@ router.get(
         userRole,
         totalUnseenNotifications,
         patientDesk,
+        genderFilter,
         currentPage: page,
         hasNextPage: page * LIMIT < totalItems,
         hasPreviousPage: page > 1,
@@ -191,7 +225,7 @@ router.get(
       });
     }
 
-    let { searchKey, searchOption, searchFilter, page } = req.query;
+    let {searchKey, searchOption, searchFilter, page, genderFilter } = req.query;
 
     page = parseInt(typeof page != "undefined" ? page : 1);
     searchKey =
@@ -213,6 +247,10 @@ router.get(
         navDisplayName,
         userRole,
         totalUnseenNotifications,
+        searchKey,
+        searchOption,
+        searchFilter,
+        genderFilter,
         searchResults,
         currentPage: 1,
         hasNextPage: false,
@@ -224,16 +262,15 @@ router.get(
       });
     }
 
-    searchFilter = typeof searchFilter != "undefined" ? searchFilter : [];
+    searchFilter = (typeof searchFilter != "undefined") ? searchFilter : [];
     searchFilter = Array.isArray(searchFilter) ? searchFilter : [searchFilter];
 
-    let genderFilter = [];
-    if (searchFilter.includes("male")) genderFilter.push("male");
-    if (searchFilter.includes("female")) genderFilter.push("female");
+    genderFilter = (typeof genderFilter != "undefined") ? genderFilter : [];
+    genderFilter = Array.isArray(genderFilter) ? genderFilter : [genderFilter];
 
-    let queryForDoctorPatients = { "doctor._id": req.user._id };
+    let queryForDoctorPatients = {"doctor._id": req.user._id};
     if (genderFilter.length)
-      queryForDoctorPatients["patient.gender"] = { $in: genderFilter };
+      queryForDoctorPatients["patient.gender"] = {$in: genderFilter};
     if (searchOption == "name")
       queryForDoctorPatients["patient.name"] = {
         $regex: `${searchKey}`,
@@ -246,16 +283,17 @@ router.get(
       if (searchFilter.includes("followupRunning")) {
         const doctorPatients = await DoctorPatient.find(
           queryForDoctorPatients,
-          "patient recordCount"
-        )
-          .limit(LIMIT)
-          .skip(LIMIT * (page - 1));
+          "patient"
+        ).limit(LIMIT)
+        .skip(LIMIT * (page - 1));
 
         const totalItems = await DoctorPatient.countDocuments(
           queryForDoctorPatients
         );
 
+        const recordCount = await calculatePatientRecordCount(doctorPatients, req.user._id)
         // console.log(doctorPatients)
+        
         let searchResults = [];
 
         doctorPatients.forEach((element) => {
@@ -265,7 +303,7 @@ router.get(
             email: element.patient.email,
             phoneNumber: element.patient.phoneNumber,
             gender: element.patient.gender,
-            recordCount: `${element.recordCount} Records`,
+            recordCount: `${recordCount[element.patient._id.toString()] || 0} Records`,
             exists: true,
           };
           searchResults.push(instance);
@@ -279,6 +317,7 @@ router.get(
           searchKey,
           searchOption,
           searchFilter,
+          genderFilter,
           searchResults,
           currentPage: page,
           hasNextPage: page * LIMIT < totalItems,
@@ -302,8 +341,10 @@ router.get(
 
         let doctorPatients = await DoctorPatient.find(
           queryForDoctorPatients,
-          "patient._id recordCount"
+          "patient._id"
         );
+
+        const recordCount = await calculatePatientRecordCount(doctorPatients, req.user._id)
         // console.log(doctorPatients)
 
         let searchedPatients = await Patient.find(
@@ -329,8 +370,8 @@ router.get(
             phoneNumber: element.phoneNumber,
             gender: element.gender,
             recordCount:
-              idx != -1 ? `${doctorPatients[idx].recordCount} Records` : "-",
-            exists: idx != -1 ? true : false,
+              (idx != -1) ? `${recordCount[element._id.toString()] || 0} Records` : "-",
+            exists: (idx != -1) ? true : false,
           };
           searchResults.push(instance);
         });
@@ -343,6 +384,7 @@ router.get(
           searchKey,
           searchOption,
           searchFilter,
+          genderFilter,
           searchResults,
           currentPage: page,
           hasNextPage: page * LIMIT < totalItems,
@@ -362,6 +404,142 @@ router.get(
     }
   }
 );
+
+let getQuestionsFromAllSections = async () => {
+  let data
+
+  try {
+    data = await sectionModel
+      .find({})
+      .populate({
+        path: "subSections",
+        populate: {
+          path: "questions",
+          populate: {
+            path: "options",
+            populate: {
+              path: "questions",
+              populate: {
+                path: "options",
+                populate: {
+                  path: "questions",
+                  populate: {
+                    path: "options",
+                  },
+                },
+              },
+            },
+          },
+        },
+      })
+      .exec();
+  } catch (err) {
+    console.error(err);
+    throw new Error(err.message)
+  }
+  // console.log(util.inspect({ data }, false, null, true /* enable colors */));
+  return data;
+};
+
+let processAnswerModelData = (medicalHistoryData) => {
+  let mapQuesToAnswer = {},
+    mapSubSecToAdditionalIDs = {};
+
+  for (let i = 0, max = medicalHistoryData.length; i < max; i++) {
+    let subSecID = checkNotNull(medicalHistoryData[i].subSectionID)
+      ? medicalHistoryData[i].subSectionID.toString()
+      : medicalHistoryData[i].subSectionID;
+    let allAns = medicalHistoryData[i].allAnswers;
+
+    for (let j = 0, max2 = allAns.length; j < max2; j++) {
+      let singleAnswer = allAns[j];
+      let qID = checkNotNull(singleAnswer.questionID)
+        ? singleAnswer.questionID.toString()
+        : singleAnswer.questionID;
+      let addID = checkNotNull(singleAnswer.additionalID)
+        ? singleAnswer.additionalID.toString()
+        : singleAnswer.additionalID;
+      let answers = singleAnswer.answers;
+      let tempAns;
+      let optionIDsforMCQ = singleAnswer.optionIDsforMCQAnswer;
+
+      optionIDsforMCQ.forEach((ID) => {
+        ID = ID.toString();
+      });
+
+      if (optionIDsforMCQ.length) tempAns = optionIDsforMCQ;
+      // MCQ. So an option will be checked if option ID appears in this array
+      else tempAns = answers; // Not Multiple choice questions. So answer will be inserted to the value attribute in the input element.
+
+      if (checkNotNull(addID)) {
+        mapQuesToAnswer[qID + "#####" + addID] = tempAns;
+
+        if (mapSubSecToAdditionalIDs.hasOwnProperty(subSecID))
+          mapSubSecToAdditionalIDs[subSecID].add(addID);
+        else
+          (mapSubSecToAdditionalIDs[subSecID] = new Set()),
+            mapSubSecToAdditionalIDs[subSecID].add(addID);
+      } else mapQuesToAnswer[qID] = tempAns;
+    }
+  }
+
+  // Converting each set to Array in the mapSubSecToAdditionalIDs object
+  for (let key of Object.keys(mapSubSecToAdditionalIDs)) {
+    mapSubSecToAdditionalIDs[key] = Array.from(mapSubSecToAdditionalIDs[key]);
+  }
+
+  return { mapQuesToAnswer, mapSubSecToAdditionalIDs };
+};
+
+router.get(
+  "/patients/:pId/profile",
+  checkAuthenticatedDoctor,
+  checkEmailVerified,
+  async (req, res) => {
+    let patientId = req.params.pId;
+    let navDisplayName = req.user.name.displayName;
+    let userRole = req.user.role
+    
+    let patientDetails,
+      wholeSectionCollection,
+      medicalHistoryData,
+      vaccineData,
+      substanceData,
+      totalUnseenNotifications = 0
+      
+    try {
+      patientDetails = await Patient.findOne({ _id: patientId });
+      // console.log(patientDetails)
+      // patientDetailsLean = await Patient.findOne({ _id: patientId }).lean()
+      // console.log(patientDetailsLean)
+      wholeSectionCollection = await getQuestionsFromAllSections();
+      vaccineData = await vaccineModel.find({});
+      substanceData = await substanceModel.find({});
+      medicalHistoryData = await answerModel.find({ userID: patientId });
+      // console.log(medicalHistoryData.length)
+      totalUnseenNotifications = await calculateUnseenNotifications(req.user._id, userRole)
+      
+      const {
+        mapQuesToAnswer,
+        mapSubSecToAdditionalIDs,
+      } = processAnswerModelData(medicalHistoryData);
+
+      res.render("patientProfileFromDoctor", {
+        patientDetails,
+        navDisplayName, userRole,
+        totalUnseenNotifications,
+        vaccineData,
+        substanceData,
+        wholeSectionCollection,
+        mapQuesToAnswer,
+        mapSubSecToAdditionalIDs,
+      });
+    } catch (err) {
+      console.log(err);
+      res.send({ msg: err.message });
+    }
+  }
+)
 
 router.get(
   "/notifications",
@@ -484,7 +662,6 @@ router.post(
         "patient._id": mongoose.Types.ObjectId(patientId),
         "doctor._id": req.user._id,
       });
-
       return res.send({ status: true });
 
     } catch (err) {

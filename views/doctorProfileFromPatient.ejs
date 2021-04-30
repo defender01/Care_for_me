@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+    integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+
+  <!-- fontawesome cdn -->
+  <link rel="stylesheet" href="//use.fontawesome.com/releases/v5.0.7/css/all.css">
+
+  <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+    crossorigin="anonymous"></script>
+
+  <!-- stylesheet for navbar -->
+  <link rel="stylesheet" href="/assets/cssFiles/navbar.css">
+  <link rel="stylesheet" href="/assets/cssFiles/profile.css" />
+  <!-- for loader -->
+  <script src="/assets/jsFiles/loader.js"></script>
+  <link rel="stylesheet" href="/assets/cssFiles/loader.css" />
+
+
+  <title>Doctor Profile-Amar.health</title>
+</head>
+
+<body>
+  <!-- display loading icon -->
+  <div class="se-pre-con"></div>
+  <!-- ends -->
+
+  <!-- navigation bar -->
+  <% include ./segments/navbar %>
+
+  <main>
+    <div class="side-bar">
+      <div class="topic-container">
+        <div class="topic">
+          <h3>Sections</h3>
+        </div>
+        <div class="angle">
+          <i class="fas fa-angle-left" id="leftAngle" onclick="hideSidebar()"></i>
+        </div>
+      </div>
+      <!-- here are all sidebar items -->
+      <div class="nav-sec-cont">
+
+        <% if (typeof doctorProfileData !== 'undefined') { %>
+        <% for(let i=0; i<doctorProfileData.length; i++) { %>
+          <% let sectionID = doctorProfileData[i].sectionId.toString() 
+             let sectionName = doctorProfileData[i].sectionName.toString()
+          %> 
+        <div class="sec-cont">
+          <div class="sec-name-and-cnt">
+            <div class="sec-name">
+              <a onclick="displaySection('<%= sectionID %>')"><%= sectionName %></a>
+            </div>
+          </div>
+        </div>
+        <% } %>
+        <% } %>
+      </div>
+    </div>
+
+    <div class="wrapper">
+      <% 
+        let defaultSectionName = doctorProfileData[0].sectionName.toString()
+        let defaultSectionID = doctorProfileData[0].sectionId.toString()
+        let personalInfoData = doctorProfileData[0].sectionData
+        let personalInfoQuesIds = doctorProfileData[0].sectionQuesIds
+        let personalInfoQues = doctorProfileData[0].sectionQues
+      %>
+
+      <div class="notify-bar">
+        <div class="angle">
+          <i class="fas fa-angle-right" onclick="displaySidebar()"></i>
+        </div>
+        <div class="sec-title" id="notifyBarTitle">
+          <%= defaultSectionName %>
+        </div>
+        <div class="edit">
+          <!-- <button id="notifyBarEditBtn">
+            Edit
+          </button> -->
+        </div>
+      </div>
+
+      <!-- Hidden inputs -->
+      <input type="text" id="notifyBarSectionID" value="<%= defaultSectionID %>" style="display: none;"/>
+      <input type="text" id="currentVisibleSectionID" value="sectionID-<%= defaultSectionID %>" style="display: none;"/>
+
+      <!-- subsec holder starts here -->
+      <div class="sec-holder" id="sectionID-<%= defaultSectionID %>">
+        <div class="subsec-holder">
+
+          <div class="subsec" id="subsecID-<%= defaultSectionID %>">
+            <div class="mytable">
+              <div class="table-title">
+                <%= defaultSectionName %>
+              </div>
+
+              <% if(typeof personalInfoData !== 'undefined' && typeof personalInfoQuesIds !== 'undefined') { %>
+                <% for(let k=0, max3 = personalInfoQuesIds.length; k<max3; k++){ %>
+                  <div class="table-row">
+                    <div class="label">
+                      <p>  <%= personalInfoQues[k] %> </p>
+                    </div>
+                    <div class="detail">  
+                      <p><%= personalInfoData[personalInfoQuesIds[k]] %></p>
+                    </div>
+                  </div>
+                <% } %>
+              <% } %>
+
+            </div>
+          </div>
+
+        </div>
+
+        <!-- scrollspy -->
+        <div class="sub-sec-scrollspy">
+          <div class="sub-sec-each">
+            <a href="#subsecID-<%= defaultSectionID %>"> <%= defaultSectionName %> </a>
+          </div>
+        </div>
+      </div>
+
+      <div id="sectionAddHelper"></div>
+
+
+    </div>
+
+  </main>
+
+  <!-- Optional JavaScript -->
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+    integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+    integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+    crossorigin="anonymous"></script>
+
+  <script>
+    let doctorProfileData = <%- JSON.stringify(doctorProfileData) %>;
+    
+    $('body').scrollspy({ target: ".sub-sec-scrollspy", offset: 50 });
+
+    // $('#notifyBarEditBtn').click((e) => {
+    //     let secID = $("#notifyBarSectionID").val()
+    //     location = `profile/update/${secID}`;
+    // });
+
+    function displaySidebar() {
+      $('#leftAngle').css('display', 'block')
+      $('.side-bar').css('left', '0')
+    }
+    function hideSidebar() {
+      $('#leftAngle').css('display', 'none')
+      $('.side-bar').css('left', '-300px')
+    }
+
+    window.onresize = function () {
+      //console.log(window.innerWidth)
+      if (window.innerWidth >= 1000) {
+        $('.side-bar').css('left', '0')
+      }
+    }
+
+    function changeBtnText() {
+      if ($('#angleDown').css('display') == 'block') {
+        $('#angleDown').css('display', 'none')
+        $('#angleUp').css('display', 'block')
+      }
+      else {
+        $('#angleDown').css('display', 'block')
+        $('#angleUp').css('display', 'none')
+      }
+    }
+
+    function mapToOrdinal(number)
+    {
+      number = parseInt(number)
+      if(number === 1) return "1st"
+      else if(number === 2) return "2nd"
+      else if(number === 3) return "3rd"
+      return (number + "th")
+    }
+    
+    function checkNotNull(val)
+    {
+      return (typeof val !== 'undefined') && (val !== '') && (val !== null) && (val.length)
+    }
+
+    function displaySection(secID) {
+
+      let sectionIndex = doctorProfileData.findIndex(x => x.sectionId.toString() === secID); 
+      let sectionName = doctorProfileData[sectionIndex].sectionName
+      let elmStr = '', scrollspyStr = ''
+      // checking either the section exists or not
+      if ($('#sectionID-' + secID).length){
+        let currentVisibleSectionID = $('#currentVisibleSectionID').val()
+
+        $("#notifyBarSectionID").val(secID)
+        $("#notifyBarTitle").html(sectionName)
+        $('#' + currentVisibleSectionID).css('display', 'none')
+        $('#sectionID-' + secID).css('display', 'block')
+        $('#currentVisibleSectionID').val('sectionID-' + secID)
+        return
+      }
+
+      let sectionData = doctorProfileData[sectionIndex].sectionData
+      let sectionQuesIds = doctorProfileData[sectionIndex].sectionQuesIds
+      let sectionQues = doctorProfileData[sectionIndex].sectionQues
+      
+      if(secID == 'personalInfo'){
+        elmStr += getSubSectionStr(secID.toString(), sectionName, sectionData, sectionQues, sectionQuesIds)
+        scrollspyStr += getScrollspyStr(sectionName, secID.toString())
+      }
+      else{
+        let memberType = ''
+
+        if(sectionName === "Educational Degrees and Certificates") memberType = 'Degree'
+        else if(sectionName === "Training Sessions") memberType = 'Training'
+        else if(sectionName === "Work and Experiences") memberType = 'Experience'
+        else if(sectionName === "Awards and Honours") memberType = 'Award'
+
+        if(typeof sectionData !== 'undefined' && sectionData.length){
+          for(let i=0, max = sectionData.length; i<max; i++){
+            let subSectionData = sectionData[i]
+
+            if(typeof subSectionData != 'undefined'){
+              let subSectionIDKey = '_id'
+              let firstQuestionID = sectionQuesIds[0]
+              let subSectionID =  subSectionData[subSectionIDKey]
+
+              // deleting the first element i.e. Id of the element from the object
+              delete subSectionData[subSectionIDKey]
+              // console.log(subSectionData)
+              
+              let subSectionName = (checkNotNull(subSectionData[firstQuestionID])) ? subSectionData[firstQuestionID] : mapToOrdinal(i+1) + ` ${memberType}` 
+              elmStr += getSubSectionStr(subSectionID.toString(), subSectionName, subSectionData, sectionQues, sectionQuesIds)
+              scrollspyStr += getScrollspyStr(subSectionName, subSectionID.toString())
+            }
+            else{
+              subSectionData = {}
+              elmStr += getSubSectionStr(secID.toString(), sectionName, subSectionData, sectionQues, sectionQuesIds)
+              scrollspyStr += getScrollspyStr(sectionName, secID.toString())
+            }
+          }
+        }
+        else{
+          sectionData = {}
+          elmStr += getSubSectionStr(secID.toString(), sectionName, sectionData, sectionQues, sectionQuesIds)
+          scrollspyStr += getScrollspyStr(sectionName, secID.toString())
+        }
+      }
+
+      let wholeSectionTabHtml = `<div class="sec-holder" id="sectionID-${secID}" style="display: none;">` +
+                                  '<div class="subsec-holder">' +
+                                    elmStr +
+                                  '</div>' +
+                                  '<div class="sub-sec-scrollspy">' +
+                                    scrollspyStr +
+                                  '</div>' +
+                                '</div>' +
+                                '<div id="sectionAddHelper"></div>'
+
+      $("#sectionAddHelper").replaceWith(wholeSectionTabHtml);
+
+      let currentVisibleSectionID = $('#currentVisibleSectionID').val()
+      $("#notifyBarSectionID").val(secID)
+      $("#notifyBarTitle").html(sectionName)
+      $('#' + currentVisibleSectionID).css('display', 'none')
+      $('#sectionID-' + secID).css('display', 'block')
+      $('#currentVisibleSectionID').val('sectionID-' + secID)                             
+
+    }
+
+    function getSubSectionStr(subSectionID, subSectionName, subSectionData, sectionQues, sectionQuesIds)
+    {
+      let elmStr = ''
+      let value = ''
+
+      for(let i=0, max=sectionQuesIds.length; i<max; i+=1)
+      {
+        value = (typeof subSectionData != 'undefined' && typeof subSectionData[sectionQuesIds[i]] != 'undefined') ? subSectionData[sectionQuesIds[i]] : '-'
+        elmStr += getQuestionStr(sectionQues[i], value)  
+      }
+
+      let subSectionStr = `<div class="subsec" id="subsecID-${subSectionID}">` +
+                            '<div class="mytable">' +
+                              '<div class="table-title">' +
+                                subSectionName +
+                              '</div>' + 
+                              elmStr +
+                            '</div>' +
+                          '</div>'
+      return subSectionStr
+    }
+
+    function getQuestionStr(question, value)
+    {
+      if(typeof value == 'undefined' || value == '') value = '-'
+
+      let questionStr = '<div class="table-row">' +
+                          '<div class="label">' +
+                            `<p>${question}</p>` +                          
+                          '</div>' +
+                          '<div class="detail">' +
+                            `<p>${value}</p>` +   
+                          '</div>' +
+                        '</div>'
+
+      return questionStr
+
+    }
+
+    function getScrollspyStr(subSecName, subSecID)
+    {
+        let str = '<div class="sub-sec-each">' + 
+                    `<a href="#subsecID-${subSecID}">${subSecName}</a>` +
+                  '</div>'
+        return str 
+    }
+
+    $(document).ready(function () {
+      // Add scrollspy to <body>
+      $('body').scrollspy({target: ".navbar", offset: 50});   
+      console.log('came in transition doc body')
+      // Add smooth scrolling on all links inside the navbar
+      $(".wrapper").on('click', ".sub-sec-each a", function (event) {
+        // Make sure this.hash has a value before overriding default behavior
+        console.log('came in transition')
+        if (this.hash !== "") {
+          // Prevent default anchor click behavior
+          event.preventDefault();
+          console.log('came in transition inside')
+
+          // Store hash
+          var hash = this.hash;
+
+          // Using jQuery's animate() method to add smooth page scroll
+          // The optional number (400) specifies the number of milliseconds it takes to scroll to the specified area
+          let scrollToPosition = ($(hash).offset().top - 200)
+          $('html, body').animate({
+            scrollTop: scrollToPosition
+          }, 400, function(){
+            // Add hash (#) to URL when done scrolling (default click behavior)
+            // this line actually sets url of the page such as localhost:5000/profile/#hash->(the value of hash)
+            // window.location.hash = hash;
+            $('html').animate({ 'scrollTop': scrollToPosition }, 0);
+          });
+        }  // End if
+      });
+    });
+
+  </script>
+</body>
+
+</html>

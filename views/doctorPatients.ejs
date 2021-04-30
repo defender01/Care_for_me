@@ -98,10 +98,10 @@
                 <div class="filter">
                   <div class="form-check">
                     <input class="form-check-input" name="searchFilter" type="checkbox" value="followupRunning"
-                      id="runningPatient" <%=(typeof searchFilter !='undefined' && searchFilter.includes('followupRunning') )
+                      id="followupRunning" <%=(typeof searchFilter !='undefined' && searchFilter.includes('followupRunning') )
                       ? 'checked' : '' %>
                     />
-                    <label class="form-check-label" for="runningPatient">
+                    <label class="form-check-label" for="followupRunning">
                       Running followup
                     </label>
                   </div>
@@ -115,17 +115,37 @@
             </form>
           </div>
           <div class="card">
-            <div class="card-title">Apply filters</div>
-            <form action="/doctor/patients/searchResults" method="get" id="filterMenuForm">
-              <div class="filter-container">
-                <div class="filter">
-                  <a href="">Male patient</a>
+            <div class="card-title">Filter Patients</div>
+            <div class="filter-container gender-filter">
+              <div class="filter-title">
+                Gender
+              </div>
+              <% if (typeof genderFilter !='undefined' && genderFilter.length > 0 ){ %>
+                <div class="reset-filter" >
+                  <a href=""> Reset Filter </a>
                 </div>
-                <div class="filter">
-                  <a href="">Female patient</a>
+              <% }else{ %>
+                <div class="reset-filter" style="display: none;">
+                  <a href=""> Reset Filter </a>
+                </div>
+              <% } %>
+              <div class="filter">
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" value="male" id="malePatient" <%=(typeof genderFilter !='undefined' && genderFilter.includes('male') )? 'checked' : '' %> >
+                  <label class="form-check-label" for="malePatient">
+                    Male Patient
+                  </label>
                 </div>
               </div>
-            </form>
+              <div class="filter">
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" value="female" id="femalePatient" <%=(typeof genderFilter !='undefined' && genderFilter.includes('female') ) ? 'checked' : '' %> >
+                  <label class="form-check-label" for="femalePatient">
+                    Female Patient
+                  </label>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -222,10 +242,10 @@
                 <div class="filter">
                   <div class="form-check">
                     <input class="form-check-input" name="searchFilter" type="checkbox" value="followupRunning"
-                      id="runningPatient" <%=(typeof searchFilter !='undefined' && searchFilter.includes('followupRunning') )
+                      id="followupRunning2" <%=(typeof searchFilter !='undefined' && searchFilter.includes('followupRunning') )
                       ? 'checked' : '' %>
                     />
-                    <label class="form-check-label" for="runningPatient">
+                    <label class="form-check-label" for="followupRunning2">
                       Running followup
                     </label>
                   </div>
@@ -239,17 +259,37 @@
             </form>
           </div>
           <div class="card">
-            <div class="card-title">Apply filters</div>
-            <form action="/doctor/patients/searchResults" method="get" id="filterMenuForm2">
-              <div class="filter-container">
-                <div class="filter">
-                  <a href="">Male patient</a>
+            <div class="card-title">Filter Patients</div>
+            <div class="filter-container gender-filter">
+              <div class="filter-title">
+                Gender
+              </div>
+              <% if (typeof genderFilter !='undefined' && genderFilter.length > 0 ){ %>
+                <div class="reset-filter" >
+                  <a href=""> Reset Filter </a>
                 </div>
-                <div class="filter">
-                  <a href="">Female patient</a>
+              <% }else{ %>
+                <div class="reset-filter" style="display: none;">
+                  <a href=""> Reset Filter </a>
+                </div>
+              <% } %>
+              <div class="filter">
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" value="male" id="malePatient2" <%=(typeof genderFilter !='undefined' && genderFilter.includes('male') ) ? 'checked' : '' %> >
+                  <label class="form-check-label" for="malePatient2">
+                    Male Patient
+                  </label>
                 </div>
               </div>
-            </form>
+              <div class="filter">
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" value="female" id="femalePatient2" <%=(typeof genderFilter !='undefined' && genderFilter.includes('female') ) ? 'checked' : '' %> >
+                  <label class="form-check-label" for="femalePatient2">
+                    Female Patient
+                  </label>
+                </div>
+              </div>
+            </div>
           </div>
           <div class="table-responsive" id="patientTableContainer">
             <table class="table table-bordered table-hover" id="patientTable">
@@ -271,18 +311,22 @@
                 <% for(let singleData of data) { %>
                   <tr class="patient-info" id="tableRow-<%= singleData._id %>">
                     <td class="patient-icon">
-                      <a href=""><i class="fas fa-user"></i></a>
+                      <a href="/doctor/patients/<%= singleData._id %>/profile"><i class="fas fa-user"></i></a>
                     </td>
                     <td class="info">
                       <div class="patientSummary">
                         <div class="segment">
-                          Name: <a href=""><%= singleData.name %> </a>
+                          Name: <a href="/doctor/patients/<%= singleData._id %>/profile"><%= singleData.name %> </a>
                         </div>
                         <div class="segment">Email: <%= singleData.email %></div>
                       </div>
                     </td>
-                    <td class="info">
-                      <a href="/doctor/followupQues/records?pId=<%=singleData._id%>"> <%= singleData.recordCount %></a>
+                    <td class="info recordCount">
+                      <% if(singleData.recordCount != '-'){ %>
+                        <a href="/doctor/followupQues/records?pId=<%=singleData._id%>"> <%= singleData.recordCount %></a>
+                      <% }else{ %>
+                        <p> - </p>
+                      <% } %>
                     </td>
                     <% if(singleData.exists) { %>
                       
@@ -400,6 +444,44 @@
         }
       );
 
+      $('.gender-filter .filter input[type="checkbox"]').on("click", function (e) {
+        let isChecked = $(e.target).prop('checked')
+        let gender = $(e.target).val()
+        let currentUrl = window.location.href
+        if(isChecked){
+          if (!currentUrl.includes(`genderFilter=${gender}`)){
+            currentUrl = currentUrl.includes("?")
+              ? `${currentUrl}&genderFilter=${gender}`
+              : `${currentUrl}?genderFilter=${gender}`;
+          }
+        }else{
+          if (currentUrl.includes(`&genderFilter=${gender}`))
+            currentUrl = currentUrl.replace(`&genderFilter=${gender}`, "");
+          else if (currentUrl.includes(`?genderFilter=${gender}&`))
+            currentUrl = currentUrl.replace(`?genderFilter=${gender}&`, "?");
+          else if (currentUrl.includes(`?genderFilter=${gender}`))
+            currentUrl = currentUrl.replace(`?genderFilter=${gender}`, "");
+        }
+        window.location.href = currentUrl;
+      });
+
+      $('.gender-filter .reset-filter a').on("click", function (e) {
+        e.preventDefault();
+        let currentUrl = window.location.href
+
+        $('.gender-filter .filter input[type="checkbox"]:checked').each(function(){
+          let gender = $(this).val()
+          if (currentUrl.includes(`&genderFilter=${gender}`))
+            currentUrl = currentUrl.replace(`&genderFilter=${gender}`, "");
+          else if (currentUrl.includes(`?genderFilter=${gender}&`))
+            currentUrl = currentUrl.replace(`?genderFilter=${gender}&`, "?");
+          else if (currentUrl.includes(`?genderFilter=${gender}`))
+            currentUrl = currentUrl.replace(`?genderFilter=${gender}`, "");
+        })
+
+        window.location.href = currentUrl;
+      });
+
       function displaySidebar() {
         // $('#rightAngle').css('display','none')
         $("#leftAngle").css("display", "block");
@@ -421,7 +503,7 @@
         }
       }
 
-      $(".addButton").on("click", function(e){
+      $(".patient-info").on("click", ".addButton", function(e){
         e.preventDefault();
         // console.log(this.id, e.target.id)
 
@@ -453,7 +535,7 @@
 
       })
 
-      $(".removeButton").on("click", function(e){
+      $(".patient-info").on("click", ".removeButton", function(e){
         let patientName =  $(this).data('patient-name')
         let patientId = $(this).data('patient-id')
         // console.log(patientName, patientId)
@@ -493,6 +575,7 @@
                                       <p id="requestSent-${patientId}" style="display: none;"> Request Sent </p>
                                     </td>`
                 $(`#tableRow-${patientId} .dlt-btn-cont`).replaceWith(addButtonHtml)
+                $(`#tableRow-${patientId} .recordCount`).html(`<p> - </p>`)
               }
               $('#deletePatientModal').modal('toggle');
               alert("Patient Deletion Operation Successful")

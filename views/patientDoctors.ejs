@@ -200,41 +200,7 @@
                   </div>
                 </div>
               </div>
-              <div class="filter-container">
-                <div class="filter-title">Search Filters</div>
-                <div class="filter">
-                  <div class="form-check">
-                    <input class="form-check-input" name="searchFilter" type="checkbox" value="male" id="maleDoctor"
-                      <%=(typeof searchFilter !='undefined' && searchFilter.includes('male') ) ? 'checked' : '' %>
-                    />
-                    <label class="form-check-label" for="maleDoctor">
-                      Male doctor
-                    </label>
-                  </div>
-                </div>
-                <div class="filter">
-                  <div class="form-check">
-                    <input class="form-check-input" name="searchFilter" type="checkbox" value="female"
-                      id="femaleDoctor" <%=(typeof searchFilter !='undefined' && searchFilter.includes('female') ) ? 'checked'
-                      : '' %>
-                    />
-                    <label class="form-check-label" for="femaleDoctor">
-                      Female doctor
-                    </label>
-                  </div>
-                </div>
-                <div class="filter">
-                  <div class="form-check">
-                    <input class="form-check-input" name="searchFilter" type="checkbox" value="followupRunning"
-                      id="runningDoctor" <%=(typeof searchFilter !='undefined' && searchFilter.includes('followupRunning') )
-                      ? 'checked' : '' %>
-                    />
-                    <label class="form-check-label" for="runningDoctor">
-                      Running followup
-                    </label>
-                  </div>
-                </div>
-              </div>
+
               <div class="btn-container">
                 <button id="search-btn2" type="submit" class="search-btn">
                   Search
@@ -263,18 +229,22 @@
                 <% for(let singleData of data) { %>
                   <tr class="doctor-info" id="tableRow-<%= singleData._id %>">
                     <td class="doctor-icon">
-                      <a href=""><i class="fas fa-user"></i></a>
+                      <a href="/patient/doctors/<%= singleData._id %>/profile"><i class="fas fa-user"></i></a>
                     </td>
                     <td class="info">
                       <div class="doctorSummary">
                         <div class="segment">
-                          Name: <a href=""><%= singleData.name %> </a>
+                          Name: <a href="/patient/doctors/<%= singleData._id %>/profile"><%= singleData.name %> </a>
                         </div>
                         <div class="segment">Email: <%= singleData.email %></div>
                       </div>
                     </td>
-                    <td class="info">
-                      <a href="/patient/followupQues/records?dId=<%=singleData._id%>"> <%= singleData.recordCount %></a>
+                    <td class="info recordCount">
+                      <% if(singleData.recordCount != '-'){ %>
+                        <a href="/patient/followupQues/records?dId=<%=singleData._id%>"> <%= singleData.recordCount %></a>
+                      <% }else{ %>
+                        <p> - </p>
+                      <% } %>
                     </td>
                     <% if(singleData.exists) { %>
                       
@@ -413,7 +383,7 @@
         }
       }
 
-      $(".addButton").on("click", function(e){
+      $(".doctor-info").on("click", ".addButton", function(e){
         e.preventDefault();
         // console.log(this.id, e.target.id)
 
@@ -445,7 +415,7 @@
 
       })
 
-      $(".removeButton").on("click", function(e){
+      $(".doctor-info").on("click", ".removeButton", function(e){
         let doctorName =  $(this).data('doctor-name')
         let doctorId = $(this).data('doctor-id')
         // console.log(doctorName, doctorId)
