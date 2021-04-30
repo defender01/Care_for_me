@@ -85,7 +85,7 @@ main .side-bar .nav-sec-cont .card {
 }
 
 main .side-bar .nav-sec-cont .card .card-title {
-  margin: 5px 5px 10px 5px;
+  margin: 5px 5px 5px 5px;
   padding: 0 0 10px 0;
   font-size: 18px;
   font-weight: bold;
@@ -104,14 +104,30 @@ main .side-bar .nav-sec-cont .card .search-input {
 }
 
 main .side-bar .nav-sec-cont .card .filter-container {
-  margin-top: 10px;
+  margin-top: 5px;
   padding: 5px;
 }
 
 main .side-bar .nav-sec-cont .card .filter-container .filter-title {
   font-weight: bold;
   font-size: 17px;
+  margin: 5px 5px 10px 5px;
+}
+
+main .side-bar .nav-sec-cont .card .filter-container .reset-filter {
+  font-size: 16px;
   margin: 10px 5px 10px 5px;
+  padding-left: 10px;
+  color: #90949c;
+}
+
+main .side-bar .nav-sec-cont .card .filter-container .reset-filter a {
+  color: #90949c;
+}
+
+main .side-bar .nav-sec-cont .card .filter-container .reset-filter a:hover {
+  color: #567ce4;
+  cursor: pointer;
 }
 
 main .side-bar .nav-sec-cont .card .filter-container .filter {
@@ -121,13 +137,12 @@ main .side-bar .nav-sec-cont .card .filter-container .filter {
   color: #90949c;
 }
 
-main .side-bar .nav-sec-cont .card .filter-container .filter a {
-  color: #9498a3;
+main .side-bar .nav-sec-cont .card .filter-container .filter label {
+  color: #90949c;
 }
 
-main .side-bar .nav-sec-cont .card .filter-container .filter a:hover {
+main .side-bar .nav-sec-cont .card .filter-container .filter label:hover {
   color: #567ce4;
-  text-shadow: blue;
   cursor: pointer;
 }
 
@@ -418,9 +433,8 @@ main .wrapper .page-holder .pagination-holder {
 
 main .wrapper .page-holder .card {
   display: none;
-  margin-top: 10px;
   padding: 10px;
-  margin: 80px 10px 10px 10px;
+  margin: 10px 10px 10px 10px;
   border-radius: 5px;
   box-shadow: 0 0 1px rgba(153, 152, 153, 0.76);
 }
@@ -431,8 +445,16 @@ main .wrapper .page-holder .card {
   }
 }
 
+main .wrapper .page-holder .card:nth-child(1) {
+  margin-top: 80px;
+}
+
+main .wrapper .page-holder .card:nth-last-child(3) {
+  margin-bottom: 30px;
+}
+
 main .wrapper .page-holder .card .card-title {
-  margin: 5px 5px 10px 5px;
+  margin: 5px 5px 5px 5px;
   padding: 0 0 10px 0;
   font-size: 18px;
   font-weight: bold;
@@ -441,19 +463,40 @@ main .wrapper .page-holder .card .card-title {
   border-color: rgba(207, 207, 209, 0.726);
 }
 
+main .wrapper .page-holder .card .card-title i {
+  color: #f15353;
+  margin-right: 10px;
+}
+
 main .wrapper .page-holder .card .search-input {
   padding: 5px;
 }
 
 main .wrapper .page-holder .card .filter-container {
-  margin-top: 10px;
+  margin-top: 5px;
   padding: 5px;
 }
 
 main .wrapper .page-holder .card .filter-container .filter-title {
   font-weight: bold;
   font-size: 17px;
+  margin: 5px 5px 10px 5px;
+}
+
+main .wrapper .page-holder .card .filter-container .reset-filter {
+  font-size: 16px;
   margin: 10px 5px 10px 5px;
+  padding-left: 10px;
+  color: #90949c;
+}
+
+main .wrapper .page-holder .card .filter-container .reset-filter a {
+  color: #90949c;
+}
+
+main .wrapper .page-holder .card .filter-container .reset-filter a:hover {
+  color: #567ce4;
+  cursor: pointer;
 }
 
 main .wrapper .page-holder .card .filter-container .filter {
@@ -461,6 +504,15 @@ main .wrapper .page-holder .card .filter-container .filter {
   margin: 10px 5px 10px 5px;
   padding-left: 10px;
   color: #90949c;
+}
+
+main .wrapper .page-holder .card .filter-container .filter label {
+  color: #90949c;
+}
+
+main .wrapper .page-holder .card .filter-container .filter label:hover {
+  color: #567ce4;
+  cursor: pointer;
 }
 
 main .wrapper .page-holder .card .btn-container {

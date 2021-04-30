@@ -16,6 +16,8 @@
     <!-- stylesheet for navbar -->
     <link rel="stylesheet" href="/assets/cssFiles/navbar.css">
     <link rel="stylesheet" href="/assets/cssFiles/patients.css" />
+    <!-- stylesheet for pagination -->
+    <link rel="stylesheet" href="/assets/cssFiles/pagination.css" />
     <!-- for loader -->
     <script src="/assets/jsFiles/loader.js"></script>    
     <link rel="stylesheet" href="/assets/cssFiles/loader.css" />
@@ -48,18 +50,46 @@
             <div class="card-title">
               Filter Questions
             </div>
-            <div class="filter-container">
+            <div class="filter-container followup-status-filter">
               <div class="filter-title">
-                Select Flters
+                Followup Status
               </div>
+
+              <% if (typeof followupStatus !='undefined' && followupStatus.length > 0 ){ %>
+                <div class="reset-filter" >
+                  <a href=""> Reset Filter </a>
+                </div>
+              <% }else{ %>
+                <div class="reset-filter" style="display: none;">
+                  <a href=""> Reset Filter </a>
+                </div>
+              <% } %>
+
               <div class="filter">
-                <a href="">Running</a>      
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" value="Upcoming" id="upcomingRecords" <%=(typeof followupStatus !='undefined' && followupStatus.includes('Upcoming') )? 'checked' : '' %> >
+                  <label class="form-check-label" for="upcomingRecords">
+                    Upcoming
+                  </label>
+                </div>
               </div>
+
               <div class="filter">
-                <a href="">Ended</a>
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" value="Running" id="runningRecords" <%=(typeof followupStatus !='undefined' && followupStatus.includes('Running') )? 'checked' : '' %> >
+                  <label class="form-check-label" for="runningRecords">
+                    Running
+                  </label> 
+                </div>     
               </div>
+              
               <div class="filter">
-                <a href="">No Filter</a>
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" value="Ended" id="endedRecords" <%=(typeof followupStatus !='undefined' && followupStatus.includes('Ended') )? 'checked' : '' %> >
+                  <label class="form-check-label" for="endedRecords">
+                    Ended
+                  </label>
+                </div>
               </div>
             </div>
 
@@ -85,31 +115,47 @@
             <div class="card-title">
               Filter Questions
             </div>
-            <div class="filter-container">
+            <div class="filter-container followup-status-filter">
               <div class="filter-title">
-                Select Filters
+                Followup Status
               </div>
+
+              <% if (typeof followupStatus !='undefined' && followupStatus.length > 0 ){ %>
+                <div class="reset-filter" >
+                  <a href=""> Reset Filter </a>
+                </div>
+              <% }else{ %>
+                <div class="reset-filter" style="display: none;">
+                  <a href=""> Reset Filter </a>
+                </div>
+              <% } %>
+
               <div class="filter">
                 <div class="form-check">
-                  <input class="form-check-input" type="checkbox" value="" id="runningRecords">
-                  <label class="form-check-label" for="runningRecords">
-                    Running
+                  <input class="form-check-input" type="checkbox" value="Upcoming" id="upcomingRecords2" <%=(typeof followupStatus !='undefined' && followupStatus.includes('Upcoming') )? 'checked' : '' %> >
+                  <label class="form-check-label" for="upcomingRecords2">
+                    Upcoming
                   </label>
                 </div>
               </div>
+
               <div class="filter">
                 <div class="form-check">
-                  <input class="form-check-input" type="checkbox" value="" id="endedRecords">
-                  <label class="form-check-label" for="endedRecords">
+                  <input class="form-check-input" type="checkbox" value="Running" id="runningRecords2" <%=(typeof followupStatus !='undefined' && followupStatus.includes('Running') )? 'checked' : '' %> >
+                  <label class="form-check-label" for="runningRecords2">
+                    Running
+                  </label> 
+                </div>     
+              </div>
+              
+              <div class="filter">
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" value="Ended" id="endedRecords2" <%=(typeof followupStatus !='undefined' && followupStatus.includes('Ended') )? 'checked' : '' %> >
+                  <label class="form-check-label" for="endedRecords2">
                     Ended
                   </label>
                 </div>
               </div>
-            </div>
-            <div class="btn-container">
-              <button type="submit" class="search-btn">
-                Apply
-              </button>
             </div>
 
           </div>
@@ -126,29 +172,21 @@
                   <th scope="col">See Responses</th>
                 </tr>
               </thead>
-              <% if(typeof followupRecord !== 'undefined'){%>
                 <tbody>
-                  <% let questions = typeof followupRecord.questions !== 'undefined'? followupRecord.questions : []%>
+                  <% let questions = typeof followupQuestions != 'undefined'? followupQuestions : []%>
                   <%for(let i=0; i<questions.length; i++){%>
                     <tr class="patient-info">  
-                      <th scope="row"  style="text-align: center;"><%=i+1%></th> 
+                      <th scope="row"  style="text-align: center;"><%=questions[i].index%></th> 
                       <td class="info"><%=questions[i].name%></td>                 
-                      <td class="info"><%=questions[i].duration.startDate.toDateString()%> - <%=questions[i].duration.endDate.toDateString()%></td>
-                      <%if(Date.now()<questions[i].duration.startDate){%>
-                        <td class="info">Upcoming</td>
-                      <%}else if(Date.now()>questions[i].duration.endDate){%>
-                        <td class="info">Ended</td>
-                      <%}else{%>
-                        <td class="info">Running</td>
-                      <%}%> 
-                      <td class="info"><%=questions[i].answers.length%></td>
+                      <td class="info"><%=questions[i].startDate%> - <%=questions[i].endDate%></td>
+                      <td class="info"><%=questions[i].followupStatus %></td> 
+                      <td class="info"><%=questions[i].totalResponses%></td>
                       <td  class="info-btn-cont">
                         <button type="button" onclick="location.href='/patient/followupQues/questionAns/qId'" value="See this question's responses"><i class="far fa-clipboard" ></i> Responses</button>
                       </td>
                     </tr>
                   <%}%>  
                 </tbody>
-              <%}%>
               
               <!-- <tbody>
                 <%for(let i=0; i<5; i++){%>
@@ -166,6 +204,10 @@
               </tbody> -->
             </table>  
           </div> 
+
+          <div class="pagination-holder">
+            <!-- <% include ./segments/pagination %> -->
+          </div>
                  
         </div>
       </div>
@@ -197,6 +239,44 @@
         $('.side-bar').css('left', '-300px')
       }
       
+      $('.followup-status-filter .filter input[type="checkbox"]').on("click", function (e) {
+        let isChecked = $(e.target).prop('checked')
+        let status = $(e.target).val()
+        let currentUrl = window.location.href
+        if(isChecked){
+          if (!currentUrl.includes(`followupStatus=${status}`)){
+            currentUrl = currentUrl.includes("?")
+              ? `${currentUrl}&followupStatus=${status}`
+              : `${currentUrl}?followupStatus=${status}`;
+          }
+        }else{
+          if (currentUrl.includes(`&followupStatus=${status}`))
+            currentUrl = currentUrl.replace(`&followupStatus=${status}`, "");
+          else if (currentUrl.includes(`?followupStatus=${status}&`))
+            currentUrl = currentUrl.replace(`?followupStatus=${status}&`, "?");
+          else if (currentUrl.includes(`?followupStatus=${status}`))
+            currentUrl = currentUrl.replace(`?followupStatus=${status}`, "");
+        }
+        window.location.href = currentUrl;
+      });
+
+      $('.followup-status-filter .reset-filter a').on("click", function (e) {
+        e.preventDefault();
+        let currentUrl = window.location.href
+
+        $('.followup-status-filter .filter input[type="checkbox"]:checked').each(function(){
+          let status = $(this).val()
+          if (currentUrl.includes(`&followupStatus=${status}`))
+            currentUrl = currentUrl.replace(`&followupStatus=${status}`, "");
+          else if (currentUrl.includes(`?followupStatus=${status}&`))
+            currentUrl = currentUrl.replace(`?followupStatus=${status}&`, "?");
+          else if (currentUrl.includes(`?followupStatus=${status}`))
+            currentUrl = currentUrl.replace(`?followupStatus=${status}`, "");
+        })
+
+        window.location.href = currentUrl;
+      });
+
       function screenDisplayCheck () {
           if (window.innerWidth >= 1000) {
             $('.side-bar').css('left', '0')

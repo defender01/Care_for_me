@@ -39,10 +39,12 @@ const followupRecordSchema = new Schema({
   patientId: String,
   questions: [{ type: Schema.Types.ObjectId, ref: "followupQues" }],
   recordStartDate: Date,
-  recordEndDate: Date
+  recordEndDate: Date,
+  created: { 
+    type: Date, 
+    default: Date.now
+  }
 });
-
-
 
 module.exports = {
   parameterModel: mongoose.model("parameterModel", parameterSchema),

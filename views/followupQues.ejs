@@ -232,17 +232,12 @@
           }
           console.log(question)
           questions.push(question)
-
-
-        
         })        
 
         localStorage.followupQuestions = JSON.stringify({questions})
         let temp = JSON.parse(localStorage.followupQuestions).questions
         console.log({temp})
         window.location.href = `/doctor/followupQues/assign/continue?pId=${pId}`;
-
-
       }
 
       function setEndDate(qId){

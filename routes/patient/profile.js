@@ -26,9 +26,7 @@ const {
 } = require("../../controllers/auth_helper");
 
 
-let getQuestionsFromAllSections = async (user) => {
-  let navDisplayName = user.name.displayName;
-  let userRole = user.role
+let getQuestionsFromAllSections = async () => {
   let data
 
   try {
@@ -132,7 +130,7 @@ router.get("/", checkAuthenticated, checkEmailVerified, async (req, res) => {
     // console.log(patientDetails)
     // patientDetailsLean = await Patient.findOne({ _id: req.user._id }).lean()
     // console.log(patientDetailsLean)
-    wholeSectionCollection = await getQuestionsFromAllSections(req.user);
+    wholeSectionCollection = await getQuestionsFromAllSections();
     vaccineData = await vaccineModel.find({});
     substanceData = await substanceModel.find({});
     medicalHistoryData = await answerModel.find({ userID: req.user._id });
