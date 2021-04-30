@@ -69,7 +69,37 @@
         </div>
       </div>
       
-      <div class="wrapper" id="">        
+      <div class="wrapper" id="">   
+        <!-- Modal -->
+        <div class="modal fade" id="deleteRecordModal" tabindex="-1" aria-labelledby="deleteRecordModalLabel"
+          aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="deleteRecordModalLabel">
+                  Are you sure you want to remove record no 1 for this patient?
+                </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times; </span>
+                </button>
+              </div>
+              <div class="modal-body">
+                If you click "Yes" record no 1 will be parmanently
+                deleted.
+              </div>
+              <div class="modal-footer">
+                <input type="hidden" id="recordIdToDelete" value="" style="display: none;">
+                <button id="modalYesButton" type="button" class="btn btn-success">
+                  Yes
+                </button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">
+                  No
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
         <div class="notify-bar">
           <div class="angle">
             <i class="fas fa-angle-right" onclick="displaySidebar()"></i>
@@ -129,13 +159,14 @@
                   <th scope="col">Followup Status</th>
                   <th scope="col">Total Questions</th>
                   <th scope="col">Record Details</th>
+                  <th scope="col">Option</th>
                 </tr>
               </thead>
                          
               <tbody>
                 <% let records = typeof followupRecords != 'undefined'? followupRecords : []%>
                 <%for(let i=0; i<records.length; i++){%>
-                  <tr class="patient-info">  
+                  <tr class="patient-info" id="tableRow-<%= records[i]._id %>">  
                     <th scope="row"  style="text-align: center;"><%=i+1%></th>                  
                     <td class="info"><%=records[i].recordStartDate.toDateString()%> - <%=records[i].recordEndDate.toDateString()%></td>
                     <%if(Date.now()<records[i].recordStartDate){%>
@@ -148,6 +179,11 @@
                     <td class="info"><%= records[i].questions.length%></td>
                     <td  class="info-btn-cont">
                       <button type="button" onclick="location.href='/doctor/followupQues/questions?pId=<%=patientInfo._id%>&recordId=<%=records[i]._id%>&recordInd=<%=i+1%>'" value="See this record"><i class="far fa-clipboard" ></i> Details</button>
+                    </td>
+                    <td class="dlt-btn-cont">
+                      <button type="button" class="removeButton" id="removeButton-<%= records[i]._id %>" data-record-id="<%= records[i]._id %>" data-record-ind="<%= i %>" data-toggle="modal" data-target="#deleteRecordModal">
+                        Remove
+                      </button>
                     </td>
                   </tr>
                 <%}%>
@@ -199,6 +235,50 @@
       // but while taking input month is 1 indexed, Jan = 1th month 
       var stDateStr = stDate.getFullYear()+'-'+ ( stDate.getMonth()<10? '0'+stDate.getMonth()+1 : stDate.getMonth()+1 )+'-'+ ( stDate.getDate()<10? '0'+stDate.getDate() : stDate.getDate() )
       var enDateStr = enDate.getFullYear()+'-'+ ( enDate.getMonth()<10? '0'+enDate.getMonth()+1 : enDate.getMonth()+1 )+'-'+ ( enDate.getDate()<10? '0'+enDate.getDate() : enDate.getDate() )
+
+      $(".removeButton").on("click", function(e){
+        let recordInd =  $(this).data('record-ind')
+        let recordId = $(this).data('record-id')
+        // console.log(recordInd, recordId)
+        let modalQuestion = `Are you sure you want to remove record no "${recordInd}" from patient list?`
+        let modalBody = `If you click <b> "Yes" </b> record no "${recordInd}" will be parmanently deleted.`
+        $("#recordIdToDelete").val(recordId)
+        $("#deleteRecordModalLabel").html(modalQuestion)
+        $(".modal-body").html(modalBody)
+      })
+
+      $("#modalYesButton").on("click", function(e){
+        e.preventDefault();
+        console.log(this.id, e.target.id)
+        let recordId = $("#recordIdToDelete").val()
+        let data = {
+          recordId : recordId
+        }
+        console.log({data})
+        
+        $.ajax({
+          type: 'POST',
+          url: `/doctor/followupQues/deleteRecord`,
+          data,
+          success: (response) => {
+            $('#deleteRecordModal').modal('toggle');
+            if (response.status) {
+              alert("Record Deletion Operation Successful")
+              // removing the record after deletion
+              $(`#tableRow-${recordId}`).remove()
+            }
+            else{
+              console.log("Error in server.")
+              alert("Record Deletion Operation Failed")
+            }
+          },
+          error: () => {
+            console.log("Error in sending request to server.")
+            alert("Record Deletion Operation Failed")
+          }
+        })
+      })
+
 
       function displaySidebar(){
         // $('#rightAngle').css('display','none')

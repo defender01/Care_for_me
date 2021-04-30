@@ -189,4 +189,23 @@ router.get('/questionAns/qId', checkAuthenticatedDoctor, checkEmailVerified,asyn
   }
 })
 
+router.post('/deleteRecord', checkAuthenticatedDoctor, checkEmailVerified, async (req, res) =>{
+  let navDisplayName = req.user.name.displayName;
+  let userRole = req.user.role
+  let {recordId} = req.body
+  console.log({recordId})
+  try{
+    let followupRecord = await followupModel.findOne({_id: recordId})
+    // console.log({followupRecord})
+    followupRecord.questions.forEach(async(qId) => {
+      await followupQuesModel.deleteOne({_id:qId})
+    })
+    await followupModel.deleteOne({_id: recordId})
+    return res.send({ status: true });
+  }catch(err){
+    console.log(err.message);
+    return res.send({ status: false });
+  }  
+})
+
 module.exports = router;
