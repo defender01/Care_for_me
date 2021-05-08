@@ -104,18 +104,28 @@ router.post(
         qIds = Array.isArray(qIds) ? qIds : [qIds];
         for (let i = 0; i < qIds.length; i++) {
           let qId = qIds[i];
-          // console.log(typeof data['startDate'+qId])
+          // console.log(data['startDate'+qId])
+
+          // date by default have hour value of 6h so manually have to set hour value to 0h
+          data['startDate'+qId] = new Date(data['startDate'+qId])
+          data['startDate'+qId].setHours(0,0,0)
+          data['endDate'+qId] = new Date(data['endDate'+qId])
+          data['endDate'+qId].setHours(0,0,0)
+
+          console.log(data['startDate'+qId].toString())
+          console.log(data['startDate'+qId].toDateString())
+          
           if (i == 0) {
-            recordStartDate = new Date(data["startDate" + qId]);
-            recordEndDate = new Date(data["endDate" + qId]);
+            recordStartDate = data["startDate" + qId];
+            recordEndDate = data["endDate" + qId];
           } else {
             recordStartDate = Math.min(
               recordStartDate,
-              new Date(data["startDate" + qId])
+              data["startDate" + qId]
             );
             recordEndDate = Math.max(
               recordEndDate,
-              new Date(data["endDate" + qId])
+              data["endDate" + qId]
             );
           }
           let question = new followupQuesModel({
@@ -130,7 +140,7 @@ router.post(
             },
             frequency: data["frequency" + qId],
           });
-          await question.save();
+          // await question.save();
           questionIds.push(question.id);
         }
         let followupRecord = new followupModel({
@@ -140,7 +150,7 @@ router.post(
           recordStartDate: recordStartDate,
           recordEndDate: recordEndDate,
         });
-        await followupRecord.save();
+        // await followupRecord.save();
         // console.log(util.inspect( {followupRecord} , false, null, true /* enable colors */));
       }
       // console.log(util.inspect( {questions} , false, null, true /* enable colors */));

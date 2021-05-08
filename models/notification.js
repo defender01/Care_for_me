@@ -29,7 +29,7 @@ const patientNotificationSchema = new mongoose.Schema({
     type: Boolean,
     default: false
   },
-  followupCnt:{
+  followupQuesCnt:{
     type: Number,
     default: 0
   },
@@ -42,6 +42,7 @@ const patientNotificationSchema = new mongoose.Schema({
     default: Date.now
   }
 });
+
 
 // patientNotificationSchema.virtual('wholeNotification').get(function() {
 //   let notificationStr = "";

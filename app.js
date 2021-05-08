@@ -113,7 +113,10 @@ app.get("/", async (req, res) => {
     return
   }  
   // console.log(util.inspect({data}, false, null, true /* enable colors */))
-  return res.render("home", { navDisplayName, userRole, data, totalUnseenNotifications})
+  let myDate = new Date()
+  console.log(myDate.toString())
+  myDate = myDate.toString()
+  return res.render("home", { navDisplayName, userRole, data, totalUnseenNotifications, myDate})
 })
 
 app.get("/test", async (req, res) => {

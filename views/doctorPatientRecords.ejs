@@ -210,7 +210,7 @@
               <tbody>
                 <% let records = typeof formattedFollowupRecords != 'undefined'? formattedFollowupRecords : []%>
                 <%for(let i=0; i<records.length; i++){%>
-                  <tr class="patient-info">  
+                  <tr class="patient-info" id="tableRow-<%= records[i]._id %>">  
                     <th scope="row"  style="text-align: center;"><%= records[i].index %></th>                  
                     <td class="info"><%= records[i].startDate %> - <%= records[i].endDate %></td>
                     <td class="info"><%= records[i].followupStatus %></td>                    
@@ -288,7 +288,7 @@
       $("#modalYesButton").on("click", function(e){
         e.preventDefault();
         console.log(this.id, e.target.id)
-        let recordId = $("#recordIdToDelete").val()
+        let recordId = $("#recordIdToDelete").val()        
         let data = {
           recordId : recordId
         }
