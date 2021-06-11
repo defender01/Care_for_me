@@ -242,6 +242,8 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
 
     <script>
+      let notifications = <%-JSON.stringify(notifications)%>
+      console.log({notifications})
       var stDate = new Date();
       var enDate = new Date(stDate.getFullYear()+5, stDate.getMonth(), stDate.getDate())
       // adding 1 to getMonth() because in this function month is 0 indexed Jan=0th month

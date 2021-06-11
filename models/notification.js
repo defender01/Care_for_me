@@ -30,6 +30,10 @@ const patientNotificationSchema = new mongoose.Schema({
     type: Boolean,
     default: false
   },
+  doctor: {
+    _id: mongoose.Schema.Types.ObjectId,
+    name: String,
+  },
   followupQues:[{
     doctor: mongoose.Schema.Types.ObjectId,
     qId: mongoose.Schema.Types.ObjectId,
