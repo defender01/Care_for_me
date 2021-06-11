@@ -182,7 +182,7 @@
                     <td class="info"><%=questions[i].followupStatus %></td> 
                     <td class="info"><%=questions[i].totalResponses%></td>
                     <td  class="info-btn-cont">
-                      <button type="button" onclick="location.href='/doctor/followupQues/questionAns/qId'" value="See this question's responses"><i class="far fa-clipboard" ></i> Responses</button>
+                      <button type="button" onclick="location.href='/doctor/followupQues/questionAns?recordInd=<%=recordInd%>&qId=<%=questions[i]._id%>'" value="See this question's responses"><i class="far fa-clipboard" ></i> Responses</button>
                     </td>
                   </tr>
                 <%}%>  
@@ -197,7 +197,7 @@
                     <td class="info">Running</td>
                     <td class="info">12</td>
                     <td  class="info-btn-cont">
-                      <button type="button" onclick="location.href='/doctor/followupQues/questionAns/qId'" value="See this question's responses"><i class="far fa-clipboard" ></i> Responses</button>
+                      <button type="button" onclick="location.href='/doctor/followupQues/questionAns'" value="See this question's responses"><i class="far fa-clipboard" ></i> Responses</button>
                     </td>
                   </tr>
                 <%}%>

@@ -164,7 +164,7 @@
                            Your patient <a href=""> <%= notification.patient.name %> </a> has an irregularity
                         </td>
                         <td class="btn-cont">
-                          <button type="button">Check</button>                    
+                          <button type="button" onclick="location.href = '<%= notification.link %>'">Check</button>                    
                         </td>
                       </tr>
                     <%} else { %>

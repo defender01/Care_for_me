@@ -219,7 +219,7 @@
                       <button type="button" onclick="location.href='/doctor/followupQues/questions?pId=<%=patientInfo._id%>&recordId=<%=records[i]._id%>&recordInd=<%=records[i].index%>'" value="See this record"><i class="far fa-clipboard" ></i> Details</button>
                     </td>
                     <td class="dlt-btn-cont">
-                      <button type="button" class="removeButton" id="removeButton-<%= records[i]._id %>" data-record-id="<%= records[i]._id %>" data-record-ind="<%= i %>" data-toggle="modal" data-target="#deleteRecordModal">
+                      <button type="button" class="removeButton" id="removeButton-<%= records[i]._id %>" data-record-id="<%= records[i]._id %>" data-record-ind="<%= records[i].index %>" data-toggle="modal" data-target="#deleteRecordModal">
                         Remove
                       </button>
                     </td>

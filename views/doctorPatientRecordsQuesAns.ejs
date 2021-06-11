@@ -26,6 +26,7 @@
   <title>Doctor Profile-Amar.health</title>
 </head>
 
+
 <body>
   <!-- display loading icon -->
   <div class="se-pre-con"></div>
@@ -35,20 +36,24 @@
   <% include ./segments/navbar %>
 
   <main>
-    <div class="side-bar" style="left: 0px;">
+    <div class="side-bar" style="left: 0px">
       <div class="topic-container">
         <div class="topic">
           <h3>Response Dates</h3>
         </div>
         <div class="angle">
-          <i class="fas fa-angle-left" id="leftAngle" onclick="hideSidebar()"></i>
+          <i
+            class="fas fa-angle-left"
+            id="leftAngle"
+            onclick="hideSidebar()"
+          ></i>
         </div>
       </div>
       <!-- here are all sidebar items -->
       <div class="nav-sec-cont">
-        <div class="sec-cont">
+        <div class="sec-cont" id="sectionContID">
           <%for(let i=0; i<5; i++){ %>
-          <div class="sec-name-and-cnt">            
+          <div class="sec-name-and-cnt">
             <div class="sec-name">
               <a href="#dateId<%=i%>">10.05.21</a>
             </div>
@@ -59,40 +64,48 @@
     </div>
 
     <div class="wrapper">
-      
-
       <div class="notify-bar">
         <div class="angle">
           <i class="fas fa-angle-right" onclick="displaySidebar()"></i>
         </div>
         <div class="sec-title" id="notifyBarTitle">
-          Patient Desk > Abdur Rahman > Record 1 > All Questions> Question 1
+          Record <%=recordInd%> > All Questions> <%= question.name%>
         </div>
       </div>
 
       <!-- Hidden inputs -->
-      <input type="text" id="notifyBarSectionID" value="personalInfo" style="display: none;">
-      <input type="text" id="currentVisibleSectionID" value="sectionID-personalInfo" style="display: none;">
+      <input
+        type="text"
+        id="notifyBarSectionID"
+        value="personalInfo"
+        style="display: none"
+      />
+      <input
+        type="text"
+        id="currentVisibleSectionID"
+        value="sectionID-personalInfo"
+        style="display: none"
+      />
 
       <!-- subsec holder starts here -->
-      <div class="sec-holder" id="sectionID-personalInfo">
+      <div class="sec-holder" id="answersHolderId">
         <div class="subsec-holder">
-
           <%for(let i=0; i<5; i++){ %>
           <div class="subsec" id="dateId<%=i%>">
             <div class="mytable">
-              <div class="table-title">
-                Date: 10.05.21
-              </div>
+              <div class="table-title">Date: 10.05.21</div>
               <%for(let j=0; j<5; j++){ %>
-                <div class="table-row">
-                  <div class="label">
-                    <p>  At 11.12PM </p>
-                  </div>
-                  <div class="detail">
-                    <p>Rahat</p>
-                  </div>
-                </div>              
+              <div class="table-row">
+                <div class="label">
+                  <p>At 11.12PM</p>
+                </div>
+                <div class="detail">
+                  <p>Arham</p>
+                </div>
+                <div class="update">
+                  <i class="fas fa-edit"></i>
+                </div>
+              </div>
               <%}%>
             </div>
           </div>
@@ -101,23 +114,28 @@
       </div>
 
       <div id="sectionAddHelper"></div>
-
-
     </div>
-
   </main>
 
   <!-- Optional JavaScript -->
   <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+  <script
+    src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
     integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
-    crossorigin="anonymous"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+    crossorigin="anonymous"
+  ></script>
+  <script
+    src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
     integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
-    crossorigin="anonymous"></script>
+    crossorigin="anonymous"
+  ></script>
 
   <script>
-    
+
+    const question = <%-JSON.stringify(question)%>
+
+    console.log(question)
+
     $('body').scrollspy({ target: ".sub-sec-scrollspy", offset: 50 });
 
     $('#notifyBarEditBtn').click((e) => {
@@ -152,16 +170,21 @@
       }
     }
 
-    
+
     function checkNotNull(val)
     {
       return (typeof val !== 'undefined') && (val !== '') && (val !== null) && (val.length)
     }
 
-   
+    function getFormattedDate(givenDate){
+      let givenDateStr = givenDate.getFullYear()+'-'+ (givenDate.getMonth()<10? '0'+(givenDate.getMonth()+1) : (givenDate.getMonth()+1)) +'-'+ ( givenDate.getDate()<10? '0'+givenDate.getDate() : givenDate.getDate() )
+      return givenDateStr
+    }
+
+
     $(document).ready(function () {
       // Add scrollspy to <body>
-      $('body').scrollspy({target: ".navbar", offset: 50});   
+      $('body').scrollspy({target: ".navbar", offset: 50});
       console.log('came in transition doc body')
       // Add smooth scrolling on all links inside the navbar
       $(".nav-sec-cont").on('click', ".sec-name a", function (event) {
@@ -190,7 +213,106 @@
       });
     });
 
+    const displayPageElement = () => {
+      let answers = question.answers
+      let ansPerDate = {}
+      for(let ans of answers){
+        if(checkNotNull(ans.value)){let createDate = new Date(ans.questionCreated)
+
+          let ansDate = getFormattedDate(createDate)
+
+
+          if(!(ansDate in ansPerDate)){
+            ansPerDate[ansDate]=[]
+          }
+
+          ansPerDate[ansDate].push({
+            _id: ans._id,
+            value: ans.value,
+            timeStr: (`At ${( createDate.getHours()<10? `0${createDate.getHours()}`:createDate.getHours())}:00`)
+          })
+        }        
+      }
+
+      console.log({ansPerDate})
+
+      // creating all answers
+      $('#answersHolderId').replaceWith(`
+        <div class="sec-holder" id="answersHolderId">
+          <div class="subsec-holder">
+            ${
+              function createAllDateAns(){
+                let responseAllDates = ''
+
+                for(let dateStr in ansPerDate){
+                  responseAllDates+= `
+                  <div class="subsec" id="dateId${dateStr}">
+                    <div class="mytable">
+                      <div class="table-title">Date: ${dateStr}</div>
+
+                      ${
+                        function createEachAns(){
+                          let answers = ansPerDate[dateStr]
+
+                          let ansElm =''
+
+                          for(let ans of answers){
+                            ansElm+= `
+                            <div class="table-row">
+                              <div class="label">
+                                <p>${ans.timeStr}</p>
+                              </div>
+                              <div class="detail" id="detail${ans._id}">
+                                <p>${typeof ans.value==="undefined"? "":ans.value}</p>
+                              </div>
+                            </div>
+                            `
+                          }
+
+                          return ansElm
+                        }()
+                      }
+
+                    </div>
+                  </div>
+                  `
+                }
+                return responseAllDates
+              }()
+
+            }
+          </div>
+        </div>
+      `)
+
+      // creating side bar contents
+      $("#sectionContID").replaceWith(`
+        <div class="sec-cont" id="sectionContID">
+          ${
+            function createSideBarContent(){
+              let htmlCont = ''
+              for(let dateStr in ansPerDate){
+                htmlCont+=`
+                <div class="sec-name-and-cnt">
+                  <div class="sec-name">
+                    <a href="#dateId${dateStr}">${dateStr}</a>
+                  </div>
+                </div>
+                `
+              }
+              return htmlCont
+            }()
+          }
+        </div>
+      `)
+
+    }
+    // this function is called when page is loaded to display
+    // answers after processing
+    displayPageElement()
+
+ 
+    
   </script>
 </body>
-
 </html>

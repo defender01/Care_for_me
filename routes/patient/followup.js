@@ -8,7 +8,12 @@ const {
   checkEmailVerified
 } = require("../../controllers/auth_helper");
 
-const {checkNotNull, calculateUnseenNotifications, preprocessData} = require("../../controllers/functionCollection")
+const {
+  checkNotNull,
+  calculateUnseenNotifications,
+  preprocessData,
+  findTimeDiff,
+} = require("../../controllers/functionCollection");
 const {
   parameterModel,
   followupModel,
@@ -16,6 +21,11 @@ const {
   followupQuesAnsModel
 }= require("../../models/followup")
 const Doctor = require("../../models/doctor").doctorModel
+
+const {
+  patientNotification,
+  doctorNotification,
+} = require("../../models/notification");
 
 
 router.get('/records', checkAuthenticated, checkEmailVerified, async (req, res) => {
@@ -164,7 +174,7 @@ router.get('/questions', checkAuthenticated, checkEmailVerified,async (req, res)
     .populate({
       path: "questions",
       match: queryForFollowUpQuestions,
-      select: "name duration answers"
+      select: "_id name duration answers"
     })
     .exec();
 
@@ -209,19 +219,195 @@ router.get('/questions', checkAuthenticated, checkEmailVerified,async (req, res)
   }
 })
 
-// router.get('/questionAns/qId', checkAuthenticated, checkEmailVerified,async (req, res) => {
-//   let navDisplayName = req.user.name.displayName;
-//   let userRole = req.user.role
-//   try{
-//     const totalUnseenNotifications = await calculateUnseenNotifications(req.user._id, userRole)
-//     res.render('doctorPatientRecordsQuesAns', {navDisplayName, userRole, totalUnseenNotifications})
-//   }catch(err){
-//     return res.render("404", {
-//       navDisplayName,
-//       userRole,
-//       error: err.message,
-//     });
-//   }
-// })
+router.get('/new', checkAuthenticated, checkEmailVerified, async (req, res)=>{
+  let navDisplayName = req.user.name.displayName;
+  let userRole = req.user.role
+  let {notificationId} = req.query
+
+  let dateNow = new Date()
+
+  try{    
+    const totalUnseenNotifications = await calculateUnseenNotifications(req.user._id, userRole)
+    let notification = await patientNotification.findOne({_id: notificationId})
+    // console.log(util.inspect({ notification }, false, null, true /* enable colors */));
+
+    let questionsPerDr = {}
+    let timeDiff = {}
+
+    for(let qInfo of notification.followupQues){
+      let dId = qInfo.doctor
+      let doctor = await Doctor.findOne({_id: dId},"name")
+      let question = await followupQuesModel.findOne({
+        _id: qInfo.qId
+      })
+      .lean()
+      .populate({
+        path: 'answers',
+        match: {
+          'questionCreated': { $gte: qInfo.timeRange.minTime, $lte: qInfo.timeRange.maxTime },
+        }
+      })
+
+      for(let answer of question.answers){
+        timeDiff[answer._id] = findTimeDiff(answer.questionCreated, dateNow)
+      }
+
+
+      if(!(dId in questionsPerDr)){
+        questionsPerDr[dId] = {
+          doctor,
+          questions: [question]
+        }
+      }else{
+        questionsPerDr[dId].questions.push(question)
+      }
+
+    }
+
+    // console.log(util.inspect({ questionsPerDr }, false, null, true /* enable colors */));
+
+
+    res.render('patientNewFollowupQues', {
+      navDisplayName,
+      userRole, 
+      totalUnseenNotifications, 
+      questionsPerDr,
+      timeDiff,
+    })
+  }catch(err){
+    return res.render("404", {
+      navDisplayName,
+      userRole,
+      error: err.message,
+    });
+  }
+})
+
+router.post('/new', checkAuthenticated, checkEmailVerified, async (req, res) => {
+  let user = req.user
+  let data = req.body
+  console.log(data)
+  console.log(JSON.parse(req.body))
+
+
+  let questionIds = data['questionIds']
+  let answerIds = data['answerIds']
+
+  // console.log(data)
+
+  try{
+    for(let aId of answerIds){
+      let answer = await followupQuesAnsModel.findOne({_id: aId})
+      answer.value = data[aId]
+      await answer.save()      
+    }
+    for(let qId of questionIds){
+      // notifation for threshold cross
+      let doctorId = data[qId]
+      let notification = new doctorNotification({
+        doctorId: doctorId,
+        notificationType: "irregularity",
+        patient: {
+          _id: user._id,
+          name: user.name.fullName,
+          questionId: qId,
+        },
+        link: `/doctor/followupQues/questionAns?qId=${qId}`,
+      })
+
+      await notification.save()
+    }
+    
+    res.send({successMsg: 'Answer saved successfully!!'})
+  }catch(err){
+    res.send({errorMsg: err.message})
+  }
+
+
+})
+
+
+router.post("/update", checkAuthenticated, checkEmailVerified, async (req, res) => {
+
+  let {answerId, value, inputType, thresholdCrossed, questionId, doctorId} = req.body
+  let user = req.user
+
+  // console.log(req.body)
+
+  try{
+    let answer = await followupQuesAnsModel.findOne({_id: answerId})
+    answer.value = value
+    await answer.save()
+
+    if(inputType==='numberType'){
+      if(thresholdCrossed==='true'){
+
+        let notification = new doctorNotification({
+          doctorId: doctorId,
+          notificationType: "irregularity",
+          patient: {
+            _id: user._id,
+            name: user.name.fullName,
+            questionId: questionId,
+          },
+          link: `/doctor/followupQues/questionAns?qId=${questionId}`,
+        })
+
+        // console.log({notification})
+
+        await notification.save()
+      }
+    }
+
+    res.send({successMsg: 'Answer saved successfully!!'})
+  }catch(err){
+    res.send({errorMsg: err.message})
+  }
+
+})
+
+router.get(
+  "/questionAns",
+  checkAuthenticated,
+  checkEmailVerified,
+  async (req, res) => {
+    let navDisplayName = req.user.name.displayName;
+    let userRole = req.user.role;
+    let {dId, recordInd, qId} = req.query
+    console.log({qId})
+    try {
+      const totalUnseenNotifications = await calculateUnseenNotifications(
+        req.user._id,
+        userRole
+      );
+
+      let question = await followupQuesModel.findOne({
+        _id: qId
+      }).populate({
+        path: "answers",
+        options: {sort:{"_id":-1}}
+      })
+
+      let doctorInfo = await Doctor.findOne({
+        _id: dId
+      }, "_id name")
+
+      res.render("patientDoctorRecordsQuesAns", {
+        navDisplayName,
+        userRole,
+        totalUnseenNotifications,
+        recordInd,
+        question,
+        doctorInfo
+      });
+    } catch (err) {
+      return res.render("404", {
+        navDisplayName,
+        userRole,
+        error: err.message,
+      });
+    }
+  }
+);
 
 module.exports = router;

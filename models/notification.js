@@ -16,6 +16,7 @@ const doctorNotificationSchema = new mongoose.Schema({
     name: String,
     questionId: mongoose.Schema.Types.ObjectId,
   },
+  link: String,
   created: { 
     type: Date, 
     default: Date.now
@@ -29,14 +30,15 @@ const patientNotificationSchema = new mongoose.Schema({
     type: Boolean,
     default: false
   },
-  followupQuesCnt:{
-    type: Number,
-    default: 0
-  },
-  doctor: {
-    _id: mongoose.Schema.Types.ObjectId,
-    name: String,
-  },
+  followupQues:[{
+    doctor: mongoose.Schema.Types.ObjectId,
+    qId: mongoose.Schema.Types.ObjectId,
+    timeRange:{
+      minTime: Date,
+      maxTime: Date,
+    }
+  }],
+  followupQuesCnt: Number, 
   created: { 
     type: Date, 
     default: Date.now

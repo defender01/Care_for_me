@@ -177,10 +177,10 @@
                           <i class="far fa-clock"></i>
                         </td>
                         <td class="text-cont">
-                          You have <%= notification.followupCnt %> followup questions to answer           
+                          You have <%= notification.followupQuesCnt %> followup questions to answer           
                         </td>
                         <td class="btn-cont">
-                          <button type="button">View</button>                    
+                          <button type="button" data-notification-id="<%= notification._id %>" class="folloupNotificationBtn">View</button>                    
                         </td>
                       </tr>
                     <% } %> 
@@ -334,6 +334,14 @@
           }
         });
 
+      })
+
+      $('.folloupNotificationBtn').on("click", function(e){
+        e.preventDefault();
+        let notificationId = $(this).data('notification-id')
+
+        window.location.href = `/patient/followupQues/new?notificationId=${notificationId}`
+        
       })
 
       window.onresize = screenDisplayCheck

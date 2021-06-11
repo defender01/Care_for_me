@@ -152,6 +152,27 @@ p {
   margin: 10px 0 0 0;
 }
 
+.secondary-container .btn-container {
+  height: 80px;
+  display: flex;
+}
+
+.secondary-container .btn-container button {
+  margin: auto;
+  width: 100px;
+  background: rgba(29, 6, 71, 0.89);
+  font-weight: bold;
+  color: white;
+  border: 0 none;
+  border-radius: 2px;
+  cursor: pointer;
+  padding: 10px 5px;
+}
+
+.secondary-container .btn-container button:hover {
+  background: rgba(44, 10, 109, 0.89);
+}
+
 .primary-card {
   background-color: white;
   padding: 10px 20px 10px 20px;
@@ -243,6 +264,11 @@ h5.left.subsection-title {
 .fieldlabels {
   color: gray;
   text-align: left;
+}
+
+.fieldlabels .time-holder {
+  font-size: 12px;
+  margin-left: 20px;
 }
 
 .progress {

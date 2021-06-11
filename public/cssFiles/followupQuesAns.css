@@ -212,6 +212,12 @@ main .wrapper .sec-holder .subsec-holder {
   width: calc(100%-200px);
 }
 
+@media (min-width: 1000px) {
+  main .wrapper .sec-holder .subsec-holder {
+    margin-right: 15%;
+  }
+}
+
 main .wrapper .sec-holder .subsec-holder .subsec {
   background-color: #ffffff;
   margin-bottom: 80px;
@@ -253,7 +259,7 @@ main .wrapper .sec-holder .subsec-holder .subsec .mytable .table-row .label {
   margin: auto;
   flex: 1;
   padding: 5px;
-  font-size: 17px;
+  font-size: 15px;
   color: #90949c;
 }
 
@@ -264,6 +270,11 @@ main .wrapper .sec-holder .subsec-holder .subsec .mytable .table-row .detail {
   padding: 5px;
   font-size: 17px;
   color: #000000;
+}
+
+main .wrapper .sec-holder .subsec-holder .subsec .mytable .table-row .update i:hover {
+  color: #1d83f7;
+  cursor: pointer;
 }
 
 @keyframes banner-btn-bg {

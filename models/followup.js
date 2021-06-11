@@ -13,7 +13,7 @@ const parameterSchema = new Schema({
 });
 
 const followupAnswerSchema = new Schema({
-  answer: String,
+  value: String,
   questionCreated: Date,
   responseTime: Date,
 });
@@ -50,5 +50,5 @@ module.exports = {
   parameterModel: mongoose.model("parameterModel", parameterSchema),
   followupModel: mongoose.model("followupRecord", followupRecordSchema),
   followupQuesModel: mongoose.model("followupQues", followupQuesSchema),
-  followupQuesAnsModel: mongoose.model("followuQuesAns", followupAnswerSchema),
+  followupQuesAnsModel: mongoose.model("followupQuesAns", followupAnswerSchema),
 };

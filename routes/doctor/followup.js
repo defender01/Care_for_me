@@ -84,6 +84,7 @@ router.get(
     }
   }
 );
+
 router.post(
   "/assign/continue",
   checkAuthenticatedDoctor,
@@ -140,7 +141,7 @@ router.post(
             },
             frequency: data["frequency" + qId],
           });
-          // await question.save();
+          await question.save();
           questionIds.push(question.id);
         }
         let followupRecord = new followupModel({
@@ -150,7 +151,7 @@ router.post(
           recordStartDate: recordStartDate,
           recordEndDate: recordEndDate,
         });
-        // await followupRecord.save();
+        await followupRecord.save();
         // console.log(util.inspect( {followupRecord} , false, null, true /* enable colors */));
       }
       // console.log(util.inspect( {questions} , false, null, true /* enable colors */));
@@ -522,21 +523,33 @@ router.get(
 // );
 
 router.get(
-  "/questionAns/qId",
+  "/questionAns",
   checkAuthenticatedDoctor,
   checkEmailVerified,
   async (req, res) => {
     let navDisplayName = req.user.name.displayName;
     let userRole = req.user.role;
+    let {recordInd, qId} = req.query
+    console.log({qId})
     try {
       const totalUnseenNotifications = await calculateUnseenNotifications(
         req.user._id,
         userRole
       );
+
+      let question = await followupQuesModel.findOne({
+        _id: qId
+      }).populate({
+        path: "answers",
+        options: {sort:{"_id":-1}} //source https://stackoverflow.com/questions/11512965/mongoose-sort-query-by-populated-field
+      })
+
       res.render("doctorPatientRecordsQuesAns", {
         navDisplayName,
         userRole,
         totalUnseenNotifications,
+        recordInd,
+        question,
       });
     } catch (err) {
       return res.render("404", {
@@ -548,23 +561,33 @@ router.get(
   }
 );
 
-router.post('/deleteRecord', checkAuthenticatedDoctor, checkEmailVerified, async (req, res) =>{
-  let navDisplayName = req.user.name.displayName;
-  let userRole = req.user.role
-  let {recordId} = req.body
-  console.log({recordId})
-  try{
-    let followupRecord = await followupModel.findOne({_id: recordId})
-    // console.log({followupRecord})
-    followupRecord.questions.forEach(async(qId) => {
-      await followupQuesModel.deleteOne({_id:qId})
-    })
-    await followupModel.deleteOne({_id: recordId})
-    return res.send({ status: true });
-  }catch(err){
-    console.log(err.message);
-    return res.send({ status: false });
-  }  
-})
+router.post(
+  "/deleteRecord",
+  checkAuthenticatedDoctor,
+  checkEmailVerified,
+  async (req, res) => {
+    let { recordId } = req.body;
+    console.log({ recordId });
+    try {
+      let followupRecord = await followupModel.findOne({ _id: recordId });
+
+      for (let qId of followupRecord.questions) {
+        let question = await followupQuesModel.findOne({ _id: qId });
+
+        for (let aId of question.answers) {
+          await followupQuesAnsModel.deleteOne({ _id: aId });
+        }
+
+        await followupQuesModel.deleteOne({ _id: qId });
+      }
+
+      await followupModel.deleteOne({ _id: recordId });
+      return res.send({ status: true });
+    } catch (err) {
+      console.log(err.message);
+      return res.send({ status: false });
+    }
+  }
+);
 
 module.exports = router;

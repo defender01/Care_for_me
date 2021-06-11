@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+      integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
+      crossorigin="anonymous"
+    />
+
+    <!-- fontawesome cdn -->
+    <link
+      rel="stylesheet"
+      href="//use.fontawesome.com/releases/v5.0.7/css/all.css"
+    />
+
+    <script
+      src="https://code.jquery.com/jquery-3.4.1.js"
+      integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+      crossorigin="anonymous"
+    ></script>
+
+    <!-- stylesheet for navbar -->
+    <link rel="stylesheet" href="/assets/cssFiles/navbar.css" />
+    <link rel="stylesheet" href="/assets/cssFiles/followupQuesAns.css" />
+    <!-- for loader -->
+    <script src="/assets/jsFiles/loader.js"></script>
+    <link rel="stylesheet" href="/assets/cssFiles/loader.css" />
+
+    <title>Doctor Profile-Amar.health</title>
+  </head>
+
+  <body>
+    <!-- display loading icon -->
+    <div class="se-pre-con"></div>
+    <!-- ends -->
+
+    <!-- navigation bar -->
+    <% include ./segments/navbar %>
+
+    <main>
+      <div class="side-bar" style="left: 0px">
+        <div class="topic-container">
+          <div class="topic">
+            <h3>Response Dates</h3>
+          </div>
+          <div class="angle">
+            <i
+              class="fas fa-angle-left"
+              id="leftAngle"
+              onclick="hideSidebar()"
+            ></i>
+          </div>
+        </div>
+        <!-- here are all sidebar items -->
+        <div class="nav-sec-cont">
+          <div class="sec-cont" id="sectionContID">
+            <%for(let i=0; i<5; i++){ %>
+            <div class="sec-name-and-cnt">
+              <div class="sec-name">
+                <a href="#dateId<%=i%>">10.05.21</a>
+              </div>
+            </div>
+            <%}%>
+          </div>
+        </div>
+      </div>
+
+      <div class="wrapper">
+        <!-- Modal -->
+        <div class="modal fade" id="updateAnsModal" tabindex="-1" aria-labelledby="updateAnsModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="updateAnsModalLabel">
+                  Update the Answer of 03.03.21 10.00PM 
+                </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times; </span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <input type="text" class="form-control" id="modalAnsId" placeholder="Answer" autofocus="" />
+              </div>
+              <div class="modal-footer">
+                <input type="hidden" id="ansToUpdate" value="" style="display: none;">
+                <button id="modalSaveButton" type="button" class="btn btn-success">
+                  Save
+                </button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">
+                  Cancel
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="notify-bar">
+          <div class="angle">
+            <i class="fas fa-angle-right" onclick="displaySidebar()"></i>
+          </div>
+          <div class="sec-title" id="notifyBarTitle">
+            Record <%=recordInd%> > All Questions> <%= question.name%>
+          </div>
+        </div>
+
+        <!-- Hidden inputs -->
+        <input
+          type="text"
+          id="notifyBarSectionID"
+          value="personalInfo"
+          style="display: none"
+        />
+        <input
+          type="text"
+          id="currentVisibleSectionID"
+          value="sectionID-personalInfo"
+          style="display: none"
+        />
+
+        <!-- subsec holder starts here -->
+        <div class="sec-holder" id="answersHolderId">
+          <div class="subsec-holder">
+            <%for(let i=0; i<5; i++){ %>
+            <div class="subsec" id="dateId<%=i%>">
+              <div class="mytable">
+                <div class="table-title">Date: 10.05.21</div>
+                <%for(let j=0; j<5; j++){ %>
+                <div class="table-row">
+                  <div class="label">
+                    <p>At 11.12PM</p>
+                  </div>
+                  <div class="detail">
+                    <p>Arham</p>
+                  </div>
+                  <div class="update">
+                    <i class="fas fa-edit"></i>
+                  </div>
+                </div>
+                <%}%>
+              </div>
+            </div>
+            <%}%>
+          </div>
+        </div>
+
+        <div id="sectionAddHelper"></div>
+      </div>
+    </main>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+      integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+      integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+      crossorigin="anonymous"
+    ></script>
+
+    <script>
+
+      const question = <%-JSON.stringify(question)%>
+      const doctorInfo = <%-JSON.stringify(doctorInfo)%>
+
+      console.log(question)
+      console.log(doctorInfo)
+
+
+      $('body').scrollspy({ target: ".sub-sec-scrollspy", offset: 50 });
+
+      $('#notifyBarEditBtn').click((e) => {
+          let secID = $("#notifyBarSectionID").val()
+          location = `profile/update/${secID}`;
+      });
+
+      function displaySidebar() {
+        $('#leftAngle').css('display', 'block')
+        $('.side-bar').css('left', '0')
+      }
+      function hideSidebar() {
+        $('#leftAngle').css('display', 'none')
+        $('.side-bar').css('left', '-300px')
+      }
+
+      window.onresize = function () {
+        //console.log(window.innerWidth)
+        if (window.innerWidth >= 1000) {
+          $('.side-bar').css('left', '0')
+        }
+      }
+
+      function changeBtnText() {
+        if ($('#angleDown').css('display') == 'block') {
+          $('#angleDown').css('display', 'none')
+          $('#angleUp').css('display', 'block')
+        }
+        else {
+          $('#angleDown').css('display', 'block')
+          $('#angleUp').css('display', 'none')
+        }
+      }
+
+
+      function checkNotNull(val)
+      {
+        return (typeof val !== 'undefined') && (val !== '') && (val !== null) && (val.length)
+      }
+
+      function getFormattedDate(givenDate){
+        let givenDateStr = givenDate.getFullYear()+'-'+ (givenDate.getMonth()<10? '0'+(givenDate.getMonth()+1) : (givenDate.getMonth()+1)) +'-'+ ( givenDate.getDate()<10? '0'+givenDate.getDate() : givenDate.getDate() )
+        return givenDateStr
+      }
+
+
+      $(document).ready(function () {
+        // Add scrollspy to <body>
+        $('body').scrollspy({target: ".navbar", offset: 50});
+        console.log('came in transition doc body')
+        // Add smooth scrolling on all links inside the navbar
+        $(".nav-sec-cont").on('click', ".sec-name a", function (event) {
+          // Make sure this.hash has a value before overriding default behavior
+          console.log('came in transition')
+          if (this.hash !== "") {
+            // Prevent default anchor click behavior
+            event.preventDefault();
+            console.log('came in transition inside')
+
+            // Store hash
+            var hash = this.hash;
+
+            // Using jQuery's animate() method to add smooth page scroll
+            // The optional number (400) specifies the number of milliseconds it takes to scroll to the specified area
+            let scrollToPosition = ($(hash).offset().top - 200)
+            $('html, body').animate({
+              scrollTop: scrollToPosition
+            }, 400, function(){
+              // Add hash (#) to URL when done scrolling (default click behavior)
+              // this line actually sets url of the page such as localhost:5000/profile/#hash->(the value of hash)
+              // window.location.hash = hash;
+              $('html').animate({ 'scrollTop': scrollToPosition }, 0);
+            });
+          }  // End if
+        });
+      });
+
+      const displayPageElement = () => {
+        let answers = question.answers
+        let ansPerDate = {}
+        for(let ans of answers){
+          let createDate = new Date(ans.questionCreated)
+
+          let ansDate = getFormattedDate(createDate)
+
+
+          if(!(ansDate in ansPerDate)){
+            ansPerDate[ansDate]=[]
+          }
+
+          ansPerDate[ansDate].push({
+            _id: ans._id,
+            value: ans.value,
+            timeStr: (`At ${( createDate.getHours()<10? `0${createDate.getHours()}`:createDate.getHours())}:00`)
+          })
+        }
+
+        console.log({ansPerDate})
+
+        // creating all answers
+        $('#answersHolderId').replaceWith(`
+          <div class="sec-holder" id="answersHolderId">
+            <div class="subsec-holder">
+              ${
+                function createAllDateAns(){
+                  let responseAllDates = ''
+
+                  for(let dateStr in ansPerDate){
+                    responseAllDates+= `
+                    <div class="subsec" id="dateId${dateStr}">
+                      <div class="mytable">
+                        <div class="table-title">Date: ${dateStr}</div>
+
+                        ${
+                          function createEachAns(){
+                            let answers = ansPerDate[dateStr]
+
+                            let ansElm =''
+
+                            for(let ans of answers){
+                              ansElm+= `
+                              <div class="table-row">
+                                <div class="label">
+                                  <p>${ans.timeStr}</p>
+                                </div>
+                                <div class="detail" id="detail${ans._id}">
+                                  <p>${typeof ans.value==="undefined"? "":ans.value}</p>
+                                </div>
+                                <div class="update">
+                                  <i 
+                                    class="fas fa-edit update-ans" 
+                                    data-ans-date=${dateStr} 
+                                    data-ans-time="${ans.timeStr}" 
+                                    data-ans-id=${ans._id} 
+                                    data-ans-value="${typeof ans.value==="undefined"? "":ans.value}"
+                                    data-ques-type=${question.inputType} 
+                                    data-toggle="modal" data-target="#updateAnsModal"
+                                  ">
+                                  </i>
+                                </div>
+                              </div>
+                              `
+                            }
+
+                            return ansElm
+                          }()
+                        }
+
+                      </div>
+                    </div>
+                    `
+                  }
+                  return responseAllDates
+                }()
+
+              }
+            </div>
+          </div>
+        `)
+
+        // creating side bar contents
+        $("#sectionContID").replaceWith(`
+          <div class="sec-cont" id="sectionContID">
+            ${
+              function createSideBarContent(){
+                let htmlCont = ''
+                for(let dateStr in ansPerDate){
+                  htmlCont+=`
+                  <div class="sec-name-and-cnt">
+                    <div class="sec-name">
+                      <a href="#dateId${dateStr}">${dateStr}</a>
+                    </div>
+                  </div>
+                  `
+                }
+                return htmlCont
+              }()
+            }
+          </div>
+        `)
+
+      }
+      // this function is called when page is loaded to display
+      // answers after processing
+      displayPageElement()
+
+      $(".update-ans").on("click", function(e){
+        e.preventDefault()
+        let answer = {
+          id: $(this).data('ans-id'),
+          dateStr: $(this).data('ans-date'),
+          timeStr: $(this).data('ans-time'),
+          value: $(this).data('ans-value'),
+          inputType: $(this).data('ques-type'),
+        }
+        console.log(answer)
+
+        let modalLabel = `Update the Answer of ${answer.dateStr+' '+answer.timeStr}`
+        let modalBody = `<input type=${answer.inputType==="textType"?"text":"number"} class="form-control" id="modalAns${answer.id}" value="${answer.value}" />`
+        $("#ansToUpdate").val(answer.id)
+        $("#updateAnsModalLabel").html(modalLabel)
+        $(".modal-body").html(modalBody)
+      })
+
+      $("#modalSaveButton").on("click", function(e){
+        e.preventDefault();
+        console.log(this.id, e.target.id)
+
+        $('#updateAnsModal').modal('toggle');
+
+        let ansId = $("#ansToUpdate").val()
+        let data = {
+          answerId : ansId,
+          value: $(`#modalAns${ansId}`).val(),
+          inputType: question.inputType,
+          thresholdCrossed: false,
+          questionId: question._id,
+          doctorId: doctorInfo._id
+        }
+        console.log('question.maxVal= ',question.maxVal,' question.minVal=',question.minVal)
+        if(question.inputType==='numberType'){
+          if(data.value>question.maxVal || data.value<question.minVal){
+            data.thresholdCrossed = true
+          }
+        }
+
+        console.log({data})
+        
+        $.ajax({
+          type: 'POST',
+          url: '/patient/followupQues/update',
+          data,
+          success: (response) => {
+            if(response.successMsg!=''){
+              console.log(response.successMsg)
+
+              $(`#detail${data.answerId}`).replaceWith(`
+                <div class="detail" id="detail${data.answerId}">
+                  <p>${data.value}</p>
+                </div>
+              `)
+
+            }
+            else{
+              alert(response.errorMsg)
+            }
+
+          },
+          error: () => {
+            console.log("Error in sending request to server.")
+            alert("Error in sending request to server.")
+          }
+        })
+      })
+
+      
+    </script>
+  </body>
+</html>

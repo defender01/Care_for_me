@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+
+    <script
+      src="https://code.jquery.com/jquery-3.4.1.js"
+      integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+      crossorigin="anonymous"
+    ></script>
+
+    <link
+      rel="stylesheet"
+      href="//use.fontawesome.com/releases/v5.0.7/css/all.css"
+    />
+
+    <!-- Bootstrap CSS -->
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+      crossorigin="anonymous"
+    />
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+    <!-- stylesheet for navbar -->
+    <link rel="stylesheet" href="/assets/cssFiles/navbar.css" />
+
+    <!-- stylesheet and script for MUltiple step form -->
+    <link rel="stylesheet" href="/assets/cssFiles/medHistory.css" />
+
+    <!-- for loader -->
+    <!-- <script src="/assets/jsFiles/loader.js"></script>     -->
+    <link rel="stylesheet" href="/assets/cssFiles/loader.css" />
+
+    <title>Medical History</title>
+  </head>
+
+  <body">
+    <!-- display loading icon -->
+    <div class="se-pre-con"></div>
+    <!-- ends -->
+
+    <!-- navigation bar -->
+    <% include ./segments/navbar %>
+
+    <!-- For multiple step form-->
+    <main>
+      <div class="container-fluid">
+        <div class="row justify-content-center">
+          <div
+            class="col-11 col-sm-9 col-md-7 col-lg-6 col-xl-9 text-center p-0 mt-3 mb-2"
+          >
+            <% include ./segments/messages %>
+            <div class="primary-card">
+              <h2 id="heading">Please answer the questions for your followup.</h2>
+              <form
+                id="msform"
+                method="POST"
+                action="/patient/followupQues/new"
+              >
+                
+                <br />
+
+                <% if(typeof questionsPerDr !=='undefined'){%>
+                  <% for(let doctorId in questionsPerDr){ %>
+                    <% let elm = questionsPerDr[doctorId]%>
+                    <div class="form-card" id="form<%=doctorId%>">
+                      <div class="secondary-container">
+                        <div class="alert alert-success alert-dismissible fade show" style="display: none;" id="successMsgCont<%=doctorId%>" role="alert">
+                          <span id="successMsg<%=doctorId%>"></span>
+                          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        <h4 class="subsection-title">Dr. <%= elm.doctor.name.fullName%></h4>
+
+                        <%let questions = elm.questions%>
+                        <% for(let question of questions){ %>
+                          <% for(let answer of question.answers){ %>
+                            <label class="fieldlabels"><%= question.name %> <span class="time-holder"> <%= timeDiff[answer._id] %></span></label>
+                            <input
+                              type=<%= question.inputType==="textType"? "text":"number"%>
+                              name="<%= answer._id %>"
+                              id="<%= answer._id %>"
+                              value='<%= typeof answer.value!== "undefined"? answer.value : "" %>'
+                            />
+                            <br />
+                          <% } %>
+                        <% } %>
+                        <div class="btn-container">
+                          <button type="button" class="submitBtn" data-doctor-id="<%= doctorId %>">SAVE</button>
+                        </div>
+                      </div>
+                    </div>
+                  <% } %>
+                <% } %>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </main>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+      integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+      integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+      crossorigin="anonymous"
+    ></script>
+
+    <script>
+      // fading preloader
+      $(".se-pre-con").fadeOut("slow");
+
+      let questionsPerDr = <%-JSON.stringify(questionsPerDr)%>
+
+      console.log({questionsPerDr})
+
+      
+      let checkNotNull = (val) => {
+        return typeof val != "undefined" && val != "" && val != null;
+      };
+
+      $(".submitBtn").on("click", function(e){
+        e.preventDefault();
+
+        let data = {
+          'questionIds': [],
+          'answerIds': []
+        }
+        let alertQues = {}
+        let answersHtml = ''
+        
+        let doctorId = $(this).data('doctor-id')
+
+        let elm = questionsPerDr[doctorId]
+        let questions = elm.questions
+        for(let question of questions){ 
+          for(let answer of question.answers){
+
+            let value = $(`#${answer._id}`).val()
+
+            if(checkNotNull(value)){
+
+              if(question.inputType==="numberType"){
+                value = parseInt(value)
+
+                if(value>question.maxVal || value<question.minVal){
+                  
+                  if(!(question._id in alertQues)){
+                    alertQues[question._id] = true
+                    data['questionIds'].push(question._id)
+                    data[question._id] = doctorId
+                  }        
+
+                }
+              }
+
+              data['answerIds'].push(answer._id)
+              data[answer._id] = value
+
+            }            
+          }
+        }
+        
+        console.log({data})
+
+        $.ajax({
+          type: "POST",
+          url: "/patient/followupQues/new",
+          contentType: 'application/json',
+          data: JSON.stringify(data),
+          success: (response) => {
+            if(response.successMsg!=''){
+              console.log(response.successMsg)
+              $(`#successMsgCont${doctorId}`).show()
+
+              $(`#successMsg${doctorId}`).replaceWith(`
+                <span id="successMsg${doctorId}">${response.successMsg}</span>
+              `)
+
+              $('html, body').animate({
+                  scrollTop: $(`#successMsg${doctorId}`).offset().top-200
+              }, 1000);
+
+            }
+            else{
+              alert(response.errorMsg)
+            }
+          },
+          error: () => {
+            console.log("Error in sending request to server.")
+            alert("Request sent failed")
+          }
+        })
+
+
+      })
+
+      
+    </script>
+  </body>
+</html>

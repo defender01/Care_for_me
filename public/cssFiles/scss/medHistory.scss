@@ -140,6 +140,24 @@ p {
 	padding: 10px 10px 10px 10px;
 	background-color: white;
 	margin: 10px 0 0 0;
+	.btn-container{
+		height: 80px;
+		display: flex;
+		button{
+			margin:auto;
+			width: 100px;
+			background: rgba(29, 6, 71, 0.89);
+			font-weight: bold;
+			color: white;
+			border: 0 none;
+			border-radius: 2px;
+			cursor: pointer;
+			padding: 10px 5px;
+			&:hover{
+				background: rgba(44, 10, 109, 0.89);
+			}
+		}
+	}
 }
 .primary-card {
 	background-color: white;
@@ -222,6 +240,10 @@ h5.left.subsection-title {
 .fieldlabels {
 	color: gray;
 	text-align: left;
+	.time-holder{
+		font-size: 12px;
+		margin-left: 20px;
+	}
 }
 .progress {
 	height: 20px;

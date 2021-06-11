@@ -12,6 +12,8 @@ const {
   followupQuesAnsModel,
 } =  require("../models/followup")
 
+const {doctorPatientModel} = require("../models/doctorPatient")
+
 let camelCase = function (str) {
   return str.replace(/(?:^\w|[A-Z]|\b\w)/g, function(word, index) {
     return index == 0 ? word.toLowerCase() : word.toUpperCase();
@@ -46,9 +48,18 @@ let calculateUnseenNotifications = async (userID, userRole) => {
 let createNotificationForFollowupQues = async(userID) => {
   let newQuesCnt = 0  
   let dateNow = new Date()
+  let quesInfo = {}
+
+  // find doctor ids for this patient
+  let doctorPatientData = await doctorPatientModel.find({
+    "patient._id": userID
+  }, "doctor")
+
+  let doctorIds = doctorPatientData.map(({doctor}) => doctor._id)
 
   let records = await followupModel.find({
     patientId: userID,
+    doctorId: {$in: doctorIds},
     recordStartDate: {$lte: dateNow},
     recordEndDate: {$gte: dateNow}
   }).populate({
@@ -58,58 +69,79 @@ let createNotificationForFollowupQues = async(userID) => {
       'duration.endDate': {$gte: dateNow},
     }
   })
-  
-  records.forEach(record => {
+
+  for(let record of records){
     let questions = record.questions
-    questions.forEach(ques => {
-      console.log(util.inspect({ ques }, false, null, true /* enable colors */));
+    for(let ques of questions){
+      // console.log(util.inspect({ ques }, false, null, true /* enable colors */));
       
       // ques.frequency is in hour, so I neet to transform it in millisecond
       let frequency = ques.frequency * 60 * 60 * 1000
       // all time in milliseconds
 
-      // console.log('dateNow in ms= ', dateNow.getTime())
-      // console.log('ques.duration.startDate in ms= ', ques.duration.startDate.getTime())
-      // console.log('frequency in ms= ', frequency)
-
-      // console.log('startDate type= ', typeof ques.duration.startDate)
-      // console.log(typeof Date.now())
-      // console.log(typeof (new Date()))
-
-      // let expectedCreateTime = Math.floor((dateNow - ques.duration.startDate)/frequency) * frequency + ques.duration.startDate
-      // console.log({expectedCreateTime})
-      // console.log(typeof expectedCreateTime)
-      // let dd = new Date(expectedCreateTime)
-      // console.log('expectedCreateTime = ',dd.toDateString(), ' dateNow= ', dateNow)
-
+      lastCreatedTime = checkNotNull(ques.lastCreated)? ques.lastCreated.getTime() :  ques.duration.startDate.getTime() - frequency
       expectedCreateTime = Math.floor((dateNow.getTime() - ques.duration.startDate.getTime())/frequency) * frequency + ques.duration.startDate.getTime()
-      // console.log(Math.floor((dateNow.getTime() - ques.duration.startDate.getTime())/frequency) * frequency/3600000 )
-      // console.log({expectedCreateTime})
-      // console.log(typeof expectedCreateTime)
-      // dd = new Date(expectedCreateTime)
-      // console.log(ques.duration.startDate.toString())
-      // console.log((dd.getTime()-ques.duration.startDate.getTime())/3600000)
-      // console.log(dd.getHours())
-      // console.log('expectedCreateTime = ',dd.toString(), ' dateNow= ',dateNow.toString(),'  hours=',dateNow.getHours())
+      
+      dd = new Date(expectedCreateTime)
 
-      if(ques.lastCreated == null || expectedCreateTime>ques.lastCreated.getTime()){
-        newQuesCnt+=1
+      while(lastCreatedTime+frequency <= expectedCreateTime){
+
+        lastCreatedTime += frequency
+
+        
+        // Only calculating  notifications for the last two days.
+        // Ques before two days will not be shown.
+        if(lastCreatedTime> dateNow.getTime()-2*24*60*60*1000){
+
+          if(!(ques._id in quesInfo)){
+            quesInfo[ques._id]={
+              'doctor': record.doctorId,
+              'qId': ques._id,
+              'timeRange':{
+                'minTime': lastCreatedTime,
+                'maxTime': expectedCreateTime,
+              }
+            }
+          }
+
+          newQuesCnt+=1     
+
+          let answer = new followupQuesAnsModel({
+            questionCreated : lastCreatedTime,
+          })     
+          await answer.save()
+          ques.answers.push(answer._id)  
+        }                    
+        
       }
-    })
-  });
 
-  console.log({newQuesCnt})
+      ques.lastCreated = expectedCreateTime
+
+      await ques.save()      
+    }
+  }
+
+  // console.log({newQuesCnt})
 
   if(newQuesCnt){
     let notification = new patientNotification({
       patientId: userID,
+      notificationType: 'followup',
       seen: false,
+      followupQues: [],
       followupQuesCnt: newQuesCnt
     })
-    // await notification.save()
+
+    for(key in quesInfo){
+      notification.followupQues.push(quesInfo[key])
+    }
+
+    console.log(util.inspect({ notification }, false, null, true /* enable colors */));
+
+    await notification.save()
   }
   
-  return newQuesCnt  
+  return newQuesCnt>0? 1: 0
 }
 
 function preprocessData(obj){
@@ -125,10 +157,23 @@ function preprocessData(obj){
   }
 }
 
+const findTimeDiff = (oldDate, newDate) => {
+  let diffTime = newDate.getTime() - oldDate.getTime()
+  
+  let minutes = Math.floor(diffTime/(60*1000))
+  let hours =  Math.floor(diffTime/(60*60*1000))
+  let days =  Math.floor(diffTime/(24*60*60*1000))
+  let diffStr = days>30? oldDate.toDateString() : ( days>=1? `${days} days before`: ( hours>=1? `${hours} hours before` : `${minutes} minutes before` ))
+  
+  return diffStr
+}
+
 module.exports = 
 {
-  camelCase: camelCase,
-  checkNotNull: checkNotNull,
-  calculateUnseenNotifications: calculateUnseenNotifications,
-  preprocessData: preprocessData
+  camelCase,
+  checkNotNull,
+  calculateUnseenNotifications,
+  preprocessData,
+  createNotificationForFollowupQues, 
+  findTimeDiff 
 }
