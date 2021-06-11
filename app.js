@@ -117,11 +117,8 @@ app.get("/", async (req, res) => {
 })
 
 app.get("/test", async (req, res) => {
-  
-
-
-  res.send({'success': 'success'})
-  // res.render("test", { navDisplayName, userRole })
+  let serverDate = new Date()
+  res.render("test", {serverDate})
 })
 
 app.post("/test", async (req, res) => {

@@ -397,7 +397,7 @@
         }
         console.log('question.maxVal= ',question.maxVal,' question.minVal=',question.minVal)
         if(question.inputType==='numberType'){
-          if(data.value>question.maxVal || data.value<question.minVal){
+          if((checkNotNull(data.value) && data.value>question.maxVal) || (checkNotNull(data.value) && data.value<question.minVal)){
             data.thresholdCrossed = true
           }
         }

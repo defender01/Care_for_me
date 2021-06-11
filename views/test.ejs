@@ -13,6 +13,13 @@
   <body>
 
     <main>
+      <%let dateNow = new Date()%>
+      <p><%= serverDate.toString()%></p>
+      <p><%= serverDate.getTime()%></p>
+      
+      <p><%= dateNow.toString()%></p>
+      <p><%= dateNow.getTime()%></p>
+      
       <form action="/test" method="POST">
         <select class="form-control" name="frequency" id="sectionId" >
           <option  selected value='4'>4hour </option>

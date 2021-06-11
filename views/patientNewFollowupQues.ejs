@@ -158,7 +158,7 @@
               if(question.inputType==="numberType"){
                 value = parseInt(value)
 
-                if(value>question.maxVal || value<question.minVal){
+                if((checkNotNull(value) && value>question.maxVal) || (checkNotNull(value) && value<question.minVal)){
                   
                   if(!(question._id in alertQues)){
                     alertQues[question._id] = true

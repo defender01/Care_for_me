@@ -78,7 +78,7 @@ let createNotificationForFollowupQues = async(userID) => {
       // ques.frequency is in hour, so I neet to transform it in millisecond
       let frequency = ques.frequency * 60 * 60 * 1000
       // all time in milliseconds
-
+      
       lastCreatedTime = checkNotNull(ques.lastCreated)? ques.lastCreated.getTime() :  ques.duration.startDate.getTime() - frequency
       expectedCreateTime = Math.floor((dateNow.getTime() - ques.duration.startDate.getTime())/frequency) * frequency + ques.duration.startDate.getTime()
       
