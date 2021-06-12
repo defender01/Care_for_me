@@ -287,7 +287,6 @@ router.post('/new', checkAuthenticated, checkEmailVerified, async (req, res) => 
   let user = req.user
   let data = req.body
   console.log(data)
-  console.log(JSON.parse(req.body))
 
 
   let questionIds = data['questionIds']
