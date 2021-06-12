@@ -74,9 +74,7 @@
                       <div class="secondary-container">
                         <div class="alert alert-success alert-dismissible fade show" style="display: none;" id="successMsgCont<%=doctorId%>" role="alert">
                           <span id="successMsg<%=doctorId%>"></span>
-                          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                          </button>
+                          
                         </div>
                         <h4 class="subsection-title">Dr. <%= elm.doctor.name.fullName%></h4>
 
@@ -195,7 +193,9 @@
               $('html, body').animate({
                   scrollTop: $(`#successMsg${doctorId}`).offset().top-200
               }, 1000);
-
+              setTimeout(()=>{
+                $(`#successMsgCont${doctorId}`).hide()
+              },2000)
             }
             else{
               alert(response.errorMsg)
