@@ -117,8 +117,8 @@ app.get("/", async (req, res) => {
 })
 
 app.get("/test", async (req, res) => {
-  let serverDate = new Date()
-  res.render("test", {serverDate})
+  console.log(req.data)
+  res.send(req.data)
 })
 
 app.post("/test", async (req, res) => {

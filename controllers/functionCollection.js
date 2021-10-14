@@ -163,7 +163,7 @@ const findTimeDiff = (oldDate, newDate) => {
   let minutes = Math.floor(diffTime/(60*1000))
   let hours =  Math.floor(diffTime/(60*60*1000))
   let days =  Math.floor(diffTime/(24*60*60*1000))
-  let diffStr = days>30? oldDate.toDateString() : ( days>=1? `${days} days before`: ( hours>=1? `${hours} hours before` : `${minutes} minutes before` ))
+  let diffStr = days>30? oldDate.toDateString() : ( days>=1? `${days} days ago`: ( hours>=1? `${hours} hours ago` : `${minutes} minutes ago` ))
   
   return diffStr
 }

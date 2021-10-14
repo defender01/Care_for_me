@@ -66,7 +66,7 @@ function checkFileType(file, cb){
 
 async function deleteFile(filePath){
   if(!checkNotNull(filePath)) return
-
+  console.log({filePath})
   try {
     await fs.unlink(filePath);      
     console.log(`successfully deleted ${filePath}`);
@@ -135,7 +135,7 @@ router.post("/home/edit", checkAuthenticatedAdmin, async (req,res) => {
 
     if(covImgIdx != -1){
       try{
-        await deleteFile(req,res, coverImagePath)
+        await deleteFile(coverImagePath)
       }catch(err){
         errors.push({msg: err.message})
       }      
@@ -149,7 +149,7 @@ router.post("/home/edit", checkAuthenticatedAdmin, async (req,res) => {
 
     if(aboutUsImgIdx != -1){
       try{
-        await deleteFile(req,res, aboutUsImagePath)
+        await deleteFile(aboutUsImagePath)
       }catch(err){
         errors.push({msg: err.message})
       }         
@@ -183,7 +183,7 @@ router.post("/home/edit", checkAuthenticatedAdmin, async (req,res) => {
         let prevPath =  data['prevFeatureImagePath'+featureId[i]]
         feature.imagePath = files[idx].path.replace(/\\/g, "/")
         try{
-          await deleteFile(req,res, prevPath)
+          await deleteFile( prevPath)
         }catch(err){
           errors.push({msg: err.message})
         }          
@@ -207,7 +207,7 @@ router.post("/home/edit", checkAuthenticatedAdmin, async (req,res) => {
         let prevPath =  data['prevReviewImagePath'+reviewId[i]]
         review.imagePath = files[idx].path.replace(/\\/g, "/")
         try{
-          await deleteFile(req,res, prevPath)
+          await deleteFile( prevPath)
         }catch(err){
           errors.push({msg: err.message})
         }
@@ -224,7 +224,7 @@ router.post("/home/edit", checkAuthenticatedAdmin, async (req,res) => {
       home.features.forEach(async (feature) => {
         if(typeof data['featureName'+feature._id] == 'undefined'){
           try{
-            await deleteFile(req, res, feature.imagePath)
+            await deleteFile(feature.imagePath)
           }catch(err){
             errors.push({msg: err.message})
           } 
@@ -234,7 +234,7 @@ router.post("/home/edit", checkAuthenticatedAdmin, async (req,res) => {
       home.reviews.forEach(async (review) => {
         if(typeof data['reviewerName'+review._id] == 'undefined'){
           try{
-            await deleteFile(req, res, review.imagePath)
+            await deleteFile(review.imagePath)
           }catch(err){
             errors.push({msg: err.message})
           } 

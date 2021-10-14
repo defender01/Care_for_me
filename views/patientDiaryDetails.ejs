@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+
+    <!-- fontawesome cdn -->
+    <link rel="stylesheet" href="//use.fontawesome.com/releases/v5.0.7/css/all.css">
+
+    <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+    crossorigin="anonymous"></script>
+
+    <!-- stylesheet for navbar -->
+    <link rel="stylesheet" href="/assets/cssFiles/navbar.css">
+    <link rel="stylesheet" href="/assets/cssFiles/diaryDetails.css" />
+    <!-- stylesheet for pagination -->
+    <link rel="stylesheet" href="/assets/cssFiles/pagination.css" />
+
+    <!-- for loader -->
+    <script src="/assets/jsFiles/loader.js"></script>    
+    <link rel="stylesheet" href="/assets/cssFiles/loader.css" />
+
+
+    <title>Diary Details</title>
+  </head>
+
+  <body onload="">
+    <!-- display loading icon -->
+    <div class="se-pre-con"></div>
+    <!-- ends -->
+
+    <!-- navigation bar -->
+    <% include ./segments/navbar %>
+    
+    <main>
+      <div class="wrapper" id="">
+
+        <!-- Modal -->
+        <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="deleteModalLabel">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                Are you sure you want to delete this diary?
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-success" onclick="window.location='/patient/diary/delete?dId=<%=data._id%>'">Yes</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">No</button>                
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <% include ./segments/messages %>   
+
+        <%if(typeof data!== 'undefined'){%>
+          <div class="details">
+            <div class="btn-cont">
+              <div class="dlt-btn-cont">
+                <button type="button"  data-toggle="modal" data-target="#deleteModal">Delete</button>
+              </div>
+              <div class="edit-btn-cont">
+                <button type="button" onclick="window.location='/patient/diary/edit?dId=<%=data._id%>'">Edit</button>
+              </div>  
+            </div>
+            <div class="title-cont">
+              <div class="title">
+                <%=data.title%>
+              </div>              
+            </div>
+            
+            <div class="date-time-cont">
+              <div class="date-cont">
+                <%=data.timeDiff%>
+              </div>
+            </div>
+            <div class="summary"><%=data.description%></div>
+
+          </div>
+  
+          <div class="photo-title">
+            Attached Photos
+          </div>
+          
+          <div class="img-container">          
+            <%for(let i=0; i<data.images.length; i++){%>
+              <div class="single-img">
+                <a href="/<%=data.images[i].imagePath %>">
+                  <img src="/<%= data.images[i].imagePath %>" alt="Image not found.">
+                </a>              
+              </div>
+            <%}%>
+          </div>
+        <%}%>
+        
+      </div>
+
+     
+    </main>
+    
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+
+    <script>
+      
+      
+      $("document").ready(function() {
+        $(".summary").each(function(){
+          let diaryDetails = $(this).html()
+          console.log(diaryDetails)
+          diaryDetails= diaryDetails.replace(/\n\r?/g, '<br>'); 
+          $(this).replaceWith(diaryDetails);
+        });     
+      });
+    </script>
+  </body>
+</html>

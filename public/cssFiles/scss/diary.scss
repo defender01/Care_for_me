@@ -1,0 +1,154 @@
+@import url("https://fonts.googleapis.com/css2?family=Lato&family=Nanum+Gothic&family=Poppins&family=Source+Sans+Pro&display=swap");
+
+$base-color: rgba(245, 147, 19, 0.89);
+$hover-color: #96bbc2;
+$title-color: #6a3c19;
+$bg-color: #ffffff;
+$label-color: #90949c;
+$normal-font-size: 20px;
+$btn-color: coral;
+$btn-color-hover: rgb(228, 99, 52);
+
+*{
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+  width: 100%;
+  height: 100vh;
+  background-color: #ffffff;
+
+  font-family: poppins;
+  button{
+    font-family: poppins;
+  }
+}
+
+
+main {
+  margin-top: 40px;
+  background-color: antiquewhite;
+  min-height: 100%;
+  display: flex;
+  .wrapper {
+    width: 80%;
+    height: 100%;
+    margin: auto;
+    margin-top: 50px;
+    .bannar{
+      width: 100%;
+      height: 200px;
+      background: 
+    linear-gradient(
+      rgba(116, 115, 115, 0.26),
+      rgba(107, 107, 107, 0.315)
+      ),
+      url("/resources/mountain.jpeg");
+      
+      background-size: cover;
+      position: relative;
+      background-color: #96bbc2;
+      border-radius: 4px;
+      margin: 10px 0 10px 0;
+      display: flex;
+      
+      button{
+        margin: auto;
+        border-color: #353333;
+        border-radius: 3px;
+        border-width: 0px;
+        background-color: #342f7a;
+        color: #ffffff;
+        font-size: 1.2rem;
+        min-width: 130px;
+        height: 35px;
+        &:hover{
+          background-color: #382fb8;
+        }
+      }
+    }
+
+    .post-collection{
+      margin: 20px 0 20px 0;
+      width: 100%;
+      .post{
+        background-color: #ffffff;
+        margin-top: 10px;
+        padding: 10px ;
+        width: 100%;
+        display: flex;        
+        border-radius: 4px;
+        .img-cont{
+          flex: 1;
+          max-height: 300px;
+          display: flex;
+          img{
+            margin: auto;
+            max-width: 100%;
+            max-height: 300px;
+          }
+        }
+        .details{
+          flex: 3;
+          padding: 10px;
+         .title{
+          font-size: 1.5rem;
+         } 
+         .date-time-cont{
+           padding: 10px 0 10px 0;
+           width: 200px;
+           .date-cont{
+            font-size: 0.8rem;
+            color: gray;
+           }
+         }
+         .summary{
+           height: 200px;
+           background-color: #251e3d;
+           overflow: hidden;
+           display: none;
+         }
+         .btn-cont{
+           height: 50px;
+           padding-top: 20px;
+          button{
+            margin: auto;
+            border-color: #353333;
+            border-radius: 3px;
+            border-width: 0px;
+            background-color: #251e3d;
+            color: #ffffff;
+            font-size: 1rem;
+            min-width: 130px;
+            height: 35px;
+            &:hover{
+              background-color: #382fb8;
+            }
+          }
+        }
+        }
+        
+      }
+    }
+    .pagination-holder{
+      margin: 40px 0 40px 0;
+    }
+  }
+}
+
+@media(max-width: 800px)
+{
+  .post{
+    width: 100%;
+    flex-direction: column;
+    .img-cont{
+      flex: 1;
+    }
+    .details{
+      flex: 1;
+    }
+    
+  }
+}

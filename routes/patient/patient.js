@@ -521,5 +521,6 @@ router.get("/getNewId", (req, res) => {
 
 router.use("/profile", require("./profile.js"));
 router.use("/followupQues", require("./followup.js"));
+router.use("/diary", require("./diary.js"));
 
 module.exports = router;

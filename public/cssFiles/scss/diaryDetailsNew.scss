@@ -1,0 +1,145 @@
+@import url("https://fonts.googleapis.com/css2?family=Lato&family=Nanum+Gothic&family=Poppins&family=Source+Sans+Pro&display=swap");
+
+$base-color: rgba(245, 147, 19, 0.89);
+$hover-color: #96bbc2;
+$title-color: #6a3c19;
+$bg-color: #ffffff;
+$label-color: #90949c;
+$normal-font-size: 20px;
+$btn-color: coral;
+$btn-color-hover: rgb(228, 99, 52);
+
+*{
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+  width: 100%;
+  height: 100vh;
+  background-color: #ffffff;
+
+  font-family: poppins;
+  button{
+    font-family: poppins;
+  }
+}
+
+
+main {
+  margin-top: 40px;
+  background-color: antiquewhite;
+  min-height: 100%;
+  display: flex;
+  .wrapper {
+    width: 80%;
+    height: 100%;
+    margin: auto;
+    margin-top: 50px;
+    background-color: #ffffff;
+
+    .details{
+      padding: 20px;
+      .title{
+        font-size: 1.5rem;
+      }
+      .date-time-cont{
+        padding: 10px 0 10px 0;
+        width: 300px;
+        .date-cont{
+          font-size: 0.8rem;
+         color: gray;
+        }
+      }
+      .summary{
+        margin-top: 20px;
+      }      
+    }
+    .photo-title{
+      padding: 30px 20px 10px 20px;
+      font-size: 1.3rem;
+      width: 100%;
+    }
+    .img-container{
+      // background-color: #90949c;
+      padding: 20px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      grid-column-gap: 1rem;
+      grid-row-gap: 1rem;
+
+      
+      .single-img{
+        min-height: 300px;
+        box-shadow: 0 0 2px rgba(98, 97, 99, 0.76);
+        padding: 10px;
+
+        img{
+          max-width: 100%;
+          max-height: 100%;
+          margin-bottom: 10px;
+          &:hover{
+            opacity: .7;
+          }
+        }
+
+        .new-img-btn-cont{
+          width: 100%;
+          height: 100%;
+          display: flex;
+          // background-color: #e5e6e79c;
+          // border: 2px solid #89898a;
+          // box-shadow: 0 0 2px rgba(98, 97, 99, 0.76);
+          button{
+            margin: auto;
+            border-color: #353333;
+            border-radius: 3px;
+            border-width: 0px;
+            background-color: #251e3d;
+            color: #ffffff;
+            font-size: 1.2rem;
+            min-width: 130px;
+            height: 50px;
+            &:hover{
+              background-color: #382fb8;
+            }
+          }
+        }
+        .delete-btn{
+          height: 50px;
+          width: 100%;
+          button{
+            width: 100px;
+            height: 40px;
+            font-size: 1rem;
+            border-radius: 5px;
+            color: white;
+            border-width: 0px;
+            background-color: #e74c3c;
+          }
+        }
+
+      }
+      
+    }
+    .submit-btn{
+      width: 100%;
+      height: 200px;
+      display: flex;
+      button{
+        width: 150px;
+        height: 50px;
+        margin: auto;
+        font-size: 1.3rem;
+        background-color: #2ecc71;
+        border-radius: 5px;
+        border-width: 0;
+        color: #ffffff;
+        &:hover{
+          background-color: #1af073;
+        }
+      }
+    }
+  }
+}
