@@ -374,8 +374,9 @@ let emailVerificationLinkGenerator = async (req, res) => {
           await urlRandomString.save()
         }
 
-        let host = req.get('host');
-        let linkForVerification = `http://${host}/auth/verify_email/${newRandomString}`;
+        // let host = req.get('host');
+        // let linkForVerification = `http://${host}/auth/verify_email/${newRandomString}`;
+        let linkForVerification = `${process.env.DOMAIN}/auth/verify_email/${newRandomString}`;
         console.log(linkForVerification)
 
         let mailData = {
@@ -422,8 +423,9 @@ let emailVerificationLinkGenerator = async (req, res) => {
           await urlRandomString.save()
         }
 
-        let host = req.get('host');
-        let linkForVerification = `http://${host}/auth/verify_email/${newRandomString}`;
+        // let host = req.get('host');
+        // let linkForVerification = `http://${host}/auth/verify_email/${newRandomString}`;
+        let linkForVerification = `${process.env.DOMAIN}/auth/verify_email/${newRandomString}`;
         console.log(linkForVerification)
 
         let mailData = {
