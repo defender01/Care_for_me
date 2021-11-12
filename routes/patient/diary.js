@@ -490,6 +490,7 @@ router.get(
     }
 
     let queryForDiary = {
+      "patientId": req.user._id,
       "created": {
         $gte: startDate,
         $lte: endDate
