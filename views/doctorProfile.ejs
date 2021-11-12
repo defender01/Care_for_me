@@ -54,7 +54,7 @@
           %> 
         <div class="sec-cont">
           <div class="sec-name-and-cnt">
-            <div class="sec-name">
+            <div class="sec-name" id="<%=sectionID%>SideBarSec">
               <a onclick="displaySection('<%= sectionID %>')"><%= sectionName %></a>
             </div>
           </div>
@@ -202,11 +202,15 @@
       // checking either the section exists or not
       if ($('#sectionID-' + secID).length){
         let currentVisibleSectionID = $('#currentVisibleSectionID').val()
+        let currVisibleSecID= currentVisibleSectionID.split("-")[1]
+        $(`#${currVisibleSecID}SideBarSec`).attr("class", "sec-name")
 
         $("#notifyBarSectionID").val(secID)
         $("#notifyBarTitle").html(sectionName)
         $('#' + currentVisibleSectionID).css('display', 'none')
         $('#sectionID-' + secID).css('display', 'block')
+
+        $(`#${secID}SideBarSec`).attr("class", "sec-name current")
         $('#currentVisibleSectionID').val('sectionID-' + secID)
         return
       }
@@ -271,10 +275,15 @@
       $("#sectionAddHelper").replaceWith(wholeSectionTabHtml);
 
       let currentVisibleSectionID = $('#currentVisibleSectionID').val()
+      let currVisibleSecID= currentVisibleSectionID.split("-")[1]
+      $(`#${currVisibleSecID}SideBarSec`).attr("class", "sec-name")
+
       $("#notifyBarSectionID").val(secID)
       $("#notifyBarTitle").html(sectionName)
       $('#' + currentVisibleSectionID).css('display', 'none')
       $('#sectionID-' + secID).css('display', 'block')
+
+      $(`#${secID}SideBarSec`).attr("class", "sec-name current")
       $('#currentVisibleSectionID').val('sectionID-' + secID)                             
 
     }
@@ -357,6 +366,16 @@
       });
     });
 
+    $("document").ready(function() {
+        $("#profile").attr("class", "nav-item current");   
+        $("#profileLink").attr("class", "nav-link current-item");   
+
+        if(typeof doctorProfileData !=="undefined"){
+          let secID = doctorProfileData[0].sectionId.toString() 
+          $(`#${secID}SideBarSec`).attr("class", "sec-name current")
+        }
+
+    });
   </script>
 </body>
 

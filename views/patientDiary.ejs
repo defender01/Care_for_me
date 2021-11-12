@@ -37,11 +37,40 @@
     
     <main>
       <div class="wrapper" id="">
+        
+        <% include ./segments/messages %>   
+
+        <%if(typeof startDate==="undefined" && typeof endDate==="undefined"){%>
         <div class="bannar">
           <button  type="button"  onclick="location.href='/patient/diary/new'">Add New</button>
         </div>
-        
-        <% include ./segments/messages %>   
+        <form action="/patient/diary/searchResults" method="get">
+          <div class="filter-cont">
+            <div class="itm-cont">
+              <div class="start">
+                <label for="startDate">Start Date</label>
+                <input type="date" placeholder="Enter Start Date" class="form-control" id="startDate" name="startDate" aria-describedby="startDate" required>
+              </div>
+              <div class="end">
+              <label for="endDate">End Date</label>
+               <input type="date" placeholder="Enter End Date" class="form-control" id="endDate" name="endDate" aria-describedby="endDate" required>
+              </div>
+              <div class="search-btn">
+                <button type="submit">
+                  <i class="fas fa-search"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </form>
+        <%}else{%>
+      
+        <div class="filter-msg">
+          <div class="duration">
+            Showing Diary Created from <%=startDate%> to <%=endDate%>
+          </div>
+        </div>
+        <%}%>
 
         <div class="post-collection">
           <%if(typeof data!=='undefined'){%>
@@ -95,7 +124,12 @@
           console.log(diaryDetails)
           diaryDetails= diaryDetails.replace(/\n\r?/g, '<br>'); 
           $(this).replaceWith(diaryDetails);
-        });     
+        });  
+      });  
+      
+      $("document").ready(function() {
+        $("#diary").attr("class", "nav-item current");   
+        $("#diaryLink").attr("class", "nav-link current-item");   
       });    
     </script>
   </body>

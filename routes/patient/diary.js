@@ -429,6 +429,116 @@ router.get("/delete", checkAuthenticated, checkEmailVerified, async (req, res) =
   return
 })
 
+router.get(
+  "/searchResults",
+  checkAuthenticated,
+  checkEmailVerified,
+  async (req, res) => {
+    // console.log(req.query)
+    const LIMIT = 10;
+    let navDisplayName = req.user.name.displayName;
+    let userRole = req.user.role;
+    let totalUnseenNotifications = 0
+    let diaryData = [];
+    let dateNow = new Date()
+
+    try{
+      totalUnseenNotifications = await calculateUnseenNotifications(req.user._id, userRole)
+    }catch(err){
+      return res.render("404", {
+        navDisplayName,
+        userRole,
+        error: err.message
+      });
+    }
+
+    let {startDate, endDate, page } = req.query;
+
+    console.log({startDate}, {endDate});
+
+    page = parseInt(typeof page != "undefined" ? page : 1);
+    startDate =
+      typeof startDate != "undefined" ? startDate.toString().trim() : startDate;
+
+    let paginationUrl = req.originalUrl.toString();
+    if (paginationUrl.includes(`page=`))
+      paginationUrl = paginationUrl.replace(`page=${page}`, "page=");
+    else {
+      paginationUrl = paginationUrl.includes("?")
+        ? `${paginationUrl}&page=`
+        : `${paginationUrl}?page=`;
+    }
+
+    if (!checkNotNull(startDate) || !checkNotNull(endDate)) {
+      diaryData = [];
+
+      return res.render("patientDiary", {
+        navDisplayName,
+        userRole,
+        totalUnseenNotifications,
+        startDate,
+        endDate,
+        data: diaryData,
+        currentPage: 1,
+        hasNextPage: false,
+        hasPreviousPage: false,
+        nextPage: 1,
+        previousPage: 1,
+        lastPage: 1,
+        URL: paginationUrl,
+      });
+    }
+
+    let queryForDiary = {
+      "created": {
+        $gte: startDate,
+        $lte: endDate
+      }
+    };
+    console.log(queryForDiary)
+
+    try {
+      diaryData = await diaryModel.find(
+        queryForDiary,
+      ).sort({ created: -1})
+      .limit(LIMIT)
+      .skip(LIMIT * (page - 1));
+
+      for(let diary of diaryData)
+      {
+        diary['timeDiff'] = findTimeDiff(diary.created, dateNow)
+      }
+
+
+      const totalItems = await diaryModel.countDocuments(
+        queryForDiary
+      );
+
+     
+      return res.render("patientDiary", {
+        navDisplayName,
+        userRole,
+        totalUnseenNotifications,
+        startDate,
+        endDate,
+        data: diaryData,
+        currentPage: page,
+        hasNextPage: page * LIMIT < totalItems,
+        hasPreviousPage: page > 1,
+        nextPage: page + 1,
+        previousPage: page - 1,
+        lastPage: Math.ceil(totalItems / LIMIT),
+        URL: paginationUrl,
+      });
+    } catch (err) {
+      return res.render("404", {
+        navDisplayName,
+        userRole,
+        error: err.message,
+      });
+    }
+  }
+);
 
 
 module.exports = router;

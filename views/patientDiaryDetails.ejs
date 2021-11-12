@@ -122,6 +122,10 @@
           $(this).replaceWith(diaryDetails);
         });     
       });
+      $("document").ready(function() {
+        $("#diary").attr("class", "nav-item current");   
+        $("#diaryLink").attr("class", "nav-link current-item");   
+      }); 
     </script>
   </body>
 </html>

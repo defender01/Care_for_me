@@ -376,7 +376,8 @@ let emailVerificationLinkGenerator = async (req, res) => {
 
         // let host = req.get('host');
         // let linkForVerification = `http://${host}/auth/verify_email/${newRandomString}`;
-        let linkForVerification = `${process.env.DOMAIN}/auth/verify_email/${newRandomString}`;
+        let domain = process.env.NODE_ENV==="development"? process.env.DEV_DOMAIN: process.env.PROD_DOMAIN
+        let linkForVerification = `${domain}/auth/verify_email/${newRandomString}`;
         console.log(linkForVerification)
 
         let mailData = {
@@ -425,7 +426,8 @@ let emailVerificationLinkGenerator = async (req, res) => {
 
         // let host = req.get('host');
         // let linkForVerification = `http://${host}/auth/verify_email/${newRandomString}`;
-        let linkForVerification = `${process.env.DOMAIN}/auth/verify_email/${newRandomString}`;
+        let domain = process.env.NODE_ENV==="development"? process.env.DEV_DOMAIN: process.env.PROD_DOMAIN
+        let linkForVerification = `${domain}/auth/verify_email/${newRandomString}`;
         console.log(linkForVerification)
 
         let mailData = {

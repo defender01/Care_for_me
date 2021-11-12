@@ -135,6 +135,82 @@ main .wrapper .pagination-holder {
   margin: 40px 0 40px 0;
 }
 
+main .wrapper .filter-cont {
+  min-height: 80px;
+  padding: 10px;
+  background-color: #ffffff;
+  display: flex;
+}
+
+main .wrapper .filter-cont .itm-cont {
+  background-color: #e1ecee;
+  width: 100%;
+  padding: 10px;
+  margin: auto;
+}
+
+@media (min-width: 800px) {
+  main .wrapper .filter-cont .itm-cont {
+    display: flex;
+  }
+}
+
+main .wrapper .filter-cont .itm-cont .start {
+  margin: 0 10px 0 10px;
+  flex: 1;
+  display: flex;
+}
+
+main .wrapper .filter-cont .itm-cont .start label {
+  padding-top: 5px;
+  width: 120px;
+}
+
+main .wrapper .filter-cont .itm-cont .end {
+  margin: 0 10px 0 10px;
+  flex: 1;
+  display: flex;
+}
+
+main .wrapper .filter-cont .itm-cont .end label {
+  padding-top: 5px;
+  width: 120px;
+}
+
+main .wrapper .filter-cont .itm-cont .search-btn {
+  margin: 0 10px 0 10px;
+}
+
+main .wrapper .filter-cont .itm-cont .search-btn button {
+  width: 50px;
+  height: 38px;
+  border-radius: 3px;
+  border-width: 0px;
+  background-color: #ffffff;
+  color: #8b8484;
+  font-size: 1.2rem;
+}
+
+main .wrapper .filter-cont .itm-cont .search-btn button:hover {
+  color: #6d7bfc;
+}
+
+main .wrapper .filter-msg {
+  margin-top: 30px;
+  min-height: 80px;
+  padding: 10px;
+  display: flex;
+}
+
+main .wrapper .filter-msg .duration {
+  width: 100%;
+  padding: 10px;
+  margin: auto;
+  font-size: 2rem;
+  text-align: center;
+  color: #031e92;
+}
+
 @media (max-width: 800px) {
   .post {
     width: 100%;

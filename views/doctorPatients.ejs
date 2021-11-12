@@ -596,6 +596,11 @@
 
       window.onresize = screenDisplayCheck;
       window.onload = screenDisplayCheck;
+
+      $("document").ready(function() {
+        $("#patients").attr("class", "nav-item current");   
+        $("#patientsLink").attr("class", "nav-link current-item");   
+      }); 
     </script>
 </body>
 

@@ -47,7 +47,8 @@
           <% for(let i=0; i<parameters.length; i++) {%>
           <div class="sec-cont">
             <div class="sec-name-and-cnt" onclick="displayParam(<%=i%>)">
-              <div class="sec-name">
+              <input type="text" id="currentVisibleParameterID" value="<%=parameters[i]._id%>SideBarParam" style="display: none;"/>
+              <div class="sec-name" id="<%=parameters[i]._id%>SideBarParam">
                 <a ><%= parameters[i].name%></a>
               </div>
               <div class="sec-items-cnt">
@@ -125,6 +126,10 @@
 
       function displayParam(ind){
         let parameter = parameters[ind]
+
+        let currentVisibleParameterID = $('#currentVisibleParameterID').val()
+        $(`#${currentVisibleParameterID}`).attr("class", "sec-name")
+
         for(let i=0;i<parameters.length;i++){
           if(i!=ind && isCreated[i]) $('#paramDetails'+parameters[i]._id).css('display','none')
         }
@@ -213,6 +218,8 @@
         else{
           $('#paramDetails'+parameters[ind]._id).css('display','block')
         }
+        $(`#${parameters[ind]._id}SideBarParam`).attr("class", "sec-name current")
+        $("#currentVisibleParameterID").val(`${parameters[ind]._id}SideBarParam`)
       }
 
       function continueAndSave(){

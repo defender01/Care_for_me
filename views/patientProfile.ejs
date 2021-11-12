@@ -49,7 +49,7 @@
 
         <div class="sec-cont">
           <div class="sec-name-and-cnt">
-            <div class="sec-name">
+            <div class="sec-name" id= "personalInfoSideBarSec">
               <a onclick="displaySection('personalInfo')">Personal Information</a>
             </div>
           </div>
@@ -61,7 +61,7 @@
           <% let sectionID = wholeSectionCollection[i]._id.toString() %> 
         <div class="sec-cont">
           <div class="sec-name-and-cnt">
-            <div class="sec-name">
+            <div class="sec-name" id="<%=sectionID%>SideBarSec">
               <% if(i==0||i==3) {%>
               <a onclick="displaySection('<%= sectionID %>')"><%= wholeSectionCollection[i].name %></a>
               <% } else { %>
@@ -421,11 +421,15 @@
       // checking either the section exists or not
       if ($(`#sectionID-${secID}--${partialSecID}`).length){
         let currentVisibleSectionID = $('#currentVisibleSectionID').val()
+        let currVisibleSecID= currentVisibleSectionID.split("-")[1]
+        $(`#${currVisibleSecID}SideBarSec`).attr("class", "sec-name")
         
         $("#notifyBarSectionID").val(secID)
         $("#notifyBarTitle").html(sectionName)
         $('#' + currentVisibleSectionID).css('display', 'none')
         $(`#sectionID-${secID}--${partialSecID}`).css('display', 'block')
+
+        $(`#${secID}SideBarSec`).attr("class", "sec-name current")
         $('#currentVisibleSectionID').val(`sectionID-${secID}--${partialSecID}`)
         return
       }
@@ -451,10 +455,15 @@
       $("#sectionAddHelper").replaceWith(wholeSectionTabHtml);
 
       let currentVisibleSectionID = $('#currentVisibleSectionID').val()
+      let currVisibleSecID= currentVisibleSectionID.split("-")[1]
+      $(`#${currVisibleSecID}SideBarSec`).attr("class", "sec-name")
+
       $("#notifyBarSectionID").val(secID)
       $("#notifyBarTitle").html(sectionName)
       $('#' + currentVisibleSectionID).css('display', 'none')
       $(`#sectionID-${secID}--${partialSecID}`).css('display', 'block')
+
+      $(`#${secID}SideBarSec`).attr("class", "sec-name current")
       $('#currentVisibleSectionID').val(`sectionID-${secID}--${partialSecID}`)                             
 
     }
@@ -471,11 +480,15 @@
       // checking either the subsection exists or not
       if ($(`#sectionID-${secID}--${subSecID}`).length){
         let currentVisibleSectionID = $('#currentVisibleSectionID').val()
+        let currVisibleSecID= currentVisibleSectionID.split("-")[1]
+        $(`#${currVisibleSecID}SideBarSec`).attr("class", "sec-name")
 
         $("#notifyBarSectionID").val(secID)
         $("#notifyBarTitle").html(subSection.name)
         $('#' + currentVisibleSectionID).css('display', 'none')
         $(`#sectionID-${secID}--${subSecID}`).css('display', 'block')
+        
+        $(`#${secID}SideBarSec`).attr("class", "sec-name current")
         $('#currentVisibleSectionID').val(`sectionID-${secID}--${subSecID}`)
         return
       }
@@ -522,24 +535,34 @@
       $("#sectionAddHelper").replaceWith(wholeSectionTabHtml);
 
       let currentVisibleSectionID = $('#currentVisibleSectionID').val()
+      let currVisibleSecID= currentVisibleSectionID.split("-")[1]
+      $(`#${currVisibleSecID}SideBarSec`).attr("class", "sec-name")
+
       $("#notifyBarSectionID").val(secID)
       $("#notifyBarTitle").html(subSection.name)
       $('#' + currentVisibleSectionID).css('display', 'none')
       $(`#sectionID-${secID}--${subSecID}`).css('display', 'block')
+
+      $(`#${secID}SideBarSec`).attr("class", "sec-name current")
       $('#currentVisibleSectionID').val(`sectionID-${secID}--${subSecID}`)
 
     }
 
 
     function displaySection(secID) {
+      console.log("display : "+secID);
       
       if(secID === 'personalInfo'){
         let currentVisibleSectionID = $('#currentVisibleSectionID').val()
+        let currVisibleSecID= currentVisibleSectionID.split("-")[1]
+        // console.log("current: "+`#${currVisibleSecID}SideBarSec`)
+        $(`#${currVisibleSecID}SideBarSec`).attr("class", "sec-name")
 
         $("#notifyBarSectionID").val(secID)
         $("#notifyBarTitle").html("Personal Information")
         $('#' + currentVisibleSectionID).css('display', 'none')
         $('#sectionID-' + secID).css('display', 'block')
+        $(`#${secID}SideBarSec`).attr("class", "sec-name current")
         $('#currentVisibleSectionID').val('sectionID-personalInfo')
         return
       }
@@ -551,11 +574,15 @@
       // checking either the section exists or not
       if ($('#sectionID-' + secID).length){
         let currentVisibleSectionID = $('#currentVisibleSectionID').val()
+        let currVisibleSecID= currentVisibleSectionID.split("-")[1]
+        // console.log("current: "+`#${currVisibleSecID}SideBarSec`)
+        $(`#${currVisibleSecID}SideBarSec`).attr("class", "sec-name")
 
         $("#notifyBarSectionID").val(secID)
         $("#notifyBarTitle").html(sectionName)
         $('#' + currentVisibleSectionID).css('display', 'none')
         $('#sectionID-' + secID).css('display', 'block')
+        $(`#${secID}SideBarSec`).attr("class", "sec-name current")
         $('#currentVisibleSectionID').val('sectionID-' + secID)
         return
       }
@@ -583,10 +610,15 @@
       $("#sectionAddHelper").replaceWith(wholeSectionTabHtml);
 
       let currentVisibleSectionID = $('#currentVisibleSectionID').val()
+      let currVisibleSecID= currentVisibleSectionID.split("-")[1]
+      // console.log("current: "+`#${currVisibleSecID}SideBarSec`)
+      $(`#${currVisibleSecID}SideBarSec`).attr("class", "sec-name")
+
       $("#notifyBarSectionID").val(secID)
       $("#notifyBarTitle").html(sectionName)
       $('#' + currentVisibleSectionID).css('display', 'none')
       $('#sectionID-' + secID).css('display', 'block')
+      $(`#${secID}SideBarSec`).attr("class", "sec-name current")
       $('#currentVisibleSectionID').val('sectionID-' + secID)                             
     }
 
@@ -792,6 +824,12 @@
       });
     });
 
+    $("document").ready(function() {
+        $("#profile").attr("class", "nav-item current");   
+        $("#profileLink").attr("class", "nav-link current-item");   
+        
+        $(`#personalInfoSideBarSec`).attr("class", "sec-name current")
+    });
   </script>
 </body>
 

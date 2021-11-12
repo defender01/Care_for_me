@@ -14,47 +14,7 @@
     height: 100%;
   }
 }
-nav {
-  .dpName {
-    background-color: rgba(245, 147, 19, 0.89);
-    border-radius: 60px;
-    padding: 4px 10px 0 10px;
-    font-family: "Poppins";
-    color: rgb(105, 60, 18);
-    font-size: 18px;
-    &:hover {
-      color: white;
-      background-color: rgba(245, 147, 19, 0.89);
-    }
-  }
-  ul {
-    li {
-      &:hover {
-        font-weight: bold;
-        font-size: 15px;
-      }
-    }
-  }
-}
 
-@media (min-width: 992px) {
-  .navbar-expand-lg {
-    .navbar-collapse {
-      display: flex !important;
-      flex-basis: auto;
-      justify-content: flex-end;
-    }
-  }
-}
-
-nav.navbar.navbar-expand-lg.navbar-light.bg-light.nav-container {
-  padding: 0 60px 0 30px;
-  .navbar-brand {
-    font-size: 30px;
-    font-family: "Poppins";
-    color: rgb(105, 60, 18);
-  }
-}
 
 .navbar-light {
   .navbar-nav {
@@ -79,14 +39,83 @@ nav.navbar.navbar-expand-lg.navbar-light.bg-light.nav-container {
 
 
       &:hover {
-        border-radius: 60px;
-        color: rgb(255, 255, 255);
-        background-color: rgb(201, 113, 31);
-        animation-duration: 0.3s;
+        // border-radius: 60px;
+        // color: rgb(255, 255, 255);
+        // background-color: rgb(201, 113, 31);
+        // animation-duration: 0.3s;
+        
+        color: #ffffff;
+      }
+    }
+    .current-item{
+      border-bottom: 5px solid #f8b363;
+      &:hover{
+        color: #8d1010;
       }
     }
   }
 }
+
+nav {
+  .dpName {
+    background-color: rgba(245, 147, 19, 0.89);
+    border-radius: 60px;
+    padding: 6px 10px 0 10px;
+    font-family: "Poppins";
+    color: rgb(105, 60, 18);
+    font-size: 18px;
+    &:hover {
+      color: white;
+      background-color: rgba(245, 147, 19, 0.89);
+    }
+  }
+  ul {
+    li {
+      &:hover {
+        font-weight: bold;
+        font-size: 15px;
+
+        border-radius: 60px;
+        background-color: rgb(201, 113, 31);
+        animation-duration: 0.3s;
+      }
+    }
+
+    .current{
+      // background-color: aqua;
+      font-weight: bold;
+      // border-bottom: 5px solid #f8b363;
+      
+      &:hover{
+        border-radius: 0;
+        border-width: 0;
+        background-color: #ffffff;
+        // border-bottom: 5px solid #f8b363;
+      }
+    }
+    
+  }
+}
+
+@media (min-width: 992px) {
+  .navbar-expand-lg {
+    .navbar-collapse {
+      display: flex !important;
+      flex-basis: auto;
+      justify-content: flex-end;
+    }
+  }
+}
+
+nav.navbar.navbar-expand-lg.navbar-light.bg-light.nav-container {
+  padding: 0 60px 0 30px;
+  .navbar-brand {
+    font-size: 30px;
+    font-family: "Poppins";
+    color: rgb(105, 60, 18);
+  }
+}
+
 .navbar-collapse.collapse.show {
   background-color: white;
 }
@@ -94,3 +123,5 @@ nav.navbar.navbar-expand-lg.navbar-light.bg-light.nav-container {
 .bg-light {
   background-color: #ffffff !important;
 }
+
+

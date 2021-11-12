@@ -93,6 +93,10 @@ main {
             text-shadow: blue;
             cursor: pointer;
           }
+          .current{
+            font-weight: bold;
+            color: #693c12;
+          }
         }
         .sub-sec-cont {
           display: flex;

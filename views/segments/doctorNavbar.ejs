@@ -1,5 +1,5 @@
-<li class="nav-item ">
-  <a class="nav-link" href="/doctor/patients" 
+<li class="nav-item " id="patients">
+  <a class="nav-link" id="patientsLink" href="/doctor/patients" 
     >Patients </a
   >
 </li>
@@ -9,16 +9,16 @@
     >Follow Up </a
   >
 </li> -->
-<li class="nav-item ">
-  <a class="nav-link" href="/doctor/notifications" 
+<li class="nav-item " id="notifications">
+  <a class="nav-link" id="notificationsLink" href="/doctor/notifications" 
     >Notifications
     <% if (typeof totalUnseenNotifications != 'undefined' && totalUnseenNotifications != null && totalUnseenNotifications != 0) {%>
       <span class="badge"> <%= totalUnseenNotifications %> </span>
     <% } %>
   </a>
 </li>
-<li class="nav-item ">
-  <a class="nav-link" href="/doctor/profile" 
+<li class="nav-item " id="profile">
+  <a class="nav-link" id="profileLink" href="/doctor/profile" 
     >Profile </a
   >
 </li>

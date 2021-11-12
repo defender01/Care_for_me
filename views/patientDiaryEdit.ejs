@@ -48,12 +48,12 @@
             <div class="details">
               <input type="text" name="diaryId" value="<%= typeof data != 'undefined' && data!=null ? data._id : '' %>" style="display: none;"/>
               <div class="mb-3">
-                <label for="title" class="form-label">Title</label>
+                <label for="title" class="form-label">*Title</label>
                 <input type="text" class="form-control" id="title" name="title" value="<%=data.title%>" required>
               </div>
               
               <div class="mb-3">
-                <label for="description" class="form-label">Write your Diary</label>
+                <label for="description" class="form-label">*Write your Diary</label>
                 <textarea rows="10" class="form-control" id="description" name="description" required><%=data.description%></textarea>
               </div>
             </div>
@@ -142,7 +142,11 @@
     function deleteItem(id){
       $('#'+id).remove()
     }
-    
+   
+    $("document").ready(function() {
+        $("#diary").attr("class", "nav-item current");   
+        $("#diaryLink").attr("class", "nav-link current-item");   
+    }); 
     </script>
   </body>
 </html>

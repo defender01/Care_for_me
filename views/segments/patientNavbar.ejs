@@ -3,31 +3,32 @@
     >Data </a
   >
 </li> -->
-<li class="nav-item ">
-  <a class="nav-link" href="/patient/doctors" 
+<li class="nav-item " id="doctors">
+  <a class="nav-link" id="doctorsLink" href="/patient/doctors" 
     >Doctors</a
   >
 </li>
-<li class="nav-item ">
+<!-- <li class="nav-item ">
   <a class="nav-link" href="/patient/profile/medHistory" 
     >Medical History </a
   >
-</li>
-<li class="nav-item ">
-  <a class="nav-link" href="/patient/notifications" >
+</li> -->
+<li class="nav-item " id="notifications">
+  <a class="nav-link" id="notificationsLink" href="/patient/notifications" >
     Notifications
     <% if (typeof totalUnseenNotifications != 'undefined' && totalUnseenNotifications != null && totalUnseenNotifications != 0) {%>
       <span class="badge"> <%= totalUnseenNotifications %> </span>
     <% } %>
   </a>
 </li>
-<li class="nav-item ">
-  <a class="nav-link" href="/patient/diary" 
+<li class="nav-item" id="diary">
+  <a class="nav-link" id="diaryLink" href="/patient/diary" 
     >Diary </a
   >
 </li>
-<li class="nav-item ">
-  <a class="nav-link" href="/patient/profile" 
+<li class="nav-item " id="profile"> 
+  <a class="nav-link" id="profileLink" href="/patient/profile" 
     >Profile </a
   >
 </li>
+

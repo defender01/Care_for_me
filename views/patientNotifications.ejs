@@ -349,7 +349,10 @@
       window.onresize = screenDisplayCheck
       window.onload = screenDisplayCheck
 
-    
+      $("document").ready(function() {
+        $("#notifications").attr("class", "nav-item current");   
+        $("#notificationsLink").attr("class", "nav-link current-item");   
+      });
     </script>
   </body>
 </html>
